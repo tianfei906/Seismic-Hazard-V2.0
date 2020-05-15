@@ -1,0 +1,122 @@
+Option 0 - Global Parameters
+Projection   : WGS84
+Image        : chile.mat
+Boundary     : CHL_adm1.shp
+Layer        :
+ShearModulus : 3e11      #dyne/cm2
+IM           : PGV SA(T=1) 1+2i SD(T=0.4)
+im           : logsp(0.001,3,20)
+MaxDistance  : 500
+MagDiscrete  : gauss 10
+Sigma        : 
+PCE          : shuffle MC 500
+IM1          : 0.01
+IM2          : 1
+Spatial      : @none_spatial
+Spectral     : @corr_none
+SourceDeagg  : on
+Clusters     : off 100 1
+
+Option 1 - Logic Tree Weights
+Geom Weight : 1
+Gmpe Weight : ones(1,39)/39
+Mscl Weight : 1 
+
+Option 2 - Source Geometry
+geometry 1
+area1 TestArea1  interface  -999 wc1994 0  1 1000 0 -72.75  -34.00  -5.00    -71.00 -34.00  -82.92   -71.00 -32.00  -82.92   -72.75 -32.00 -5.00  
+area3 TestArea3 crustal reverse wc1994 0 1 0 45 85 15.556349186104 2 1   -65 -0.38221 -1  -65.098815 -0.38221 -12  -65.098815 0.38221 -12 -65 0.38221 -1
+
+Option 3 - GMPE Library
+gmm at1     AkkarBoomer2007 stiff normal  2
+gmm at2     AkkarBoomer2007 soft  normal  2
+gmm at3     AkkarBoomer2007 other normal  2
+gmm at4     AkkarBoomer2007 stiff reverse 2
+gmm at5     AkkarBoomer2007 soft  reverse 2
+gmm at6     AkkarBoomer2007 other reverse 2
+gmm at7     AkkarBoomer2007 stiff normal  5
+gmm at8     AkkarBoomer2007 soft  normal  5
+gmm at9     AkkarBoomer2007 other normal  5
+gmm at10    AkkarBoomer2007 stiff reverse 5
+gmm at11    AkkarBoomer2007 soft  reverse 5
+gmm at12    AkkarBoomer2007 other reverse 5
+gmm at13    AkkarBoomer2007 stiff normal  10
+gmm at14    AkkarBoomer2007 soft  normal  10
+gmm at15    AkkarBoomer2007 other normal  10
+gmm at16    AkkarBoomer2007 stiff reverse 10
+gmm at17    AkkarBoomer2007 soft  reverse 10
+gmm at18    AkkarBoomer2007 other reverse 10
+gmm at19    AkkarBoomer2007 stiff normal  20
+gmm at20    AkkarBoomer2007 soft  normal  20
+gmm at21    AkkarBoomer2007 other normal  20
+gmm at22    AkkarBoomer2007 stiff reverse 20
+gmm at23    AkkarBoomer2007 soft  reverse 20
+gmm at24    AkkarBoomer2007 other reverse 20
+gmm at25    AkkarBoomer2007 stiff normal  30
+gmm at26    AkkarBoomer2007 soft  normal  30
+gmm at27    AkkarBoomer2007 other normal  30
+gmm at28    AkkarBoomer2007 stiff reverse 30
+gmm at29    AkkarBoomer2007 soft  reverse 30
+gmm at30    AkkarBoomer2007 other reverse 30
+gmm at31    AkkarBoomer2010 rock normal
+gmm at32    AkkarBoomer2010 rock reverse
+gmm at33    AkkarBoomer2010 rock strike-slip
+gmm at34    AkkarBoomer2010 stiff normal
+gmm at35    AkkarBoomer2010 stiff reverse
+gmm at36    AkkarBoomer2010 stiff strike-slip
+gmm at37    AkkarBoomer2010 soft normal
+gmm at38    AkkarBoomer2010 soft reverse
+gmm at39    AkkarBoomer2010 soft strike-slip
+
+
+Option 4 - GMPE GROUPS
+gmmgroup at1  1 
+gmmgroup at2  2 
+gmmgroup at3  3 
+gmmgroup at4  4 
+gmmgroup at5  5 
+gmmgroup at6  6 
+gmmgroup at7  7 
+gmmgroup at8  8 
+gmmgroup at9  9 
+gmmgroup at10 10
+gmmgroup at11 11
+gmmgroup at12 12
+gmmgroup at13 13
+gmmgroup at14 14
+gmmgroup at15 15
+gmmgroup at16 16
+gmmgroup at17 17
+gmmgroup at18 18
+gmmgroup at19 19
+gmmgroup at20 20
+gmmgroup at21 21
+gmmgroup at22 22
+gmmgroup at23 23
+gmmgroup at24 24
+gmmgroup at25 25
+gmmgroup at26 26
+gmmgroup at27 27
+gmmgroup at28 28
+gmmgroup at29 29
+gmmgroup at30 30
+gmmgroup at31 31
+gmmgroup at32 32
+gmmgroup at33 33
+gmmgroup at34 34
+gmmgroup at35 35
+gmmgroup at36 36
+gmmgroup at37 37
+gmmgroup at38 38
+gmmgroup at39 39
+
+Option 5 - MAGNITUDE SCALING RELATIONS
+seismicity 1
+truncexp TestArea1  NM 10   1 5 8.5 0 0
+truncexp TestArea3  NM 0.01 1 5 8.5 0 0
+
+Option 6 - Pre defined sites
+source 760
+LC1 -70.5635 -33.4124 691.3
+site1 -64.91005  0.00000 0.0000
+site2 -65.04497  0.00000 0.0000

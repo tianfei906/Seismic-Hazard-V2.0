@@ -1,0 +1,83 @@
+ Input Parameters: 
+
+  # Scenario spectra, DCPP example run              
+
+  Run flag (1 = horiz only, 2 = vert only, 0 = both cases):   1
+  Conditioning period:   1.000
+  Period range for selection and loose matching:   0.010   2.000
+  Period range for strict matching:   0.040   0.400
+
+  Magnitude range for selection of candidate spectra:   5.500   8.000
+  Rrup is used to set the distance range
+  Distance range for selection of candidate spectra:     0.000  1000.000
+  Vs30 range:   360.000  1350.000
+  Duration range for selection of candidate spectra:     5.000   150.000
+  PGV range for selection of candidate spectra:     0.000  3000.000
+  Arias intensity range for selection of candidate spectra:     0.000  1000.000
+
+  Nb of scenario spectra per hazard level:     32
+  Nb of Monte Carlo realizations:   1000
+  Nb of iterations on the rates of scenario spectra, delta rate:    700  0.0100
+
+ Input files:
+  Horizontal UHS file: inCSS1.out3                                     
+  Horizontal CMS fileinCSS2.txt                                      
+  Horizontal flatfile:flatfile_SR.csv                                 
+
+ Output files:
+  Summary UHS file: inCSS3.sum                                      
+  Scenario spectra file: inCSS4.out1                                     
+  Horizontal Sa file: inCSS5.out2                                     
+  Horizontal Hazard output file: inCSS6.out3                                     
+  Horizontal UHS output file: inCSS7.out4                                     
+  Unique TH name: inCSS8.out5                                     
+
+
+ Intermediate Parameters:
+
+ Total number of candidate TH:         945
+
+ Selected TH per hazard level:
+  Haz. Level, Nb. of selected TH
+           1          33
+           2          30
+           3          29
+           4          25
+           5          22
+           6          21
+           7          20
+           8          21
+           9          21
+
+ Subselected TH per hazard level (MonteCarlo):
+  Haz. Level, Nb. of selected TH
+           1          32
+           2          30
+           3          29
+           4          25
+           5          22
+           6          21
+           7          20
+           8          21
+           9          21
+
+ Scenarios removed (RateInitial/RateFinal > x):          191
+ Scenarios removed (RateInitial/RateFinal > x):           19
+ Scenarios removed (RateInitial/RateFinal > x):            3
+ Scenarios removed (RateInitial/RateFinal > x):            0
+
+ Output Parameters: 
+
+   Average misfit in horizontal UHS over all hazard levels and periods:           3.95%
+
+   HORIZONTAL UHS:
+            Hazard Level:                             2.1E-02        9.0E-03        3.9E-03        1.6E-03        7.0E-04        3.0E-04        1.3E-04        5.5E-05        2.3E-05
+       Average misfit over all freq range (%):          4.57           4.16           3.83           3.56           3.25           2.57           2.87           2.78           7.98
+       Average misfit in main freq range (%):           6.27           5.54           4.83           4.32           3.94           2.48           3.04           2.97          12.98
+       Average misfit in secondary freq range (%):      2.60           2.55           2.66           2.68           2.44           2.68           2.67           2.55           2.15
+       Maximum misfit (%):                             27.63          29.79          29.59          30.88          30.78          30.36          30.06          26.84          38.77
+       Period of maximum misfit (s):                    0.02           0.02           0.02           0.02           0.02           0.02           0.02           0.03           0.12
+
+
+   Total number of scenario spectra:  102
+   Number of unique scenario spectra:   31

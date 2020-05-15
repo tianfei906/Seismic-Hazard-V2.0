@@ -1,0 +1,562 @@
+gmm at1   Youngs1997 interface
+gmm at2   Youngs1997 intraslab
+gmm at3   AtkinsonBoore2003 interface General
+gmm at4   AtkinsonBoore2003 intraslab General
+gmm at5   AtkinsonBoore2003 interface Cascadia
+gmm at6   AtkinsonBoore2003 intraslab Cascadia
+gmm at7   AtkinsonBoore2003 interface Japan
+gmm at8   AtkinsonBoore2003 intraslab Japan
+gmm at9   Zhao2006 interface
+gmm at10  Zhao2006 intraslab
+gmm at11  Zhao2006 reverse
+gmm at12  Zhao2006 strike-slip
+gmm at13  Mcverry2006 normal  0
+gmm at14  Mcverry2006 reverse 0
+gmm at15  Mcverry2006 reverse-oblique 0
+gmm at16  Mcverry2006 strike-slip 0
+gmm at17  Mcverry2006 intraslab   0
+gmm at18  Mcverry2006 interface   0
+gmm at19  ContrerasBoroschek2012
+gmm at20  BCHydro2012 interface forearc lower
+gmm at21  BCHydro2012 interface forearc central
+gmm at22  BCHydro2012 interface forearc upper
+gmm at23  BCHydro2012 interface forearc none
+gmm at24  BCHydro2012 interface backarc lower
+gmm at25  BCHydro2012 interface backarc central
+gmm at26  BCHydro2012 interface backarc upper
+gmm at27  BCHydro2012 interface backarc none
+gmm at28  BCHydro2012 intraslab forearc lower
+gmm at29  BCHydro2012 intraslab forearc central
+gmm at30  BCHydro2012 intraslab forearc upper
+gmm at31  BCHydro2012 intraslab forearc none
+gmm at32  BCHydro2012 intraslab backarc lower
+gmm at33  BCHydro2012 intraslab backarc central
+gmm at34  BCHydro2012 intraslab backarc upper
+gmm at35  BCHydro2012 intraslab backarc none
+gmm at36  BCHydro2012 intraslab unknown lower
+gmm at37  BCHydro2012 intraslab unknown central
+gmm at38  BCHydro2012 intraslab unknown upper
+gmm at39  BCHydro2012 intraslab unknown none
+gmm at40  BCHydro2012 intraslab unknown lower
+gmm at41  BCHydro2012 intraslab unknown central
+gmm at42  BCHydro2012 intraslab unknown upper
+gmm at43  BCHydro2012 intraslab unknown none
+
+gmm at1   Arteta2018 forearc
+gmm at2   Arteta2018 backarc
+gmm at3   Idini2016 interface sI
+gmm at4   Idini2016 interface sII
+gmm at5   Idini2016 interface sIII
+gmm at6   Idini2016 interface sIV
+gmm at7   Idini2016 interface sV
+gmm at8   Idini2016 interface sVI
+gmm at9   Idini2016 intraslab sI
+gmm at10  Idini2016 intraslab sII
+gmm at11  Idini2016 intraslab sIII
+gmm at12  Idini2016 intraslab sIV
+gmm at13  Idini2016 intraslab sV
+gmm at14  Idini2016 intraslab sVI
+gmm at15  MontalvaBastias2017 interface forearc
+gmm at16  MontalvaBastias2017 interface unknown
+gmm at17  MontalvaBastias2017 interface backarc
+gmm at18  MontalvaBastias2017 intraslab forearc
+gmm at19  MontalvaBastias2017 intraslab unknown
+gmm at20  MontalvaBastias2017 intraslab backarc
+gmm at21  MontalvaBastias2017HQ interface forearc
+gmm at22  MontalvaBastias2017HQ interface unknown
+gmm at23  MontalvaBastias2017HQ interface backarc
+gmm at24  MontalvaBastias2017HQ intraslab forearc
+gmm at25  MontalvaBastias2017HQ intraslab unknown
+gmm at26  MontalvaBastias2017HQ intraslab backarc
+gmm at27  SiberRisk2019 interface
+gmm at28  SiberRisk2019 intraslab
+gmm at29  Garcia2005 horizontal
+gmm at30  Garcia2005 vertical
+gmm at31  Jaimes2006
+gmm at32  Jaimes2015 cu
+gmm at33  Jaimes2015 sct
+gmm at34  Jaimes2015 cdao
+gmm at35  Jaimes2016
+
+gmm at1   GarciaJaimes2017 vertical
+gmm at2   GarciaJaimes2017 horizontal
+gmm at3   GarciaJaimes2017HV
+gmm at4   Bernal2014 interface
+gmm at5   Bernal2014 intraslab
+gmm at6   Sadigh1997 reverse
+gmm at7   Sadigh1997 strike-slip
+gmm at8   I2008 strike-slip
+gmm at9   I2008 reverse
+gmm at10  CY2008 unk strike-slip       mainshock measured
+gmm at11  CY2008 unk normal            mainshock measured
+gmm at12  CY2008 unk normal-oblique    mainshock measured
+gmm at13  CY2008 unk reverse           mainshock measured
+gmm at14  CY2008 unk reverse-oblique   mainshock measured
+gmm at15  CY2008 unk unspecified            mainshock measured
+gmm at16  CY2008 unk strike-slip       mainshock inferred
+gmm at17  CY2008 unk normal            mainshock inferred
+gmm at18  CY2008 unk normal-oblique    mainshock inferred
+gmm at19  CY2008 unk reverse           mainshock inferred
+gmm at20  CY2008 unk reverse-oblique   mainshock inferred
+gmm at21  CY2008 unk unspecified            mainshock inferred
+gmm at22  CY2008 unk strike-slip       aftershock measured
+gmm at23  CY2008 unk normal            aftershock measured
+gmm at24  CY2008 unk normal-oblique    aftershock measured
+gmm at25  CY2008 unk reverse           aftershock measured
+gmm at26  CY2008 unk reverse-oblique   aftershock measured
+gmm at27  CY2008 unk unspecified            aftershock measured
+gmm at28  CY2008 unk strike-slip       aftershock inferred
+gmm at29  CY2008 unk normal            aftershock inferred
+gmm at30  CY2008 unk normal-oblique    aftershock inferred
+gmm at31  CY2008 unk reverse           aftershock inferred
+gmm at32  CY2008 unk reverse-oblique   aftershock inferred
+gmm at33  CY2008 unk unspecified            aftershock inferred
+gmm at34  BA2008 unspecified
+gmm at35  BA2008 strike-slip
+gmm at36  BA2008 normal
+gmm at37  BA2008 reverse
+gmm at38  CB2008 2 strike-slip     arbitrary
+gmm at39  CB2008 2 normal          arbitrary
+gmm at40  CB2008 2 normal-oblique  arbitrary
+gmm at41  CB2008 2 reverse         arbitrary
+gmm at42  CB2008 2 reverse-oblique arbitrary
+gmm at43  CB2008 2 unspecified          arbitrary
+gmm at44  CB2008 2 strike-slip     average
+gmm at45  CB2008 2 normal          average
+gmm at46  CB2008 2 normal-oblique  average
+gmm at47  CB2008 2 reverse         average
+gmm at48  CB2008 2 reverse-oblique average
+gmm at49  CB2008 2 unspecified          average
+
+gmm at1   AS2008 unk strike-slip     mainshock measured
+gmm at2   AS2008 unk normal          mainshock measured
+gmm at3   AS2008 unk normal-oblique  mainshock measured
+gmm at4   AS2008 unk reverse         mainshock measured
+gmm at5   AS2008 unk reverse-oblique mainshock measured
+gmm at6   AS2008 unk unspecified          mainshock measured
+gmm at7   AS2008 unk strike-slip     foreshock inferred
+gmm at8   AS2008 unk normal          foreshock inferred
+gmm at9   AS2008 unk normal-oblique  foreshock inferred
+gmm at10  AS2008 unk reverse         foreshock inferred
+gmm at11  AS2008 unk reverse-oblique foreshock inferred
+gmm at12  AS2008 unk unspecified          foreshock inferred
+gmm at13  AS1997h rock reverse          hangingwall arbitrary
+gmm at14  AS1997h rock reverse-oblique  hangingwall arbitrary          
+gmm at15  AS1997h rock reverse          hangingwall average 
+gmm at16  AS1997h rock reverse-oblique  hangingwall average 
+gmm at17  AS1997h deepsoil reverse          footwall    arbitrary
+gmm at18  AS1997h deepsoil reverse-oblique  footwall    arbitrary
+gmm at19  AS1997h deepsoil reverse          footwall    average  
+gmm at20  AS1997h deepsoil reverse-oblique  footwall    average  
+gmm at21  I2014 strike-slip
+gmm at22  I2014 reverse 
+gmm at23  CY2014 0.4 strike-slip     measured global
+gmm at24  CY2014 0.4 normal          measured global
+gmm at25  CY2014 0.4 normal-oblique  measured global
+gmm at26  CY2014 0.4 reverse         measured global
+gmm at27  CY2014 0.4 reverse-oblique measured global
+gmm at28  CY2014 0.4 unspecified          measured global
+gmm at29  CY2014 0.4 strike-slip     measured california
+gmm at30  CY2014 0.4 normal          measured california
+gmm at31  CY2014 0.4 normal-oblique  measured california
+gmm at32  CY2014 0.4 reverse         measured california
+gmm at33  CY2014 0.4 reverse-oblique measured california
+gmm at34  CY2014 0.4 unspecified          measured california 
+gmm at35  CY2014 0.4 strike-slip     measured japan
+gmm at36  CY2014 0.4 normal          measured japan
+gmm at37  CY2014 0.4 normal-oblique  measured japan
+gmm at38  CY2014 0.4 reverse         measured japan
+gmm at39  CY2014 0.4 reverse-oblique measured japan
+gmm at40  CY2014 0.4 unspecified          measured japan
+gmm at41  CY2014 0.4 strike-slip     measured china
+gmm at42  CY2014 0.4 normal          measured china
+gmm at43  CY2014 0.4 normal-oblique  measured china
+gmm at44  CY2014 0.4 reverse         measured china
+gmm at45  CY2014 0.4 reverse-oblique measured china
+gmm at46  CY2014 0.4 unspecified          measured china
+gmm at47  CY2014 0.4 strike-slip     measured italy
+gmm at48  CY2014 0.4 normal          measured italy
+gmm at49  CY2014 0.4 normal-oblique  measured italy
+gmm at50  CY2014 0.4 reverse         measured italy
+gmm at51  CY2014 0.4 reverse-oblique measured italy
+gmm at52  CY2014 0.4 unspecified          measured italy
+gmm at53  CY2014 0.4 strike-slip     measured turkey
+gmm at54  CY2014 0.4 normal          measured turkey
+gmm at55  CY2014 0.4 normal-oblique  measured turkey
+gmm at56  CY2014 0.4 reverse         measured turkey
+gmm at57  CY2014 0.4 reverse-oblique measured turkey
+gmm at58  CY2014 0.4 unspecified          measured turkey
+gmm at59  CY2014 0.4 strike-slip     inferred global
+gmm at60  CY2014 0.4 normal          inferred global
+gmm at61  CY2014 0.4 normal-oblique  inferred global
+gmm at62  CY2014 0.4 reverse         inferred global
+gmm at63  CY2014 0.4 reverse-oblique inferred global
+gmm at64  CY2014 0.4 unspecified          inferred global
+gmm at65  CY2014 0.4 strike-slip     inferred california
+gmm at66  CY2014 0.4 normal          inferred california
+gmm at67  CY2014 0.4 normal-oblique  inferred california
+gmm at68  CY2014 0.4 reverse         inferred california
+gmm at69  CY2014 0.4 reverse-oblique inferred california
+gmm at70  CY2014 0.4 unspecified          inferred california 
+gmm at71  CY2014 0.4 strike-slip     inferred japan
+gmm at72  CY2014 0.4 normal          inferred japan
+gmm at73  CY2014 0.4 normal-oblique  inferred japan
+gmm at74  CY2014 0.4 reverse         inferred japan
+gmm at75  CY2014 0.4 reverse-oblique inferred japan
+gmm at76  CY2014 0.4 unspecified          inferred japan
+gmm at77  CY2014 0.4 strike-slip     inferred china
+gmm at78  CY2014 0.4 normal          inferred china
+gmm at79  CY2014 0.4 normal-oblique  inferred china
+gmm at80  CY2014 0.4 reverse         inferred china
+gmm at81  CY2014 0.4 reverse-oblique inferred china
+gmm at82  CY2014 0.4 unspecified          inferred china
+gmm at83  CY2014 0.4 strike-slip     inferred italy
+gmm at84  CY2014 0.4 normal          inferred italy
+gmm at85  CY2014 0.4 normal-oblique  inferred italy
+gmm at86  CY2014 0.4 reverse         inferred italy
+gmm at87  CY2014 0.4 reverse-oblique inferred italy
+gmm at88  CY2014 0.4 unspecified          inferred italy
+gmm at89  CY2014 0.4 strike-slip     inferred turkey
+gmm at90  CY2014 0.4 normal          inferred turkey
+gmm at91  CY2014 0.4 normal-oblique  inferred turkey
+gmm at92  CY2014 0.4 reverse         inferred turkey
+gmm at93  CY2014 0.4 reverse-oblique inferred turkey
+gmm at94  CY2014 0.4 unspecified          inferred turkey
+
+gmm at1   CB2014 0.67 strike-slip      include global
+gmm at2   CB2014 0.67 normal           include global
+gmm at3   CB2014 0.67 normal-oblique   include global
+gmm at4   CB2014 0.67 reverse          include global
+gmm at5   CB2014 0.67 reverse-oblique  include global
+gmm at6   CB2014 0.67 unspecified           include global
+gmm at7   CB2014 0.67 strike-slip      include california
+gmm at8   CB2014 0.67 normal           include california
+gmm at9   CB2014 0.67 normal-oblique   include california
+gmm at10  CB2014 0.67 reverse          include california
+gmm at11  CB2014 0.67 reverse-oblique  include california
+gmm at12  CB2014 0.67 unspecified           include california
+gmm at13  CB2014 0.67 strike-slip      include japan    
+gmm at14  CB2014 0.67 normal           include japan    
+gmm at15  CB2014 0.67 normal-oblique   include japan    
+gmm at16  CB2014 0.67 reverse          include japan    
+gmm at17  CB2014 0.67 reverse-oblique  include japan    
+gmm at18  CB2014 0.67 unspecified           include japan    
+gmm at19  CB2014 0.67 strike-slip      include china
+gmm at20  CB2014 0.67 normal           include china
+gmm at21  CB2014 0.67 normal-oblique   include china
+gmm at22  CB2014 0.67 reverse          include china
+gmm at23  CB2014 0.67 reverse-oblique  include china
+gmm at24  CB2014 0.67 unspecified           include china
+gmm at25  CB2014 0.67 strike-slip      include italy
+gmm at26  CB2014 0.67 normal           include italy
+gmm at27  CB2014 0.67 normal-oblique   include italy
+gmm at28  CB2014 0.67 reverse          include italy
+gmm at29  CB2014 0.67 reverse-oblique  include italy
+gmm at30  CB2014 0.67 unspecified           include italy
+gmm at31  CB2014 0.67 strike-slip      include turkey
+gmm at32  CB2014 0.67 normal           include turkey
+gmm at33  CB2014 0.67 normal-oblique   include turkey
+gmm at34  CB2014 0.67 reverse          include turkey
+gmm at35  CB2014 0.67 reverse-oblique  include turkey
+gmm at36  CB2014 0.67 unspecified           include turkey
+gmm at37  CB2014 0.67 strike-slip      exclude global    
+gmm at38  CB2014 0.67 normal           exclude global    
+gmm at39  CB2014 0.67 normal-oblique   exclude global    
+gmm at40  CB2014 0.67 reverse          exclude global    
+gmm at41  CB2014 0.67 reverse-oblique  exclude global    
+gmm at42  CB2014 0.67 unspecified           exclude global    
+gmm at43  CB2014 0.67 strike-slip      exclude california
+gmm at44  CB2014 0.67 normal           exclude california
+gmm at45  CB2014 0.67 normal-oblique   exclude california
+gmm at46  CB2014 0.67 reverse          exclude california
+gmm at47  CB2014 0.67 reverse-oblique  exclude california
+gmm at48  CB2014 0.67 unspecified           exclude california
+gmm at49  CB2014 0.67 strike-slip      exclude japan     
+gmm at50  CB2014 0.67 normal           exclude japan     
+gmm at51  CB2014 0.67 normal-oblique   exclude japan     
+gmm at52  CB2014 0.67 reverse          exclude japan     
+gmm at53  CB2014 0.67 reverse-oblique  exclude japan     
+gmm at54  CB2014 0.67 unspecified           exclude japan     
+gmm at55  CB2014 0.67 strike-slip      exclude china     
+gmm at56  CB2014 0.67 normal           exclude china     
+gmm at57  CB2014 0.67 normal-oblique   exclude china     
+gmm at58  CB2014 0.67 reverse          exclude china     
+gmm at59  CB2014 0.67 reverse-oblique  exclude china     
+gmm at60  CB2014 0.67 unspecified           exclude china     
+gmm at61  CB2014 0.67 strike-slip      exclude italy     
+gmm at62  CB2014 0.67 normal           exclude italy     
+gmm at63  CB2014 0.67 normal-oblique   exclude italy     
+gmm at64  CB2014 0.67 reverse          exclude italy     
+gmm at65  CB2014 0.67 reverse-oblique  exclude italy     
+gmm at66  CB2014 0.67 unspecified           exclude italy     
+gmm at67  CB2014 0.67 strike-slip      exclude turkey    
+gmm at68  CB2014 0.67 normal           exclude turkey    
+gmm at69  CB2014 0.67 normal-oblique   exclude turkey    
+gmm at70  CB2014 0.67 reverse          exclude turkey    
+gmm at71  CB2014 0.67 reverse-oblique  exclude turkey    
+gmm at72  CB2014 0.67 unspecified           exclude turkey
+
+gmm at1   BSSA2014 2 unspecified global
+gmm at2   BSSA2014 2 strike-slip global
+gmm at3   BSSA2014 2 normal      global
+gmm at4   BSSA2014 2 reverse     global
+gmm at5   BSSA2014 2 unspecified california
+gmm at6   BSSA2014 2 strike-slip california
+gmm at7   BSSA2014 2 normal      california
+gmm at8   BSSA2014 2 reverse     california
+gmm at9   BSSA2014 2 unspecified japan
+gmm at10  BSSA2014 2 strike-slip japan
+gmm at11  BSSA2014 2 normal      japan
+gmm at12  BSSA2014 2 reverse     japan
+gmm at13  BSSA2014 2 unspecified china
+gmm at14  BSSA2014 2 strike-slip china
+gmm at15  BSSA2014 2 normal      china
+gmm at16  BSSA2014 2 reverse     china
+gmm at17  BSSA2014 2 unspecified italy
+gmm at18  BSSA2014 2 strike-slip italy
+gmm at19  BSSA2014 2 normal      italy
+gmm at20  BSSA2014 2 reverse     italy
+gmm at21  BSSA2014 2 unspecified turkey
+gmm at22  BSSA2014 2 strike-slip turkey
+gmm at23  BSSA2014 2 normal      turkey
+gmm at24  BSSA2014 2 reverse     turkey
+gmm at25  ASK2014 unk strike-slip      mainshock  measured global
+gmm at26  ASK2014 unk normal           mainshock  measured global
+gmm at27  ASK2014 unk normal-oblique   mainshock  measured global
+gmm at28  ASK2014 unk reverse          mainshock  measured global
+gmm at29  ASK2014 unk reverse-oblique  mainshock  measured global
+gmm at30  ASK2014 unk unspecified           mainshock  measured global
+gmm at31  ASK2014 unk strike-slip      aftershock measured global 
+gmm at32  ASK2014 unk normal           aftershock measured global 
+gmm at33  ASK2014 unk normal-oblique   aftershock measured global 
+gmm at34  ASK2014 unk reverse          aftershock measured global 
+gmm at35  ASK2014 unk reverse-oblique  aftershock measured global 
+gmm at36  ASK2014 unk unspecified           aftershock measured global 
+gmm at37  ASK2014 unk strike-slip      mainshock  inferred global 
+gmm at38  ASK2014 unk normal           mainshock  inferred global 
+gmm at39  ASK2014 unk normal-oblique   mainshock  inferred global 
+gmm at40  ASK2014 unk reverse          mainshock  inferred global 
+gmm at41  ASK2014 unk reverse-oblique  mainshock  inferred global 
+gmm at42  ASK2014 unk unspecified           mainshock  inferred global 
+gmm at43  ASK2014 unk strike-slip      aftershock inferred global 
+gmm at44  ASK2014 unk normal           aftershock inferred global 
+gmm at45  ASK2014 unk normal-oblique   aftershock inferred global 
+gmm at46  ASK2014 unk reverse          aftershock inferred global 
+gmm at47  ASK2014 unk reverse-oblique  aftershock inferred global 
+gmm at48  ASK2014 unk unspecified           aftershock inferred global 
+gmm at49  ASK2014 unk strike-slip      mainshock  measured california 
+gmm at50  ASK2014 unk normal           mainshock  measured california 
+gmm at51  ASK2014 unk normal-oblique   mainshock  measured california
+gmm at52  ASK2014 unk reverse          mainshock  measured california
+gmm at53  ASK2014 unk reverse-oblique  mainshock  measured california
+gmm at54  ASK2014 unk unspecified           mainshock  measured california
+gmm at55  ASK2014 unk strike-slip      aftershock measured california
+gmm at56  ASK2014 unk normal           aftershock measured california
+gmm at57  ASK2014 unk normal-oblique   aftershock measured california
+gmm at58  ASK2014 unk reverse          aftershock measured california
+gmm at59  ASK2014 unk reverse-oblique  aftershock measured california
+gmm at60  ASK2014 unk unspecified           aftershock measured california
+gmm at61  ASK2014 unk strike-slip      mainshock  inferred california
+gmm at62  ASK2014 unk normal           mainshock  inferred california
+gmm at63  ASK2014 unk normal-oblique   mainshock  inferred california
+gmm at64  ASK2014 unk reverse          mainshock  inferred california
+gmm at65  ASK2014 unk reverse-oblique  mainshock  inferred california
+gmm at66  ASK2014 unk unspecified           mainshock  inferred california
+gmm at67  ASK2014 unk strike-slip      aftershock inferred california
+gmm at68  ASK2014 unk normal           aftershock inferred california
+gmm at69  ASK2014 unk normal-oblique   aftershock inferred california
+gmm at70  ASK2014 unk reverse          aftershock inferred california
+gmm at71  ASK2014 unk reverse-oblique  aftershock inferred california
+gmm at72  ASK2014 unk unspecified           aftershock inferred california
+gmm at73  ASK2014 unk strike-slip      mainshock  measured japan
+gmm at74  ASK2014 unk normal           mainshock  measured japan
+gmm at75  ASK2014 unk normal-oblique   mainshock  measured japan
+gmm at76  ASK2014 unk reverse          mainshock  measured japan
+gmm at77  ASK2014 unk reverse-oblique  mainshock  measured japan
+gmm at78  ASK2014 unk unspecified           mainshock  measured japan
+gmm at79  ASK2014 unk strike-slip      aftershock measured japan
+gmm at80  ASK2014 unk normal           aftershock measured japan
+gmm at81  ASK2014 unk normal-oblique   aftershock measured japan
+gmm at82  ASK2014 unk reverse          aftershock measured japan
+gmm at83  ASK2014 unk reverse-oblique  aftershock measured japan
+gmm at84  ASK2014 unk unspecified           aftershock measured japan
+gmm at85  ASK2014 unk strike-slip      mainshock  inferred japan
+gmm at86  ASK2014 unk normal           mainshock  inferred japan
+gmm at87  ASK2014 unk normal-oblique   mainshock  inferred japan
+gmm at88  ASK2014 unk reverse          mainshock  inferred japan
+gmm at89  ASK2014 unk reverse-oblique  mainshock  inferred japan
+gmm at90  ASK2014 unk unspecified           mainshock  inferred japan
+gmm at91  ASK2014 unk strike-slip      aftershock inferred japan
+gmm at92  ASK2014 unk normal           aftershock inferred japan
+gmm at93  ASK2014 unk normal-oblique   aftershock inferred japan
+gmm at94  ASK2014 unk reverse          aftershock inferred japan
+gmm at95  ASK2014 unk reverse-oblique  aftershock inferred japan
+gmm at96  ASK2014 unk unspecified           aftershock inferred japan
+
+gmm at1     AkkarBoomer2007 stiff normal  2
+gmm at2     AkkarBoomer2007 soft  normal  2
+gmm at3     AkkarBoomer2007 other normal  2
+gmm at4     AkkarBoomer2007 stiff reverse 2
+gmm at5     AkkarBoomer2007 soft  reverse 2
+gmm at6     AkkarBoomer2007 other reverse 2
+gmm at7     AkkarBoomer2007 stiff normal  5
+gmm at8     AkkarBoomer2007 soft  normal  5
+gmm at9     AkkarBoomer2007 other normal  5
+gmm at10    AkkarBoomer2007 stiff reverse 5
+gmm at11    AkkarBoomer2007 soft  reverse 5
+gmm at12    AkkarBoomer2007 other reverse 5
+gmm at13    AkkarBoomer2007 stiff normal  10
+gmm at14    AkkarBoomer2007 soft  normal  10
+gmm at15    AkkarBoomer2007 other normal  10
+gmm at16    AkkarBoomer2007 stiff reverse 10
+gmm at17    AkkarBoomer2007 soft  reverse 10
+gmm at18    AkkarBoomer2007 other reverse 10
+gmm at19    AkkarBoomer2007 stiff normal  20
+gmm at20    AkkarBoomer2007 soft  normal  20
+gmm at21    AkkarBoomer2007 other normal  20
+gmm at22    AkkarBoomer2007 stiff reverse 20
+gmm at23    AkkarBoomer2007 soft  reverse 20
+gmm at24    AkkarBoomer2007 other reverse 20
+gmm at25    AkkarBoomer2007 stiff normal  30
+gmm at26    AkkarBoomer2007 soft  normal  30
+gmm at27    AkkarBoomer2007 other normal  30
+gmm at28    AkkarBoomer2007 stiff reverse 30
+gmm at29    AkkarBoomer2007 soft  reverse 30
+gmm at30    AkkarBoomer2007 other reverse 30
+gmm at31    AkkarBoomer2010 rock normal
+gmm at32    AkkarBoomer2010 rock reverse
+gmm at33    AkkarBoomer2010 rock strike-slip
+gmm at34    AkkarBoomer2010 stiff normal
+gmm at35    AkkarBoomer2010 stiff reverse
+gmm at36    AkkarBoomer2010 stiff strike-slip
+gmm at37    AkkarBoomer2010 soft normal
+gmm at38    AkkarBoomer2010 soft reverse
+gmm at39    AkkarBoomer2010 soft strike-slip
+
+gmm at1   Arroyo2010
+gmm at2   Bindi2011 normal      geoh
+gmm at3   Bindi2011 reverse     geoh
+gmm at4   Bindi2011 strike-slip geoh
+gmm at5   Bindi2011 unspecified     geoh
+gmm at6   Bindi2011 normal      z
+gmm at7   Bindi2011 reverse     z
+gmm at8   Bindi2011 strike-slip z
+gmm at9   Bindi2011 unspecified     z
+gmm at10  DW12 sgs-b strike-slip    
+gmm at11  DW12 sgs-b normal         
+gmm at12  DW12 sgs-b normal-oblique 
+gmm at13  DW12 sgs-b reverse        
+gmm at14  DW12 sgs-b reverse-oblique
+gmm at15  DW12 sgs-c strike-slip    
+gmm at16  DW12 sgs-c normal         
+gmm at17  DW12 sgs-c normal-oblique 
+gmm at18  DW12 sgs-c reverse        
+gmm at19  DW12 sgs-c reverse-oblique
+gmm at20  DW12 sgs-d strike-slip    
+gmm at21  DW12 sgs-d normal         
+gmm at22  DW12 sgs-d normal-oblique 
+gmm at23  DW12 sgs-d reverse        
+gmm at24  DW12 sgs-d reverse-oblique 
+gmm at25  FG15 interface forearc linear
+gmm at26  FG15 interface forearc nonlinear
+gmm at27  FG15 interface backarc linear   
+gmm at28  FG15 interface backarc nonlinear
+gmm at29  FG15 intraslab forearc linear   
+gmm at30  FG15 intraslab forearc nonlinear
+gmm at31  FG15 intraslab backarc linear   
+gmm at32  FG15 intraslab backarc nonlinear
+gmm at33  FG15 reverse   forearc linear   
+gmm at34  FG15 reverse   forearc nonlinear
+gmm at35  FG15 reverse   backarc linear   
+gmm at36  FG15 reverse   backarc nonlinear   
+gmm at37  FG15 normal    forearc linear      
+gmm at38  FG15 normal    forearc nonlinear   
+gmm at39  FG15 normal    backarc linear      
+gmm at40  FG15 normal    backarc nonlinear   
+gmm at41  TBA03 sgs-b strike-slip    
+gmm at42  TBA03 sgs-b normal         
+gmm at43  TBA03 sgs-b reverse        
+gmm at44  TBA03 sgs-b reverse-oblique
+gmm at45  TBA03 sgs-c strike-slip    
+gmm at46  TBA03 sgs-c normal         
+gmm at47  TBA03 sgs-c reverse        
+gmm at48  TBA03 sgs-c reverse-oblique
+gmm at49  TBA03 sgs-d strike-slip    
+gmm at50  TBA03 sgs-d normal         
+gmm at51  TBA03 sgs-d reverse        
+gmm at52  TBA03 sgs-d reverse-oblique
+gmm at53  BU17 normal               CAV
+gmm at54  BU17 reverse              CAV
+gmm at55  BU17 intraplate           CAV
+gmm at56  BU17 subduction-interface CAV
+gmm at57  BU17 subduction-intraslab CAV
+gmm at58  BU17 subduction-unknown   CAV
+gmm at59  BU17 normal               CAV5 
+gmm at60  BU17 reverse              CAV5 
+gmm at61  BU17 intraplate           CAV5 
+gmm at62  BU17 subduction-interface CAV5 
+gmm at63  BU17 subduction-intraslab CAV5 
+gmm at64  BU17 subduction-unknown   CAV5 
+gmm at65  BU17 normal               CAVSTD 
+gmm at66  BU17 reverse              CAVSTD 
+gmm at67  BU17 intraplate           CAVSTD 
+gmm at68  BU17 subduction-interface CAVSTD 
+gmm at69  BU17 subduction-intraslab CAVSTD
+gmm at70  BU17 subduction-unknown   CAVSTD
+
+gmm at1   CB10 0.607 strike-slip     
+gmm at2   CB10 0.607 normal          
+gmm at3   CB10 0.607 normal-oblique  
+gmm at4   CB10 0.607 reverse         
+gmm at5   CB10 0.607 reverse-oblique 
+gmm at6   CB19 0.607 strike-slip     global
+gmm at7   CB19 0.607 normal          global
+gmm at8   CB19 0.607 normal-oblique  global
+gmm at9   CB19 0.607 reverse         global
+gmm at10  CB19 0.607 reverse-oblique global
+gmm at11  CB19 0.607 strike-slip     california 
+gmm at12  CB19 0.607 normal          california
+gmm at13  CB19 0.607 normal-oblique  california
+gmm at14  CB19 0.607 reverse         california
+gmm at15  CB19 0.607 reverse-oblique california
+gmm at16  CB19 0.607 strike-slip     japan
+gmm at17  CB19 0.607 normal          japan
+gmm at18  CB19 0.607 normal-oblique  japan
+gmm at19  CB19 0.607 reverse         japan
+gmm at20  CB19 0.607 reverse-oblique japan
+gmm at21  CB19 0.607 strike-slip     china
+gmm at22  CB19 0.607 normal          china
+gmm at23  CB19 0.607 normal-oblique  china
+gmm at24  CB19 0.607 reverse         china
+gmm at25  CB19 0.607 reverse-oblique china
+gmm at26  CB19 0.607 strike-slip     italy
+gmm at27  CB19 0.607 normal          italy
+gmm at28  CB19 0.607 normal-oblique  italy
+gmm at29  CB19 0.607 reverse         italy
+gmm at30  CB19 0.607 reverse-oblique italy
+gmm at31  CB19 0.607 strike-slip     turkey
+gmm at32  CB19 0.607 normal          turkey
+gmm at33  CB19 0.607 normal-oblique  turkey
+gmm at34  CB19 0.607 reverse         turkey
+gmm at35  CB19 0.607 reverse-oblique turkey
+gmm at36  KM06 strike-slip
+gmm at37  KM06 normal
+gmm at38  KM06 reverse
+gmm at39  KM06 reverse-oblique
+
+gmm at1   Macedo2019 interface global         MontalvaBastias2017 interface Forearc
+gmm at2   Macedo2019 interface japan          MontalvaBastias2017 interface Forearc
+gmm at3   Macedo2019 interface taiwan         MontalvaBastias2017 interface Forearc
+gmm at4   Macedo2019 interface south-america  MontalvaBastias2017 interface Forearc
+gmm at5   Macedo2019 interface new-zeeland    MontalvaBastias2017 interface Forearc
+gmm at6   Macedo2020                          MontalvaBastias2017 interface Forearc
+gmm at7   Macedo2020                          MontalvaBastias2017 intraslab Forearc
+
+gmm at1   Youngs1997 interface
+gmm at2   MontalvaBastias2017 interface forearc
+gmm at2   CB19 0.607 strike-slip     global
+gmm at4   franky 1 2 3
+
+gmm at1  udm udmArteta_m rock forearc
+
+gmm at1  PCE_NGA

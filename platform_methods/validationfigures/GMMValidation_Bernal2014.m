@@ -1,0 +1,1 @@
+function [handles]=GMMValidation_Bernal2014(handles,filename)

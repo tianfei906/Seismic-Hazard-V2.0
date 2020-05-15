@@ -1,0 +1,73 @@
+# Verification of Probabilistic Seismic Hazard Analysis Computer Programs
+# Purpose: A single rupture smaller than the fault plane tests uniform slip and edge effects.
+# Single-magnitude event (M 6.0) on Fault 1 with one size rupture plane (smaller than total
+# fault plane area) as defined using the rupture area (RA), rupture width (RW), rupture length (RL)
+# and/or aspect ratio relationships given below (sRA = sRL = sRW = 0). Use Sadigh et al. (1997),
+# rock, sigma = 0.
+
+Option 0 - Global Parameters
+Projection   : WGS84
+Image        : bayarea.mat
+Boundary     : CAL_adm1.shp
+Layer        : 
+ShearModulus : 3e11      #dyne/cm2
+IM           : 0.2
+im           : logsp(0.01,3,20)
+MaxDistance  : 500
+MagDiscrete  : gauss 1
+Sigma        : overwrite 0
+PCE          : shuffle MC 500
+IM1          : 0.01
+IM2          : 1
+Spatial      : @none_spatial
+Spectral     : @corr_none
+SourceDeagg  : on
+Clusters     : off 100 1
+
+
+Option 1 - Logic Tree Weights
+Geom Weight : 1
+Gmpe Weight : 1
+Mscl Weight : 1
+
+Option 2 - Source Geometry
+geometry 1 Strike-Slip Fault
+area3  S1 crustal strike-slip wc1994 0 1 0 90 25 12 2 0.3  -122 38.00000 0   -122 38.00000 -12   -122 38.22480 -12  -122 38.22480 0
+area3  S2 crustal strike-slip wc1994 0 1 0 90 25 12 2 0.3  -122 38.00000 0   -122 38.00000 -12   -122 38.22480 -12  -122 38.22480 0
+
+Option 3 - GMPE Library
+gmm PCHAOS1 PCE_nga
+
+Option 4 - GMPE GROUPS
+gmmgroup Group1 1
+
+Option 5 - MAGNITUDE SCALING RELATIONS
+seismicity 1 Criterio III  #SlipRate in mm/year
+truncexp S1 SR 2 0.9 5 6.4
+truncexp S2 SR 2 0.9 5 7  
+
+Option 6 - Pre defined sites (Optional)
+source 760                   
+site1 -122.114 38.0000 0.0000
+
+
+Option 8 - PSDA setup
+d         : logsp(1,200,10)  # cm
+realSa    : 30
+realD     : 40
+imhazard  : full
+rng       : shuffle
+method    : PC
+optimize  : on # optimize "on" uses the conditional term M|Sa in M-dependent CDMs
+
+Option 9 Slope Parameters
+ky    :   mean 0.1 cov 0.3 samples 2
+Ts    :   mean 0.5 cov 0.1 samples 3
+
+Option 10 Library of Slope Displacement Models
+PCE1 handle psda_BT2007_cdm
+PCE2 handle psda_BT2007_cdmM
+
+Option 12 Slope Displacement Models with PC
+SLPCE1 hazard 1 1 1 ky 0.1 0.1 Ts 0.5 0.15 interface PCE1 intraslab PCE1 crustal PCE1
+SLPCE2 hazard 1 1 1 ky 0.1 0.1 Ts 0.5 0.15 interface PCE2 intraslab PCE2 crustal PCE2

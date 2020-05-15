@@ -77,6 +77,7 @@ handles.Layers_check.Enable='off';
 DATA=load('pshatoolbox_emptyGEmap.mat');
 handles.ax1.XLim=DATA.XLIM;
 handles.ax1.YLim=DATA.YLIM;
+handles.ax1DefaultLimits=[DATA.XLIM;DATA.YLIM];
 gmap=image(DATA.xx,DATA.yy,DATA.cc,'Parent',handles.ax1,'Tag','gmap','Visible','on');
 handles.ax1.YDir='normal';
 uistack(gmap,'bottom');

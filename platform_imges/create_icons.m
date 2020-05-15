@@ -1,4 +1,8 @@
-%% psha buttons
+
+
+handles.form1                      = c1;
+handles.form2                      = c2;
+handles.engine.CData               = c3;%% psha buttons
 c1  = double(imread('form1.jpg'))/255;
 c2  = double(imread('form2.jpg'))/255;
 c3  = double(imread('engine.jpg'))/255;
@@ -11,12 +15,9 @@ c9  = double(imread('Refresh.jpg'))/255;
 c10 = double(imread('Refresh2.jpg'))/255;
 c11 = double(imread('book_open.jpg'))/255;
 c12 = double(imread('Pallet.jpg'))/255;
+c13 = double(imread('restore.jpg'))/255;
 
-save pshabuttons c1 c2 c3 c4 c5 c6 c7 c8 c9 c10 c11 c12
-
-handles.form1                      = c1;
-handles.form2                      = c2;
-handles.engine.CData               = c3;
+save pshabuttons c1 c2 c3 c4 c5 c6 c7 c8 c9 c10 c11 c12 c13
 handles.switchmode.CData           = c4;
 handles.addLeg.CData               = c5;
 handles.ax2Limits.CData            = c6;

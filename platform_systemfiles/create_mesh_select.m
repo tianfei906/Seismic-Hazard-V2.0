@@ -42,11 +42,11 @@ for i=active
     end
     
     % updates gps coordinates
-    Vs30 = getVs30(psm(:,[1,2]),handles.Vs30);
+    VS30 = getVs30(psm(:,[1,2]),handles.VS30);
     sh_id = ['shape_',num2str(i)];
     for j=1:size(psm,1)
         id_g = [sh_id,'-P',num2str(j)];
-        p(end+1,:) = {id_g,psm(j,1),psm(j,2),Elev(j),Vs30(j)}; %#ok<*AGROW>
+        p(end+1,:) = {id_g,psm(j,1),psm(j,2),Elev(j),VS30(j)}; %#ok<*AGROW>
     end
     
     % updates connectivity

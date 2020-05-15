@@ -55,3 +55,6 @@ end
 [handles.idx,handles.hc] = compute_clusters(handles.opt,handles.h);
 Nsites = size(handles.h.p,1);
 handles.site_colors = repmat([0 0 1],Nsites,1);
+
+
+handles.ax1DefaultLimits=[handles.ax1.XLim;handles.ax1.YLim];

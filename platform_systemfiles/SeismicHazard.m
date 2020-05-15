@@ -18,7 +18,7 @@ end
 function SeismicHazard_OpeningFcn(hObject, eventdata, handles, varargin) %#ok<*INUSL>
 home
 fprintf(' --------- Seismic Hazard Toolbox ---------\n')
-load pshabuttons c1 c2 c3 c4 c5 c6 c7 c8 c9 c10 c11 c12
+load pshabuttons c1 c2 c3 c4 c5 c6 c7 c8 c9 c10 c11 c12 c13
 handles.form1                      = c1;
 handles.form2                      = c2;
 handles.engine.CData               = c3;
@@ -31,6 +31,7 @@ handles.po_refresh_GE.CData        = c9;
 handles.RefreshButton.CData        = c10;
 handles.OpenRef.CData              = c11;
 handles.ColorSecondaryLines.CData  = c12;
+handles.restore_axis.CData         = c13;
 handles.GoogleEarthOpt             = GEOptions('default');
 initializePSHA
 
@@ -73,22 +74,6 @@ function InspectInputFile_Callback(hObject, eventdata, handles)
 if ~isempty(handles.sys)
     if ispc,winopen(handles.sys.filename);end
 end
-
-% function LoadSession_Callback(hObject, eventdata, handles)
-% [filename,pathname,FILTERINDEX]=uigetfile('*.mat','Seismic Hazard');
-% if FILTERINDEX==0
-%     return
-% end
-% load([pathname,filename]) %#ok<LOAD>
-% handles=loadpreviousPSHA(handles,statevar);
-% guidata(hObject,handles)
-
-% function SaveSession_Callback(hObject, eventdata, handles)
-% [filename,pathname,FILTERINDEX]=uiputfile('*.mat','Seismic Hazard');
-% if FILTERINDEX==0
-%     return
-% end
-% statevar=buildoutstruct(handles,pathname,filename);
 
 function LoadTXT_Callback(~, ~, ~)
 
@@ -1093,3 +1078,9 @@ plot_hazard_PSHA(...
     handles.sys.labelG,...
     handles.sys.mech,...
     handles.idx);
+
+function restore_axis_Callback(hObject, eventdata, handles)
+
+handles.ax1.XLim=handles.ax1DefaultLimits(1,:);
+handles.ax1.YLim=handles.ax1DefaultLimits(2,:);
+

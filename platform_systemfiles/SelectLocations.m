@@ -184,17 +184,17 @@ function varargout = SelectLocations_OutputFcn(hObject, eventdata, handles)
 if ~isfield(handles,'t')
     handout.id    = cell(0,1);
     handout.p     = zeros(0,3);
-    handles.VS30  = [];
+    handles.VS30  = zeros(0,1);
     handout.t     = cell(0,2);
     handout.shape = [];
 else
     handout.id      = handles.p.Data(:,1);
     if ~isempty(handles.p.Data)
-    handout.p       = cell2mat(handles.p.Data(:,2:4))*diag([1 1 1/1000]);
-    handout.VS30    = cell2mat(handles.p.Data(:,5));
+        handout.p       = cell2mat(handles.p.Data(:,2:4))*diag([1 1 1/1000]);
+        handout.VS30    = cell2mat(handles.p.Data(:,5));
     else
-    handout.p    = zeros(0,3);
-    handles.VS30 = zeros(0,1);
+        handout.p    = zeros(0,3);
+        handout.VS30 = zeros(0,1);
     end
     handout.t       = handles.t;
     handout.shape   = handles.shape;

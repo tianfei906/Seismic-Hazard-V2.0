@@ -107,8 +107,9 @@ for j=sptr
             
             
         case 6
-            mptr      = src6.mptr(spt,:);
-            mptr_edge = src6.mptr_edge(spt,:);
+            vptr = src6.vptr(spt,:);
+            mptr = src6.mptr(spt,:);
+            
             ind  = mptr(1):mptr(2);
             reduction         = src6.num(spt,6);
             
@@ -121,7 +122,7 @@ for j=sptr
             source(j).aream   = src6.aream(ind);
             source(j).normal  = src6.normal(ind,:);
             source(j).gmm     = gmmlib(src6.num(spt,5));
-            source(j).vert    = src6.edge(mptr_edge(1):mptr_edge(2),:);
+            source(j).vert    = src6.vert(vptr(1):vptr(2),:);
             
             % random permutation
             n = length(ind);

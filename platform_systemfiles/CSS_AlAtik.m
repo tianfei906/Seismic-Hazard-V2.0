@@ -283,5 +283,5 @@ handles.tb1.Data = num2cell(data);
 function tb2_ButtonDownFcn(hObject, eventdata, handles)
 
 data = cell2mat(handles.tb2.Data);
-data = logsp(max(data),min(data),length(data))';
+data = logsp(data(1),data(end),length(data))';
 handles.tb2.Data = num2cell(data);

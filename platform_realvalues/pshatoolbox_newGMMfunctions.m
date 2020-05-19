@@ -13,6 +13,5 @@ edit pshatoolbox_methods.m
 edit isIMadmisible.m
 edit mGMPE_info.m
 edit mGMPEusp.m
-
 edit IM2str.m
 edit str2IM.m

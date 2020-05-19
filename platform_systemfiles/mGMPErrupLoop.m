@@ -1,12 +1,8 @@
-function[Rrup,param]=mGMPErrupLoop(fun,param)
+function[Rrup,param]=mGMPErrupLoop(fun,param,SUB,SC)
 
-Rx   = logsp(1,300,20)';
-Rrup = logsp(1,300,20)';
-Rjb  = logsp(1,300,20)';
-Rhyp = logsp(1,300,20)';
 str  = func2str(fun);
+Rrup = SUB.Rrup;
 ON   = ones(size(Rrup));
-
 switch str
     
     case 'Youngs1997'
@@ -37,13 +33,23 @@ switch str
     case 'BCHydro2012'
         param{1}=ON*param{1};
         param{2}=Rrup;
-        param{3}=Rhyp;
+        param{3}=ON*param{3};
         param{4}=ON*param{4};
         
     case 'BCHydro2018'
         param{1}=ON*param{1};
         param{2}=Rrup;
         param{3}=ON*param{3};
+        
+    case 'Kuehn2020'
+        param{1}=ON*param{1};
+        param{2}=Rrup;
+        param{3}=ON*param{3};
+        
+    case 'Parker2020'
+        param{1}=ON*param{1};
+        param{2}=Rrup;
+        param{3}=ON*param{3};        
         
     case 'Arteta2018'
         param{1}=ON*param{1};
@@ -111,7 +117,7 @@ switch str
         
     case 'BA2008'
         param{1}=ON*param{1};
-        param{2}=Rjb;
+        param{2}=Rrup;
         
     case 'CB2008'
         param{1}=ON*param{1};

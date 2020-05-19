@@ -22,10 +22,10 @@ switch opt.Clusters{1}
             options = statset('UseParallel',1,'UseSubstreams',1,'Streams',stream);
             
             % Lat,Lon,Elev clusters
-            [indx,Y] = kmeans([h.p,h.Vs30],Nc,'Options',options,'MaxIter',10000,'Display','final','Replicates',Nr);
+            [indx,Y] = kmeans([h.p,h.VS30],Nc,'Options',options,'MaxIter',10000,'Display','final','Replicates',Nr);
             hc.id    = compose('C%i',1:Nc)';
             hc.p     = Y(:,1:3);
-            hc.Vs30  = Y(:,4);
+            hc.VS30  = Y(:,4);
         end
         
 end

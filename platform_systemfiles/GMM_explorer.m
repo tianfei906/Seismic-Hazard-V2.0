@@ -17,10 +17,10 @@ else
 end
 
 function GMM_explorer_OpeningFcn(hObject, eventdata, handles, varargin)
-handles.Exit_button.CData=double(imread('Exit.jpg'))/255;
-handles.openbook.CData=double(imread('book_open.jpg'))/255;
-handles.AxisScale.CData=double(imresize(imread('Ruler.jpg'),[20 20]))/255;
-handles.gridmanager.CData=double(imread('Grid.jpg'))/255;
+handles.Exit_button.CData = double(imread('Exit.jpg'))/255;
+handles.openbook.CData    = double(imread('book_open.jpg'))/255;
+handles.AxisScale.CData   = double(imresize(imread('Ruler.jpg'),[20 20]))/255;
+handles.gridmanager.CData = double(imread('Grid.jpg'))/255;
 
 handles.val_1.CData=double(imread('form2.jpg'))/255;
 handles.val_2.CData=double(imread('form1.jpg'))/255;
@@ -28,27 +28,31 @@ handles.val_2.CData=double(imread('form1.jpg'))/255;
 handles.epsilon = 0;
 
 handles.methods   = pshatoolbox_methods(1);
-handles.SUB.Mag   = 7;
-handles.SUB.Zhyp  = 20;
-handles.SUB.Ztor  = 15;
-handles.SUB.Rrup  = 100;
-handles.SUB.Rhyp  = 100;
-handles.SUB.Vs30  = 760;
+Nsamples  = 40;
+SUB.Mag   = 7*ones(Nsamples,1);
+SUB.Ztor  = 15*ones(Nsamples,1);
+SUB.Rrup  = sort([logsp(SUB.Ztor(1),400,Nsamples-1)';100]);
+SUB.Rx    = sqrt(SUB.Rrup.^2-SUB.Ztor.^2);
+SUB.Rhyp  = SUB.Rrup;
+SUB.Zhyp  = SUB.Ztor;
+SUB.Vs30  = 760;
+SUB.Z10    = 0.048;
+SUB.Z25    = 0.607;
 
-handles.SC.Mag    = 7;
-handles.SC.dip    = 90;
-handles.SC.W      = 12;
-handles.SC.Zhyp   = 6;
-handles.SC.Ztor   = 2;
-handles.SC.Zbot   = 999;
-handles.SC.Rrup   = 50;
-handles.SC.Rx     = sqrt(handles.SC.Rrup^2-handles.SC.Ztor^2);
-handles.SC.Rhyp   = handles.SC.Rrup;
-handles.SC.Rjb    = handles.SC.Rx;
-handles.SC.Ry0    = 0;
-handles.SC.Vs30   = 760;
-handles.SC.Z10    = 0.048;
-handles.SC.Z25    = 0.607;
+SC.Mag    = 7*ones(Nsamples,1);
+SC.dip    = 90;
+SC.W      = 12;
+SC.Zbot   = 999;
+SC.Ztor   = 2*ones(Nsamples,1);
+SC.Rx     = [0;logsp(1,400,Nsamples-1)'];
+SC        = getRrupRjb(SC);
+SC.Ry0    = 0*ones(Nsamples,1);
+SC.Vs30   = 760;
+SC.Z10    = 0.048;
+SC.Z25    = 0.607;
+
+handles.SUB = SUB;
+handles.SC  = SC;
 
 gmpetype = {handles.methods.type}';
 B        = strcmp(gmpetype,'regular');
@@ -57,6 +61,7 @@ handles.ax1.Box='on';
 handles.ax1.Color=[1 1 1];
 handles.ax1.XGrid='on';
 handles.ax1.YGrid='on';
+handles.ax1.XLim=[1 300];
 handles.ax1.NextPlot='add';
 handles.ax2.Visible='off';
 
@@ -83,7 +88,6 @@ if nargin==4
         for j=1:Nj
             gmpe = GMPE(j,:);
             handles.uitable1.Data(end+1,:)={gmpe.label,func2str(gmpe.handle)};
-            
             % Builds paramlist and ptrs list
             [param,ptrs]                = mGMPEusp(gmpe,handles.SC);
             handles.paramlist(end+1,:) = {gmpe.label,param};
@@ -92,11 +96,11 @@ if nargin==4
         handles=CellSelectAction(handles,1);
     else
         handles = mGMPEdefault(handles,ch(handles.text),ch(handles.edit));
-        plotgmpe(handles);
+        plotgmpe(handles)
     end
 else
     handles = mGMPEdefault(handles,ch(handles.text),ch(handles.edit));
-    plotgmpe(handles);
+    plotgmpe(handles)
 end
 handles.targetIM.Value  = 1;
 handles.targetIM.String = IM2str(handles.IM);
@@ -134,7 +138,7 @@ set(ch(handles.text),'Visible','off')
 set(ch(handles.edit),'Visible','off','Style','edit');
 handles = mGMPEdefault(handles,ch(handles.text),ch(handles.edit));
 delete(findall(handles.ax1,'tyle','line'))
-plotgmpe(handles);
+plotgmpe(handles)
 if handles.rad2.Value==1
     if isempty(handles.IM)
         handles.targetIM.Visible='off';
@@ -299,7 +303,6 @@ fclose(fid);
 if ispc,winopen(fname);end
 
 function RemoveSelection_Callback(hObject, eventdata, handles)
-
 if isempty(handles.selectedrow)
     return
 end
@@ -312,177 +315,89 @@ guidata(hObject,handles)
 
 % ------------  edit boxes
 function e1_Callback(hObject, eventdata, handles)
-plotgmpe(handles);
+mGMPEcheck_param(handles)
+plotgmpe(handles)
 guidata(hObject,handles)
-
-function e1_CreateFcn(hObject, eventdata, handles)
-
-if ispc && isequal(get(hObject,'BackgroundColor'), get(0,'defaultUicontrolBackgroundColor'))
-    set(hObject,'BackgroundColor','white');
-end
 
 function e2_Callback(hObject, eventdata, handles)
-
-plotgmpe(handles);
+mGMPEcheck_param(handles);
+plotgmpe(handles)
 guidata(hObject,handles)
-
-function e2_CreateFcn(hObject, eventdata, handles)
-if ispc && isequal(get(hObject,'BackgroundColor'), get(0,'defaultUicontrolBackgroundColor'))
-    set(hObject,'BackgroundColor','white');
-end
 
 function e3_Callback(hObject, eventdata, handles)
-plotgmpe(handles);
+mGMPEcheck_param(handles)
+plotgmpe(handles)
 guidata(hObject,handles)
-
-function e3_CreateFcn(hObject, eventdata, handles)
-if ispc && isequal(get(hObject,'BackgroundColor'), get(0,'defaultUicontrolBackgroundColor'))
-    set(hObject,'BackgroundColor','white');
-end
 
 function e4_Callback(hObject, eventdata, handles)
-plotgmpe(handles);
+mGMPEcheck_param(handles)
+plotgmpe(handles)
 guidata(hObject,handles)
-
-function e4_CreateFcn(hObject, eventdata, handles)
-if ispc && isequal(get(hObject,'BackgroundColor'), get(0,'defaultUicontrolBackgroundColor'))
-    set(hObject,'BackgroundColor','white');
-end
 
 function e5_Callback(hObject, eventdata, handles)
-plotgmpe(handles);
+mGMPEcheck_param(handles)
+plotgmpe(handles)
 guidata(hObject,handles)
-
-function e5_CreateFcn(hObject, eventdata, handles)
-if ispc && isequal(get(hObject,'BackgroundColor'), get(0,'defaultUicontrolBackgroundColor'))
-    set(hObject,'BackgroundColor','white');
-end
 
 function e6_Callback(hObject, eventdata, handles)
-
-plotgmpe(handles);
+mGMPEcheck_param(handles)
+plotgmpe(handles)
 guidata(hObject,handles)
-
-function e6_CreateFcn(hObject, eventdata, handles)
-
-if ispc && isequal(get(hObject,'BackgroundColor'), get(0,'defaultUicontrolBackgroundColor'))
-    set(hObject,'BackgroundColor','white');
-end
 
 function e7_Callback(hObject, eventdata, handles)
-plotgmpe(handles);
+mGMPEcheck_param(handles)
+plotgmpe(handles)
 guidata(hObject,handles)
-
-function e7_CreateFcn(hObject, eventdata, handles)
-
-if ispc && isequal(get(hObject,'BackgroundColor'), get(0,'defaultUicontrolBackgroundColor'))
-    set(hObject,'BackgroundColor','white');
-end
 
 function e8_Callback(hObject, eventdata, handles)
-plotgmpe(handles);
+mGMPEcheck_param(handles)
+plotgmpe(handles)
 guidata(hObject,handles)
-
-function e8_CreateFcn(hObject, eventdata, handles)
-if ispc && isequal(get(hObject,'BackgroundColor'), get(0,'defaultUicontrolBackgroundColor'))
-    set(hObject,'BackgroundColor','white');
-end
 
 function e9_Callback(hObject, eventdata, handles)
-
-switch handles.GMPEselect.String{handles.GMPEselect.Value}
-    case 'Abrahamson Silva 2008 - NGA' % set default Ztop
-        Vs30 = str2double(handles.e9.String);
-        handles.e8.String=sprintf('%4.4g',Z10_default_AS08_NGA(Vs30));
-end
-
-plotgmpe(handles);
+mGMPEcheck_param(handles)
+plotgmpe(handles)
 guidata(hObject,handles)
-
-function e9_CreateFcn(hObject, eventdata, handles)
-if ispc && isequal(get(hObject,'BackgroundColor'), get(0,'defaultUicontrolBackgroundColor'))
-    set(hObject,'BackgroundColor','white');
-end
 
 function e10_Callback(hObject, eventdata, handles)
-switch handles.GMPEselect.String{handles.GMPEselect.Value}
-    case 'Chiou Youngs 2008 - NGA' % set default Z1.0
-        Vs30 = str2double(handles.e10.String);
-        %handles.e7.String=sprintf('%4.4g',exp(28.5-3.82/8*log(Vs30^8+378.8^8)));
-        handles.e7.String=sprintf('%4.4g',Z10_default_AS08_NGA(Vs30));
-end
-
-plotgmpe(handles);
+mGMPEcheck_param(handles)
+plotgmpe(handles)
 guidata(hObject,handles)
-
-function e10_CreateFcn(hObject, eventdata, handles)
-
-if ispc && isequal(get(hObject,'BackgroundColor'), get(0,'defaultUicontrolBackgroundColor'))
-    set(hObject,'BackgroundColor','white');
-end
 
 function e11_Callback(hObject, eventdata, handles)
-plotgmpe(handles);
+mGMPEcheck_param(handles)
+plotgmpe(handles)
 guidata(hObject,handles)
-
-function e11_CreateFcn(hObject, eventdata, handles)
-if ispc && isequal(get(hObject,'BackgroundColor'), get(0,'defaultUicontrolBackgroundColor'))
-    set(hObject,'BackgroundColor','white');
-end
 
 function e12_Callback(hObject, eventdata, handles)
-plotgmpe(handles);
+mGMPEcheck_param(handles)
+plotgmpe(handles)
 guidata(hObject,handles)
-
-function e12_CreateFcn(hObject, eventdata, handles)
-if ispc && isequal(get(hObject,'BackgroundColor'), get(0,'defaultUicontrolBackgroundColor'))
-    set(hObject,'BackgroundColor','white');
-end
 
 function e13_Callback(hObject, eventdata, handles)
-plotgmpe(handles);
+mGMPEcheck_param(handles)
+plotgmpe(handles)
 guidata(hObject,handles)
-
-function e13_CreateFcn(hObject, eventdata, handles)
-if ispc && isequal(get(hObject,'BackgroundColor'), get(0,'defaultUicontrolBackgroundColor'))
-    set(hObject,'BackgroundColor','white');
-end
 
 function e14_Callback(hObject, eventdata, handles)
-plotgmpe(handles);
+mGMPEcheck_param(handles)
+plotgmpe(handles)
 guidata(hObject,handles)
-
-function e14_CreateFcn(hObject, eventdata, handles)
-if ispc && isequal(get(hObject,'BackgroundColor'), get(0,'defaultUicontrolBackgroundColor'))
-    set(hObject,'BackgroundColor','white');
-end
 
 function e15_Callback(hObject, eventdata, handles)
-plotgmpe(handles);
+mGMPEcheck_param(handles)
+plotgmpe(handles)
 guidata(hObject,handles)
-
-function e15_CreateFcn(hObject, eventdata, handles)
-if ispc && isequal(get(hObject,'BackgroundColor'), get(0,'defaultUicontrolBackgroundColor'))
-    set(hObject,'BackgroundColor','white');
-end
 
 function e16_Callback(hObject, eventdata, handles)
-plotgmpe(handles);
+mGMPEcheck_param(handles)
+plotgmpe(handles)
 guidata(hObject,handles)
-
-function e16_CreateFcn(hObject, eventdata, handles)
-if ispc && isequal(get(hObject,'BackgroundColor'), get(0,'defaultUicontrolBackgroundColor'))
-    set(hObject,'BackgroundColor','white');
-end
 
 function e17_Callback(hObject, eventdata, handles)
-plotgmpe(handles);
+mGMPEcheck_param(handles)
+plotgmpe(handles)
 guidata(hObject,handles)
-
-function e17_CreateFcn(hObject, eventdata, handles)
-if ispc && isequal(get(hObject,'BackgroundColor'), get(0,'defaultUicontrolBackgroundColor'))
-    set(hObject,'BackgroundColor','white');
-end
 
 function gridmanager_Callback(hObject, eventdata, handles)
 switch [handles.ax1.XGrid,handles.ax1.XMinorGrid]
@@ -503,8 +418,7 @@ end
 function PlotOptions_Callback(hObject, eventdata, handles)
 
 function openbook_Callback(hObject, eventdata, handles)
-
-val     = handles.GMPEselect.Value;
+val = handles.GMPEselect.Value;
 if ~isempty(handles.methods(val).ref)
     try
         web(handles.methods(val).ref,'-browser')
@@ -547,23 +461,21 @@ for i=1:length(paramlist)
         handles.(fn).Value=vals(i);
     end
 end
-plotgmpe(handles);
+plotgmpe(handles)
 handles.selectedrow=ind;
 
 function rad1_Callback(hObject, eventdata, handles)
 
 switch hObject.Value
-    case 0,handles.rad2.Value=1; handles.text50.Visible='on';  handles.targetIM.Visible='on';
-    case 1,handles.rad2.Value=0; handles.text50.Visible='off';  handles.targetIM.Visible='off';
+    case 0,handles.rad2.Value=1; handles.targetIM.Visible='on';
+    case 1,handles.rad2.Value=0; handles.targetIM.Visible='off';
 end
-plotgmpe(handles);
+plotgmpe(handles)
 if handles.rad2.Value==1
     if isempty(handles.IM)
         handles.targetIM.Visible='off';
-        handles.text50.Visible='off';
     else
         handles.targetIM.Visible='on';
-        handles.text50.Visible='on';
         handles.targetIM.Value  = 1;
         handles.targetIM.String = IM2str(handles.IM);
     end
@@ -573,25 +485,24 @@ guidata(hObject,handles)
 function rad2_Callback(hObject, eventdata, handles)
 
 switch hObject.Value
-    case 0,handles.rad1.Value=1; handles.text50.Visible='off'; handles.targetIM.Visible='off';
-    case 1,handles.rad1.Value=0; handles.text50.Visible='on';  handles.targetIM.Visible='on';
+    case 0,handles.rad1.Value=1; handles.targetIM.Visible='off';
+    case 1,handles.rad1.Value=0; handles.targetIM.Visible='on';
 end
-plotgmpe(handles);
+plotgmpe(handles)
 if handles.rad2.Value==1
     if isempty(handles.IM)
         handles.targetIM.Visible='off';
-        handles.text50.Visible='off';
     else
         handles.targetIM.Visible='on';
-        handles.text50.Visible='on';
         handles.targetIM.Value  = 1;
         handles.targetIM.String = IM2str(handles.IM);
+        ylabel(handles.ax1,handles.targetIM.String{1})
     end
 end
 guidata(hObject,handles)
 
 function targetIM_Callback(hObject, eventdata, handles)
-plotgmpe(handles);
+plotgmpe(handles)
 handles.ylabel=ylabel(handles.ax1,IM2str(handles.IM(hObject.Value)),'fontsize',10);
 guidata(hObject,handles)
 
@@ -621,7 +532,7 @@ else
     epsilon =eval(['[',answer{1},']']);
 end
 handles.epsilon = epsilon;
-plotgmpe(handles);
+plotgmpe(handles)
 guidata(hObject,handles)
 
 
@@ -684,5 +595,5 @@ end
 
 handles.path2figures=D;
 handles.currentfigure=1;
-plotgmpe(handles);
+plotgmpe(handles)
 guidata(hObject,handles)

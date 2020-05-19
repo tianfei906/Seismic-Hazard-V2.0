@@ -209,6 +209,8 @@ switch fun
     case 'ContrerasBoroschek2012',  param = [M,Rrup,Zhyp,media,usp];
     case 'BCHydro2012',             param = [M,Rrup,Rhyp,Zhyp,media,usp];
     case 'BCHydro2018',             param = [M,Rrup,usp];
+    case 'Kuehn2020',               param = [M,Rrup,Ztor,usp];
+    case 'Parker2020',              param = [M,Rrup,Zhyp,usp];
     case 'Arteta2018',              param = [M,Rhyp,media,usp];
     case 'Idini2016',               param = [M,Rrup,Rhyp,Zhyp,media,usp];
     case 'MontalvaBastias2017',     param = [M,Rrup,Rhyp,Zhyp,media,usp];

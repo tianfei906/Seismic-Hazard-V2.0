@@ -13,7 +13,7 @@ end
 if handles.rad1.Value==1
     IM=real(handles.IM); 
     LB=imag(handles.IM);
-    IM(IM==0)=0.01;
+    
     LB=LB(IM>=0.01);
     IM=IM(IM>=0.01);
     
@@ -64,7 +64,7 @@ if handles.rad1.Value==1
 else
     
     imptr  = handles.targetIM.Value;
-    [Rrup,param2] = mGMPErrupLoop(handles.fun,param);
+    [Rrup,param2] = mGMPErrupLoop(handles.fun,param,handles.SUB,handles.SC);
     if isempty(param2)
         Sa = nan(length(Rrup)+1,Neps);
     else
@@ -86,6 +86,7 @@ else
     y = Sa(:);
     plot(handles.ax1,x,amp*y,'tag','curves','ButtonDownFcn',@click_on_curve,'linewidth',1);
     handles.xlabel=xlabel(handles.ax1,'Rrup(km)','fontsize',10);
+%     handles.ax1.XLim=[1 300];
 end
 
 function click_on_curve(hObject,eventdata)

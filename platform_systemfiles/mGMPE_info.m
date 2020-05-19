@@ -47,6 +47,8 @@ switch lower(model)
     case 'mcverry2006',                IM = [0 0.075 0.1 0.2 0.3 0.4 0.5 0.75 1 1.5 2 3];
     case 'bchydro2012',                IM = [0 0.02 0.05 0.075 0.1 0.15 0.2 0.25 0.3 0.4 0.5 0.6 0.75 1 1.5 2 2.5 3 4 5 6 7.5 10];
     case 'bchydro2018',                IM = [0.01 0.02 0.03 0.05 0.075 0.1 0.15 0.2 0.25 0.3 0.4 0.5 0.6 0.75 1 1.5 2 2.5 3 4 5 6 7.5 10];
+    case 'kuehn2020',                  IM = [-1 0.001 0.01 0.02 0.03 0.05 0.075 0.1 0.15 0.2 0.25 0.3 0.4 0.5 0.75 1 1.5 2 3 4 5 7.5 10];
+    case 'parker2020',                 IM = [-1 0.001 0.01 0.02 0.03 0.05 0.075 0.1 0.15 0.2 0.25 0.3 0.4 0.5 0.75 1 1.5 2 3 4 5 7.5 10];
     case 'arteta2018',                 IM = [0.01 0.02 0.05 0.075 0.1 0.15 0.2 0.25 0.3 0.4 0.5 0.6 0.75 1 1.5 2 2.5 3 4 5 6 7.5 10];
     case 'montalvabastias2017',        IM = [0 0.02 0.05 0.075 0.1 0.15 0.2 0.25 0.3 0.4 0.5 0.6 0.75 1 1.5 2 2.5 3 4 5 6 7.5 10];
     case 'montalvabastias2017hq',      IM = [0 0.02 0.05 0.075 0.1 0.15 0.2 0.25 0.3 0.4 0.5 0.6 0.75 1 1.5 2 2.5 3 4 5 6 7.5 10];
@@ -108,6 +110,8 @@ if nargout>=2
         case 'contrerasboroschek2012',     Rmetric=[1 0 0 0 0 0 0 1 0 0 0];  Residuals = 'lognormal';
         case 'bchydro2012',                Rmetric=[1 1 0 0 0 0 0 1 0 0 0];  Residuals = 'lognormal';
         case 'bchydro2018',                Rmetric=[1 0 0 0 0 0 0 0 1 0 0];  Residuals = 'lognormal';
+        case 'kuehn2020',                  Rmetric=[1 0 0 0 0 0 0 0 1 0 0];  Residuals = 'lognormal';
+        case 'parker2020',                 Rmetric=[1 0 0 0 0 0 0 1 0 0 0];  Residuals = 'lognormal';
         case 'arteta2018',                 Rmetric=[0 1 0 0 0 0 0 0 0 0 0];  Residuals = 'lognormal';
         case 'idini2016',                  Rmetric=[1 1 0 0 0 0 0 1 0 0 0];  Residuals = 'lognormal';
         case 'montalvabastias2017',        Rmetric=[1 1 0 0 0 0 0 1 0 0 0];  Residuals = 'lognormal';

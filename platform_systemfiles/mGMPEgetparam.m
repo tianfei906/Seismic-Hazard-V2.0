@@ -59,13 +59,51 @@ switch handles.methods(val2).str
     case 'BCHydro2012'
         M         = str2double(str{1});
         Rrup      = str2double(str{2});
-        Rhyp      = str2double(str{3});
-        Zhyp      = str2double(str{4});
-        Vs30      = str2double(str{5});
-        mechanism = str{6};
-        arc       = str{7};
-        DeltaC1   = str{8};
+        Rhyp      = Rrup;
+        Zhyp      = str2double(str{3});
+        Vs30      = str2double(str{4});
+        mechanism = str{5};
+        arc       = str{6};
+        DeltaC1   = str{7};
         param     = {M,Rrup,Rhyp,Zhyp,Vs30,mechanism,arc,DeltaC1};
+        
+    case 'Kuehn2020'
+        M            = str2double(str{1});
+        Rrup         = str2double(str{2});
+        Ztor         = str2double(str{3});
+        Vs30         = str2double(str{4});
+        Z10          = str2double(str{5});
+        Z25          = str2double(str{6});
+        mechanism    = str{7};
+        region       = str{8};
+        slab         = str{9};
+        alphaBackarc = str2double(str{10});
+        alphaNakai   = str2double(str{11});
+        Mb           = str{12};
+        Basin        = str{13};
+        AleInSigma   = str{14};
+        EpiInSigma   = str{15};
+        Nsample      = str2double(str{16});
+        param        = {M,Rrup,Ztor,Vs30,Z10,Z25,mechanism,region,slab,alphaBackarc,alphaNakai,Mb,Basin,AleInSigma,EpiInSigma,Nsample};
+        
+    case 'Parker2020'
+        M            = str2double(str{1});
+        Rrup         = str2double(str{2});
+        Zhyp         = str2double(str{3});
+        Vs30         = str2double(str{4});
+        Z10          = str2double(str{5});
+        Z25          = str2double(str{6});
+        mechanism    = str{7};
+        region       = str{8};
+        slab         = str{9};
+        alphaBackarc = str2double(str{10});
+        alphaNakai   = str2double(str{11});
+        Mb           = str{12};
+        Basin        = str{13};
+        AleInSigma   = str{14};
+        EpiInSigma   = str{15};
+        Nsample      = str2double(str{16});
+        param        = {M,Rrup,Zhyp,Vs30,Z10,Z25,mechanism,region,slab,alphaBackarc,alphaNakai,Mb,Basin,AleInSigma,EpiInSigma,Nsample};
         
     case 'BCHydro2018'
         M         = str2double(str{1});
@@ -85,48 +123,48 @@ switch handles.methods(val2).str
     case 'Idini2016'
         M         = str2double(str{1});
         Rrup      = str2double(str{2});
-        Rhyp      = str2double(str{3});
-        Zhyp      = str2double(str{4});
-        Vs30      = str2double(str(5));
-        mechanism = str{6};
-        spectrum  = str{7};
+        Rhyp      = Rrup;
+        Zhyp      = str2double(str{3});
+        Vs30      = str2double(str(4));
+        mechanism = str{5};
+        spectrum  = str{6};
         param     = {M,Rrup,Rhyp,Zhyp,Vs30,mechanism,spectrum};
         
     case 'MontalvaBastias2017'
         M         = str2double(str{1});
         Rrup      = str2double(str{2});
-        Rhyp      = str2double(str{3});
-        Zhyp      = str2double(str{4});
-        Vs30      = str2double(str{5});
-        mechanism = str{6};
-        arc       = str{7};
+        Rhyp      = Rrup;
+        Zhyp      = str2double(str{3});
+        Vs30      = str2double(str{4});
+        mechanism = str{5};
+        arc       = str{6};
         param     = {M,Rrup,Rhyp,Zhyp,Vs30,mechanism,arc};
         
     case 'MontalvaBastias2017HQ'
         M         = str2double(str{1});
         Rrup      = str2double(str{2});
-        Rhyp      = str2double(str{3});
-        Zhyp      = str2double(str{4});
-        Vs30      = str2double(str{5});
-        mechanism = str{6};
-        arc       = str{7};
+        Rhyp      = Rrup;
+        Zhyp      = str2double(str{3});
+        Vs30      = str2double(str{4});
+        mechanism = str{5};
+        arc       = str{6};
         param     = {M,Rrup,Rhyp,Zhyp,Vs30,mechanism,arc};
         
     case 'SiberRisk2019'
         M         = str2double(str{1});
         Rrup      = str2double(str{2});
-        Rhyp      = str2double(str{3});
-        Zhyp      = str2double(str{4});
-        Vs30      = str2double(str{5});
-        mechanism = str{6};
+        Rhyp      = Rrup;
+        Zhyp      = str2double(str{3});
+        Vs30      = str2double(str{4});
+        mechanism = str{5};
         param     = {M,Rrup,Rhyp,Zhyp,Vs30,mechanism};
         
     case 'Garcia2005'
         M         = str2double(str{1});
         Rrup      = str2double(str{2});
-        Rhyp      = str2double(str{3});
-        Zhyp      = str2double(str{4});
-        direction = str{5};
+        Rhyp      = Rrup;
+        Zhyp      = str2double(str{3});
+        direction = str{4};
         param     = {M,Rrup,Rhyp,Zhyp,direction};
         
     case 'Jaimes2006'

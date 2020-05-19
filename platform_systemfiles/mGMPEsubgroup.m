@@ -12,7 +12,9 @@ IMlist = [
 1	0	0	0	0	0	0	1	0	0	0      % McVerry et al. 2006          
 1	0	0	0	0	0	0	1	0	0	0      % Boroschek et al. 2012        
 1	0	0	0	0	0	0	1	0	0	0      % Abrahamson et al. 2016       
-1	0	0	0	0	0	0	1	0	0	0      % Abrahamson et al. 2018       
+1	0	0	0	0	0	0	1	0	0	0      % Abrahamson et al. 2018  
+1	1	0	0	0	0	0	1	0	0	0      % Kuehn et al. 2020
+1	1	0	0	0	0	0	1	0	0	0      % Parker et al. 2020
 1	0	0	0	0	0	0	1	0	0	0      % Arteta et al. 2018           
 1	0	0	0	0	0	0	1	0	0	0      % Idini et al. 2016            
 1	0	0	0	0	0	0	1	0	0	0      % Montalva et al. 2017         
@@ -59,7 +61,9 @@ mech = [
 1	1	1      % McVerry et al. 2006          
 1	0	0      % Boroschek et al. 2012        
 1	1	0      % Abrahamson et al. 2016       
-1	1	0      % Abrahamson et al. 2018       
+1	1	0      % Abrahamson et al. 2018     
+1   1   0      % Kuehn et al. 2020
+1   1   0      % Parker et al. 2020
 0	1	0      % Arteta et al. 2018           
 1	1	0      % Idini et al. 2016            
 1	1	0      % Montalva et al. 2017         

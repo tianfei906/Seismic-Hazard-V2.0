@@ -1,6 +1,16 @@
 function[handles]=importLIBS(handles,pathname,filename)
 
 [handles.sys,handles.opt,handles.h]=loadPSHA(fullfile(pathname,filename));
+
+handles.opt.MagDiscrete  = {'uniform',0.1};
+n=max(handles.sys.branch(:,3));
+for i=1:n
+    handles.sys.mrr2(i) = process_truncexp  (handles.sys.mrr2(i) , {'uniform' 0.1});
+    handles.sys.mrr3(i) = process_truncnorm (handles.sys.mrr3(i) , {'uniform' 0.1});
+    handles.sys.mrr4(i) = process_yc1985    (handles.sys.mrr4(i) , {'uniform' 0.1});
+end
+
+
 txtLIBS = handles.sys.txtLIBS;
 ptrs    = handles.sys.ptrs(21:24,:);
 ptrs    = ptrs-ptrs(1)+1;
@@ -13,9 +23,10 @@ handles.optlib.analysis = strtrim(str{1,2});
 handles.optlib.sett = eval(str{2,2});
 handles.optlib.tilt = eval(str{3,2});
 handles.optlib.nQ   = str2double(str{4,2});
-handles.optlib.nPGA = str2double(str{5,2});
-handles.optlib.wHL  = eval(['[',str{6,2},']']);
-handles.optlib.rhoCABSA1= str2double(str{7,2});
+handles.optlib.nPGA = size(handles.sys.branch,1);
+handles.optlib.wHL  = eval(['[',str{5,2},']']);
+handles.optlib.RetPeriod = str2double(str{6,2});
+handles.optlib.rhoCAVSA1 = str2double(str{7,2});
 
 %% Option 21: reads site/building properties assignments
 str = regexp(txtLIBS(ptrs(2,1):ptrs(2,2)),'\ ','split');
@@ -47,8 +58,9 @@ handles.T3 = [str(:,[1,3,5,7]),num2cell(weights)];
 Nhaz       = size(handles.sys.branch,1);
 id         = compose('Haz%i',1:Nhaz)';
 weight     = num2cell(handles.sys.weight(:,5));
+weightLBS  = handles.sys.weight(:,5);
 handles.T1 =[id,weight];
-T2val      = T2settle(handles.optlib.nQ,handles.optlib.nPGA,handles.optlib.wHL);
+T2val      = T2settle(handles.optlib.nQ,weightLBS,handles.optlib.wHL);
 handles.T2 = [compose('SP%i',(1:size(T2val,1))'),num2cell(T2val)];
 [handles.tableREG.Data,handles.IJK]=main_settle(handles.T1,handles.T2,handles.T3);
 
@@ -58,15 +70,15 @@ handles.pop_site.Enable='on';
 handles.pop_site.Value=1;
 
 
-function T2= T2settle(nQ,nPGA,wHL)
+function T2= T2settle(nQ,weightLBS,wHL)
 
 wHL=wHL(:);
 wHL(wHL==0)=[];
 
-[~,~,wQ]   = trlognpdf_psda([1 0.2 nQ]);
-[~,~,wLBS] = trlognpdf_psda([1 0.2 nPGA]);
-[II,JJ,KK]=meshgrid(1:nQ,1:nPGA,1:length(wHL)); II=II(:); JJ=JJ(:);KK=KK(:);
-T2=[wQ(II),wLBS(JJ),wHL(KK),wQ(II).*wLBS(JJ).*wHL(KK)];
+[~,~,wQ]    = trlognpdf_psda([1 0.2 nQ]);
+nLBS        = length(weightLBS);
+[II,JJ,KK]  = meshgrid(1:nQ,1:nLBS,1:length(wHL)); II=II(:); JJ=JJ(:);KK=KK(:);
+T2          = [wQ(II),weightLBS(JJ),wHL(KK),wQ(II).*weightLBS(JJ).*wHL(KK)];
 
 
 

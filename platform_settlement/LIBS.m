@@ -42,6 +42,7 @@ function runREG_Callback(hObject, eventdata, handles)
 if ~isfield(handles,'sys'), return;end
 handles.haz = haz_LIBS(handles);
 handles     = runLIBS_regular(handles);
+plot_LIBS_regular(handles);
 handles.deleteButton.CData  = handles.CDataClosed;
 guidata(hObject,handles)
 
@@ -53,17 +54,12 @@ function File_Callback(hObject, eventdata, handles) %#ok<*INUSD,*DEFNU>
 
 function ImportSeismicHazard_Callback(hObject, eventdata, handles)
 
-% if isfield(handles,'defaultpath_others')
-%     [filename,pathname,FILTERINDEX]=uigetfile(fullfile(handles.defaultpath_others,'*.txt'),'select file');
-% else
-%     [filename,pathname,FILTERINDEX]=uigetfile(fullfile(pwd,'*.txt'),'select file');
-% end
-%
-% if FILTERINDEX==0,return;end
-
-% loads hazard curves
-pathname='D:\Dropbox\SeismicHazard - BETA\platform_z_testmodels\';
-filename='Test_liq2.txt';
+if isfield(handles,'defaultpath_others')
+    [filename,pathname,FILTERINDEX]=uigetfile(fullfile(handles.defaultpath_others,'*.txt'),'select file');
+else
+    [filename,pathname,FILTERINDEX]=uigetfile(fullfile(pwd,'*.txt'),'select file');
+end
+if FILTERINDEX==0,return;end
 
 handles.defaultpath_others=pathname;
 handles = wipeLIBS(handles);
@@ -195,6 +191,3 @@ end
 
 function undock_Callback(hObject, eventdata, handles)
 figure2clipboard_uimenu(hObject, eventdata,handles.ax1)
-
-function pushbutton15_Callback(hObject, eventdata, handles)
-plot_LIBS_regular(handles)

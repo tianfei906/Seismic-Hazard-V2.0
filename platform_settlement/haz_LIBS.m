@@ -9,20 +9,20 @@ fprintf('-----------------------------------------------------------------------
 
 T3       = handles.T3(:,2:4);
 [imethod,usedM]  = getmethod(handles,T3);
-haz=struct('im',[],'IM',[],'lambda',[],'deagg',[]);
+haz=struct('im',[],'IM',[],'lambda',[]);
 
 if any(imethod==1)
     handles.opt = opt_update(handles,usedM,opt);
     haz.im      = handles.opt.im;
     haz.IM      = handles.opt.IM;
-    [haz.lambda,haz.deagg]=runlogictree2(handles.sys,handles.opt,handles.h,handles.site_selection);
+    haz.lambda  = runlogictree1(handles.sys,handles.opt,handles.h,handles.site_selection);
 end
 
 if any(imethod==2) % Macedo & Bray 
     setLIB=handles.setLIB;
     handles.opt = opt_update(handles,usedM,opt);
-    corrlist = 0.7;
-    mechlist = [];
+    rhoCAVSA1   = handles.optlib.rhoCAVSA1;
+    mechlist    = [];
     [~,B1]=intersect({setLIB.label},handles.T3(:,2)); D1=intersect({setLIB(B1).str},{'set_I17'});
     [~,B2]=intersect({setLIB.label},handles.T3(:,3)); D2=intersect({setLIB(B2).str},{'set_I17'});
     [~,B3]=intersect({setLIB.label},handles.T3(:,4)); D3=intersect({setLIB(B3).str},{'set_I17'});
@@ -30,15 +30,10 @@ if any(imethod==2) % Macedo & Bray
     if ~isempty(D2), mechlist=[mechlist,2];end % 'instraslab'
     if ~isempty(D3), mechlist=[mechlist,3];end % 'crustal'
     
-    haz.imvector = handles.opt.im;
-    haz.IMvector = handles.opt.IM;
-    haz.corrlist = corrlist;
-    haz.MRD =runlogictree2V(handles.sys,handles.opt,handles.h,corrlist,mechlist);
-    
-    
-    % Compute 
-    
-    
+    haz.imvector = handles.opt.im(:,[1 3]);
+    haz.IMvector = handles.opt.IM([1,3]);
+    haz.corrlist = rhoCAVSA1;
+    haz.MRD =runlogictree2V(handles.sys,handles.opt,handles.h,rhoCAVSA1,mechlist);
 end
 
 fprintf('-----------------------------------------------------------------------------------------------------------\n');

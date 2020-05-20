@@ -34,7 +34,7 @@ gmmgroup ArtetaUDM  1
 
 Option 5 - MAGNITUDE SCALING RELATIONS
 seismicity 1
-truncexp S12  NM 2.344 0.70 5 8.5 0 0
+truncexp S12  NM 2.344 0.70 5 8.5
 
 Option 6 - Pre defined sites
 source 760

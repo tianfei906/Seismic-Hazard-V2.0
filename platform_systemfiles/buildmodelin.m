@@ -3,7 +3,6 @@ function[source]=buildmodelin(sys,branch,opt)
 geomptr   = branch(1);
 gmpeptr   = branch(2);
 msclptr   = branch(3);
-% epistemic = branch(4);
 
 src1      = sys.src1(geomptr);
 src2      = sys.src2(geomptr);

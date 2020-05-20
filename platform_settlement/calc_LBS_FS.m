@@ -1,4 +1,4 @@
-function [LBS,HL_BI,HL_R15] = calc_LBS_FS (Data, wt, Mw, PGA, Df)
+function [LBS,HL_BI,HL_R15] = calc_LBS_FS (Data, wt, Df,Mw, PGA)
 %% SOIL LIQUEFACTION TRIGGERING EVALUATION
 % This MATLAB code estimates liquefaction triggering based on Boulanger &
 % Idriss (2014) method. It also estimates Relative Density according to

@@ -1083,4 +1083,3 @@ function restore_axis_Callback(hObject, eventdata, handles)
 
 handles.ax1.XLim=handles.ax1DefaultLimits(1,:);
 handles.ax1.YLim=handles.ax1DefaultLimits(2,:);
-

@@ -164,12 +164,14 @@ switch handles.STpop.Value
         PGA   = str2double(handles.e2.String); 
         Sa1   = str2double(handles.e3.String);
         CAV   = str2double(handles.e4.String); 
-        [LBS,HL] = calc_LBS_FS (param.CPT, param.wt, M, PGA, param.Df);
+        [LBS,HL] = calc_LBS_FS (param.CPT, param.wt, param.Df,M, PGA);
         handles.LBS.String=sprintf('%4.3g',LBS);
         handles.HL.String =sprintf('%3.2g',HL);
         
-        [lny0,sig0] = set_I17(param,M,PGA,Sa1,cav0);
-        [mu,sig]    = set_I17(param,M,PGA,Sa1,CAV);
+        param.LBS=LBS;
+        param.HL =HL;
+        [lny0,sig0] = set_I17(param,Sa1,cav0);
+        [mu,sig]    = set_I17(param,Sa1,CAV);
         handles.ax1XLABEL.String='CAV (m/s)';
         handles.ax1YLABEL.String='S (mm)';
         handles.ax2XLABEL.String='s (mm)';

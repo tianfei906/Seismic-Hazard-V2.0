@@ -178,8 +178,8 @@ gmmgroups at72 72
 
 Option 5 - MAGNITUDE SCALING RELATIONS
 seismicity 1
-truncexp TestArea1  NM 10   1 5 8.5 0 0
-truncexp TestArea3  NM 0.01 1 5 8.5 0 0
+truncexp TestArea1  NM 10   1 5 8.5
+truncexp TestArea3  NM 0.01 1 5 8.5
 
 Option 6 - Pre defined sites
 source 760

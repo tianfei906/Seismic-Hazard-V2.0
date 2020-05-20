@@ -1,10 +1,16 @@
-function[deagg]=runhazard2(im,IM,site,VS30,opt,source,Nsource,site_selection)
+function[deagg]=runhazard2(im,IM,site,VS30,opt,source,Nsource,site_selection,OV)
 
 xyz       = gps2xyz(site,opt.ellipsoid);
 Nsite     = size(xyz,1);
 NIM       = length(IM);
 Nim       = size(im,1);
 ind       = zeros(Nsite,length(source));
+
+if isfield(opt,'dflag')
+    dflag = opt.dflag;
+else
+    dflag = [true true false];
+end
 
 for i=site_selection
     ind(i,:)=selectsource(opt.MaxDistance,xyz(i,:),source);
@@ -18,13 +24,13 @@ for k=site_selection
     VS30k      = VS30(k);
     for i=sptr
         source(i).media=VS30k;
-        deagg(k,:,:,i)=runsourceDeagg(source(i),xyzk,IM,im,opt.ellipsoid,opt.Sigma);
+        deagg(k,:,:,i)=runsourceDeagg(source(i),xyzk,IM,im,opt.ellipsoid,opt.Sigma,dflag);
     end
 end
 
 return
 
-function[deagg]=runsourceDeagg(source,r0,IM,im,ellip,sigma)
+function[deagg]=runsourceDeagg(source,r0,IM,im,ellip,sigma,dflag)
 
 %% MAGNITUDE RATE OF EARTHQUAKES
 NIM   = length(IM);
@@ -97,7 +103,8 @@ switch source.gmm.type
                 xhat        = (log(imj(i))-mu)./sig;
                 ccdf        = (0.5*(1-erf(xhat/sqrt(2)))-PHI)*1/(1-PHI);
                 ccdf        = ccdf.*(ccdf>0);
-                deagg{i,j}  = [Mag,Rrup,NMmin*ccdf.*rate];
+                dsum        = [Mag,Rrup,mu];
+                deagg{i,j}  = [dsum(:,dflag),NMmin*ccdf.*rate];
             end
         end        
 end

@@ -143,10 +143,10 @@ end
 if group == 6
     ME(1:4,1)=struct('label',[],'func',[],'str',[],'IM',[],'integrator',[],'ref',[]);
     i=0;
-    i=i+1;ME(i).label = 'Bullock 2018 (Settlement)';            ME(i).func = @set_B18;   ME(i).IM='CAV';         ME(i).integrator=1; ME(i).ref = 'https://doi.org/10.1680/jgeot.17.P.174';
-    i=i+1;ME(i).label = 'Ishihara 2017 (Settlement)';           ME(i).func = @set_I17;   ME(i).IM='SA(T=1)-CAV'; ME(i).integrator=2; ME(i).ref = 'https://doi.org/10.1016/j.soildyn.2017.08.026';
-    i=i+1;ME(i).label = 'Bullock, 2018 (Tilt Empirical)';       ME(i).func = @til_B18e;  ME(i).IM='CAV';         ME(i).integrator=1; ME(i).ref = 'https://doi.org/10.1680/jgeot.17.P.174';
-    i=i+1;ME(i).label = 'Bullock, 2018 (Tilt Semi Empirical)';  ME(i).func = @til_B18s;  ME(i).IM='CAV-VGI';     ME(i).integrator=1; ME(i).ref = 'https://doi.org/10.1680/jgeot.17.P.174';
+    i=i+1;ME(i).label = 'Bullock 2018 (Settlement)';            ME(i).func = @set_B18;   ME(i).IM='CAV';             ME(i).integrator=1; ME(i).ref = 'https://doi.org/10.1680/jgeot.17.P.174';
+    i=i+1;ME(i).label = 'Ishihara 2017 (Settlement)';           ME(i).func = @set_I17;   ME(i).IM='PGA-SA(T=1)-CAV'; ME(i).integrator=2; ME(i).ref = 'https://doi.org/10.1016/j.soildyn.2017.08.026';
+    i=i+1;ME(i).label = 'Bullock, 2018 (Tilt Empirical)';       ME(i).func = @til_B18e;  ME(i).IM='CAV';             ME(i).integrator=1; ME(i).ref = 'https://doi.org/10.1680/jgeot.17.P.174';
+    i=i+1;ME(i).label = 'Bullock, 2018 (Tilt Semi Empirical)';  ME(i).func = @til_B18s;  ME(i).IM='CAV-VGI';         ME(i).integrator=1; ME(i).ref = 'https://doi.org/10.1680/jgeot.17.P.174';
 end
 
 

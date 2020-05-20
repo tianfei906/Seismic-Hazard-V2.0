@@ -139,7 +139,7 @@ end
 IM      = handles.opt.IM(IM_ptr);
 site    = handles.h.p(site_ptr,:);
 opt     = handles.opt;
-sources = buildmodelin(handles.sys,branch(model_ptr,:),handles.opt.ShearModulus);
+sources = buildmodelin(handles.sys,branch(model_ptr,:),handles.opt);
 sources = sources(source_ptr);
 Nsource = length(source_ptr);
 rho     = str2double(handles.rho.String);

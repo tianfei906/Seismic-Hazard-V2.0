@@ -11,7 +11,7 @@ th1   : 2        # Non-susceptible crust thickness
 th2   : 6        # Maximum continuous thickness of susceptible material in top B
 N1    : 1        # Number of susceptible layers in top B    
 N2    : 2        # Number of non-susceptible layers in top B
-meth  : SPT      # Soil profile testing method 
+meth  : CPT      # Soil profile testing method
 N160  : 9   0   0   0   0   0   0   0   0   0
 qc1N  : nan nan nan nan nan nan nan nan nan nan
 thick : 6   0   0   0   0   0   0   0   0   0

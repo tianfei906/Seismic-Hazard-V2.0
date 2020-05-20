@@ -42,6 +42,7 @@ handles.nQ.String   = optlib.nQ;
 handles.nPGA.String = optlib.nPGA;
 handles.wHL1.String = optlib.wHL(1);
 handles.wHL2.String = optlib.wHL(2);
+handles.RetPeriod.String = optlib.RetPeriod;
 handles.optlib      = optlib;
 handles.weightsHAZ  = weightHAZ;
 
@@ -71,7 +72,7 @@ optlib.analysis = handles.uibuttongroup1.SelectedObject.String;
 optlib.nQ       = str2double(handles.nQ.String);
 optlib.nPGA     = str2double(handles.nPGA.String);
 optlib.wHL      = [str2double(handles.wHL1.String),str2double(handles.wHL2.String)];
-
+optlib.RetPeriod = str2double(handles.RetPeriod.String);
 varargout{1} = handles.table1.Data;
 varargout{2} = [compose('SP%i',1:nT2)',handles.table2.Data];
 varargout{3} = handles.table3.Data;
@@ -122,21 +123,6 @@ w = handles.table1.Data(:,2);
 w = cell2mat(w);
 handles.table1.Data(:,2)=num2cell(w/sum(w));
 guidata(hObject,handles)
-
-% function updatet1(handles)
-% whaz        = handles.sys.WEIGHT(:,4);
-% 
-% Tm_param=[str2double(handles.Tm_mean.String),...
-%     str2double(handles.Tm_cov.String),...
-%     str2double(handles.Tm_nsta.String)];
-% 
-% [Tm,~,dPTm] = trlognpdf_psda(Tm_param);
-% [ind1,ind2] = meshgrid(1:length(whaz),1:length(Tm)); ind1 = ind1(:); ind2 = ind2(:);
-% id          = strrep({handles.model(ind1).id}','Branch','haz');
-% Tm          = Tm(ind2);
-% w1          = whaz(ind1);
-% w2          = dPTm(ind2);
-% handles.table1.Data  = [id,num2cell([Tm w1.*w2])];
 
 function Normalize3_Callback(hObject, eventdata, handles)
 
@@ -250,3 +236,5 @@ end
 function table3_CellSelectionCallback(hObject, eventdata, handles)
 handles.current3=eventdata.Indices;
 guidata(hObject,handles)
+
+function RetPeriod_Callback(hObject, eventdata, handles)

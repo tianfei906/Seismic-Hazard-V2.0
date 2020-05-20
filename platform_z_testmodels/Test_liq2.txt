@@ -8,7 +8,7 @@ IM           : CAV PGA 1
 im           : [logsp(0.1,2000,20);logsp(0.0001,1,20);logsp(0.0001,1,20)]
 MaxDistance  : 500
 MagDiscrete  : gauss 10
-Sigma        : truncate 1
+Sigma        : truncate 2
 PCE          : shuffle MC 500
 IM1          : 0.01
 IM2          : 1
@@ -131,20 +131,20 @@ truncexp S39  NM 0.131 0.87 5 8.5
 Option 6 - Pre defined sites
 source 760
 LasCondes1 -70.5635 -33.4124 691.3
-LasCondes2 -70.5635 -34.4124 691.3
+#LasCondes2 -70.5635 -34.4124 691.3
 
 Option 20 - Liquefaction Analysis Options
 analysis   : FPBBA            # FPBBA or PBPA
 settlement : logsp(1,500 ,20) # mm
 tilt       : logsp(0.1,40,20) # degrees
-nQ         : 3                # number of percentiles in Q   uncertainty
-nPGA       : 3                # number of percentiles in PGA uncertainty
+nQ         : 4                # number of percentiles in Q   uncertainty
 wHL        : 0.6 0.4          # weights of liq. triggering method for HL calculations (Idriss 2014, Robertson 2015 )
+RetPeriod  : 500              # return period for LBS and HL calculations
 rhoCAVSA   : 0.70             # 
 
 Option 21 - Building and Site Specific Parameters
 LasCondes1 Default_LIQ.txt
-LasCondes2 Default_LIQ.txt
+#LasCondes2 Default_LIQ.txt
 
 Option 22 Settlement model library
 SET1  handle set_B18

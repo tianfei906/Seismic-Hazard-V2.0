@@ -11,6 +11,9 @@ Nbranch   = size(sys.branch,1);
 weights   = sys.weight(:,5);
 ShearMod  = opt.ShearModulus;
 Nsource   = max(sum(sys.Nsrc,1));
+if ~isfield(opt,'dflags')
+    opt.dflags=[true true false];
+end
 
 %% do not run analysis if ind is empty
 lambda  = nan (Nsites,Nim,NIM,Nsource,Nbranch);
@@ -27,7 +30,7 @@ end
 
 for i=1:numel(deagg)
     if ~isempty(deagg{i})
-        lambda(i)=sum(deagg{i}(:,3));
+        lambda(i)=sum(deagg{i}(:,end));
     end
 end
 

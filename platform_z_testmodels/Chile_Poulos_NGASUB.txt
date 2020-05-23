@@ -33,7 +33,7 @@ area4 zone6 intraslab normal wc1994 0 2 zone6.mat 25
 area4 zone7 intraslab normal wc1994 0 2 zone7.mat 25
 
 Option 3 - GMPE Library
-gmm at1  Youngs1997 interface
+gmm at1  Kuehn2020 interface South_America_S 0 0 0.55 2 0
 gmm at2  Youngs1997 intraslab
 gmm at3  AtkinsonBoore2003 interface General
 gmm at4  AtkinsonBoore2003 intraslab General
@@ -45,7 +45,7 @@ gmm at9  MontalvaBastias2017 interface Forearc
 gmm at10 MontalvaBastias2017 intraslab Forearc
 
 Option 4 - GMPE GROUPS
-gmmgroup Youngs1997      1  2   
+gmmgroup Kuehn2020       1  2   
 gmmgroup AB2003          3  4 
 gmmgroup Zhao2006        5  6 
 gmmgroup Abrahamson2012  7  8 

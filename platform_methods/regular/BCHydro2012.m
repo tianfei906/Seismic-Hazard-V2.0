@@ -58,7 +58,8 @@ end
 %% DeltaC1
 if strcmp(mechanism,'interface')
     logP = log([eps;0.3;0.5;1;2;3;10]);
-    DC1data = [0	0.2     0.4
+    DC1data = [
+        0	0.2     0.4
         0	0.2     0.4
         -0.1	0.1     0.3
         -0.2	0       0.2

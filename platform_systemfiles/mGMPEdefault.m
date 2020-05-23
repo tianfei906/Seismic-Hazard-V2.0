@@ -131,41 +131,32 @@ switch str
         handles.e5.Style='popupmenu'; handles.e5.Value=1; handles.e5.String={'interface','intraslab'};
         
     case 'Kuehn2020'
-        set(txt(1:16),'Visible','on');
-        set(edi(1:16),'Visible','on');
+        %M,Rrup,Ztor,Vs30,mechanism,region,alfaBackArc,alfaNankai,Z10,Z25,Nepist
+        set(txt(1:11),'Visible','on');
+        set(edi(1:11),'Visible','on');
         handles.t1.String  = 'M';
         handles.t2.String  = 'Rrup';
         handles.t3.String  = 'Ztor';
         handles.t4.String  = 'Vs30';
-        handles.t5.String  = 'Z10';
-        handles.t6.String  = 'Z25';
-        handles.t7.String  = 'mechanism';
-        handles.t8.String  = 'region';
-        handles.t9.String  = 'slab';
-        handles.t10.String = 'aBackarc';
-        handles.t11.String = 'aNankai';
-        handles.t12.String = 'Mb';
-        handles.t13.String = 'Basin';
-        handles.t14.String = 'AleInSigma';
-        handles.t15.String = 'EpiInSigma';
-        handles.t16.String = 'Nsample';
+        handles.t5.String  = 'mechanism';
+        handles.t6.String  = 'region';
+        handles.t7.String  = 'aBackarc';
+        handles.t8.String  = 'aNankai';
+        handles.t9.String  = 'Z10';
+        handles.t10.String = 'Z25';
+        handles.t11.String = 'Nsample';
         
         handles.e1.String=SUB.Mag(ind1);
         handles.e2.String=SUB.Rrup(ind1);
         handles.e3.String=SUB.Ztor(ind1);
         handles.e4.String=SUB.Vs30;
-        handles.e5.String=SUB.Z10;
-        handles.e6.String=SUB.Z25;
-        handles.e7.Style='popupmenu'; handles.e7.Value=1; handles.e7.String={'interface','intraslab'};
-        handles.e8.Style='popupmenu'; handles.e8.Value=1; handles.e8.String={'Global','Alaska','Cascadia','CentralAmerica&Mexico','Japan','NewZealand','SouthAmerica','Taiwan'};
-        handles.e9.Style='popupmenu'; handles.e9.Value=1; handles.e9.String={'Alaska','Aleutian','Cascadia','Central_America_N','Central_America_S','global','Japan_Pac','Japan_Phi','New_Zealand_N','New_Zealand_S','South_America_N','South_America_S','Taiwan_E','Taiwan_W'};
-        handles.e10.String=0.5;
-        handles.e11.String=0;
-        handles.e12.String='default';
-        handles.e13.Style='popupmenu'; handles.e13.Value=1; handles.e13.String={'NoBasin','InSeattleBasin'};
-        handles.e14.Style='popupmenu'; handles.e14.Value=1; handles.e14.String={'None','AllModels'};
-        handles.e15.Style='popupmenu'; handles.e15.Value=1; handles.e15.String={'None','AllModels'};
-        handles.e16.String=100;
+        handles.e5.Style='popupmenu'; handles.e5.Value=1; handles.e5.String={'interface','intraslab'};
+        handles.e6.Style='popupmenu'; handles.e6.Value=1; handles.e6.String={'global','aleutian','alaska','cascadia','central_america_s','central_america_n','japan_pac','japan_phi','new_zealand_n','new_zealand_s','south_america_n','south_america_s','taiwan_w','taiwan_e'};
+        handles.e7.String=0.5;
+        handles.e8.String=0.5;
+        handles.e9.String =SUB.Z10;
+        handles.e10.String=SUB.Z25;
+        handles.e11.String=100;
         
     case 'Parker2020'
         set(txt(1:16),'Visible','on');

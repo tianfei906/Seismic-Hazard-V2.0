@@ -72,19 +72,14 @@ switch handles.methods(val2).str
         Rrup         = str2double(str{2});
         Ztor         = str2double(str{3});
         Vs30         = str2double(str{4});
-        Z10          = str2double(str{5});
-        Z25          = str2double(str{6});
-        mechanism    = str{7};
-        region       = str{8};
-        slab         = str{9};
-        alphaBackarc = str2double(str{10});
-        alphaNakai   = str2double(str{11});
-        Mb           = str{12};
-        Basin        = str{13};
-        AleInSigma   = str{14};
-        EpiInSigma   = str{15};
-        Nsample      = str2double(str{16});
-        param        = {M,Rrup,Ztor,Vs30,Z10,Z25,mechanism,region,slab,alphaBackarc,alphaNakai,Mb,Basin,AleInSigma,EpiInSigma,Nsample};
+        mechanism    = str{5};
+        region       = str{6};
+        alfaBackArc  = str2double(str{7});
+        alfaNankai   = str2double(str{8});
+        Z10          = str2double(str{9});
+        Z25          = str2double(str{10});
+        Nepist       = str2double(str{11});
+        param        = {M,Rrup,Ztor,Vs30,mechanism,region,alfaBackArc,alfaNankai,Z10,Z25,Nepist};
         
     case 'Parker2020'
         M            = str2double(str{1});

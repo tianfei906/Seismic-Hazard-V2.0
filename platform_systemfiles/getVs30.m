@@ -1,10 +1,10 @@
-function Vs30=getVs30(p,opt)
+function VS30=getVs30(p,opt)
 
 baseline = opt.baseline;
 source   = opt.source;
 Nsource  = length(source);
 Nsites   = size(p,1);
-Vs30     = ones(Nsites,1)*baseline;
+VS30     = ones(Nsites,1)*baseline;
 
 if Nsource ==1 && strcmp(source{1},' ')
     return
@@ -17,11 +17,13 @@ for i=Nsource:-1:1
     fname = opt.source{i};
     if contains(fname,'.kml')
         kml = kml2struct(fname);
-        vLon = kml.Lon(~isnan(kml.Lon));
-        vLat = kml.Lat(~isnan(kml.Lat));
-        IN  = inpolygon(Lon,Lat,vLon,vLat);
-        if any(IN)
-            Vs30(IN)= str2double(kml.Description);
+        for jj=1:length(kml)
+            vLon = kml(jj).Lon; vLon=vLon(~isnan(vLon));
+            vLat = kml(jj).Lat; vLat=vLat(~isnan(vLat));
+            IN  = inpolygon(Lon,Lat,vLon,vLat);
+            if any(IN)
+                VS30(IN)= str2double(kml(jj).Description);
+            end
         end
         
     else
@@ -41,7 +43,7 @@ for i=Nsource:-1:1
                         lon       = linspace(r.box(1,1),r.box(2,1),r.nlon);
                         lat       = linspace(r.box(2,2),r.box(1,2),r.nlat);
                         [LON,LAT] = meshgrid(lon,lat);
-                        Vs30(IN)  = interp2(LON,LAT,img,Lon(IN),Lat(IN));
+                        VS30(IN)  = interp2(LON,LAT,img,Lon(IN),Lat(IN));
                     end
                 end
             case 'microzone' %simple matfile
@@ -51,7 +53,7 @@ for i=Nsource:-1:1
                     r = source(j);
                     IN  = inpolygon(Lon,Lat,r.Lon,r.Lat);
                     if any(IN)
-                        Vs30(IN)  = source(j).Vs30;
+                        VS30(IN)  = source(j).VS30;
                     end
                 end
         end

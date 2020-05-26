@@ -58,25 +58,25 @@ switch str
     case 'Idini2016'
         param{1}=ON*param{1};
         param{2}=Rrup;
-        param{3}=Rhyp;
+        param{3}=Rrup;
         param{4}=ON*param{4};
         
     case {'MontalvaBastias2017','MontalvaBastias2017HQ'}
         param{1}=ON*param{1};
         param{2}=Rrup;
-        param{3}=Rhyp;
+        param{3}=Rrup;
         param{4}=ON*param{4};
         
     case 'SiberRisk2019'
         param{1}=ON*param{1};
         param{2}=Rrup;
-        param{3}=Rhyp;
+        param{3}=Rrup;
         param{4}=ON*param{4};
         
     case 'Garcia2005'
         param{1}=ON*param{1};
         param{2}=Rrup;
-        param{3}=Rhyp;
+        param{3}=Rrup;
         param{4}=ON*param{4};
         
     case 'Jaimes2006'

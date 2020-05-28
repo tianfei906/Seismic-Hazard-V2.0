@@ -29,7 +29,7 @@ MRE = MRE(:,:,site_ptr);
 
 lnSat = zeros(1,Nmodels);
 for i=1:Nmodels
-    lnSat(i)=interp1(log(MRE(:,i)),log(opt.im),log(1/Tr),'pchip');
+    lnSat(i)=robustinterp(MRE(:,i),opt.im,1/Tr,'loglog');
 end
 SaT = exp(lnSat*pkl);
 col         = find(handles.opt.IM>=0);

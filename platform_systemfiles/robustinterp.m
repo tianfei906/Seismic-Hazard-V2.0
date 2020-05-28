@@ -1,6 +1,6 @@
 function [y]=robustinterp(X,Y,x,style)
 
-ind = isnan(X+Y);
+ind = or(isnan(X+Y),isinf(X+Y));
 X(ind)=[];
 Y(ind)=[];
 

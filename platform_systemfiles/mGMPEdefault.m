@@ -79,7 +79,7 @@ switch str
         handles.t6.String='Rvol';
         handles.e1.String=SUB.Mag(ind1);
         handles.e2.String=SUB.Rrup(ind1);
-        handles.e3.String='50';
+        handles.e3.String=SUB.Zhyp(ind1);
         handles.e4.Style='popupmenu'; handles.e4.Value=1; handles.e4.String={'A','B','C','D','E'};
         handles.e5.Style='popupmenu'; handles.e5.Value=1; handles.e5.String={'interface','intraslab','strike-slip','normal','normal-oblique','reverse','reverse-oblique','unspecified'};
         handles.e6.String='0';
@@ -152,8 +152,8 @@ switch str
         handles.e4.String=SUB.Vs30;
         handles.e5.Style='popupmenu'; handles.e5.Value=1; handles.e5.String={'interface','intraslab'};
         handles.e6.Style='popupmenu'; handles.e6.Value=1; handles.e6.String={'global','aleutian','alaska','cascadia','central_america_s','central_america_n','japan_pac','japan_phi','new_zealand_n','new_zealand_s','south_america_n','south_america_s','taiwan_w','taiwan_e'};
-        handles.e7.String=0.5;
-        handles.e8.String=0.5;
+        handles.e7.String=0;
+        handles.e8.String=0;
         handles.e9.String =SUB.Z10;
         handles.e10.String=SUB.Z25;
         handles.e11.String=100;
@@ -334,7 +334,7 @@ switch str
         handles.e1.String=SC.Mag(ind2);
         handles.e2.String=SC.Rrup(ind2);
         handles.e3.Style='popupmenu'; handles.e3.Value=1; handles.e3.String={'deepsoil','rock'};
-        handles.e4.Style='popupmenu'; handles.e4.Value=2; handles.e4.String={'strike-slip','reverse','reverse-oblique'};
+        handles.e4.Style='popupmenu'; handles.e4.Value=1; handles.e4.String={'strike-slip','reverse','reverse-oblique'};
         
     case 'I2008'
         set(txt(1:4),'Visible','on');

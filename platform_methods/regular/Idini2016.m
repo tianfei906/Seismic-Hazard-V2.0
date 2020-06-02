@@ -89,14 +89,14 @@ end
 c3     = C(6);
 c5     = C(7);
 dc3    = C(8);
-tau    = C(9)*ones(size(M)); % intra-event
+phi    = C(9)*ones(size(M)); % intra-event
 c1     = C(10);
 c2     = C(11);
 c9     = C(12);
 c8     = C(13);
 dc1    = C(14);
 dc2    = C(15);
-phi    = C(16)*ones(size(M));
+tau    = C(16)*ones(size(M));
 
 sigma = sqrt(tau.^2+phi.^2);
 ho     = 50; %km 

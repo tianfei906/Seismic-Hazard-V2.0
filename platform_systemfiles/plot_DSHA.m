@@ -86,8 +86,7 @@ delete(findall(ax1,'Tag','satext'));
 XY      = handles.h.p(:,1:2);
 
 if size(t,1)==0
-    %scatter(ax1,XY(:,1),XY(:,2),[],Y,'filled','markeredgecolor','k','tag','siteplot','visible',VIS1,'ButtonDownFcn',{@site_click_PSDA;handles;1});
-    scatter(ax1,XY(:,1),XY(:,2),[],Y,'filled','markeredgecolor','k','tag','siteplot','visible',VIS1);
+    scatter(ax1,XY(:,1),XY(:,2),[],Y(:),'filled','markeredgecolor','k','tag','siteplot','visible',VIS1);
     cb=colorbar('peer',ax1,'location','eastoutside','position',[0.94 0.16 0.02 0.65]);
     CYLIM=sort([0.9*min(Y),1.1*max(Y)]);
     cb.YLim = CYLIM;
@@ -190,7 +189,7 @@ switch ch2.Value
 end
 
 %scatter(ax1,XY(:,1),XY(:,2),[],Y,'filled','markeredgecolor','k','tag','siteplot','visible',VIS1,'ButtonDownFcn',{@site_click_PSDA;handles;1},'visible',VIS);
-scatter(ax1,XY(:,1),XY(:,2),[],Y,'filled','markeredgecolor','k','tag','siteplot','visible',VIS1,'visible',VIS);
+scatter(ax1,XY(:,1),XY(:,2),[],Y(:),'filled','markeredgecolor','k','tag','siteplot','visible',VIS1,'visible',VIS);
 cb=colorbar('peer',ax1,'location','eastoutside','position',[0.94 0.16 0.02 0.65],'YLim',[umin,umax]);
 cb.Visible=VIS3;
 %ax1.ButtonDownFcn={@clear_satxt,handles};

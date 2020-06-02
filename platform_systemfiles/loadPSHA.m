@@ -329,20 +329,20 @@ if ~isnan(ptrs(7,1))
     
     if contains(str,'.txt')
         str=regexp(str{1},'\ ','split');
-        h = ss_readtxtPSHA(str{1});
+        h = ss_readtxtPSHA(str{1},VS30);
     else
         
         for i=1:size(str,1)
-            if contains(str{i},'VS30')
+            if contains(lower(str{i}),'vs30')
                 linea = regexp(str{i},'\s+','split');
                 id          = strjoin(linea(1:end-5),' ');
                 Lat         = str2double(linea{end-4});
                 Lon         = str2double(linea{end-3});
                 Elev        = str2double(linea{end-2})/1000;
-                VS30        = str2double(linea{end});
+                VS30_i      = str2double(linea{end});
                 h.id{i}  = id;
                 h.p(i,:)    = [Lat,Lon,Elev];
-                h.VS30(i,1) = VS30;
+                h.VS30(i,1) = VS30_i;
             end
         end
         

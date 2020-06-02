@@ -1,6 +1,6 @@
 function plotVs30sources(handles)
 
-if strcmp(handles.VS30.source,' ')
+if isempty(handles.VS30.source)
     delete(findall(handles.ax1,'tag','microzone'))
     delete(findall(handles.ax1,'tag','raster'))
     return

@@ -61,11 +61,6 @@ delta obj7_1 NM 2 6.0
 #delta obj5_2 NM 1 7.0
 #delta obj7_2 NM 1 7.0 
 
-
-
-
-
-
 Option 6 - Pre defined sites (Optional)
 source 760
 site1 5 5 0 # On Fault Midpoint along Strike  

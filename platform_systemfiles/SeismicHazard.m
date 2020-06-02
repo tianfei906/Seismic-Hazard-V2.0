@@ -330,6 +330,13 @@ handin.VS30        = handles.sys.VS30;
 [h_new,VS30,index] = SelectLocations(handin);
 equalh             = structcmp(handin.h,h_new);
 
+switch handles.opt.Clusters{1}
+    case 'on' , [handles.idx,handles.hc] = compute_clusters(handles.opt,handles.h);
+    case 'off'
+        handles.idx=[];
+        handles.hc =createObj('site');
+end
+
 if equalh
     return
 end
@@ -344,7 +351,6 @@ handles.site_menu.String = handles.h.id;
 handles.site_menu.Value  = 1;
 handles.site_menu_psda.String = handles.h.id;
 handles.site_menu_psda.Value  = 1;
-[handles.idx,handles.hc] = compute_clusters(handles.opt,handles.h);
 plot_sites_PSHA
 
 guidata(hObject, handles);
@@ -479,7 +485,7 @@ function runMRE_Callback(hObject, eventdata, handles)
 
 opt    = handles.opt;
 slist1 = handles.site_selection;
-slist2 = 1:handles.opt.Clusters{2}(1);
+slist2 = 1:max(handles.idx);
 
 switch handles.sys.filename
     case 'USGS_NHSM_2008', handles=runhazUSGS(handles);

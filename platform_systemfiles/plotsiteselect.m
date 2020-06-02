@@ -10,8 +10,10 @@ end
 Lon   = site(:,1)';
 Lat   = site(:,2)';
 CData = site(:,4)';
-scatter(handles.ax1,Lon,Lat,20,CData,'filled','markeredgecolor','k','tag','siteplot');
+
+scatter(handles.ax1,Lon,Lat,20,CData(:),'filled','markeredgecolor','k','tag','siteplot');
 caxis('auto')
 colormap(parula);
 C=colorbar('peer',handles.ax1,'location','eastoutside','position',[0.94 0.16 0.02 0.65]);
 C.Title.String='Vs30(m/s)';
+C.LimitsMode='auto';

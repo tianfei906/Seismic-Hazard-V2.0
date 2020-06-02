@@ -19,8 +19,9 @@ end
 function SelectLocations_OpeningFcn(hObject, eventdata, handles, varargin)
 sprintf('Select Site Toolbox');
 handles.output        = hObject;
+
 handles.VS30.baseline = 760;
-handles.VS30.source   = {' '};
+handles.VS30.source   = cell(0,1);
 % ----------------  variable initialization--------------------------------
 handles.ElevModel = 1;
 handles.lmax      = 50;
@@ -36,7 +37,7 @@ handles.draw_square.CData   = double(imread('Square.jpg'))/255;
 handles.draw_polygone.CData = double(imread('Polygone.jpg'))/255;
 handles.draw_line.CData     = double(imread('Line.jpg'))/255;
 handles.draw_path.CData     = double(imread('Path.jpg'))/255;
-handles.Distance_button.CData     = double(imread('Scale.jpg'))/255;
+handles.Distance_button.CData = double(imread('Scale.jpg'))/255;
 
 
 fname1  = what('platform_earth');

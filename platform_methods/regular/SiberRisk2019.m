@@ -462,7 +462,6 @@ tau = STDC(index,1)*ones(size(M));
 phi = STDC(index,2)*ones(size(M));
 sigma = sqrt(phi.^2+tau.^2);
 
-
 function[lny] = intraPGARock(coef,x)
 
 % To        = spectral period

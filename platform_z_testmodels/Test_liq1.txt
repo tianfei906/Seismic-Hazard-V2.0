@@ -2,7 +2,6 @@ Option 0 - Global Parameters
 Projection   : WGS84
 Image        : chile.mat
 Boundary     : CHL_adm1.shp
-Layer        :
 ShearModulus : 3e11      #dyne/cm2
 IM           : CAV PGA
 im           : [logsp(0.1,2000,20);logsp(0.0001,1,20)]
@@ -129,11 +128,10 @@ truncexp S38  NM 0.165 0.87 5 8.5
 truncexp S39  NM 0.131 0.87 5 8.5
 
 Option 6 - Pre defined sites
-source 760
-LasCondes1 -70.5635 -33.4124 691.3
-LasCondes2 -70.5635 -34.4124 691.3
+LasCondes1 -70.5635 -33.4124 691.3 VS30 760
+LasCondes2 -70.5635 -34.4124 691.3 VS30 760
 
-Option 20 - Liquefaction Analysis Options
+Option LIBS 1 - Liquefaction Analysis Options
 analysis   : FPBBA            # FPBBA or PBPA
 settlement : logsp(1,500 ,20) # mm
 tilt       : logsp(0.1,40,20) # degrees
@@ -142,14 +140,14 @@ wHL        : 0.6 0.4          # weights of liq. triggering method for HL calcula
 RetPeriod  : 500              # return period for LBS and HL calculations
 rhoCAVSA   : 0.70             # 
 
-Option 21 - Building and Site Specific Parameters
+Option LIBS 2 - Building and Site Specific Parameters
 LasCondes1 Default_LIQ.txt
 LasCondes2 Default_LIQ.txt
 
-Option 22 Settlement model library
+Option LIBS 3 Settlement model library
 SET1  handle set_B18
 SET2  handle set_I17
 
-Option 23 - Settlement branches
+Option LIBS 4 - Settlement branches
 Weights 1
 ST1 interface SET1 intraslab SET1 crustal SET1

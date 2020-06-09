@@ -1,10 +1,10 @@
 function[MRE,MREPCE]=runlogictree1(sys,opt,h,sitelist)
 
 %% variable initialization
-VS30      = h.VS30;
+p         = h.p;
+Nsites    = size(p,1);
 IM        = opt.IM;
 im        = opt.im;
-Nsites    = size(h.p,1);
 Nim       = size(im,1);
 NIM       = length(IM);
 Nbranch   = size(sys.branch,1);
@@ -31,35 +31,34 @@ switch opt.SourceDeagg
 end
 MRE     = nan (Nsites,Nim,NIM,Nsource,Nbranch);
 MREPCE  = cell(1,Nbranch);
-p       = h.p;
 
 if license('test','Distrib_Computing_Toolbox')
-    for i=sys.isREG
+    parfor i=sys.isREG
         if weights(i)~=0
             fprintf('%i %i %i %i\n',branch(i,:));
             sources = buildmodelin(sys,branch(i,:),opt);
-            MRE(:,:,:,:,i) = runhazard1(im,IM,p,VS30,opt,sources,Nsource,sitelist);
+            MRE(:,:,:,:,i) = runhazard1(im,IM,h,opt,sources,Nsource,sitelist);
         end
     end
     
     for i=sys.isPCE
         if weights(i)~=0
             sources = buildmodelin(sys,branch(i,:),opt);
-            MREPCE{i}=runhazard1PCE(im,IM,p,VS30,opt,sources,Nsource,sitelist);
+            MREPCE{i}=runhazard1PCE(im,IM,h,opt,sources,Nsource,sitelist);
         end
     end
 else
     for i=sys.isREG
         if weights(i)~=0
             sources = buildmodelin(sys,branch(i,:),opt);
-            MRE(:,:,:,:,i) = runhazard1(im,IM,p,VS30,opt,sources,Nsource,sitelist);
+            MRE(:,:,:,:,i) = runhazard1(im,IM,h,opt,sources,Nsource,sitelist);
         end
     end
     
     for i=sys.isPCE
         if weights(i)~=0
             sources = buildmodelin(sys,branch(i,:),opt);
-            MREPCE{i}=runhazard1PCE(im,IM,p,VS30,opt,sources,Nsource,sitelist);
+            MREPCE{i}=runhazard1PCE(im,IM,h,opt,sources,Nsource,sitelist);
         end
     end
     

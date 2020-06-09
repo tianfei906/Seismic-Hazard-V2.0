@@ -19,6 +19,11 @@ elseif nargin==5
     handles.h      = varargin{4};
 end
 
+[~,kyptr]=intersect(handles.h.param,{'ky','covky'},'stable');
+[~,Tsptr]=intersect(handles.h.param,{'Ts','covTs'},'stable');
+handles.allky = handles.h.value(:,kyptr);
+handles.allTs = handles.h.value(:,Tsptr);
+
 opt.MagDiscrete  = {'uniform',0.1};
 n=max(handles.sys.branch(:,3));
 for i=1:n
@@ -35,7 +40,7 @@ handles.sys.branch(:,4)    = handles.sys.branch(:,4)/sum(handles.sys.branch(:,4)
 %% loads default models
 ME     = handles.ME;
 func   = {ME.str};
-ptrs   = handles.sys.ptrs(9:14,:);
+ptrs   = handles.sys.ptrs(10:14,:);
 ptrs   = ptrs-ptrs(1)+1;
 [d_default,Sadef,Ddef,SMLIB_default,default_reg]=loadPSDADefaultParam(ME);
 txtPSDA = handles.sys.txtPSDA;
@@ -50,6 +55,8 @@ if ~isnan(ptrs(1,1))
     handles.paramPSDA.rng       = str{5}{2};
     handles.paramPSDA.method    = str{6}{2};
     handles.paramPSDA.optimize  = str{7}{2};
+    handles.paramPSDA.kysamples = str2double(str{8}{2});
+    handles.paramPSDA.Tssamples = str2double(str{9}{2});
 else
     handles.paramPSDA.d         = d_default;
     handles.paramPSDA.realSa    = Sadef;
@@ -58,34 +65,13 @@ else
     handles.paramPSDA.rng       = 'shuffle';
     handles.paramPSDA.method    = 'MC';
     handles.paramPSDA.optimize  = 'on';
-    
-end
-
-% ky and Ts
-if ~isnan(ptrs(2,1))
-    str = txtPSDA(ptrs(2,1):ptrs(2,2),:);
-    str = regexp(str,'\ : ','split');
-    
-    % param 1
-    fld = [str{1}{1},'_param'];
-    val = lower(regexp(str{1}{2},'\ ','split'));
-    val = struct(val{:});
-    handles.(fld) = [str2double(val.mean),str2double(val.cov),str2double(val.samples)];
-    
-    %param2
-    fld = [str{2}{1},'_param'];
-    val = lower(regexp(str{2}{2},'\ ','split'));
-    val = struct(val{:});
-    handles.(fld) = [str2double(val.mean),str2double(val.cov),str2double(val.samples)];
-else
-    handles.Ts_param = default_reg.Ts_param;
-    handles.ky_param = default_reg.ky_param;
+    handles.paramPSDA.kysamples = 0;
+    handles.paramPSDA.Tssamples = 0;
 end
 
 % displacement model library
-if ~isnan(ptrs(3,1))
-    
-    str = txtPSDA(ptrs(3,1):ptrs(3,2),:);
+if ~isnan(ptrs(2,1))
+    str = txtPSDA(ptrs(2,1):ptrs(2,2),:);
     str = regexp(str,'\ handle ','split');
     
     Nmodels = length(str);
@@ -116,8 +102,8 @@ else
 end
 
 % Displacement Models for regular PSDA Analysis
-if ~isnan(ptrs(4,1))
-    str = txtPSDA(ptrs(4,1):ptrs(4,2),:);
+if ~isnan(ptrs(3,1))
+    str = txtPSDA(ptrs(3,1):ptrs(3,2),:);
     Nmodels = size(str,1)-1;
     T3    = cell(Nmodels,5);
     newline = regexp(str{1},'\ ','split');
@@ -141,26 +127,23 @@ else
 end
 
 %% Displacement Models for PCE PSDA Analysis
-if ~isnan(ptrs(5,1))
-    str = txtPSDA(ptrs(5,1):ptrs(5,2),:);
+if ~isnan(ptrs(4,1))
+    str = txtPSDA(ptrs(4,1):ptrs(4,2),:);
     str = regexp(str,'\ ','split');
     Nmodels  = size(str,1);
-    DataCDM  = cell(Nmodels,7);
+    DataCDM  = cell(Nmodels,5);
     for j=1:Nmodels
-        modelassig   = struct(str{j}{12:end});
+        modelassig   = struct(str{j}{6:end});
         DataCDM{j,1} = str{j}{1};
         DataCDM{j,2} = sprintf('%s,%s,%s',str{j}{3},str{j}{4},str{j}{5});
-        DataCDM{j,3} = sprintf('%s,%s',str{j}{10},str{j}{11});
-        DataCDM{j,4} = sprintf('%s,%s',str{j}{7} ,str{j}{8});
-        DataCDM{j,5} = modelassig.interface;
-        DataCDM{j,6} = modelassig.intraslab;
-        DataCDM{j,7} = modelassig.crustal;
+        DataCDM{j,3} = modelassig.interface;
+        DataCDM{j,4} = modelassig.intraslab;
+        DataCDM{j,5} = modelassig.crustal;
     end
-    
     isCDMGMM = ~horzcat(SMLIB.isregular);
+    handles.tableCDM.ColumnFormat{3}={SMLIB(isCDMGMM).id};
     handles.tableCDM.ColumnFormat{4}={SMLIB(isCDMGMM).id};
     handles.tableCDM.ColumnFormat{5}={SMLIB(isCDMGMM).id};
-    handles.tableCDM.ColumnFormat{6}={SMLIB(isCDMGMM).id};
     handles.tableCDM.Data = DataCDM;
 end
 
@@ -170,21 +153,19 @@ if any(isREG)
     handles.pop_site.Enable='on';
     handles.pop_site.Value=1;
     
-    % Tables T1,T2
+    % Table T1
     w1          = handles.sys.branch(:,4);
     id          = compose('Branch %i',isREG');
     handles.T1  = [id,num2cell(w1)];
-    [Ts,~,dPTs] = trlognpdf_psda(handles.Ts_param);
-    [ky,~,dPky] = trlognpdf_psda(handles.ky_param);
-    Ts          = round(Ts*1e10)/1e10;
-    [ind1,ind2] = meshgrid(1:length(Ts),1:length(ky));
-    ind1        = ind1(:);
-    ind2        = ind2(:);
-    Nparam      = length(ind1);
-    handles.T2  = [compose('set%i',1:Nparam)',num2cell([Ts(ind1),ky(ind2),dPTs(ind1).*dPky(ind2)])];
+    
+    % Table T2
+    kyval    = handles.allky(1,:);
+    Tsval    = handles.allTs(1,:);
+    handles.T2 = buildPSDA_T2(handles.paramPSDA,kyval,Tsval);
     [handles.tableREG.Data,handles.IJK]=main_psda(handles.T1,handles.T2,handles.T3);
     handles.EditLogicTree.Enable='on';
 end
+
 
 %% ACTIVATE / DEACTIVA REG AND CDM MODES
 if ~isempty(handles.tableCDM.Data)
@@ -214,12 +195,12 @@ else
     handles.tableREG.Enable           = 'off';
     handles.runREG.Enable             = 'inactive';
     handles.treebutton.Enable         = 'inactive';
-    handles.REG_DisplayOptions.Enable = 'inactive';   
+    handles.REG_DisplayOptions.Enable = 'inactive';
 end
 
 %% validation data
-ind1 =ptrs(6,1);
-ind2 =ptrs(6,2);
+ind1 =ptrs(5,1);
+ind2 =ptrs(5,2);
 if ~isnan(ind1)
     line          = regexp(txtPSDA{ind1},'\ ','split');
     handles.sys.D = str2double(line(1,2:end));

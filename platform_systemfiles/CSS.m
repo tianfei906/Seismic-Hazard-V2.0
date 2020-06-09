@@ -69,8 +69,12 @@ drawnow
 
 site_ptr   = handles.pop_site.Value;
 branch_ptr = handles.pop_branch.Value;
-site       = handles.h.p(site_ptr,:);
-VS30       = handles.h.VS30(site_ptr);
+
+h.id    = handles.h.id(site_ptr,:);
+h.p     = handles.h.p(site_ptr,:);
+h.param = handles.h.param;
+h.value = handles.h.value(site_ptr,:);
+
 Tcss       = handles.Tcss;
 NTcss      = length(Tcss);
 AEP        = handles.AEP;
@@ -78,11 +82,11 @@ branch     = handles.sys.branch(branch_ptr,:);
 sources    = buildmodelin(handles.sys,branch,handles.opt.ShearModulus);
 Nsource    = length(sources);
 im1        = repmat(logsp(0.01,3,10)',1,NTcss);
-lambda1    = runhazard1(im1,Tcss,site,VS30,handles.opt,sources,Nsource,1);
+lambda1    = runhazard1(im1,Tcss,h,handles.opt,sources,Nsource,1);
 lambda1    = permute(nansum(lambda1,4),[2 3 1]);
 im1        = ExtrapHazard(im1,lambda1,AEP);
 Nim        = size(im1,1);
-lambda1    = runhazard1(im1,Tcss,site,VS30,handles.opt,sources,Nsource,1);
+lambda1    = runhazard1(im1,Tcss,h,handles.opt,sources,Nsource,1);
 lambda1    = permute(nansum(lambda1,4),[2 3 1]);
 lambda2    = nan(Nim,NTcss);
 patch('parent',handles.ax1,'vertices',[im1([1 end end 1])',AEP([1 1 end end])],'faces',1:4,'edgecolor','none','facecolor',[1 0.97 0.97],'tag','patch','handlevisibility','off');
@@ -108,7 +112,7 @@ cols = repmat(cols,1,3);
 [uhs_spec,cms_spec,sigma_css,rho_css] = deal(zeros(NTcss,length(AEP)));
 for i=1:length(AEP)
     Tr             = 1/AEP(i);
-    data           = runCMS_m1_CSS(handles,im1,lambda1,Tr,sources);
+    data           = runCMS_m1_CSS(handles,im1,lambda1,Tr,h,sources);
     uhs_spec(:,i)  = data(:,1);
     cms_spec(:,i)  = data(:,2);
     sigma_css(:,i) = data(:,3);

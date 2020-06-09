@@ -14,18 +14,20 @@ fun = func2str(gmm.handle);
 val(end)=B;
 
 usp   = gmm.usp;
-M     = SC.Mag;
+ind   = 21;
+M     = SC.Mag(ind);
 dip   = SC.dip;
 width = SC.W;
-Zhyp  = SC.Zhyp;
-Ztor  = SC.Ztor;
+Zhyp  = SC.Zhyp(ind);
+Ztor  = SC.Ztor(ind);
 Zbot  = SC.Zbot;
-Rrup  = SC.Rrup;
-Rhyp  = SC.Rhyp;
-Rx    = SC.Rx;
-Rjb   = SC.Rjb;
-ry0   = SC.Ry0;
-Vs30  = SC.Vs30;
+Rrup  = SC.Rrup(ind);
+Rhyp  = SC.Rhyp(ind);
+Rx    = SC.Rx(ind);
+Rjb   = SC.Rjb(ind);
+ry0   = SC.Ry0(ind);
+VS30  = SC.Vs30;
+f0    = SC.f0;
 
 switch fun
     case 'Youngs1997'
@@ -38,7 +40,7 @@ switch fun
         [~,val(5)]=intersect({'interface','intraslab'},usp{1});
         [~,val(6)]=intersect({'general','cascadia','japan'},usp{2});
     case 'Zhao2006'
-        media = Vs30;
+        media = VS30;
         usp{1}= strrep(usp{1},'auto','strike-slip');
         [~,val(5)]=intersect({'interface','intraslab','strike-slip','normal','normal-oblique','reverse','reverse-oblique','unspecified'},usp{1});
     case 'Mcverry2006'
@@ -50,34 +52,36 @@ switch fun
         media = 'rock';
         [~,val(4)]= intersect({'rock','soil'},media);
     case 'BCHydro2012'
-        media = Vs30;
-        [~,val(6)]=intersect({'interface','intraslab'},usp{1});
-        [~,val(7)]=intersect({'forearc','backarc','unknown'},usp{2});
-        [~,val(8)]=intersect({'lower','central','upper','none'},usp{3});
+        media = VS30;
+        [~,val(5)]=intersect({'interface','intraslab'},usp{1});
+        [~,val(6)]=intersect({'forearc','backarc','unknown'},usp{2});
+        [~,val(7)]=intersect({'lower','central','upper','none'},usp{3});
     case 'BCHydro2018'
-        media = Vs30;
+        media = VS30;
         [~,val(5)]=intersect({'interface','intraslab'},usp{1});
     case 'Arteta2018'
         media = 'rock';
         [~,val(3)]=intersect({'rock','soil'},media);
         [~,val(4)]=intersect({'forearc','backarc'},usp{1});
     case 'Idini2016'
-        media = Vs30;
-        [~,val(6)]=intersect({'interface','intraslab'},usp{1});
-        [~,val(7)]=intersect({'si','sii','siii','siv','sv','svi'},usp{2});
+        media = VS30;
+        [~,val(5)]=intersect({'interface','intraslab'},usp{1});
+        [~,val(6)]=intersect({'si','sii','siii','siv','sv','svi'},usp{2});
     case 'MontalvaBastias2017'
-        media = Vs30;
-        [~,val(6)]=intersect({'interface','intraslab'},usp{1});
-        [~,val(7)]=intersect({'forearc','backarc','unknown'} ,usp{2});
+        media = VS30;
+        [~,val(5)]=intersect({'interface','intraslab'},usp{1});
+        [~,val(6)]=intersect({'forearc','backarc','unknown'} ,usp{2});
     case 'MontalvaBastias2017HQ'
-        media = Vs30;
+        media = VS30;
+        [~,val(5)]=intersect({'interface','intraslab'},usp{1});
+        [~,val(6)]=intersect({'forearc','backarc','unknown'} ,usp{2});
+    case 'Montalva2018'
         [~,val(6)]=intersect({'interface','intraslab'},usp{1});
-        [~,val(7)]=intersect({'forearc','backarc','unknown'} ,usp{2});
     case 'SiberRisk2019'
-        media = Vs30;
-        [~,val(6)]=intersect({'interface','intraslab'},usp{1});
+        media = VS30;
+        [~,val(5)]=intersect({'interface','intraslab'},usp{1});
     case 'Garcia2005'
-        [~,val(5)]=intersect({'horizontal','vertical'},usp{1});
+        [~,val(4)]=intersect({'horizontal','vertical'},usp{1});
     case 'Jaimes2006'
     case 'Jaimes2015'
         [~,val(3)]=intersect({'cu','sct','cdao'},usp{1});
@@ -93,26 +97,26 @@ switch fun
         [~,val(3)]= intersect({'deepsoil','rock'},media);
         [~,val(4)]= intersect({'strike-slip','reverse','reverse-oblique'},usp{1});
     case 'I2008'
-        media = Vs30;
+        media = VS30;
         usp{1}= strrep(usp{1},'auto','strike-slip');
         [~,val(4)]= intersect({'strike-slip','normal','normal-oblique','reverse','reverse-oblique','unspecified'},usp{1});
     case 'CY2008'
-        media = Vs30;
+        media = VS30;
         usp{2}= strrep(usp{2},'auto','strike-slip');
         [~,val(9)]  = intersect({'strike-slip','normal','normal-oblique','reverse','reverse-oblique','unspecified'},usp{2});
         [~,val(10)] = intersect({'mainshock','aftershock'},usp{3});
         [~,val(11)] = intersect({'measured','inferred'},usp{4});
     case 'BA2008'
-        media = Vs30;
+        media = VS30;
         usp{1}= strrep(usp{1},'auto','strike-slip');
         [~,val(4)] =intersect({'unspecified','strike-slip','normal','reverse'},usp{1});
     case 'CB2008'
-        media = Vs30;
+        media = VS30;
         usp{2}= strrep(usp{2},'auto','strike-slip');
         [~,val(8)] =intersect({'strike-slip','normal','normal-oblique','reverse','reverse-oblique','unspecified'},usp{2});
         [~,val(9)] =intersect({'arbitrary','average'},usp{3});
     case 'AS2008'
-        media = Vs30;
+        media = VS30;
         usp{2}= strrep(usp{2},'auto','strike-slip');
         [~,val(10)] =intersect({'strike-slip','normal','normal-oblique','reverse','reverse-oblique','unspecified'},usp{2});
         [~,val(11)] =intersect({'aftershock','mainshock','foreshock','swarms'},usp{3});
@@ -125,28 +129,28 @@ switch fun
         [~,val(5)] =intersect({'hangingwall','footwall','other'},usp{3});
         [~,val(6)] =intersect({'arbitrary','average'},usp{4});
     case 'I2014'
-        media = Vs30;
+        media = VS30;
         usp{1}= strrep(usp{1},'auto','strike-slip');
         [~,val(4)]= intersect({'strike-slip','normal','normal-oblique','reverse','reverse-oblique','unspecified'},usp{1});
     case 'CY2014'
-        media = Vs30;
+        media = VS30;
         usp{2}= strrep(usp{2},'auto','strike-slip');
         [~,val(9)] =intersect({'strike-slip','normal','normal-oblique','reverse','reverse-oblique','unspecified'},usp{2});
         [~,val(10)]=intersect({'measured','inferred'},usp{3});
         [~,val(11)]=intersect({'global','california','japan','china','italy','turkey'},usp{4});
     case 'CB2014'
-        media = Vs30;
+        media = VS30;
         usp{2}= strrep(usp{2},'auto','strike-slip');
         [~,val(12)] = intersect({'strike-slip','normal','normal-oblique','reverse','reverse-oblique','unspecified'},usp{2});
         [~,val(13)] = intersect({'include','exclude'},usp{3});
         [~,val(14)] = intersect({'global','california','japan','china','italy','turkey'},usp{4});
     case 'BSSA2014'
-        media = Vs30;
+        media = VS30;
         usp{2}= strrep(usp{2},'auto','strike-slip');
         [~,val(5)] =intersect({'strike-slip','normal','normal-oblique','reverse','reverse-oblique','unspecified'},usp{2});
         [~,val(6)] =intersect({'global','california','japan','china','italy','turkey'},usp{3});
     case 'ASK2014'
-        media = Vs30;
+        media = VS30;
         usp{2}= strrep(usp{2},'auto','strike-slip');
         [~,val(11)] = intersect({'strike-slip','normal','normal-oblique','reverse','reverse-oblique','unspecified'},usp{2});
         [~,val(12)] = intersect({'mainshock','aftershock'},usp{3});
@@ -164,7 +168,7 @@ switch fun
         [~,val(4)]  = intersect({'strike-slip','normal','normal-oblique','reverse','reverse-oblique','unspecified'},usp{2});
     case 'Arroyo2010'
     case 'Bindi2011'
-        media = Vs30;
+        media = VS30;
         usp{1}= strrep(usp{1},'auto','strike-slip');
         [~,val(4)] = intersect({'strike-slip','normal','normal-oblique','reverse','reverse-oblique','unspecified'},usp{1});
         [~,val(5)] = intersect({'geoh','z'},usp{2});
@@ -174,7 +178,7 @@ switch fun
         [~,val(3)]  = intersect({'sgs-b','sgs-c','sgs-d'},usp{1});
         [~,val(4) ] = intersect({'strike-slip','normal','normal-oblique','reverse','reverse-oblique','unspecified'},usp{2});
     case 'FG15'
-        media = Vs30;
+        media = VS30;
         usp{1}= strrep(usp{1},'auto','strike-slip');
         [~,val(5) ] = intersect({'interface','intraslab','strike-slip','normal','normal-oblique','reverse','reverse-oblique','unspecified'},usp{1});
         [~,val(6) ] = intersect({'forearc','backarc'},usp{2});
@@ -188,11 +192,11 @@ switch fun
         [~,val(4)] = intersect({'strike-slip','normal','normal-oblique','reverse','reverse-oblique','unspecified','intraplate','subduction-interface','subduction-intraslab','subduction-unknown'},usp{1});
         [~,val(5)] = intersect({'cav','cav5','cavstd'},usp{2});
     case 'CB10'
-        media = Vs30;
+        media = VS30;
         usp{2}= strrep(usp{2},'auto','strike-slip');
         [~,val(8)] = intersect({'strike-slip','normal','normal-oblique','reverse','reverse-oblique','unspecified'},usp{2});
     case 'CB19'
-        media = Vs30;
+        media = VS30;
         usp{2}= strrep(usp{2},'auto','strike-slip');
         [~,val(12)] = intersect({'strike-slip','normal','normal-oblique','reverse','reverse-oblique','unspecified'},usp{2});
         [~,val(13)] = intersect({'global','california','japan','china','italy','turkey'},usp{3});
@@ -207,16 +211,17 @@ switch fun
     case 'Zhao2006',                param = [M,Rrup,Zhyp,media,usp];
     case 'Mcverry2006',             param = [M,Rrup,Zhyp,media,usp];
     case 'ContrerasBoroschek2012',  param = [M,Rrup,Zhyp,media,usp];
-    case 'BCHydro2012',             param = [M,Rrup,Rhyp,Zhyp,media,usp];
+    case 'BCHydro2012',             param = [M,Rrup,Zhyp,media,usp];        % SOLO aca, Rhyp Eliminado
     case 'BCHydro2018',             param = [M,Rrup,usp];
     case 'Kuehn2020',               param = [M,Rrup,Ztor,usp];
     case 'Parker2020',              param = [M,Rrup,Zhyp,usp];
-    case 'Arteta2018',              param = [M,Rhyp,media,usp];
-    case 'Idini2016',               param = [M,Rrup,Rhyp,Zhyp,media,usp];
-    case 'MontalvaBastias2017',     param = [M,Rrup,Rhyp,Zhyp,media,usp];
-    case 'MontalvaBastias2017HQ',   param = [M,Rrup,Rhyp,Zhyp,media,usp];
-    case 'SiberRisk2019',           param = [M,Rrup,Rhyp,Zhyp,media,usp];
-    case 'Garcia2005',              param = [M,Rrup,Rhyp,Zhyp,usp];
+    case 'Arteta2018',              param = [M,Rhyp,media,usp];            
+    case 'Idini2016',               param = [M,Rrup,Zhyp,media,usp];        % SOLO aca, Rhyp Eliminado
+    case 'MontalvaBastias2017',     param = [M,Rrup,Zhyp,media,usp];        % SOLO aca, Rhyp Eliminado
+    case 'MontalvaBastias2017HQ',   param = [M,Rrup,Zhyp,media,usp];        % SOLO aca, Rhyp Eliminado
+    case 'Montalva2018',            param = [M,Rrup,Zhyp,VS30,f0,usp];
+    case 'SiberRisk2019',           param = [M,Rrup,Zhyp,media,usp];
+    case 'Garcia2005',              param = [M,Rrup,Zhyp,usp];
     case 'Jaimes2006',              param = [M,Rrup,usp];
     case 'Jaimes2015',              param = [M,Rrup,usp];
     case 'Jaimes2016',              param = [M,Rrup,usp];

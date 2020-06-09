@@ -78,12 +78,12 @@ Co=[
 
 C = Co(index,:);
 switch spectrum
-    case 'si',   sTa  = 0; Vs30 = 1530; % Just to make sure FS=0;
-    case 'sii',  sTa  = C(1);
-    case 'siii', sTa  = C(2);
-    case 'siv',  sTa  = C(3);
-    case 'sv',   sTa  = C(4);
-    case 'svi',  sTa  = C(5);
+    case {'si'  ,1}, sTa  = 0; Vs30 = 1530; % Just to make sure FS=0;
+    case {'sii' ,2}, sTa  = C(1);
+    case {'siii',3}, sTa  = C(2);
+    case {'siv' ,4}, sTa  = C(3);
+    case {'sv'  ,5}, sTa  = C(4);
+    case {'svi' ,6}, sTa  = C(5);
 end
 
 c3     = C(6);

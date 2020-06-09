@@ -6,7 +6,6 @@ Option 0 - Global Parameters
 Projection   : sphere
 Image        : PEER2018Set2_Area2_Faults_B_C.mat
 Boundary     : 
-Layer        : 
 ShearModulus : 3e11      #dyne/cm2
 IM           : 0
 im           : 1.000E-03 1.000E-02 5.000E-02 1.000E-01 1.500E-01 2.000E-01 2.500E-01 3.000E-01 3.500E-01 4.000E-01 4.500E-01 5.000E-01 5.500E-01
@@ -41,15 +40,14 @@ seismicity 1
 delta Fault3 SR 2 7
                   
 Option 6 - Pre defined sites (Optional)
-source 760
-site1 -64.91005  0.00000 0.0000
-site2 -65.04497  0.00000 0.0000
-site3 -65.08995  0.00000 0.0000
-site4 -65.13490  0.00000 0.0000
-site5 -65.22483  0.00000 0.0000
-site6 -65.00900 -0.42718 0.0000
+site1 -64.91005  0.00000 0.0 VS30 760
+site2 -65.04497  0.00000 0.0 VS30 760
+site3 -65.08995  0.00000 0.0 VS30 760
+site4 -65.13490  0.00000 0.0 VS30 760
+site5 -65.22483  0.00000 0.0 VS30 760
+site6 -65.00900 -0.42718 0.0 VS30 760
 
-Option 7 - Verification Hazard Curve (Optional)
+Option 8 - Verification Hazard Curve (Optional)
 PGA   1.000E-03 1.000E-02 5.000E-02 1.000E-01 1.500E-01 2.000E-01 2.500E-01 3.000E-01 3.500E-01 4.000E-01 4.500E-01 5.000E-01 5.500E-01
 site1 2.234E-03 2.234E-03 2.234E-03 2.234E-03 2.234E-03 2.234E-03 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00 0.000E+00
 site2 2.234E-03 2.234E-03 2.234E-03 2.234E-03 2.234E-03 2.234E-03 2.234E-03 2.234E-03 2.234E-03 2.234E-03 0.000E+00 0.000E+00 0.000E+00

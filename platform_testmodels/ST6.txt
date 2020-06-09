@@ -2,7 +2,6 @@ Option 0 - Global Parameters
 Projection   : ECEF
 Image        : 
 Boundary     : 
-Layer        : 
 ShearModulus : 3e11      #dyne/cm2
 IM           : 0.001
 im           : logsp(0.01,3,20);
@@ -37,9 +36,8 @@ seismicity 1
 delta S1 NM 2 6.7 
 
 Option 6 - Pre defined sites (Optional)
-source 760
-site1  30 0 0
+site1  30 0 0  VS30 760
 
-Option 7 - Verification Hazard Curve (Optional)
+Option 8 - Verification Hazard Curve (Optional)
 PGA   0.01 0.0135013 0.0182284 0.0246107 0.0332276 0.0448615 0.0605688 0.0817756 0.110407 0.149064 0.201256 0.271721 0.366858 0.495305 0.668725 0.902863 1.21898 1.64578 2.22201 3 
 site1 2 2 2 1.99998 1.99973 1.99756 1.98463 1.93208 1.78438 1.49209 1.07653 0.643426 0.307894 0.114228 0.0318235 0.00646047 0.000931111 9.32838e-05 6.39117e-06 2.9575e-07 

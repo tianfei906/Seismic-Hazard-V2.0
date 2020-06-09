@@ -137,14 +137,17 @@ else
 end
 
 IM      = handles.opt.IM(IM_ptr);
-site    = handles.h.p(site_ptr,:);
+h.id    = handles.h.id(site_ptr,:);
+h.p     = handles.h.p(site_ptr,:);
+h.param = handles.h.param;
+h.value = handles.h.value(site_ptr,:);
+
 opt     = handles.opt;
 sources = buildmodelin(handles.sys,branch(model_ptr,:),handles.opt);
 sources = sources(source_ptr);
 Nsource = length(source_ptr);
 rho     = str2double(handles.rho.String);
-VS30    = handles.h.VS30(site_ptr);
-[handles.lambda,handles.MRE,handles.MRD] = runhazardV1(im,IM,site,VS30,opt,sources,Nsource,rho);
+[handles.lambda,handles.MRE,handles.MRD] = runhazardV1(im,IM,h,opt,sources,Nsource,rho);
 
 handles.im = im;
 handles.IM = IM;

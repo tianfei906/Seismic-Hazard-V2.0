@@ -36,6 +36,7 @@ SUB.Rx    = sqrt(SUB.Rrup.^2-SUB.Ztor.^2);
 SUB.Rhyp  = SUB.Rrup;
 SUB.Zhyp  = SUB.Ztor;
 SUB.Vs30  = 760;
+SUB.f0    = 1;
 SUB.Z10    = 0.048;
 SUB.Z25    = 0.607;
 
@@ -48,6 +49,7 @@ SC.Rx     = [0;logsp(1,400,Nsamples-1)'];
 SC        = getRrupRjb(SC);
 SC.Ry0    = 0*ones(Nsamples,1);
 SC.Vs30   = 760;
+SC.f0     = 1;
 SC.Z10    = 0.048;
 SC.Z25    = 0.607;
 
@@ -597,3 +599,13 @@ handles.path2figures=D;
 handles.currentfigure=1;
 plotgmpe(handles)
 guidata(hObject,handles)
+
+
+% --- Executes when user attempts to close figure1.
+function figure1_CloseRequestFcn(hObject, eventdata, handles)
+% hObject    handle to figure1 (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    structure with handles and user data (see GUIDATA)
+
+% Hint: delete(hObject) closes the figure
+delete(hObject);

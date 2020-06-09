@@ -9,7 +9,6 @@ Option 0 - Global Parameters
 Projection   : Sphere
 Image        : bayarea.mat
 Boundary     : CAL_adm1.shp
-Layer        : 
 ShearModulus : 3e11      #dyne/cm2
 IM           : -1 0
 im           : [logsp(0.1,60,30); logsp(0.01,2,30)]
@@ -47,10 +46,9 @@ seismicity 1
 truncexp S1 SR 2 0.9 5 6.5
             
 Option 6 - Pre defined sites (Optional)
-source 760
-site1 -122.114 38.0000 0.0000
+site1 -122.114 38.0000 0.0000 VS30 760 ky 0.1 covky 0.3 Ts 0.5 covTs 0.1
 
-Option 8 - PSDA setup
+Option PSDA 1 - PSDA setup
 d         : logsp(1,200,10)  # cm
 realSa    : 30
 realD     : 40
@@ -58,22 +56,20 @@ imhazard  : full
 rng       : shuffle
 method    : PC
 optimize  : on # optimize "on" uses the conditional term M|Sa in M-dependent CDMs
+kysamples : 2
+Tssamples : 2
 
-Option 9 Slope Parameters
-ky    :   mean 0.1 cov 0.3 samples 2
-Ts    :   mean 0.5 cov 0.1 samples 2
-
-Option 10 Library of Slope Displacement Models
+Option PSDA 2 Library of Slope Displacement Models
 RR    handle psda_RA2011R rho 0.6
 RF    handle psda_RA2011F rho 0.6 rhok 0.6 Tm_mean 0.5 Tm_cov 0.15 Tm_Nsta 0 
 PCE1  handle psda_BT2007_cdm
 PCE2  handle psda_BT2007_cdm
 
-Option 11 Slope Displacement Models
+Option PSDA 3 Slope Displacement Models
 Slope Weights 0.5 0.5
 SL1 interface RR intraslab RR crustal RR
 SL2 interface RF intraslab RF crustal RF
 
-Option 12 Slope Displacement Models with PC
-SPCE1 hazard 1 2 1 ky 0.1 0.1 Ts 0.5 0.15 interface PCE1 intraslab PCE1 crustal PCE1
-SPCE2 hazard 1 2 1 ky 0.2 0.1 Ts 0.3 0.15 interface PCE2 intraslab PCE2 crustal PCE2
+Option PSDA 4 Slope Displacement Models with PC
+SPCE1 hazard 1 2 1 interface PCE1 intraslab PCE1 crustal PCE1
+SPCE2 hazard 1 2 1 interface PCE2 intraslab PCE2 crustal PCE2

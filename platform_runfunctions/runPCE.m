@@ -1,4 +1,4 @@
-function[MRE,Cz]=runPCE(source,r0,IM,im,Nreal,ellip)
+function[MRE,Cz]=runPCE(source,r0,IM,im,Nreal,ellip,hparam)
 
 pd   = makedist('Normal');
 t    = truncate(pd,-2,2);
@@ -11,13 +11,13 @@ NMmin    = source.NMmin;
 gmpefun  = gmpe.handle;
 
 switch source.obj
-    case 1, [param,rate] = param_circ(r0,source,ellip);  % point1
-    case 2, [param,rate] = param_circ(r0,source,ellip);  % line1
-    case 3, [param,rate] = param_circ(r0,source,ellip);  % area1
-    case 4, [param,rate] = param_circ(r0,source,ellip);  % area2
-    case 5, [param,rate] = param_rect(r0,source,ellip);  % area3
-    case 6, [param,rate] = param_circ(r0,source,ellip);  % area4
-    case 7, [param,rate] = param_circ(r0,source,ellip);  % volume1
+    case 1, [param,rate] = param_circ(r0,source,ellip,hparam);  % point1
+    case 2, [param,rate] = param_circ(r0,source,ellip,hparam);  % line1
+    case 3, [param,rate] = param_circ(r0,source,ellip,hparam);  % area1
+    case 4, [param,rate] = param_circ(r0,source,ellip,hparam);  % area2
+    case 5, [param,rate] = param_rect(r0,source,ellip,hparam);  % area3
+    case 6, [param,rate] = param_circ(r0,source,ellip,hparam);  % area4
+    case 7, [param,rate] = param_circ(r0,source,ellip,hparam);  % volume1
 end
 
 %% HAZARD INTEGRAL

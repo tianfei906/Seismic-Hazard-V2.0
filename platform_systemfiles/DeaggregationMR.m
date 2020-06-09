@@ -239,15 +239,18 @@ else
     source_ptr  = source_ptr-1;
 end
 
-IM    = opt.IM(IM_ptr);
-site  = handles.h.p(site_ptr,:);
-VS30  = handles.h.VS30(site_ptr);
+IM      = opt.IM(IM_ptr);
+h.id    = handles.h.id(site_ptr,:);
+h.p     = handles.h.p(site_ptr,:);
+h.param = handles.h.param;
+h.value = handles.h.value(site_ptr,:);
+
 % computes hazard curve
 sources = buildmodelin(handles.sys,branch(model_ptr,:),handles.opt.ShearModulus);
 sources = sources(source_ptr);
 
 opt.SourceDeagg='off';
-lambda1 = runhazard1(im1,IM,site,VS30,opt,sources,Nsource,1);
+lambda1 = runhazard1(im1,IM,h,opt,sources,Nsource,1);
 lambda1 = permute(lambda1,[2,1,3,4]);
 if all(lambda1==0)
     ch=findall(handles.ax,'tag','haz1'); ch.XData = [nan;nan]; ch.YData = [nan;nan];
@@ -282,7 +285,7 @@ logxx   = interp1(xData,yData,logyy,'pchip');
 Nim2    = length(logxx);
 im2     = exp(logxx);
 lambda2 = nan(1,Nim2,1,Nsource,1);
-deagg2  = runhazard2(im2,IM,site,VS30,opt,sources,Nsource,1);
+deagg2  = runhazard2(im2,IM,h,opt,sources,Nsource,1);
 
 for i=1:numel(deagg2)
     if ~isempty(deagg2{i})

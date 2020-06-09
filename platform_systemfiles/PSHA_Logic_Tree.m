@@ -29,7 +29,7 @@ handles.weight = weight;
 W1  = unique([branch(:,1),weight(:,1)],'rows');
 ngeom = size(W1,1);
 W1  = num2cell(W1(:,2));
-handles.table1.Data=[compose('Geometry %g',1:ngeom),W1];
+handles.table1.Data=[compose('Geometry %g',1:ngeom)',W1];
 
 % GMM
 [W2,B] = unique([branch(:,2),weight(:,2)],'rows');

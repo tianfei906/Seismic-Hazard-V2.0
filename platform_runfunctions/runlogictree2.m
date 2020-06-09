@@ -1,7 +1,6 @@
 function[lambda,deagg]=runlogictree2(sys,opt,h,sitelist)
 
 %% variable initialization
-VS30      = h.VS30;
 IM        = opt.IM;
 im        = opt.im;
 Nsites    = size(h.p,1);
@@ -24,7 +23,7 @@ for i=1:Nbranch
     fprintf('%g\n',i/Nbranch)
     if weights(i)~=0
         source          = buildmodelin(sys,sys.branch(i,:),ShearMod);
-        deagg(:,:,:,:,i)= runhazard2(im,IM,h.p,VS30,opt,source,Nsource,sitelist);
+        deagg(:,:,:,:,i)= runhazard2(im,IM,h,opt,source,Nsource,sitelist);
     end
 end
 

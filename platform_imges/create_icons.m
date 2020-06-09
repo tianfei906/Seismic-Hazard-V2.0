@@ -28,6 +28,18 @@ handles.RefreshButton.CData        = c10;
 handles.OpenRef.CData              = c11;
 handles.ColorSecondaryLines.CData  = c12;
 
+%% SelectLocation
+
+c1 = double(imread('Exit.jpg'))/255;
+c2 = double(imread('Grid.jpg'))/255;
+c3 = double(imread('Refresh.jpg'))/255;
+c4 = double(imread('Point.jpg'))/255;
+c5 = double(imread('Square.jpg'))/255;
+c6 = double(imread('Polygone.jpg'))/255;
+c7 = double(imread('Line.jpg'))/255;
+c8 = double(imread('Path.jpg'))/255;
+c9 = double(imread('Scale.jpg'))/255;
+save selectlocationbuttons c1 c2 c3 c4 c5 c6 c7 c8 c9
 %% scenarios buttons 
 Undockbutton = double(imread('Undock.jpg'))/255;
 sumbuttonbutton = double(imread('Sum.jpg'))/255;

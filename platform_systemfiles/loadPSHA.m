@@ -40,7 +40,7 @@ data=loadTXTdata(data,'txt2source'); % add source from textfile
 data=loadTXTdata(data,'txt2mscl');   % add magnitude recurrence mododels from textfile
 
 %% computes option pointers
-ptrs = nan(24,2);
+ptrs  = nan(18,2); % Seismic Hazard Options                   (SeismicHazard)
 for i=1:size(data,1)
     if strfind(data{i,1},'Option 0 '), ptrs(1,1) =i;end % real values
     if strfind(data{i,1},'Option 1 '), ptrs(2,1) =i;end % Logic tree weights
@@ -48,22 +48,22 @@ for i=1:size(data,1)
     if strfind(data{i,1},'Option 3 '), ptrs(4,1) =i;end % GMM Library
     if strfind(data{i,1},'Option 4 '), ptrs(5,1) =i;end % GMM Groups
     if strfind(data{i,1},'Option 5 '), ptrs(6,1) =i;end % Magnitude Recurrence
-    if strfind(data{i,1},'Option 6 '), ptrs(7,1) =i;end % Sites (optional)
-    if strfind(data{i,1},'Option 7 '), ptrs(8,1) =i;end % Validation (optional)
+    if strfind(data{i,1},'Option 6 '), ptrs(7,1) =i;end % Sites
+    if strfind(data{i,1},'Option 7 '), ptrs(8,1) =i;end % Spatial Distributed Data
+    if strfind(data{i,1},'Option 8 '), ptrs(9,1) =i;end % Validation (optional)
     
     % PSDA Options
-    if strfind(data{i,1},'Option 8 '), ptrs(9,1) =i;end % PSDA setup
-    if strfind(data{i,1},'Option 9 '), ptrs(10,1)=i;end % Slope Parameters
-    if strfind(data{i,1},'Option 10 '),ptrs(11,1)=i;end % Library of Slope Displacement Models 
-    if strfind(data{i,1},'Option 11 '),ptrs(12,1)=i;end % REG Slope Displacement Models
-    if strfind(data{i,1},'Option 12 '),ptrs(13,1)=i;end % PCE Slope Displacement Models
-    if strfind(data{i,1},'Option 13 '),ptrs(14,1)=i;end % PSDA validation
+    if strfind(data{i,1},'Option PSDA 1 '),ptrs(10,1)=i;end % PSDA setup
+    if strfind(data{i,1},'Option PSDA 2 '),ptrs(11,1)=i;end % Library of Slope Displacement Models 
+    if strfind(data{i,1},'Option PSDA 3 '),ptrs(12,1)=i;end % REG Slope Displacement Models
+    if strfind(data{i,1},'Option PSDA 4 '),ptrs(13,1)=i;end % PCE Slope Displacement Models
+    if strfind(data{i,1},'Option PSDA 5 '),ptrs(14,1)=i;end % PSDA validation
     
     % Liquefaction Induced Settlement (LIS) Options
-    if strfind(data{i,1},'Option 20 '), ptrs(21,1) =i;end % LIBS options
-    if strfind(data{i,1},'Option 21 '), ptrs(22,1) =i;end % Building and Site Specific Parameters
-    if strfind(data{i,1},'Option 22 '), ptrs(23,1) =i;end % Settlement model library
-    if strfind(data{i,1},'Option 23 '), ptrs(24,1) =i;end % Settlement branches
+    if strfind(data{i,1},'Option LIBS 1 '),ptrs(15,1) =i;end % LIBS options
+    if strfind(data{i,1},'Option LIBS 2 '),ptrs(16,1) =i;end % Building and Site Specific Parameters
+    if strfind(data{i,1},'Option LIBS 3 '),ptrs(17,1) =i;end % Settlement model library
+    if strfind(data{i,1},'Option LIBS 4 '),ptrs(18,1) =i;end % Settlement branches
 end
 ptrs = FindEndPtrs(ptrs,data);
 
@@ -86,35 +86,34 @@ end
 
 opt.Image        = str{2}{2};
 opt.Boundary     = str{3}{2};
-opt.Layer        = str{4}{2};
-opt.ShearModulus = str2double(str{5}{2});
-opt.IM           = str2IM(field2str(regexp(str{6}{2},'\s+','split')));
-opt.im           = eval(['[',str{7}{2},']'])'; % is stored in columns
+opt.ShearModulus = str2double(str{4}{2});
+opt.IM           = str2IM(field2str(regexp(str{5}{2},'\s+','split')));
+opt.im           = eval(['[',str{6}{2},']'])'; % is stored in columns
 
 if size(opt.im,2) ~= length(opt.IM)
     opt.im = repmat(opt.im(:,1),1,length(opt.IM));
 end
 
-opt.MaxDistance  = str2double(str{8}{2});
-Mag = regexp(str{9}{2},'\ ','split');
+opt.MaxDistance  = str2double(str{7}{2});
+Mag = regexp(str{8}{2},'\ ','split');
 Mag{2}=str2double(Mag{2});
 opt.MagDiscrete  = Mag;
 
-sig = regexp(str{10}{2},'\ ','split');
+sig = regexp(str{9}{2},'\ ','split');
 if isempty(sig{1})
     opt.Sigma={};
 else
     opt.Sigma        = {sig{1},str2double(sig{2})};
 end
 
-cgmm             = regexp(str{11}{2},'\ ','split');
+cgmm             = regexp(str{10}{2},'\ ','split');
 opt.PCE          = {cgmm{1},cgmm{2},str2double(cgmm{3})};
-opt.IM1          = str2IM(field2str(regexp(str{12}{2},'\s+','split')));
-opt.IM2          = str2IM(field2str(regexp(str{13}{2},'\s+','split')));
-opt.Spatial      = str2func(strrep(str{14}{2},'@',''));
-opt.Spectral     = str2func(strrep(str{15}{2},'@',''));
-opt.SourceDeagg  = str{16}{2};
-aux              = regexp(str{17}{2},'\ ','split');  
+opt.IM1          = str2IM(field2str(regexp(str{11}{2},'\s+','split')));
+opt.IM2          = str2IM(field2str(regexp(str{12}{2},'\s+','split')));
+opt.Spatial      = str2func(strrep(str{13}{2},'@',''));
+opt.Spectral     = str2func(strrep(str{14}{2},'@',''));
+opt.SourceDeagg  = str{15}{2};
+aux              = regexp(str{16}{2},'\ ','split');  
 opt.Clusters     = {aux{1},str2double(aux(2:3))};
 
 opt.IM  = opt.IM(:);
@@ -215,10 +214,10 @@ for i=1:length(GMMLIB)
         var = feval(GMMLIB(i).usp{1});
         GMMLIB(i).T  = var.IM.value;
         GMMLIB(i).Residuals=var.residuals;
-        flds = fields(var);
-        for jj=1:length(flds)
-            if isfield(var.(flds{jj}),'tag')
-                f = var.(flds{jj});
+        siteudp = fields(var);
+        for jj=1:length(siteudp)
+            if isfield(var.(siteudp{jj}),'tag')
+                f = var.(siteudp{jj});
                 if strcmp(f.tag,'Distance')
                     Rm=[Rm;f.value];
                 end
@@ -315,64 +314,53 @@ end
 h = createObj('site');
 if ~isnan(ptrs(7,1))
     str = data(ptrs(7,1):ptrs(7,2),:);
-    
     newline = regexp(str{1},'\ ','split');
-    newline(1)=[];
-    Nline   = length(newline);
-    VS30.baseline = str2double(newline{Nline});
-    if Nline>1
-        VS30.source   = strrep(newline(1:Nline-1),'''','');
-    else
-        VS30.source  = {' '};
+    Nelem   = length(newline);
+    if Nelem==1 && contains(newline,'.txt')
+        str = regexp(str{1},'\ ','split');
+        str = ss_readtxtPSHA(str);
     end
-    str(1)=[];
+    str    = regexp(str,'\ ','split');
+    str    = vertcat(str{:});
+    h.id   = str(:,1);
+    h.p    = str2double(str(:,2:4));
+    h.p(:,3)=h.p(:,3)/1000; % elelation must be input in meters a.m.s.l
+    str(:,1:4)=[];
+    h.param=str(1,1:2:end);
+    str(:,1:2:end)=[];
+    h.value =str2double(str);
+end
+
+%% READ LAYERS
+if ~isnan(ptrs(8,1))
+    str = data(ptrs(8,1):ptrs(8,2),:);
+    Nlayers = size(str,1);
     
-    if contains(str,'.txt')
-        str=regexp(str{1},'\ ','split');
-        h = ss_readtxtPSHA(str{1},VS30);
-    else
-        
-        for i=1:size(str,1)
-            if contains(lower(str{i}),'vs30')
-                linea = regexp(str{i},'\s+','split');
-                id          = strjoin(linea(1:end-5),' ');
-                Lat         = str2double(linea{end-4});
-                Lon         = str2double(linea{end-3});
-                Elev        = str2double(linea{end-2})/1000;
-                VS30_i      = str2double(linea{end});
-                h.id{i}  = id;
-                h.p(i,:)    = [Lat,Lon,Elev];
-                h.VS30(i,1) = VS30_i;
-            end
-        end
-        
-        for i=1:size(str,1)
-            if ~contains(str{i},'VS30')
-                linea = regexp(str{i},'\s+','split');
-                id       = strjoin(linea(1:end-3),' ');
-                Lat      = str2double(linea{end-2});
-                Lon      = str2double(linea{end-1});
-                Elev     = str2double(linea{end})/1000;
-                h.id{i}  = id;
-                h.p(i,:) = [Lat,Lon,Elev];
-                h.VS30(i,1) = nan;
-            end
-        end
+    for ii=1:Nlayers
+        str_i = regexp(str{ii},'\ ','split');
+        dat   = str_i(3:end);
+        dat2  = str2double(dat);
+        dat(~isnan(dat2))=num2cell(dat2(~isnan(dat2)));
+        layer.(str_i{2})=dat(:);
     end
-    IND = find(isnan(h.VS30));
-    if ~isempty(IND)
-        h.VS30(IND)=getVs30(h.p(IND,1:2),VS30);
+    
+    for ii=1:length(h.param)
+        fd  =h.param{ii};
+        IND = isnan(h.value(:,ii));
+        if any(IND)
+           h.value(IND,ii)=layerdatainterp(h.p(IND,1:2),layer.(fd),fd);
+        end
     end
 else
-    VS30.baseline=760;
-    VS30.source  ={' '};
+    layer=createObj('defaultlayers');
 end
+
 
 %% READS VALIDATION HAZARD CURVES (optional)
 do_validation=0;
-if ~isnan(ptrs(8,1))
+if ~isnan(ptrs(9,1))
     do_validation=1;
-    str     = data(ptrs(8,1):ptrs(8,2),:);
+    str     = data(ptrs(9,1):ptrs(9,2),:);
     linea   = regexp(str{1},'\s+','split');
     imtest  = str2double(linea(2:end));
     Nsites  = size(str,1)-1;
@@ -406,11 +394,11 @@ sys.mrr5      = mscl5;
 sys.mrr6      = mscl6;
 sys.mrr7      = mscl7;
 sys.gmmlib    = GMMLIB;
-sys.VS30      = VS30;
+sys.layer     = layer;
+sys.validation= [];
+
 if do_validation
     sys.validation  = [imtest;haztest];
-else
-    sys.validation  = [];
 end
 
 %% PROCESS MODEL
@@ -516,13 +504,13 @@ sys.txtPSDA   = [];
 sys.txtLIBS   = [];
 
 %% EXTRACTS PSDA TEXT
-pt = min(ptrs(9:14,1)):max(ptrs(9:14,2));
+pt = min(ptrs(10:14,1)):max(ptrs(10:14,2));
 if ~isnan(pt)
     sys.txtPSDA = data(pt);
 end
 
 %% EXTRACTS LIBS TEXT
-pt = min(ptrs(21:24,1)):max(ptrs(21:24,2));
+pt = min(ptrs(15:18,1)):max(ptrs(15:18,2));
 if ~isnan(pt)
     sys.txtLIBS = data(pt);
 end

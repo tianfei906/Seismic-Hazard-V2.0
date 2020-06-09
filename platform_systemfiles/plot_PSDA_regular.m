@@ -156,6 +156,7 @@ uimenu(c,'Label','Undock','Callback',           {@figure2clipboard_uimenu,handle
 uimenu(c,'Label','Undock & compare','Callback', {@figurecompare_uimenu,handles.ax1});
 set(handles.ax1,'uicontextmenu',c);
 format(cF);
+handles.ax1.Layer='top';
 
 if isfield(handles.sys,'D') && isfield(handles.sys,'lambdaDTest')
    Nrows = size(handles.sys.lambdaDTest,1);

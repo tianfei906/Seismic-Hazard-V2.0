@@ -3,7 +3,7 @@ handles.site_selection = 1:size(handles.h.p,1);
 opt = handles.opt;
 
 % finds what integration methods are declared in the logic tree
-TCDM      = handles.tableCDM.Data(:,2:7);
+TCDM      = handles.tableCDM.Data(:,2:5);
 [imethod,usedM]=getmethod(handles,TCDM);
 haz=struct('imstandard',[],'IMstandard',[],'lambda',[],'deagg',[],'imvector',[],'IMvector',[],'corrlist',[],'MRD',[]);
 
@@ -29,7 +29,7 @@ geomptr = unique(hazard(:,1));
 s       = unique(vertcat(handles.sys.mech{geomptr}));
 [~,B]   = intersect([1;2;3],s);
 func    = {ME.str}';
-Smodels = TCDM(:,B+3);
+Smodels = TCDM(:,B+1);
 Smodels = unique(Smodels(:));
 usedM   = cell(size(Smodels));
 

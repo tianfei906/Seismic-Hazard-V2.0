@@ -145,6 +145,16 @@ switch handles.methods(val2).str
         arc       = str{6};
         param     = {M,Rrup,Rhyp,Zhyp,Vs30,mechanism,arc};
         
+    case 'Montalva2018'
+        M         = str2double(str{1});
+        Rrup      = str2double(str{2});
+        Rhyp      = Rrup;
+        Zhyp      = str2double(str{3});
+        Vs30      = str2double(str{4});
+        f0        = str2double(str{5});
+        mechanism = str{6};
+        param     = {M,Rrup,Rhyp,Zhyp,Vs30,f0,mechanism};
+        
     case 'SiberRisk2019'
         M         = str2double(str{1});
         Rrup      = str2double(str{2});

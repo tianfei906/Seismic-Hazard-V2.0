@@ -86,8 +86,16 @@ end
 imethod = unique(imethod);
 
 function[opt]=opt_update(handles,usedM,opt,mtype)
-T2       = handles.T2;
+allTs  = handles.allTs;
+nSites = size(allTs,1);
+nTs    = handles.paramPSDA.Tssamples;
+T2     = zeros(max(nTs,1),nSites);
+for i=1:nSites
+    [T2(:,i),~,~]=trlognpdf_psda([allTs(i,:) nTs]);
+end
+Tnat = unique(T2(:));
 methods  = pshatoolbox_methods(5);
+
 
 switch mtype
     case 1, B = ismember(usedM,{'psda_BMT2017M','psda_BT2007','psda_BT2007M','psda_BM2019M','psda_J07M','psda_J07Ia','psda_RS09M','psda_AM1988'}); usedM = usedM(B);
@@ -101,7 +109,6 @@ for i=1:length(b)
     IMfactor = [IMfactor;methods(b(i)).Safactor(:)];
 end
 IMfactor = unique(IMfactor);
-Tnat     = unique(cell2mat(T2(:,2)));
 IM  = [];
 for i=1:length(IMfactor)
     if IMfactor(i)<=0

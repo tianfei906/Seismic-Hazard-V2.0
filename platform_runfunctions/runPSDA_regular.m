@@ -24,10 +24,17 @@ fprintf('                               SLOPE DISPLACEMENT HAZARD \n');
 fprintf('-----------------------------------------------------------------------------------------------------------\n');
 
 hd0 = zeros(size(d));
+[~,kyptr]=intersect(handles.h.param,{'ky','covky'},'stable');
+[~,Tsptr]=intersect(handles.h.param,{'Ts','covTs'},'stable');
+allky = handles.h.value(:,kyptr);
+allTs = handles.h.value(:,Tsptr);
+
 
 for site_ptr=1:Nsites
     brptr =1:Nbranches;
     brptr((cell2mat(T1(:,2))==0))=[];
+    T2site = buildPSDA_T2(handles.paramPSDA,allky(site_ptr,:),allTs(site_ptr,:));
+    
     for branch_ptr=brptr
         ti=tic;
         indT1    = IJK(branch_ptr,1); % pointer to scenario and Tm value
@@ -35,8 +42,10 @@ for site_ptr=1:Nsites
         indT3    = IJK(branch_ptr,3); % pointer to analyses models
         geomptr  = handles.sys.branch(indT1,1);
         
-        Ts       = T2{indT2,2};
-        ky       = T2{indT2,3};
+        % compute site-specific Ts and ky values
+        
+        Ts       = T2site{indT2,2};
+        ky       = T2site{indT2,3};
         B        = zeros(3,1);
         
         [~,B(1)] = intersect(id,T3{indT3,2}); fun1 = SMLIB(B(1)).func; % interface

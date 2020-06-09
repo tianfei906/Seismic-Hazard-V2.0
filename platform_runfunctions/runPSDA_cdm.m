@@ -36,30 +36,30 @@ s=rng;
 rng(RandType);
 
 for site_ptr=1:Nsites
-    site  = handles.h.p(site_ptr,:);
-    VS30  = handles.h.VS30(site_ptr);
-    r0    = gps2xyz(site,ellipsoid);
-    xyz   = gps2xyz(site,ellipsoid);
+    h.p     = handles.h.p(site_ptr,:);
+    h.param = handles.h.param;
+    h.value = handles.h.value(site_ptr);
+    r0      = gps2xyz(h.p,ellipsoid);
+    
+    Ts_param = handles.allTs(site_ptr,:);
+    ky_param = handles.allky(site_ptr,:);
     
     for model_ptr=1:Nmodels
         ti=tic;
-        Ts_param = str2double(regexp(TCDM{model_ptr,3},'\,','split'));
-        ky_param = str2double(regexp(TCDM{model_ptr,4},'\,','split'));
         B        = zeros(3,1);
-        
-        [~,B(1)] = intersect(id,TCDM{model_ptr,5}); fun1 = SMLIB(B(1)).func; % interface
-        [~,B(2)] = intersect(id,TCDM{model_ptr,6}); fun2 = SMLIB(B(2)).func; % slab
-        [~,B(3)] = intersect(id,TCDM{model_ptr,7}); fun3 = SMLIB(B(3)).func; % crustal
+        [~,B(1)] = intersect(id,TCDM{model_ptr,3}); fun1 = SMLIB(B(1)).func; % interface
+        [~,B(2)] = intersect(id,TCDM{model_ptr,4}); fun2 = SMLIB(B(2)).func; % slab
+        [~,B(3)] = intersect(id,TCDM{model_ptr,5}); fun3 = SMLIB(B(3)).func; % crustal
         
         hazpointers= str2double(regexp(TCDM{model_ptr,2},'\,','split'));
-        allsource  = buildmodelin(handles.sys,hazpointers,handles.opt.ShearModulus);
-        ind        = selectsource(opt0.MaxDistance,xyz,allsource);
+        allsource  = buildmodelin(handles.sys,hazpointers,handles.opt);
+        ind        = selectsource(opt0.MaxDistance,r0,allsource);
         ind        = find(ind);
         
         % run sources
         for source_ptr=ind
             source = allsource(source_ptr);
-            source.media = VS30;
+            source.media = h.value;
             switch source.numgeom(1)
                 case 1 , fun = fun1; Bs=B(1); %interface
                 case 2 , fun = fun2; Bs=B(2); %intraslab
@@ -75,7 +75,7 @@ for site_ptr=1:Nsites
             im              = optL.im(:,period_ptr);
 
             if integrator==5 && strcmp(meth,'PC')
-                t1=cputime;[~,Cz]  = runPCE(source,r0,IMslope,im,realSa,ellipsoid); t1 = cputime-t1;
+                t1=cputime;[~,Cz]  = runPCE(source,r0,IMslope,im,realSa,ellipsoid,h.param); t1 = cputime-t1;
                 t2=cputime;lambda  = fun(Ts_param, ky_param,psda_param, im,[],Cz);  t2 = cputime-t2;
                 %disp([t1 t2])
             end
@@ -116,7 +116,7 @@ geomptr = unique(hazard(:,1));
 s       = unique(vertcat(handles.sys.mech{geomptr}));
 [~,B]   = intersect([1;2;3],s);
 func    = {ME.str}';
-Smodels = TCDM(:,B+4);
+Smodels = TCDM(:,B+2);
 Smodels = unique(Smodels(:));
 usedM   = cell(size(Smodels));
 for i=1:length(usedM)
@@ -134,9 +134,8 @@ for i=1:length(b)
 end
 IMfactor = unique(IMfactor);
 
-Tnat = regexp(TCDM(:,3),'\,','split');
-Tnat = str2double(vertcat(Tnat{:}));
-Tnat = unique(Tnat(:,1));
+Tnat = handles.allTs(:,1);
+Tnat = unique(Tnat);
 IM  = [];
 for i=1:length(IMfactor)
     if IMfactor(i)<=0

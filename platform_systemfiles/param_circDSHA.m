@@ -1,13 +1,15 @@
-function [param]=param_circDSHA(r0,rf,M,n,RA,gmm,media,ellipsoid)
+function [param]=param_circDSHA(r0,rf,M,n,RA,gmm,media,ellip,hparam)
+
+[~,indVs30]=intersect(hparam,'VS30'); VS30 = media(indVs30);
 
 %% EVALUATES RUPTURE AREA AND SOURCE NORMAL VECTOR
 rupArea = rupRelation(M,0,RA(1));
 rrup    = dist_rrup(r0,rf,rupArea,n);
 UNK     = ones(size(rrup))*999;
 if gmm.Rmetric(2), rhyp  = dist_rhyp(r0,rf);           end
-if gmm.Rmetric(3), rjb   = dist_rjb(r0,rf,rupArea,n,ellipsoid);  end
-if gmm.Rmetric(8), zhyp  = dist_zhyp(r0,rf,ellipsoid); end
-if gmm.Rmetric(9), ztor  = dist_ztor(r0,rf,rupArea,n,ellipsoid);end
+if gmm.Rmetric(3), rjb   = dist_rjb(r0,rf,rupArea,n,ellip);  end
+if gmm.Rmetric(8), zhyp  = dist_zhyp(r0,rf,ellip); end
+if gmm.Rmetric(9), ztor  = dist_ztor(r0,rf,rupArea,n,ellip);end
 
 %% GMM Parameters
 Ndepend  = 1;
@@ -35,20 +37,24 @@ for jj=1:Ndepend
     
     dip = 90;
     switch str_test
-        case 'Youngs1997',                    param = [M,rrup,zhyp,media,usp];
-        case 'AtkinsonBoore2003',             param = [M,rrup,zhyp,media,usp];
-        case 'Zhao2006',                      param = [M,rrup,zhyp,media,usp];
-        case 'Mcverry2006',                   param = [M,rrup,zhyp,media,usp];
-        case 'ContrerasBoroschek2012',        param = [M,rrup,zhyp,media,usp];
-        case 'BCHydro2012',                   param = [M,rrup,rhyp,zhyp,media,usp];
-        case 'BCHydro2018',                   param = [M,rrup,ztor,media,usp];
-        case 'Kuehn2020',                     param = [M,rrup,ztor,media,usp];
-        case 'Parker2020',                    param = [M,rrup,zhyp,media,usp];            
-        case 'Arteta2018',                    param = [M,rhyp,media,usp];
-        case 'Idini2016',                     param = [M,rrup,rhyp,zhyp,media,usp];
-        case 'MontalvaBastias2017',           param = [M,rrup,rhyp,zhyp,media,usp];
-        case 'MontalvaBastias2017HQ',         param = [M,rrup,rhyp,zhyp,media,usp];
-        case 'SiberRisk2019',                 param = [M,rrup,rhyp,zhyp,media,usp];
+        case 'Youngs1997',                    param = [M,rrup,zhyp,VS30,usp];
+        case 'AtkinsonBoore2003',             param = [M,rrup,zhyp,VS30,usp];
+        case 'Zhao2006',                      param = [M,rrup,zhyp,VS30,usp];
+        case 'Mcverry2006',                   param = [M,rrup,zhyp,VS30,usp];
+        case 'ContrerasBoroschek2012',        param = [M,rrup,zhyp,VS30,usp];
+        case 'BCHydro2012',                   param = [M,rrup,rhyp,zhyp,VS30,usp];
+        case 'BCHydro2018',                   param = [M,rrup,ztor,VS30,usp];
+        case 'Kuehn2020',                     param = [M,rrup,ztor,VS30,usp];
+        case 'Parker2020',                    param = [M,rrup,zhyp,VS30,usp];            
+        case 'Arteta2018',                    param = [M,rhyp,VS30,usp];
+        case 'Idini2016',                     param = [M,rrup,rhyp,zhyp,VS30,usp];
+        case 'MontalvaBastias2017',           param = [M,rrup,rhyp,zhyp,VS30,usp];
+        case 'MontalvaBastias2017HQ',         param = [M,rrup,rhyp,zhyp,VS30,usp];
+        case 'Montalva2018'
+            [~,indf0] = intersect(hparam,'f0');    f0    = media(indf0);
+            param = [M,rrup,rhyp,zhyp,VS30,f0,usp];
+            
+        case 'SiberRisk2019',                 param = [M,rrup,rhyp,zhyp,VS30,usp];
         case 'Garcia2005',                    param = [M,rrup,rhyp,zhyp,usp];
         case 'Jaimes2006',                    param = [M,rrup,usp];
         case 'Jaimes2015',                    param = [M,rrup,usp];
@@ -56,34 +62,34 @@ for jj=1:Ndepend
         case 'GarciaJaimes2017',              param = [M,rrup,usp];
         case 'GarciaJaimes2017HV',            param = [M,rrup,usp];
         case 'Bernal2014',                    param = [M,rrup,zhyp,usp];
-        case 'Sadigh1997',                    param = [M,rrup,media,usp];
-        case 'I2008',                         param = [M,rrup,media,usp];
-        case 'CY2008',                        param = [M,rrup,UNK,-UNK,ztor,dip,media,usp];
-        case 'BA2008',                        param = [M,rjb,media,usp];
-        case 'CB2008',                        param = [M,rrup,rjb,ztor, nan,media,usp];
-        case 'AS2008',                        param = [M,rrup,UNK,-UNK,ztor,dip,999,media,usp];
+        case 'Sadigh1997',                    param = [M,rrup,VS30,usp];
+        case 'I2008',                         param = [M,rrup,VS30,usp];
+        case 'CY2008',                        param = [M,rrup,UNK,-UNK,ztor,dip,VS30,usp];
+        case 'BA2008',                        param = [M,rjb,VS30,usp];
+        case 'CB2008',                        param = [M,rrup,rjb,ztor, nan,VS30,usp];
+        case 'AS2008',                        param = [M,rrup,UNK,-UNK,ztor,dip,999,VS30,usp];
         case 'AS1997h',                       param = [M,rrup,usp];
-        case 'I2014',                         param = [M,rrup,media,usp];
-        case 'CY2014',                        param = [M,rrup,UNK,UNK,ztor,dip,media,usp];
-        case 'CB2014',                        param = [M,rrup,UNK,UNK,UNK,ztor,'unk',dip,999,media,usp];
-        case 'BSSA2014',                      param = [M,rjb,media,usp];
-        case 'ASK2014',                       param = [M,rrup,UNK,-UNK,UNK,ztor,dip,999,media,usp];
+        case 'I2014',                         param = [M,rrup,VS30,usp];
+        case 'CY2014',                        param = [M,rrup,UNK,UNK,ztor,dip,VS30,usp];
+        case 'CB2014',                        param = [M,rrup,UNK,UNK,UNK,ztor,'unk',dip,999,VS30,usp];
+        case 'BSSA2014',                      param = [M,rjb,VS30,usp];
+        case 'ASK2014',                       param = [M,rrup,UNK,-UNK,UNK,ztor,dip,999,VS30,usp];
         case 'AkkarBoomer2007',               param = [M,rjb,usp];
         case 'AkkarBoomer2010',               param = [M,rjb,usp];
         case 'Arroyo2010',                    param = [M,rrup,usp];
-        case 'Bindi2011',                     param = [M,rjb,media,usp];
-        case 'Kanno2006',                     param = [M,Rrup,Zhyp,media,usp];
-        case 'Cauzzi2015',                    param = [M,Rrup,Rhyp,media,usp];
+        case 'Bindi2011',                     param = [M,rjb,VS30,usp];
+        case 'Kanno2006',                     param = [M,Rrup,Zhyp,VS30,usp];
+        case 'Cauzzi2015',                    param = [M,Rrup,Rhyp,VS30,usp];
         case 'DW12',                          param = [M,rrup,usp];
-        case 'FG15',                          param = [M,rrup,zhyp,media,usp];
+        case 'FG15',                          param = [M,rrup,zhyp,VS30,usp];
         case 'TBA03',                         param = [M,rrup,usp];
         case 'BU17',                          param = [M,rrup,zhyp,usp];
-        case 'CB10',                          param = [M,rrup,rjb,ztor,dip,media,usp];
-        case 'CB11',                          param = [M,rrup,rjb,ztor,dip,media,usp];
-        case 'CB19',                          param = [M,rrup,rjb,UNK,UNK,ztor,zhyp,dip,999,media,usp];
+        case 'CB10',                          param = [M,rrup,rjb,ztor,dip,VS30,usp];
+        case 'CB11',                          param = [M,rrup,rjb,ztor,dip,VS30,usp];
+        case 'CB19',                          param = [M,rrup,rjb,UNK,UNK,ztor,zhyp,dip,999,VS30,usp];
         case 'KM06',                          param = [M,rrup,usp];
-        case 'PCE_nga',                       param = [M,rrup,media,usp];
-        case 'PCE_bchydro',                   param = [M,rrup,media,usp];
+        case 'PCE_nga',                       param = [M,rrup,VS30,usp];
+        case 'PCE_bchydro',                   param = [M,rrup,VS30,usp];
         case 'udm'
             var      = gmm.var;
             txt      = regexp(var.syntax,'\(','split');
@@ -139,8 +145,8 @@ for jj=1:Ndepend
     switch gmm.type
         case 'cond'
             switch func2str(gmm.handle)
-                case 'Macedo2019', param = {M,rrup,gmm.txt{4},gmm.txt{5},source.media,gmm.cond,param{:}}; %#ok<CCAT>
-                case 'Macedo2020', param = {M,rrup,source.media         ,gmm.cond,param{:}}; %#ok<CCAT>
+                case 'Macedo2019', param = {M,rrup,gmm.txt{4},gmm.txt{5},VS30,gmm.cond,param{:}}; %#ok<CCAT>
+                case 'Macedo2020', param = {M,rrup,VS30 ,gmm.cond,param{:}}; %#ok<CCAT>
             end
         case 'frn'
             funcs {jj}=gmm.usp{jj}.handle;

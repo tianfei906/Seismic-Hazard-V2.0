@@ -224,15 +224,17 @@ else
 end
 
 IM    = opt.IM(IM_ptr);
-site  = handles.h.p(site_ptr,:);
-VS30  = handles.h.VS30(site_ptr);
+h.id    = handles.h.id(site_ptr,:);
+h.p     = handles.h.p(site_ptr,:);
+h.param = handles.h.param;
+h.value = handles.h.value(site_ptr,:);
 
 sources = buildmodelin(handles.sys,branch(model_ptr,:),handles.opt.ShearModulus);
 sources = sources(source_ptr);
 
 % computes hazard curve
 opt.SourceDeagg='off';
-lambda1 = runhazard1(im1,IM,site,VS30,opt,sources,Nsource,1);
+lambda1 = runhazard1(im1,IM,h,opt,sources,Nsource,1);
 lambda1 = permute(lambda1,[2,1,3,4]);
 if all(lambda1==0)
     ch=findall(handles.ax,'tag','haz1'); ch.XData = [nan;nan]; ch.YData = [nan;nan];
@@ -253,7 +255,7 @@ yData=yData(IND);
 
 logyy   = log(1./handles.returnperiod);
 im3     = exp(interp1(xData,yData,logyy(ret_ptr),'pchip'));
-deagg3  = runhazard3(im3,IM,site,VS30,opt,sources,Nsource,1,handles.Ebin);
+deagg3  = runhazard3(im3,IM,h,opt,sources,Nsource,1,handles.Ebin);
 deagg3  = vertcat(deagg3{1,1,1,:});
 
 deagg3NC    = deagg3(:,5)*1/sum(deagg3(:,5))*1/handles.returnperiod(ret_ptr); % small correction

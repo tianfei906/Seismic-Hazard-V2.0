@@ -11,8 +11,10 @@ SMLIB     = handles.sys.SMLIB;
 id        = {handles.sys.SMLIB.id};
 optimizeD = handles.paramPSDA.optimize;
 d         = Da;
-Ts        = handles.T2{indT2,2};
-KY        = handles.T2{indT2,3};
+
+T2site    = buildPSDA_T2(handles.paramPSDA,handles.allky(site_ptr,:),handles.allTs(site_ptr,:));
+Ts        = T2site{indT2,2};
+KY        = T2site{indT2,3};
 KMIN      = 0.001;
 KMAX      = 1;
 B         = zeros(3,1);

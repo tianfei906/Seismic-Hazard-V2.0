@@ -21,13 +21,16 @@ end
 
 function PSDA_Logic_tree2_OpeningFcn(hObject, ~, handles, varargin)
 handles.output = [];
-handles.sys    = varargin{1};
-Ts_param       = varargin{2};
-ky_param       = varargin{3};
-T1             = varargin{4};
-T2             = varargin{5};
-T3             = varargin{6};
-AnalysisType   = varargin{7};
+handles.sys       = varargin{1};
+h                 = varargin{2}; 
+T1                = varargin{3};
+T2                = varargin{4};
+T3                = varargin{5};
+AnalysisType      = varargin{6};
+handles.paramPSDA = varargin{7};
+
+handles.sitepop.Value  = 1; 
+handles.sitepop.String = h.id;
 
 switch AnalysisType
     case 'PBPA'  , handles.radiobutton1.Value=1;
@@ -45,13 +48,18 @@ handles.table3.ColumnFormat{4}= label(isGMMReg);
 handles.table1.Data=T1;
 
 % slope parameters
-handles.Ts_mean.String = sprintf('%g',Ts_param(1));
-handles.Ts_cov.String  = sprintf('%g',Ts_param(2));
-handles.Ts_nsta.String = sprintf('%g',Ts_param(3));
+[~,kyptr]=intersect(h.param,{'ky','covky'},'stable');
+[~,Tsptr]=intersect(h.param,{'Ts','covTs'},'stable');
+handles.ky = h.value(:,kyptr);
+handles.Ts = h.value(:,Tsptr);
 
-handles.ky_mean.String = sprintf('%g',ky_param(1));
-handles.ky_cov.String  = sprintf('%g',ky_param(2));
-handles.ky_nsta.String = sprintf('%g',ky_param(3));
+val = 1;
+handles.Ts_mean.String = sprintf('%g',handles.Ts(val,1));
+handles.Ts_cov.String  = sprintf('%g',handles.Ts(val,2));
+handles.Ts_nsta.String = sprintf('%g',handles.paramPSDA.Tssamples);
+handles.ky_mean.String = sprintf('%g',handles.ky(val,1));
+handles.ky_cov.String  = sprintf('%g',handles.ky(val,2));
+handles.ky_nsta.String = sprintf('%g',handles.paramPSDA.kysamples);
 
 handles.table2.Data    = T2;
 
@@ -97,9 +105,8 @@ switch handles.radiobutton1.Value
 end
 varargout{2}=handles.table2.Data;
 varargout{3}=handles.table3.Data;
-varargout{4}=str2double({handles.Ts_mean.String,handles.Ts_cov.String,handles.Ts_nsta.String});
-varargout{5}=str2double({handles.ky_mean.String,handles.ky_cov.String,handles.ky_nsta.String});
-varargout{6}=handles.uibuttongroup2.SelectedObject.String;
+varargout{4}=handles.uibuttongroup2.SelectedObject.String;
+varargout{5}=handles.paramPSDA;
 delete(handles.figure1)
 
 function plotPSDALogicTree(handles)
@@ -141,53 +148,26 @@ handles.table2.Data(:,4)=num2cell(w/sum(w));
 guidata(hObject,handles)
 
 function Ts_mean_Callback(hObject, eventdata, handles)
-updatet2(handles)
-guidata(hObject,handles)
 
 function Ts_cov_Callback(hObject, eventdata, handles)
-updatet2(handles)
-guidata(hObject,handles)
 
 function Ts_nsta_Callback(hObject, eventdata, handles)
-updatet2(handles)
+handles.paramPSDA.Tssamples = max(str2double(hObject.String),0);
+val = handles.sitepop.Value;
+handles.table2.Data = buildPSDA_T2(handles.paramPSDA,handles.ky(val,:),handles.Ts(val,:));
 plotPSDALogicTree(handles)
 guidata(hObject,handles)
 
 function ky_mean_Callback(hObject, eventdata, handles)
-updatet2(handles)
-guidata(hObject,handles)
 
 function ky_cov_Callback(hObject, eventdata, handles)
-updatet2(handles)
-guidata(hObject,handles)
 
 function ky_nsta_Callback(hObject, eventdata, handles)
-updatet2(handles)
+handles.paramPSDA.kysamples = max(str2double(hObject.String),0);
+val = handles.sitepop.Value;
+handles.table2.Data = buildPSDA_T2(handles.paramPSDA,handles.ky(val,:),handles.Ts(val,:));
 plotPSDALogicTree(handles)
 guidata(hObject,handles)
-
-function updatet2(handles)
-Ts_param=[str2double(handles.Ts_mean.String),...
-    str2double(handles.Ts_cov.String),...
-    str2double(handles.Ts_nsta.String)];
-
-ky_param=[str2double(handles.ky_mean.String),...
-    str2double(handles.ky_cov.String),...
-    str2double(handles.ky_nsta.String)];
-
-[Ts,~,dPTs] = trlognpdf_psda(Ts_param);
-[ky,~,dPky] = trlognpdf_psda(ky_param);
-
-Ts          = round(Ts*1e10)/1e10;
-[ind1,ind2] = meshgrid(1:length(Ts),1:length(ky));
-ind1   = ind1(:);
-ind2   = ind2(:);
-props  = [Ts(ind1),ky(ind2),dPTs(ind1).*dPky(ind2)];
-ss     = cell(size(props,1),1) ;
-for i=1:size(props,1)
-    ss{i}=sprintf('set%g',i);
-end
-handles.table2.Data=[ss,num2cell(props)];
 
 function Normalize3_Callback(hObject, eventdata, handles)
 
@@ -247,8 +227,21 @@ switch hObject.String
         handles.table1.Data={'Branch0',1};
         plotPSDALogicTree(handles)
     case 'FPBPA' 
-        W = handles.sys.branch(:,7);
+        W = handles.sys.branch(:,4);
         Nb = length(W);
         handles.table1.Data=[compose('Branch%i',(1:Nb)'),num2cell(W(:))];
         plotPSDALogicTree(handles)
 end
+
+function sitepop_Callback(hObject, eventdata, handles)
+
+val = hObject.Value;
+handles.Ts_mean.String = sprintf('%g',handles.Ts(val,1));
+handles.Ts_cov.String  = sprintf('%g',handles.Ts(val,2));
+handles.Ts_nsta.String = sprintf('%g',handles.paramPSDA.Tssamples);
+handles.ky_mean.String = sprintf('%g',handles.ky(val,1));
+handles.ky_cov.String  = sprintf('%g',handles.ky(val,2));
+handles.ky_nsta.String = sprintf('%g',handles.paramPSDA.kysamples);
+
+handles.table2.Data = buildPSDA_T2(handles.paramPSDA,handles.ky(val,:),handles.Ts(val,:));  
+guidata(hObject,handles)

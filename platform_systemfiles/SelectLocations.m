@@ -18,27 +18,21 @@ end
 
 function SelectLocations_OpeningFcn(hObject, eventdata, handles, varargin)
 sprintf('Select Site Toolbox');
-handles.output        = hObject;
+load selectlocationbuttons c1 c2 c3 c4 c5 c6 c7 c8 c9
+handles.Exit_button.CData   = c1;
+handles.gr.CData            = c2;
+handles.po_Refresh.CData    = c3;
+handles.draw_point.CData    = c4;
+handles.draw_square.CData   = c5;
+handles.draw_polygone.CData = c6;
+handles.draw_line.CData     = c7;
+handles.draw_path.CData     = c8;
+handles.Distance_button.CData = c9;
 
-handles.VS30.baseline = 760;
-handles.VS30.source   = cell(0,1);
 % ----------------  variable initialization--------------------------------
 handles.ElevModel = 1;
-handles.lmax      = 50;
-guidata(hObject, handles);
-
-handles.siteclick           = plot(handles.ax1,NaN,NaN,'.','color',[ 0.8500    0.3250    0.0980],'linestyle','none');
-handles.gridplot            = plot(handles.ax1,NaN,NaN,'.:','color',[ 0.8500    0.3250    0.0980]);
-handles.Exit_button.CData   = double(imread('Exit.jpg'))/255;
-handles.gr.CData            = double(imread('Grid.jpg'))/255;
-handles.po_Refresh.CData    = double(imread('Refresh.jpg'))/255;
-handles.draw_point.CData    = double(imread('Point.jpg'))/255;
-handles.draw_square.CData   = double(imread('Square.jpg'))/255;
-handles.draw_polygone.CData = double(imread('Polygone.jpg'))/255;
-handles.draw_line.CData     = double(imread('Line.jpg'))/255;
-handles.draw_path.CData     = double(imread('Path.jpg'))/255;
-handles.Distance_button.CData = double(imread('Scale.jpg'))/255;
-
+handles.siteclick  = plot(handles.ax1,NaN,NaN,'.','color',[ 0.8500    0.3250    0.0980],'linestyle','none');
+handles.gridplot   = plot(handles.ax1,NaN,NaN,'.:','color',[ 0.8500    0.3250    0.0980]);
 
 fname1  = what('platform_earth');
 fname2  = what('platform_shapefiles');
@@ -48,30 +42,11 @@ handles.defaultpaths = {fname1.path;fname2.path;fname3.path};
 handles.GoogleEarthOpt=GEOptions('default');
 
 % ------------------- sets Model Projection -------------------------------
-if isempty(varargin)
-    str = {'Cartesian','WGS84'};
-    base=2;
-    if isempty(base)
-        return
-    elseif base==1
-        handles.opt.ellipsoid.Code= [];
-    elseif base==2
-        handles.opt.ellipsoid= referenceEllipsoid(str{base},'km');
-    end
-    handles.opt.Image     ='';
-    handles.opt.Boundary  ='';
-    handles.opt.Layer     ='';
-else
-    handin             = varargin{1};
-    
-    % convert elevation from km to m
-    handin.h.p(:,3)    = handin.h.p(:,3)*1000;
-    handles.opt        = handin.opt;
-    handles.shape1.String = {handles.opt.Boundary};
-    handles.shape2.String = {handles.opt.Layer};
-    handles.VS30      = handin.VS30;
-    plotVs30sources(handles)
-end
+handin                = varargin{1};
+handin.h.p(:,3)       = handin.h.p(:,3)*1000;
+handles.opt           = handin.opt;
+handles.shape1.String = {handles.opt.Boundary};
+handles.layer         = handin.layer;
 
 if isempty(handles.opt.ellipsoid.Code)
     xlabel(handles.ax1,'X (km)','fontsize',8,'fontname','arial');
@@ -87,122 +62,95 @@ end
 
 % ----------------- PLOTS BOUNDARY AND GOOGLE EARTH IMAGE------------------
 handles.Boundary_check.Enable='on';
-if isempty(varargin)
-    handles.shape1.Value=1;
-    handles.shape2.Value=1;
-    [handles.opt.Image,handles.shape1.String,handles.shape2.String,handles.defaultpaths]=SelectLocationOptions(handles.defaultpaths,handles.opt);
-    handles.opt.Boundary = handles.shape1.String{1};
-    handles.opt.Layer    = handles.shape2.String{1};
-    default_maps(handles.figure2,handles.opt);
-else
-    ax      = handin.ax;
-    mapdata = findall(ax,'tag','shape1');
-    GEimage = findall(ax,'tag','gmap');uistack(GEimage,'bottom');
-    GEimage = GEimage(1);
-    copyobj(mapdata , handles.ax1);
-    copyobj(GEimage , handles.ax1);
-    handles.ax1.XLim            = ax.XLim;
-    handles.ax1.YLim            = ax.YLim;
-    handles.ax1.Position        = ax.Position;
-    handles.ax1.DataAspectRatio = ax.DataAspectRatio;
-    handles.ax1.XTick           = ax.XTick;
-    handles.ax1.XTickLabel      = ax.XTickLabel;
-    handles.ax1.YTick           = ax.YTick;
-    handles.ax1.YTickLabel      = ax.YTickLabel;
-    if ~isempty(mapdata) && strcmp(mapdata.Visible,'off')
-        handles.Boundary_check.Value=0;
-    end
-    if ~isempty(GEimage) && strcmp(GEimage.Visible,'off')
-        handles.show_terrain.Value=0;
-    end
+ax      = handin.ax;
+mapdata = findall(ax,'tag','shape1');
+GEimage = findall(ax,'tag','gmap');uistack(GEimage,'bottom');
+GEimage = GEimage(1);
+copyobj(mapdata , handles.ax1);
+copyobj(GEimage , handles.ax1);
+handles.ax1.XLim            = ax.XLim;
+handles.ax1.YLim            = ax.YLim;
+handles.ax1.DataAspectRatio = ax.DataAspectRatio;
+handles.ax1.XTick           = ax.XTick;
+handles.ax1.XTickLabel      = ax.XTickLabel;
+handles.ax1.YTick           = ax.YTick;
+handles.ax1.YTickLabel      = ax.YTickLabel;
+if ~isempty(mapdata) && strcmp(mapdata.Visible,'off')
+    handles.Boundary_check.Value=0;
 end
-
+if ~isempty(GEimage) && strcmp(GEimage.Visible,'off')
+    handles.show_terrain.Value=0;
+end
 handles.ax1.Layer='top';
 
 % ------ Initiaties site vector--------------------------------------------
-if isempty(varargin)
-    handles.p.Data= cell(0,5);
-    handles.t     = cell(0,2);
-    handles.shape = [];
-    handles.smtable.Data=cell(0,2);
-    handles.smtable.Visible='off';
-    handles.smplot = patch(NaN,NaN,'w','parent',handles.ax1);
-    handles.smplot.Visible='off';
-else
-    handles.p.Data= [handin.h.id(:),num2cell([handin.h.p,handin.h.VS30])];
-    handles.t     = handin.h.t;
-    handles.shape = handin.h.shape;
-    
-    % initiates table
-    shape = handles.shape;
-    Ng = size(shape,1);
-    smtable = cell(Ng,2);
-    for i=1:Ng
-        smtable{i,1}=['shape_',num2str(i)];
-        if shape(i).active==1
-            smtable{i,2}=true;
-        else
-            smtable{i,2}=false;
-        end
-    end
-    if isempty(smtable)
-        handles.smtable.Data=smtable;
-        handles.smtable.Visible='off';
+handles.layerpop.Value  = 1;
+handles.layerpop.String = handin.h.param(:);
+handles.p.ColumnName    = [handles.p.ColumnName;handin.h.param(:)];
+handles.p.Data          = [handin.h.id(:),num2cell([handin.h.p,handin.h.value])];
+handles.t               = handin.h.t;
+handles.shape           = handin.h.shape;
+
+% initiates table
+shape = handles.shape;
+Ng = size(shape,1);
+smtable = cell(Ng,2);
+for i=1:Ng
+    smtable{i,1}=['shape_',num2str(i)];
+    if shape(i).active==1
+        smtable{i,2}=true;
     else
-        handles.smtable.Data=smtable;
-        handles.smtable.Visible='on';
+        smtable{i,2}=false;
     end
-    
-    % initiates smplot objects
-    handles.smplot = patch(NaN,NaN,'w','parent',handles.ax1);
-    for i=1:length(shape)
-        x  = shape(i).Lon;
-        y  = shape(i).Lat;
-        isN = find(isnan(x));
-        x(isN(1):end)=[];
-        y(isN(1):end)=[];
-        handles.smplot(i) = patch(x,y,'w','parent',handles.ax1);
-        if shape(i).active==1
-            set(handles.smplot(i),'visible','on','edgecolor','none','facecolor',[0.8 1 0.7]);
-        else
-            set(handles.smplot(i),'visible','off','edgecolor','none','facecolor',[0.8 1 0.7]);
-        end
-        
-    end
-    set(handles.ax1,'children',flipud(get(handles.ax1,'children')))
+end
+if isempty(smtable)
+    handles.smtable.Data=smtable;
+    handles.smtable.Visible='off';
+else
+    handles.smtable.Data=smtable;
+    handles.smtable.Visible='on';
 end
 
-% Update handles structure
-if ~isempty(varargin)
-    plotsiteselect(handles)
+% initiates smplot objects
+handles.smplot = patch(NaN,NaN,'w','parent',handles.ax1);
+for i=1:length(shape)
+    x  = shape(i).Lon;
+    y  = shape(i).Lat;
+    isN = find(isnan(x));
+    x(isN(1):end)=[];
+    y(isN(1):end)=[];
+    handles.smplot(i) = patch(x,y,'w','parent',handles.ax1);
+    if shape(i).active==1
+        set(handles.smplot(i),'visible','on','edgecolor','none','facecolor',[0.8 1 0.7]);
+    else
+        set(handles.smplot(i),'visible','off','edgecolor','none','facecolor',[0.8 1 0.7]);
+    end
+    
 end
+set(handles.ax1,'children',flipud(get(handles.ax1,'children')))
+
+
+% Update handles structure
+plotLayers(handles)
+plotsiteselect(handles)
 akZoom(handles.ax1)
 guidata(hObject, handles) ;
 uiwait(handles.figure2);
 
 function varargout = SelectLocations_OutputFcn(hObject, eventdata, handles)
 
-if ~isfield(handles,'t')
-    handout.id    = cell(0,1);
-    handout.p     = zeros(0,3);
-    handles.VS30  = zeros(0,1);
-    handout.t     = cell(0,2);
-    handout.shape = [];
-else
+handout       = createObj('site');
+if ~isempty(handles.p.Data)
     handout.id      = handles.p.Data(:,1);
-    if ~isempty(handles.p.Data)
-        handout.p       = cell2mat(handles.p.Data(:,2:4))*diag([1 1 1/1000]);
-        handout.VS30    = cell2mat(handles.p.Data(:,5));
-    else
-        handout.p    = zeros(0,3);
-        handout.VS30 = zeros(0,1);
-    end
+    handout.p       = cell2mat(handles.p.Data(:,2:4))*diag([1 1 1/1000]);
     handout.t       = handles.t;
     handout.shape   = handles.shape;
-    
+    handout.param   = handles.p.ColumnName(4+1:end);
+    handout.value   = cell2mat(handles.p.Data(:,4+1:end));
 end
 varargout{1}    = handout;
-varargout{2}    = handles.VS30;
+varargout{2}    = handles.layer;
+
 if isfield(handles,'index')
     varargout{3} = handles.index;
 else
@@ -331,6 +279,28 @@ end
 % ----------------EDIT ----------------------------------------------------
 function Edit_Callback(hObject, eventdata, handles)
 
+function layerautofill_Callback(hObject, eventdata, handles)
+
+handles.layer = manageLayers(handles.layer);
+plotLayers(handles)
+
+if ~isempty(handles.p.Data)
+    answer   = inputdlg('Update All Layer Values (Y/N)','Layers',[1,40],{'Y'});
+    if isempty(answer)
+        return
+    end
+    if strcmpi(answer{1},'Y')
+        data = cell2mat(handles.p.Data(:,2:end));
+        for i=1:length(handles.layerpop.String)
+            fld  = handles.layerpop.String{i};
+            data(:,3+i)=layerdatainterp(data(:,1:2),handles.layer.(fld),fld);
+        end
+        handles.p.Data(:,2:end)=num2cell(data);
+        plotsiteselect(handles)
+    end
+end
+guidata(hObject,handles)
+
 function BuildDEM_Callback(hObject, eventdata, handles)
 
 if ~exist('api_Key.mat','file')
@@ -356,7 +326,7 @@ vptr     = cell2mat(vptr);
 vertices = cell2mat(Data(vptr==1,[2,3,4]));
 faces    = t{s,2};
 elevation=vertices(:,3);
-plotDEM(vertices,faces,elevation,handles.opt.ellipsoid);
+plotDEM(vertices,faces,elevation);
 
 function ElevModel_Callback(hObject, eventdata, handles)
 
@@ -478,8 +448,13 @@ if isnan(Lat) || isnan(Lon) || isnan(Elev)
     return
 end
 
-VS30   = getVs30([Lat Lon],handles.VS30);
-p      = [handles.p.Data;{id,Lat,Lon,Elev,VS30}];
+Nfld = length(handles.layerpop.String);
+value = cell(1,Nfld);
+for i=1:Nfld
+    fld = handles.layerpop.String{i};
+    value{i} = layerdatainterp([Lat Lon],handles.layer.(fld),fld);
+end
+p       = [handles.p.Data;[id,Lat,Lon,Elev,value]];
 handles.p.Data=p;
 
 % Empties fields
@@ -495,7 +470,65 @@ handles.siteclick.YData=NaN;
 handles.siteclick.LineStyle='none';
 guidata(hObject, handles);
 
+% -------- DISPLAY OPTIONS -----------------------------------------------
+function DisplayOptions_Callback(hObject, eventdata, handles)
 
+function DisplayTerrain_Callback(hObject, eventdata, handles)
+ch=findall(handles.ax1,'tag','gmap');
+if length(ch)>1
+    ch=ch(2);
+end
+switch hObject.Checked
+    case 'on' , hObject.Checked='off';ch.Visible='off';
+    case 'off', hObject.Checked='on'; ch.Visible='on';
+end
+
+function DisplayBoundaries_Callback(hObject, eventdata, handles)
+ch=findall(handles.ax1,'tag','shape1'); if isempty(ch), return; end
+switch hObject.Checked
+    case 'on' , hObject.Checked='off';ch.Visible='off';
+    case 'off', hObject.Checked='on'; ch.Visible='on';
+end
+
+function DisplayMicrozones_Callback(hObject, eventdata, handles)
+ch = findall(handles.ax1,'tag','layer');
+if ~isempty(ch)
+    switch hObject.Checked
+        case 'on' , hObject.Checked='off';set(ch,'Visible','off');
+        case 'off', hObject.Checked='on'; set(ch,'Visible','on');
+    end
+end
+
+% --------------- SMART GRID SELECTION  -----------------------------
+function SmartGrid_Callback(hObject, eventdata, handles)
+
+function Createsmartgrid_Callback(hObject, eventdata, handles)
+str = handles.shape1.String;
+val = handles.shape1.Value;
+handles.fname = str{val};
+handles = create_shape_select(handles,handles.fname,handles.lmax);
+guidata(hObject, handles);
+
+function smtable_CellEditCallback(hObject, eventdata, handles)
+data = handles.smtable.Data;
+
+for i=1:size(data,1)
+    ind = data{i,2};
+    if ind==1
+        handles.smplot(i).Visible='on';
+        handles.shape(i).active=1;
+    else
+        handles.smplot(i).Visible='off';
+        handles.shape(i).active=0;
+    end
+end
+handles=create_mesh_select(handles);
+if size(handles.t,1)>=1
+    handles.BuildDEM.Enable='on';
+else
+    handles.BuildDEM.Enable='off';
+end
+guidata(hObject, handles);
 
 % PANEL 2: ADD GRID -------------------------------------------------------
 function grid_spacing_Callback(hObject, eventdata, handles)  %#ok<*DEFNU,*INUSD>
@@ -654,8 +687,6 @@ Npoints = size(gps,1);
 Ngrid   = size(handles.t,1);
 id      = ['grid_',num2str(Ngrid)];
 handles.t{end,1}=id;
-p = handles.p.Data;
-
 if handles.opt.ellipsoid.Code~=0
     switch handles.ElevModel
         case 1 % do nothing
@@ -679,14 +710,15 @@ if handles.opt.ellipsoid.Code~=0
     end
 end
 
-p0=p;
-p = cell(Npoints,5);
-for i=1:Npoints
-    p{i,1} = sprintf('%s-P%g',id,i);
-end
+Nfld    = length(handles.layerpop.String);
+p       = cell(Npoints,4+Nfld);
+p(:,1)  = compose('%s-P%g',id,(1:Npoints)');
 p(:,2:4)= num2cell(gps);
-p(:,5)  = num2cell(getVs30(gps(:,1:2),handles.VS30));
-handles.p.Data=[p0;p];
+for i=1:Nfld
+    fld      = handles.layerpop.String{i};
+    p(:,4+i) = num2cell(layerdatainterp(gps(:,1:2),handles.layer.(fld),fld));
+end
+handles.p.Data=[handles.p.Data;p];
 plotsiteselect(handles)
 handles.grid_data.Data=cell(0,4);
 handles.BuildDEM.Enable='on';
@@ -722,7 +754,6 @@ Npoints = size(gps,1);
 Ngrid   = size(handles.t,1);
 id      = ['path_',num2str(Ngrid)];
 handles.t{end,1}=id;
-p = handles.p.Data;
 
 if handles.opt.ellipsoid.Code~=0
     switch handles.ElevModel
@@ -748,16 +779,16 @@ if handles.opt.ellipsoid.Code~=0
     end
 end
 
-VS30 = getVs30(gps(:,1:2),handles.VS30);
-for i=1:Npoints
-    id_g = [id,'-P',num2str(i)];
-    Lon  = gps(i,1);
-    Lat  = gps(i,2);
-    Elev = gps(i,3);
-    Vs   = VS30(i);
-    p(end+1,:) = {id_g,Lon,Lat,Elev,Vs}; %#ok<AGROW>
+Nfld    = length(handles.layerpop.String);
+p       = cell(Npoints,4+Nfld);
+p(:,1)  = compose('%s-P%g',id,(1:Npoints)');
+p(:,2:4)= num2cell(gps);
+for i=1:Nfld
+    fld     = handles.layerpop.String{i};
+    p(:,4+i)  = num2cell(layerdatainterp(gps(:,1:2),handles.layer.(fld),fld));
 end
-handles.p.Data=p;
+handles.p.Data=[handles.p.Data;p];
+
 plotsiteselect(handles)
 handles.gridplot.XData=[];
 handles.gridplot.YData=[];
@@ -767,7 +798,6 @@ akZoom(handles.ax1)
 guidata(hObject, handles);
 
 % --------- CELL EDIT CALLBACKS ----------------------------------
-
 function p_CellEditCallback(hObject, eventdata, handles)
 
 data = handles.p.Data;
@@ -793,62 +823,6 @@ data = cell2mat(data);
 data = data([1:end,1],:);
 handles.gridplot.XData=data(:,2);
 handles.gridplot.YData=data(:,1);
-guidata(hObject, handles);
-
-function shape1_Callback(hObject, eventdata, handles)
-val   = hObject.Value;
-str   = hObject.String{val};
-ch     = findall(handles.ax1,'tag','shape1');
-if isempty(ch)
-    return
-end
-data  = shaperead(str, 'UseGeoCoords', true);
-ch.XData=horzcat(data.Lon);
-ch.YData=horzcat(data.Lat);
-guidata(hObject,handles);
-
-function shape2_Callback(hObject, eventdata, handles)
-
-val   = hObject.Value;
-str   = hObject.String{val};
-ch    = findall(handles.ax1,'tag','shape2');
-if isempty(ch)
-    return
-end
-data  = shaperead(str, 'UseGeoCoords', true);
-ch.XData=horzcat(data.Lon);
-ch.YData=horzcat(data.Lat);
-guidata(hObject,handles);
-
-% --------------- SMART GRID SELECTION  -----------------------------
-function SmartGrid_Callback(hObject, eventdata, handles)
-
-function Createsmartgrid_Callback(hObject, eventdata, handles)
-str = handles.shape1.String;
-val = handles.shape1.Value;
-handles.fname = str{val};
-handles = create_shape_select(handles,handles.fname,handles.lmax);
-guidata(hObject, handles);
-
-function smtable_CellEditCallback(hObject, eventdata, handles)
-data = handles.smtable.Data;
-
-for i=1:size(data,1)
-    ind = data{i,2};
-    if ind==1
-        handles.smplot(i).Visible='on';
-        handles.shape(i).active=1;
-    else
-        handles.smplot(i).Visible='off';
-        handles.shape(i).active=0;
-    end
-end
-handles=create_mesh_select(handles);
-if size(handles.t,1)>=1
-    handles.BuildDEM.Enable='on';
-else
-    handles.BuildDEM.Enable='off';
-end
 guidata(hObject, handles);
 
 % --------------- AUXILIARY  -----------------------------
@@ -905,23 +879,6 @@ plot_google_map(...
     'Color',opt.Color);
 guidata(hObject,handles)
 
-function Boundary_check_Callback(hObject, eventdata, handles)
-ch=findall(handles.ax1,'tag','shape1'); if isempty(ch), return; end
-switch hObject.Value
-    case 0, ch.Visible='off';
-    case 1, ch.Visible='on';
-end
-
-function show_terrain_Callback(hObject, eventdata, handles)
-ch=findall(handles.ax1,'tag','gmap');
-if length(ch)>1
-    ch=ch(2);
-end
-switch hObject.Value
-    case 0, ch.Visible='off';
-    case 1, ch.Visible='on';
-end
-
 function type_of_spacing_ButtonDownFcn(hObject, eventdata, handles)
 switch hObject.String
     case 'Max Spacing (km)'
@@ -935,24 +892,6 @@ end
 guidata(hObject,handles)
 
 function smtable_KeyPressFcn(hObject, eventdata, handles)
-
-function Layers_check_Callback(hObject, eventdata, handles)
-
-ch=findall(handles.ax1,'tag','shape2'); if isempty(ch), return; end
-switch hObject.Value
-    case 0, ch.Visible='off';
-    case 1, ch.Visible='on';
-end
-
-function ShapeLibrary_Callback(hObject, eventdata, handles)
-
-handles.shape1.Value=1;
-handles.shape2.Value=1;
-[handles.opt.Image,handles.shape1.String,handles.shape2.String,handles.defaultpaths]=SelectLocationOptions(handles.defaultpaths,handles.opt);
-handles.opt.Boundary = handles.shape1.String{1};
-handles.opt.Layer    = handles.shape2.String{1};
-default_maps(handles,handles.ax1);
-guidata(hObject,handles)
 
 function gr_Callback(hObject, eventdata, handles)
 
@@ -1067,41 +1006,6 @@ handles.p.Data(ind,:)=[];
 plotsiteselect(handles)
 guidata(hObject,handles)
 
-function Vs30autofill_Callback(hObject, eventdata, handles)
-
-handles.VS30 = Vs30Source(handles.VS30);
-plotVs30sources(handles)
-
-if ~isempty(handles.p.Data)
-    answer   = inputdlg('Update All VS30 (Y/N)','VS30',[1,40],{'Y'});
-    if isempty(answer)
-        return
-    end
-    if strcmpi(answer{1},'Y')
-        data = cell2mat(handles.p.Data(:,2:5));
-        data(:,4)=getVs30(data(:,1:2),handles.VS30);
-        handles.p.Data(:,2:5)=num2cell(data);
-        plotsiteselect(handles)
-    end
-end
-guidata(hObject,handles)
-
-function Microzonation_Callback(hObject, eventdata, handles)
-
-ch = findall(handles.ax1,'tag','microzone');
-if ~isempty(ch)
-    switch hObject.Value
-        case 0,set(ch,'Visible','off')
-        case 1,set(ch,'Visible','on')
-    end
-end
-
-function Vs30rasters_Callback(hObject, eventdata, handles)
-
-ch = findall(handles.ax1,'tag','raster');
-if ~isempty(ch)
-    switch hObject.Value
-        case 0,set(ch,'Visible','off')
-        case 1,set(ch,'Visible','on')
-    end
-end
+function layerpop_Callback(hObject, eventdata, handles)
+plotLayers(handles)
+plotsiteselect(handles)

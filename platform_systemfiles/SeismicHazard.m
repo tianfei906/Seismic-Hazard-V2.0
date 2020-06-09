@@ -323,12 +323,12 @@ GMM_explorer(handles)
 
 function Sites_Callback(hObject, eventdata, handles)
 
-handin.h           = handles.h;
-handin.ax          = handles.ax1;
-handin.opt         = handles.opt;
-handin.VS30        = handles.sys.VS30;
-[h_new,VS30,index] = SelectLocations(handin);
-equalh             = structcmp(handin.h,h_new);
+handin.h            = handles.h;
+handin.ax           = handles.ax1;
+handin.opt          = handles.opt;
+handin.layer        = handles.sys.layer;
+[h_new,layer,index] = SelectLocations(handin);
+equalh              = structcmp(handin.h,h_new);
 
 switch handles.opt.Clusters{1}
     case 'on' , [handles.idx,handles.hc] = compute_clusters(handles.opt,handles.h);
@@ -345,7 +345,7 @@ delete_analysis_PSHA;
 handles.site_selection = 1:length(h_new.id);
 Nsites = size(h_new.p,1);
 handles.h = h_new;
-handles.sys.VS30 = VS30;
+handles.sys.layer = layer;
 handles.index = index;
 handles.site_menu.String = handles.h.id;
 handles.site_menu.Value  = 1;
@@ -822,15 +822,6 @@ end
 guidata(hObject,handles)
 
 % ---------CUSTOM TOOLS----------------------------------------------------
-function Layers_check_Callback(hObject, eventdata, handles)
-ch = findall(handles.ax1,'tag','shape2');
-val = hObject.Value;
-switch val
-    case 1, set(ch,'visible','on');
-    case 0, set(ch,'visible','off')
-end
-guidata(hObject,handles);
-
 function Distance_button_Callback(hObject, eventdata, handles)
 ch1=findall(handles.ax1,'tag','patchselect');
 ch2=findall(handles.ax1,'tag','patchtxt');

@@ -3,8 +3,13 @@ function runCMS_method1(handles)
 % set up data
 ellip       = handles.opt.ellipsoid;
 site_ptr    = handles.pop_site.Value;
-site        = handles.h.p(site_ptr,:);
-VS30        = handles.h.VS30(site_ptr);
+
+h           = handles.h;
+h.id        = h.id(site_ptr);
+h.p         = h.p(site_ptr,:);
+h.value     = h.value(site_ptr,:);
+
+site        = h.p(site_ptr,:);
 r0          = gps2xyz(site,ellip);
 model_ptr   = handles.pop_branch.Value;
 Tcond       = str2double(handles.Cond_Period.String);
@@ -20,7 +25,7 @@ branch      = handles.sys.branch(model_ptr,1:3);
 
 % compute seismic hazard for all Sa(T*)
 sources = buildmodelin(handles.sys,branch,handles.opt.ShearModulus);
-lambda1 = runhazard1(im1,T,site,VS30,opt,sources,Nsource,1);
+lambda1 = runhazard1(im1,T,h,opt,sources,Nsource,1);
 lambda1 = permute(lambda1,[2 3 1]);
 
 % compute Hazard Deagregation for T* at Return Period Tr
@@ -33,7 +38,7 @@ opt2    = opt;
 opt2.im = im2;
 opt2.IM = Tcond;
 lambda2 = nan(1,1,1,Nsource,1);
-deagg2  = runhazard2(im2,Tcond,site,VS30,opt2,sources,Nsource,1);
+deagg2  = runhazard2(im2,Tcond,h,opt2,sources,Nsource,1);
 for i=1:numel(deagg2)
     if ~isempty(deagg2{i})
         lambda2(i)=sum(deagg2{i}(:,3));
@@ -58,16 +63,16 @@ source.mscl    = [M 1];
 source.aream   = source.aream(ptr2,:);
 source.hypm    = source.hypm(ptr2,:);
 source.normal  = source.normal(ptr2,:);
-source.media   = VS30;
+source.media   = h.value;
 
 switch source.obj
-    case 1, param = param_circ(r0,source,ellip);  % point1
-    case 2, param = param_circ(r0,source,ellip);  % line1
-    case 3, param = param_circ(r0,source,ellip);  % area1
-    case 4, param = param_circ(r0,source,ellip);  % area2
-    case 5, param = param_rect(r0,source,ellip);  % area3
-    case 6, param = param_circ(r0,source,ellip);  % area4
-    case 7, param = param_circ(r0,source,ellip);  % volume1
+    case 1, param = param_circ(r0,source,ellip,h.param);  % point1
+    case 2, param = param_circ(r0,source,ellip,h.param);  % line1
+    case 3, param = param_circ(r0,source,ellip,h.param);  % area1
+    case 4, param = param_circ(r0,source,ellip,h.param);  % area2
+    case 5, param = param_rect(r0,source,ellip,h.param);  % area3
+    case 6, param = param_circ(r0,source,ellip,h.param);  % area4
+    case 7, param = param_circ(r0,source,ellip,h.param);  % volume1
 end
 
 mu  = zeros(size(uhs));

@@ -241,6 +241,24 @@ switch str
         handles.e5.Style='popupmenu'; handles.e5.Value=1; handles.e5.String={'interface','intraslab'};
         handles.e6.Style='popupmenu'; handles.e6.Value=1; handles.e6.String={'forearc','backarc','unknown'};
         
+    case 'Montalva2018'
+        set(txt(1:6),'Visible','on');
+        set(edi(1:6),'Visible','on');
+        handles.t1.String='M';
+        handles.t2.String='Rrup';
+        handles.t3.String='Zhyp';
+        handles.t4.String='Vs30';
+        handles.t5.String='f0';
+        handles.t6.String='Mechanism';
+        
+        handles.e1.String=SUB.Mag(ind1);
+        handles.e2.String=SUB.Rrup(ind1);
+        handles.e3.String=SUB.Zhyp(ind1);
+        handles.e4.String=SUB.Vs30;
+        handles.e5.String=SUB.f0;
+        handles.e6.Style='popupmenu'; handles.e6.Value=1; handles.e6.String={'interface','intraslab'};
+        
+        
     case 'SiberRisk2019'
         set(txt(1:5),'Visible','on');
         set(edi(1:5),'Visible','on');

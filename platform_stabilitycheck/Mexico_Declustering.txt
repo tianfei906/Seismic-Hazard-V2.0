@@ -2,7 +2,6 @@ Option 0 - Global Parameters
 Projection   : WGS84
 Image        : mexico.mat
 Boundary     : MEX_adm0.shp
-Layer        :
 ShearModulus : 3e11      #dyne/cm2
 IM           : PGA
 im           : 0.05:0.05:1.2
@@ -47,5 +46,4 @@ catalog ProfIntCentro  MexicoReasenberg.mat 30 100
 catalog ProfIntOeste   MexicoReasenberg.mat 30 100
 
 Option 6 - Pre defined sites
-source 760
-PELSalto  -99.80948 19.81056 0
+PELSalto  -99.80948 19.81056 0 VS30 760

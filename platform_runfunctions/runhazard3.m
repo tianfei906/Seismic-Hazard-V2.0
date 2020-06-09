@@ -1,7 +1,7 @@
-function[deagg]=runhazard3(im,IM,site,VS30,opt,source,Nsource,site_selection,Ebin)
+function[deagg]=runhazard3(im,IM,h,opt,source,Nsource,site_selection,Ebin)
 
 ellipsoid = opt.ellipsoid;
-xyz       = gps2xyz(site,ellipsoid);
+xyz       = gps2xyz(h.p,ellipsoid);
 Nsite     = size(xyz,1);
 NIM       = length(IM);
 Nim       = size(im,1);
@@ -25,17 +25,17 @@ for k=site_selection
     ind_k      = ind(k,:);
     sptr       = find(ind_k);
     xyzk       = xyz(k,:);
-    VS30k      = VS30(k);
+    valuek     = h.value(k,:);
     for i=sptr
-        source(i).media = VS30k;
-        deagg(k,:,:,i)  = runsourceDeagg(source(i),xyzk,IM,im,ellipsoid,sigma,emin,emax,deps);
+        source(i).media = valuek;
+        deagg(k,:,:,i)  = runsourceDeagg(source(i),xyzk,IM,im,ellipsoid,sigma,emin,emax,deps,h.param);
     end
 end
 
 
 return
 
-function[deagg]=runsourceDeagg(source,r0,T,im,ellip,sigma,emin,emax,deps)
+function[deagg]=runsourceDeagg(source,r0,T,im,ellip,sigma,emin,emax,deps,hparam)
 
 gmm = source.gmm;
 
@@ -48,13 +48,13 @@ NMmin  = source.NMmin;
 gmpefun  = gmm.handle;
 
 switch source.obj
-    case 1, [param,rate_MR] = param_circ(r0,source,ellip);  % point1
-    case 2, [param,rate_MR] = param_circ(r0,source,ellip);  % line1
-    case 3, [param,rate_MR] = param_circ(r0,source,ellip);  % area1
-    case 4, [param,rate_MR] = param_circ(r0,source,ellip);  % area2
-    case 5, [param,rate_MR] = param_rect(r0,source,ellip);  % area3
-    case 6, [param,rate_MR] = param_circ(r0,source,ellip);  % area4
-    case 7, [param,rate_MR] = param_circ(r0,source,ellip);  % volume1
+    case 1, [param,rate_MR] = param_circ(r0,source,ellip,hparam);  % point1
+    case 2, [param,rate_MR] = param_circ(r0,source,ellip,hparam);  % line1
+    case 3, [param,rate_MR] = param_circ(r0,source,ellip,hparam);  % area1
+    case 4, [param,rate_MR] = param_circ(r0,source,ellip,hparam);  % area2
+    case 5, [param,rate_MR] = param_rect(r0,source,ellip,hparam);  % area3
+    case 6, [param,rate_MR] = param_circ(r0,source,ellip,hparam);  % area4
+    case 7, [param,rate_MR] = param_circ(r0,source,ellip,hparam);  % volume1
 end
 
 %% HAZARD INTEGRAL

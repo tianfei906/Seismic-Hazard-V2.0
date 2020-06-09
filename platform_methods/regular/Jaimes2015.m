@@ -36,6 +36,8 @@ end
 
 % unit convertion
 lny  = lny+log(units);
+tau  = nan(size(M));
+phi  = nan(size(M));
 
 function [lny,sigma]=gmpe(index,M,Rrup,station)
 

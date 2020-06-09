@@ -1,6 +1,5 @@
 function[mulogIM,L]=run_DSHA(source,scen,h,opt)
 
-VS30      = h.VS30;
 r0        = gps2xyz(h.p,opt.ellipsoid);
 Nscen     = size(scen,1);
 [slist,~,sf]  = unique(scen(:,  1)');
@@ -18,14 +17,14 @@ phi       = zeros(Nscen,NIM);
 for i=slist
     ind = (sf==i);
     [mulogIM(ind,:,:),tau(ind,:),phi(ind,:)] = dsha_gmpe2(...
-        source(i),scen(ind,2),scen(ind,3:5),scen(ind,6:8),r0,VS30,opt);
+        source(i),scen(ind,2),scen(ind,3:5),scen(ind,6:8),r0,h,opt);
 end
 
 numgeom = vertcat(source.numgeom);
 mec     = numgeom(sf,1); % list of mechanisms
 L       = dsha_chol2(tau(B,:),phi(B,:),mec(B,:),uscen(:,2),r0,opt);
 
-function [mulogIM,tau,phi] = dsha_gmpe2(source,M,rf,normal,r0,VS30,opt)
+function [mulogIM,tau,phi] = dsha_gmpe2(source,M,rf,normal,r0,h,opt)
 
 IMs           = [opt.IM1;opt.IM2];
 NIM           = length(IMs);
@@ -35,14 +34,14 @@ mulogIM       = zeros(Nscen,NIM,Nsites);
 [tau,phi] = deal(nan(Nscen,NIM));
 
 for i=1:Nsites
-    source.media=VS30(i);
-    if i==1, [mulogIM(:,:,i),tau,phi]=run_gmpe(source,M,normal,rf,r0(i,:),IMs,opt);
-    else,    [mulogIM(:,:,i),~  ,~  ]=run_gmpe(source,M,normal,rf,r0(i,:),IMs,opt);
+    source.media=h.value(i,:);
+    if i==1, [mulogIM(:,:,i),tau,phi]=run_gmpe(source,M,normal,rf,r0(i,:),IMs,opt,h.param);
+    else,    [mulogIM(:,:,i),~  ,~  ]=run_gmpe(source,M,normal,rf,r0(i,:),IMs,opt,h.param);
     end
 end
 
-function[mu,tau,phi]=run_gmpe(source,M,normal,rf,r0,IM,opt)
-ellipsoid = opt.ellipsoid;
+function[mu,tau,phi]=run_gmpe(source,M,normal,rf,r0,IM,opt,hparam)
+ellip = opt.ellipsoid;
 Nscen = size(M,1);
 NIM   = length(IM);
 RA    = source.numgeom(3:4);
@@ -50,13 +49,13 @@ gmm   = source.gmm;
 media = source.media;
 %% ASSEMBLE GMPE PARAMERTER
 switch source.obj
-    case 1, param = param_circDSHA(r0,rf,M,normal,RA,gmm,media,ellipsoid);
-    case 2, param = param_circDSHA(r0,rf,M,normal,RA,gmm,media,ellipsoid);
-    case 3, param = param_circDSHA(r0,rf,M,normal,RA,gmm,media,ellipsoid);
-    case 4, param = param_circDSHA(r0,rf,M,normal,RA,gmm,media,ellipsoid);
-    case 5, param = param_rect(r0,source,ellipsoid);
-    case 6, param = param_circDSHA(r0,rf,M,normal,RA,gmm,media,ellipsoid);
-    case 7, param = param_circDSHA(r0,rf,M,normal,RA,gmm,media,ellipsoid);
+    case 1, param = param_circDSHA(r0,rf,M,normal,RA,gmm,media,ellip,hparam);
+    case 2, param = param_circDSHA(r0,rf,M,normal,RA,gmm,media,ellip,hparam);
+    case 3, param = param_circDSHA(r0,rf,M,normal,RA,gmm,media,ellip,hparam);
+    case 4, param = param_circDSHA(r0,rf,M,normal,RA,gmm,media,ellip,hparam);
+    case 5, param = param_rect(r0,source,ellip,hparam);
+    case 6, param = param_circDSHA(r0,rf,M,normal,RA,gmm,media,ellip,hparam);
+    case 7, param = param_circDSHA(r0,rf,M,normal,RA,gmm,media,ellip,hparam);
 end
 
 [mu,sig,tau,phi] = deal(zeros(Nscen,NIM));

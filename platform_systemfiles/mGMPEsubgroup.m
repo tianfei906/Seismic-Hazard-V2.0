@@ -18,7 +18,8 @@ IMlist = [
 1	0	0	0	0	0	0	1	0	0	0      % Arteta et al. 2018           
 1	0	0	0	0	0	0	1	0	0	0      % Idini et al. 2016            
 1	0	0	0	0	0	0	1	0	0	0      % Montalva et al. 2017         
-1	0	0	0	0	0	0	1	0	0	0      % Montalva et al. 2017 (HQ)    
+1	0	0	0	0	0	0	1	0	0	0      % Montalva et al. 2017 (HQ) 
+1	0	0	0	0	0	0	1	0	0	0      % Montalva et al. 2018
 1	1	0	0	0	0	0	1	0	0	0      % SIBER-RISK 2019              
 1	1	0	0	0	0	0	1	0	0	0      % Garcia et al. 2005           
 1	0	0	0	0	0	0	1	0	0	0      % Jaimes et al. 2006           
@@ -67,7 +68,8 @@ mech = [
 0	1	0      % Arteta et al. 2018           
 1	1	0      % Idini et al. 2016            
 1	1	0      % Montalva et al. 2017         
-1	1	0      % Montalva et al. 2017 (HQ)    
+1	1	0      % Montalva et al. 2017 (HQ)   
+1	1	0      % Montalva et al. 2018
 1	1	0      % SIBER-RISK 2019              
 0	1	0      % Garcia et al. 2005           
 1	0	0      % Jaimes et al. 2006           

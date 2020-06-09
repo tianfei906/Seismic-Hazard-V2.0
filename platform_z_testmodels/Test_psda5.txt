@@ -2,7 +2,6 @@ Option 0 - Global Parameters
 Projection   : WGS84
 Image        : chile.mat
 Boundary     : CHL_adm1.shp
-Layer        :
 ShearModulus : 3e11      #dyne/cm2
 IM           : PGA 1
 im           : logsp(0.001,3,20)
@@ -131,11 +130,10 @@ truncexp S38  NM 0.165 0.87 5 8.5
 truncexp S39  NM 0.131 0.87 5 8.5
 
 Option 6 - Pre defined sites
-source 760
-LasCondes1 -70.5635 -33.4124 0
-LasCondes3 -70.5635 -34.4124 0
+LasCondes1 -70.5635 -33.4124 0 VS30 760 ky 0.14 covky 0.2 Ts 0.33 covTs 0.1
+LasCondes3 -70.5635 -34.4124 0 VS30 760 ky 0.13 covky 0.1 Ts 0.43 covTs 0.1
 
-Option 8 - PSDA setup
+Option PSDA 1 - PSDA setup
 d         : logsp(1,200,10)  # cm
 realSa    : 30
 realD     : 40
@@ -143,12 +141,10 @@ imhazard  : full
 rng       : shuffle
 method    : PC
 optimize  : on # optimize "on" uses the conditional term M|Sa in M-dependent CDMs
+kysamples : 2
+Tssamples : 2                                                                                                     
 
-Option 9 Slope Parameters
-ky    :   mean 0.1 cov 0.3 samples 2
-Ts    :   mean 0.5 cov 0.1 samples 2
-
-Option 10 Library of Slope Displacement Models
+Option PSDA 2 Library of Slope Displacement Models
 DISP1  handle psda_BMT2017M 
 DISP2  handle psda_BT2007M
 DISP3  handle psda_J07M
@@ -161,11 +157,11 @@ DISP10 handle psda_RA2011F rho 0.6 rhok 0.6 Tm_mean 0.5 Tm_cov 0.15 Tm_Nsta 0
 PCE1   handle psda_BT2007_cdm
 PCE2   handle psda_BT2007_cdm
 
-Option 11 Slope Displacement Models
+Option PSDA 3 Slope Displacement Models
 Slope Weights 0.5 0.5
 SL1 interface DISP1 intraslab DISP1 crustal DISP2
 SL2 interface DISP7 intraslab DISP7 crustal DISP2
 
-Option 12 Slope Displacement Models with PC
-SPCE1 hazard 1 7 1 ky 0.1 0.1 Ts 0.5 0.15 interface PCE1 intraslab PCE1 crustal PCE1
-SPCE2 hazard 1 7 1 ky 0.2 0.1 Ts 0.3 0.15 interface PCE2 intraslab PCE2 crustal PCE2
+Option PSDA 4 Slope Displacement Models with PC
+SPCE1 hazard 1 7 1 interface PCE1 intraslab PCE1 crustal PCE1
+SPCE2 hazard 1 7 1 interface PCE2 intraslab PCE2 crustal PCE2

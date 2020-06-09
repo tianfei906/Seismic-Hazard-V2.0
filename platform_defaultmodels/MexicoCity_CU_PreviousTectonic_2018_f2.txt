@@ -2,7 +2,6 @@ Option 0 - Global Parameters
 Projection   : WGS84
 Image        : mexico_DF.mat
 Boundary     : MEX_adm0.shp
-Layer        :
 ShearModulus : 3e11      #dyne/cm2
 IM           : PGA
 im           : logsp(0.01,1,20)
@@ -128,5 +127,4 @@ truncexp  Polochic2              NM 0.120   0.950  5.0 7.8       # beta 2.187
 truncexp  Polochic3              NM 0.120   0.950  5.0 7.8       # beta 2.187 
 
 Option 6 - Pre defined sites
-source 1000
-CU-UNAM  -99.181076 19.33024 0
+CU-UNAM  -99.181076 19.33024 0 VS30 1000

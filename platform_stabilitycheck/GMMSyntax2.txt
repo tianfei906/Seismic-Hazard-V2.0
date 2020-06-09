@@ -2,7 +2,6 @@ Option 0 - Global Parameters
 Projection   : WGS84
 Image        : chile.mat
 Boundary     : CHL_adm1.shp
-Layer        :
 ShearModulus : 3e11      #dyne/cm2
 IM           : PGA
 im           : logsp(0.001,3,20)
@@ -108,7 +107,9 @@ truncexp TestArea1  NM 10   1 5 8.5
 truncexp TestArea3  NM 0.01 1 5 8.5
 
 Option 6 - Pre defined sites
-source 760
-LC1 -70.5635 -33.4124 691.3
-site1 -64.91005  0.00000 0.0000
-site2 -65.04497  0.00000 0.0000
+LC1 -70.5635 -33.4124 691.3       VS30 760
+site1 -64.91005  0.00000 0.0000   VS30 760
+site2 -65.04497  0.00000 0.0000   VS30 760
+
+Option 7 - Spacial distributed data
+layer VS30 760

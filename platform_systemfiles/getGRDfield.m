@@ -8,15 +8,15 @@ function u=getGRDfield(fig,sys,opt,data,h,uhs,modo)
 branch       = sys.branch(:,1:3);
 ShearModulus = opt.ShearModulus;
 
-
 switch modo
     case 'PSHA'
         val       = get(findall(fig,'tag','select_IM'),'value');
         model_ptr = get(findall(fig,'tag','IM_menu'),'value');
         site_ptr  = get(findall(fig,'tag','site_menu'),'value');
         IM        = data.T(val-1);
-        site      = h.p(site_ptr,:);
-        Vs30      = h.Vs30(site_ptr);
+        h.id      = h.id(site_ptr);
+        h.p       = h.p(site_ptr,:);
+        h.value   = h.value(site_ptr,:);
         haz       = 1/str2double(get(findall(fig,'tag','retperiod'),'string'));
         RSR       = data.MapRSR(:,:,val-1);
         
@@ -25,7 +25,7 @@ switch modo
         
         % round 1: seach of PGA
         im        = logsp(0.01,3,5)';
-        MRE       = runhazard1(im,IM,site,Vs30,opt,sources,Ns,1);
+        MRE       = runhazard1(im,IM,h,opt,sources,Ns,1);
         MRE       = nansum(MRE,4)';
         IM0       = exp(interp1(log(MRE),log(im),log(haz),'spline'));
         
@@ -33,7 +33,7 @@ switch modo
         immin     = 0.98*IM0;
         immax     = 1.02*IM0;
         im        = logsp(immin,immax,5)';
-        MRE       = runhazard1(im,IM,site,Vs30,opt,sources,Ns,1);
+        MRE       = runhazard1(im,IM,h,opt,sources,Ns,1);
         MRE       = nansum(MRE,4)';
         IM0       = exp(interp1(log(MRE),log(im),log(haz),'spline'));
         u         = RSR*IM0;

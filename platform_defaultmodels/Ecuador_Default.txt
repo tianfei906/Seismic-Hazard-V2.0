@@ -2,7 +2,6 @@ Option 0 - Global Parameters
 Projection   : WGS84
 Image        : ecuador.mat
 Boundary     : ECU_adm1.shp
-Layer        : 
 ShearModulus : 3e11      #dyne/cm2
 IM           : PGA
 im           : logsp(0.01,1.5,20)
@@ -91,5 +90,4 @@ truncnorm SMT-1-TC     SR 2 4.0 9.0 8.6 0.4
 truncnorm SMT-3-TC     SR 2 4.1 8.5 8.0 0.5
 
 Option 6 - Pre defined sites
-source 760
-Quito -78.485029 -0.180351 0
+Quito -78.485029 -0.180351 0 VS30 760

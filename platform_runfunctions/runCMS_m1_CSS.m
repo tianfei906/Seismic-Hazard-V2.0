@@ -1,4 +1,4 @@
-function [data]=runCMS_m1_CSS(handles,im1,lambda1,Tr,source)
+function [data]=runCMS_m1_CSS(handles,im1,lambda1,Tr,h,source)
 
 Tcss  = handles.Tcss;
 Tcond = str2double(handles.param{2});
@@ -6,10 +6,7 @@ handles.opt.im=im1;
 
 % set up data
 ellipsoid   = handles.opt.ellipsoid;
-site_ptr    = handles.pop_site.Value;
-site        = handles.h.p(site_ptr,:);
-VS30        = handles.h.VS30(site_ptr);
-r0          = gps2xyz(site,ellipsoid);
+r0          = gps2xyz(h.p,ellipsoid);
 
 N0          = numel(Tcss);
 T           = unique([Tcss;Tcond]);
@@ -21,16 +18,12 @@ Nsource     = length(source);
 
 
 % compute Hazard Deagregation for T* at Return Period Tr
-logy    = log(lambda1(:,Tcond_ptr));
-logx    = log(im1(:,Tcond_ptr));
-logyy   = log(1/Tr);
-logxx   = interp1(logy,logx,logyy,'pchip');
-im2     = exp(logxx);
+im2     = robustinterp(lambda1(:,Tcond_ptr),im1(:,Tcond_ptr),1/Tr,'loglog');
 opt2    = opt;
 opt2.im = im2;
 opt2.IM = Tcond;
 lambda2 = nan(1,1,1,Nsource,1);
-deagg2  = runhazard2(im2,Tcond,site,VS30,opt2,source,Nsource,1);
+deagg2  = runhazard2(im2,Tcond,h,opt2,source,Nsource,1);
 
 for i=1:numel(deagg2)
     if ~isempty(deagg2{i})
@@ -50,21 +43,21 @@ uhs  = uhspectrum(handles.opt.im,lambda1,1/Tr);
 
 % compute GMPE prediction
 source        = source(ptr1);
+source.media  = h.value;
 gmpefun       = source.gmm.handle;
 source.mscl   = [M 1];
 source.hypm   = source.hypm(ptr2,:);
 source.aream  = source.aream(ptr2,:);
 source.normal = source.normal(ptr2,:);
-source.media  = VS30;
 ellip         = handles.opt.ellipsoid;
 switch source.obj
-    case 1, param = param_circ(r0,source,ellip);  % point1
-    case 2, param = param_circ(r0,source,ellip);  % line1
-    case 3, param = param_circ(r0,source,ellip);  % area1
-    case 4, param = param_circ(r0,source,ellip);  % area2
-    case 5, param = param_rect(r0,source,ellip);  % area3
-    case 6, param = param_circ(r0,source,ellip);  % area4
-    case 7, param = param_circ(r0,source,ellip);  % volume1
+    case 1, param = param_circ(r0,source,ellip,h.param);  % point1
+    case 2, param = param_circ(r0,source,ellip,h.param);  % line1
+    case 3, param = param_circ(r0,source,ellip,h.param);  % area1
+    case 4, param = param_circ(r0,source,ellip,h.param);  % area2
+    case 5, param = param_rect(r0,source,ellip,h.param);  % area3
+    case 6, param = param_circ(r0,source,ellip,h.param);  % area4
+    case 7, param = param_circ(r0,source,ellip,h.param);  % volume1
 end
 
 mu  = zeros(size(uhs));

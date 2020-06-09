@@ -25,10 +25,3 @@ for j=1:2
     SMLIB(cont).param      = [];
 end
 
-default_reg.Ts_param  = [0.5 0.2 0];               % fundamental site period
-default_reg.ky_param  = [0.2 0.2 0];               % slope yield coefficients
-
-
-
-
-

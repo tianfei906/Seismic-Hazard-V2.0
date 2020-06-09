@@ -2,7 +2,6 @@ Option 0 - Global Parameters
 Projection   : WGS84
 Image        : colombia.mat
 Boundary     : COL_adm1.shp
-Layer        :
 ShearModulus : 3e11      #dyne/cm2
 IM           : PGA
 im           : logsp(0.01,3,20)
@@ -111,5 +110,4 @@ truncexp COLc31UribanteCaparro     NM 0.8200  0.646  4.0  7.0
 truncexp COLc22Psi9                NM 0.5750  0.920  4.5  7.1
 
 Option 6 - Pre defined sites               
-source 1000                  
-Medellin  -75.567 6.217 0      
+Medellin  -75.567 6.217 0  VS30 760    

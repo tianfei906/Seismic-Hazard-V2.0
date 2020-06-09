@@ -7,7 +7,6 @@ im         = im(:);
 lambda     = nansum(MRE,4);
 lambda(isnan(lambdaTest))=NaN;
 Error      = abs((lambdaTest-lambda)./lambdaTest*100);
-% Error(lambdaTest==lambda)=0;
 Acc        = num2cell(Error<=5);
 for i=1:numel(Acc)
     if Acc{i}==1 || isinf(Error(i))

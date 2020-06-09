@@ -31,17 +31,6 @@ if ~isempty(opt.Boundary)
     plot(ax1,horzcat(data.Lon),horzcat(data.Lat),'tag','shape1','visible',vis);
 end
 
-% shape2
-if ~isempty(opt.Layer)
-    data = shaperead(opt.Layer, 'UseGeoCoords', true);
-    Layers_check.Enable='on';
-    switch Layers_check.Value
-        case 0,vis = 'off';
-        case 1,vis = 'on';
-    end    
-    plot(ax1,horzcat(data.Lon),horzcat(data.Lat),'tag','shape2','visible',vis);
-end
-
 ax1.Layer='top';
 setTickLabel(ax1);
 

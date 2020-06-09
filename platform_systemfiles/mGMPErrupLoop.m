@@ -67,6 +67,12 @@ switch str
         param{3}=Rrup;
         param{4}=ON*param{4};
         
+    case 'Montalva2018'
+        param{1}=ON*param{1};
+        param{2}=Rrup;
+        param{3}=Rrup;
+        param{4}=ON*param{4};        
+        
     case 'SiberRisk2019'
         param{1}=ON*param{1};
         param{2}=Rrup;

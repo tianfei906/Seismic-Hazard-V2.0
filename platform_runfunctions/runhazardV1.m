@@ -1,8 +1,8 @@
-function[lambda,MRE,MRD]=runhazardV1(im,IM,site,VS30,opt,source,Nsource,rho,varargin)
+function[lambda,MRE,MRD]=runhazardV1(im,IM,h,opt,source,Nsource,rho,varargin)
 
 sigma      = opt.Sigma;
 ellipsoid  = opt.ellipsoid;
-xyz        = gps2xyz(site,ellipsoid);
+xyz        = gps2xyz(h.p,ellipsoid);
 Nim        = size(im,1);
 rho        = min(rho,0.99999);
 ind        = selectsource(opt.MaxDistance,xyz,source);
@@ -11,29 +11,29 @@ lambda     = zeros(Nim,2,Nsource);
 MRE        = nan(Nim,Nim,Nsource);
 MRD        = nan(Nim,Nim,Nsource);
 
-if nargin==8
+if nargin==7
     for i=sptr
-        source(i).media = VS30;
-        [lambda(:,:,i),MRE(:,:,i),MRD(:,:,i)]=runsource(source(i),xyz,IM,im,rho,sigma,ellipsoid);
+        source(i).media = h.value;
+        [lambda(:,:,i),MRE(:,:,i),MRD(:,:,i)]=runsource(source(i),xyz,IM,im,rho,sigma,ellipsoid,h.param);
     end
     lambda = nansum(lambda,3);
     MRE    = nansum(MRE   ,3);
     MRD    = nansum(MRD   ,3);
 end
 
-if nargin==9 % this option runs only the sources listed in varargin{1}, this is used in the PSDA GUI to pre-compute vector-valued hazard
+if nargin==8 % this option runs only the sources listed in varargin{1}, this is used in the PSDA GUI to pre-compute vector-valued hazard
     mechlist=varargin{1};
     for i=sptr
         if any(source(i).numgeom(1)==mechlist)
-            source(i).media = VS30;
-            [lambda(:,:,i),MRE(:,:,i),MRD(:,:,i)]=runsource(source(i),xyz,IM,im,rho,sigma,ellipsoid);
+            source(i).media = h.value;
+            [lambda(:,:,i),MRE(:,:,i),MRD(:,:,i)]=runsource(source(i),xyz,IM,im,rho,sigma,ellipsoid,h.param);
         end
     end
 end
 
 return
 
-function[lambda,MRE,MRD]=runsource(source,r0,IM,im,rho,sigma,ellipsoid)
+function[lambda,MRE,MRD]=runsource(source,r0,IM,im,rho,sigma,ellip,hparam)
 
 gmpe        = source.gmm;
 [Nim0,ncols]= size(im);
@@ -43,13 +43,13 @@ gmpefun     = gmpe.handle;
 
 %% ASSEMBLE GMPE PARAMERTER
 switch source.obj
-    case 1, [param,rate] = param_circ(r0,source,ellipsoid);  % point1
-    case 2, [param,rate] = param_circ(r0,source,ellipsoid);  % line1
-    case 3, [param,rate] = param_circ(r0,source,ellipsoid);  % area1
-    case 4, [param,rate] = param_circ(r0,source,ellipsoid);  % area2
-    case 5, [param,rate] = param_rect(r0,source,ellipsoid);  % area3
-    case 6, [param,rate] = param_circ(r0,source,ellipsoid);  % area4
-    case 7, [param,rate] = param_circ(r0,source,ellipsoid);  % volume1
+    case 1, [param,rate] = param_circ(r0,source,ellip,hparam);  % point1
+    case 2, [param,rate] = param_circ(r0,source,ellip,hparam);  % line1
+    case 3, [param,rate] = param_circ(r0,source,ellip,hparam);  % area1
+    case 4, [param,rate] = param_circ(r0,source,ellip,hparam);  % area2
+    case 5, [param,rate] = param_rect(r0,source,ellip,hparam);  % area3
+    case 6, [param,rate] = param_circ(r0,source,ellip,hparam);  % area4
+    case 7, [param,rate] = param_circ(r0,source,ellip,hparam);  % volume1
 end
 %% HAZARD INTEGRAL
 [mu1,sig1] = gmpefun(IM(1),param{:});

@@ -65,10 +65,12 @@ end
 
 %% SEISMIC HAZARD CURVE FROM PSHA ANALYSIS (FOR COMPARISON PURPOSES)
 IM         = IMs(IMptr);
-site       = handles.h.p(siteptr,:);
-VS30       = handles.h.VS30(siteptr);
+h.p        = handles.h.p(siteptr,:);
+h.param    = handles.h.param;
+h.value    = handles.h.value(siteptr,:);
+
 Nsource    = length(handles.source);
-MRE        = runhazard1(im,IM,site,VS30,opt,handles.source,Nsource,1);
+MRE        = runhazard1(im,IM,h,opt,handles.source,Nsource,1);
 lambdaPSHA = permute(MRE,[2,4,1,3]);
 lambdaPSHA = nansum(lambdaPSHA,2);
 

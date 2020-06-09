@@ -2,7 +2,6 @@ Option 0 - Global Parameters
 Projection   : WGS84
 Image        : chile.mat
 Boundary     : CHL_adm1.shp
-Layer        :
 ShearModulus : 3e11      #dyne/cm2
 IM           : PGA
 im           : logsp(0.01,3,20)
@@ -62,5 +61,7 @@ truncexp zone6 NM 3.7154 1.1100 5 8.4
 truncexp zone7 NM 2.6303 0.9800 5 8.5
 
 Option 6 - Pre defined sites
-source 760
-LasCondes -70.5635 -33.4124 691.3                                                                                                                                                                                                                                                     
+LasCondes -70.5635 -33.4124 691.3   VS30 NaN
+
+Option 7 - Spacial distributed data
+layer VS30 CHI_USGS.mat 760

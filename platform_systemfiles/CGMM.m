@@ -74,17 +74,23 @@ ellip      = handles.opt.ellipsoid;
 model_ptr  = handles.menu_branch.Value;
 source_ptr = handles.menu_source.Value;
 site_ptr   = handles.site_menu.Value;
+
+h.id    = handles.h.id(site_ptr,:);
+h.p     = handles.h.p(site_ptr,:);
+h.param = handles.h.param;
+h.value = handles.h.value(site_ptr,:);
+
 im_ptr     = handles.IM_select.Value;
 RandType   = handles.rand_pop.String{handles.rand_pop.Value};
 im         = handles.opt.im(:,im_ptr);
 IM         = handles.opt.IM(im_ptr);
-site       = handles.h.p(site_ptr,:);
-r0         = gps2xyz(site,ellip);
+r0         = gps2xyz(h.p,ellip);
 branch     = handles.sys.branch;
-sources    = buildmodelin(handles.sys,branch(model_ptr,:),handles.opt.ShearModulus);
-sources    = mGMPEVs30(sources(source_ptr),handles.h.Vs30(site_ptr));
+source     = buildmodelin(handles.sys,branch(model_ptr,:),handles.opt);
+source     = source(source_ptr);
+source.media = h.value;
 Nreal      = str2double(handles.Nsim.String);
-gmpetype   = sources.gmm.type;
+gmpetype   = source.gmm.type;
 if ~strcmp(gmpetype,'pce')
     m=warndlg(sprintf('GMM %s not valid for Polynomial Chaos Expansion',func2str(source.gmpe.handle)));
     uiwait(m);
@@ -94,14 +100,14 @@ end
 % -------  running section -----------------------------------------------
 rng(RandType);
 t=cputime;
-handles.PCE = runPCE(sources,r0,IM,im,Nreal,ellip); 
+handles.PCE = runPCE(source,r0,IM,im,Nreal,ellip,h.param); 
 time1       = cputime-t;
 handles.PCE = permute(handles.PCE,[1 3 2]); 
 
 
 rng(RandType);
 t = cputime;
-handles.MCS = runMCS(sources,r0,IM,im,Nreal,ellip); 
+handles.MCS = runMCS(source,r0,IM,im,Nreal,ellip,h.param); 
 time2       = cputime-t;
 handles.MCS = permute(handles.MCS,[1 3 2]); 
 

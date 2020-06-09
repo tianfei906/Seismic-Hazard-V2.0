@@ -54,9 +54,21 @@ switch tag
     case 'site'
         obj.id        = cell(0,1);
         obj.p         = zeros(0,3);
-        obj.VS30      = zeros(0,1);
         obj.t         = cell(0,2);
-        obj.shape     = [];
+        obj.shape     = zeros(0,0);
+        obj.param     = cell(0,1);
+        obj.value     = zeros(0,0);
+        
+    case 'defaultlayers'
+        obj.VS30{1}   = 760;      % Site Class
+        obj.IdiniSiteClass{1}= 1; % Spectral Site class used in Idini.
+        obj.To{1}     = 1;        % Fundamental Site Period
+        obj.ky{1}     = 0.2;      % Yield Strength of Slops (used in PSDA2) 
+        obj.covky{1}  = 0;        % Coef. of variation of Yield Strength of Slops (used in PSDA2)
+        obj.Ts{1}     = 0.5;      % Mean slope period (used in PSDA2)
+        obj.covTs{1}  = 0;        % Coef. of variation slope period (used in PSDA2)
+        
+        
         
     case 'opt'
         load pshatoolbox_RealValues opt
@@ -76,6 +88,7 @@ switch tag
         
     case 'returnperiods'
         obj=[144;250;475;949;1462;1950;2475;4975;10000];
+        
     case 'LIBSsite'
         obj = struct('B',[],'L',[],'Df',[],'Q',[],'type',[],'wt',[],'LPC',[],'th1',[],'th2',[],'N1',[],'N2',[],'meth',[],'N160',[],'qc1N',[],'thick',[],'d2mat',[],'CPT',[]);
 

@@ -20,7 +20,6 @@ handles.output    = hObject;
 ihandles          = varargin{1};
 
 icon = double(imread('exit.jpg'))/255; set(handles.Exit_button,   'CData',icon);
-icon = double(imresize(imread('Closed_Lock.jpg')  ,0.7))/255; set(handles.Unlock  , 'CData',icon);
 icon = double(imresize(imread('Ruler.jpg'),[16 16]))/255;     set(handles.setXYLimits,'CData',icon);
 
 handles.opt       = ihandles.opt;
@@ -69,6 +68,7 @@ ylabel(handles.ax2,'Y(km)','fontsize',8)
 zlabel(handles.ax2,'Z(km)','fontsize',8)
 handles.ax2.Color='none';
 grid(handles.ax2,'off');
+handles.ax1.Layer='top';
 guidata(hObject, handles);
 % uiwait(handles.figure1);
 
@@ -128,8 +128,6 @@ plot(handles.ax1,vertices(ind,1),vertices(ind,2),'ko','markersize',5,'Tag','sour
 vertices = gps2xyz(vertices,handles.opt.ellipsoid);
 plot3(handles.ax2,vertices(ind,1),vertices(ind,2),vertices(ind,3),'ko','markersize',5,'Tag','sourcepoint','markerfacecolor',[0.85 0.325 0.098]);
 guidata(hObject, handles);
-
-function Unlock_Callback(hObject, eventdata, handles)
 
 function tabla_CellEditCallback(hObject, eventdata, handles)
 

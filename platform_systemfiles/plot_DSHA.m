@@ -61,7 +61,7 @@ switch ch5.Value
     case 1
         Y = exp(mulogIM);
     case 2
-        %Y = normrnd(0,1,Nsites,1);
+        Y = normrnd(0,1,Nsites,1);
         Z = random(pd,[Nsites,1]);
     case 3
         %Z = normrnd(0,1,Nz,1);

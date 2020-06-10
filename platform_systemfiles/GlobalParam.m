@@ -45,7 +45,6 @@ switch opt.Projection
 end
 opt.Image            = handles.Image.String;
 opt.Boundary         = handles.Boundary.String;
-opt.Layer            = handles.Layer.String;
 opt.ShearModulus     = str2double(handles.ShearModulus.String);
 opt.IM               = str2IM(handles.IM.String);
 opt.im               = handles.im;
@@ -109,7 +108,6 @@ function handles=popfields(handles,opt)
 [~,handles.Projection.Value] = intersect(lower(handles.Projection.String),lower(opt.Projection));
 handles.Image.String         = opt.Image;
 handles.Boundary.String      = opt.Boundary;
-handles.Layer.String         = opt.Layer;
 handles.ShearModulus.String  = sprintf('%4.2e',opt.ShearModulus);
 
 switch opt.SourceDeagg
@@ -238,15 +236,12 @@ function Image_Callback(hObject, eventdata, handles)
 
 function Boundary_Callback(hObject, eventdata, handles)
 
-function Layer_Callback(hObject, eventdata, handles)
-
 function RestoreDefault_Callback(hObject, eventdata, handles)
 
 opt.Projection   = 'WGS84';
 opt.ellipsoid    = referenceEllipsoid(opt.Projection,'km');
 opt.Image        = '';
 opt.Boundary     = '';
-opt.Layer        = '';
 opt.ShearModulus = 3.0000e+11;
 opt.IM           = 0;
 opt.im           = [0.0010 0.01 0.05 0.10 0.15 0.20 0.25 0.30 0.35 0.40 0.45 0.50 0.55 0.60 0.70 0.80 0.90 1.00]';
@@ -284,17 +279,6 @@ if isnumeric(filename)
 end
 addpath(pathname);
 handles.Boundary.String=filename;
-guidata(hObject,handles)
-
-function Layer_ButtonDownFcn(hObject, eventdata, handles)
-
-D = what('platform_shapefiles');
-[filename,pathname]=uigetfile([D.path,'\*.shp'], 'Select file');
-if isnumeric(filename)
-    return
-end
-addpath(pathname);
-handles.Layer.String=filename;
 guidata(hObject,handles)
 
 function check1_Callback(hObject, eventdata, handles)

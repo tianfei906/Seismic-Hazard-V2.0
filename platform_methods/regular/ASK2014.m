@@ -86,7 +86,7 @@ if W == 999
 end
 
 if Z10==999
-    if region == 2
+    if region == 2 % japanese
         Z10 = exp(-5.23 ./ 2 .* log((Vs30.^2 + 412 ^ 2) ./ (1360 ^ 2 + 412 ^ 2))) ./ 1000;
     else %'non-japanese
         Z10 = exp((-7.67 ./ 4) .* log((Vs30.^4 + 610 ^ 4) ./ (1360 ^ 4 + 610 ^ 4))) ./ 1000;

@@ -45,8 +45,10 @@ lny  = lny+log(units);
 
 function [lny,sigma,phi,tau]=gmpe(index,Mw,Rrup)
 [a1,a2,a3,a4,sigma,phi,tau] = getcoeffs(index);
-Ro      = 1.4447*10^-5.*exp(2.3026.*Mw);
-lny     = a1 + a2.*Mw + a3.*log((expint(a4.*Rrup)-expint(a4.*sqrt(Rrup.^2+Ro)))./Ro);
+ro2     = 1.4447*10^-5.*exp(2.3026.*Mw);
+E11     = expint(a4.*Rrup);
+E12     = expint(a4.*sqrt(Rrup.^2+ro2));
+lny     = a1 + a2.*Mw + a3.*log((E11-E12)./ro2);
 
 
 function [a1,a2,a3,a4,sigma,phi,tau]=getcoeffs(index)

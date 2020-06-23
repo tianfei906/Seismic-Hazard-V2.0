@@ -362,6 +362,3 @@ cH    = -2;
 SA    = interp2(r,m,data,Rrup,M).*(1+exp(cH*Zhyp));
 lny   = log(SA);
 sigma = sig*ones(size(M));
-
-
-

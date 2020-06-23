@@ -68,8 +68,6 @@ switch tag
         obj.Ts{1}     = 0.5;      % Mean slope period (used in PSDA2)
         obj.covTs{1}  = 0;        % Coef. of variation slope period (used in PSDA2)
         
-        
-        
     case 'opt'
         load pshatoolbox_RealValues opt
         obj=opt;
@@ -91,5 +89,63 @@ switch tag
         
     case 'LIBSsite'
         obj = struct('B',[],'L',[],'Df',[],'Q',[],'type',[],'wt',[],'LPC',[],'th1',[],'th2',[],'N1',[],'N2',[],'meth',[],'N160',[],'qc1N',[],'thick',[],'d2mat',[],'CPT',[]);
-
+        
+    case 'interfaceEQ'
+        obj.Mech  = 1;
+        obj.Mag   = 7;
+        obj.Ztor  = 30;
+        obj.Rrup  = 100;
+        obj.Rx    = sqrt(obj.Rrup.^2-obj.Ztor.^2);
+        obj.Rhyp  = obj.Rrup;
+        obj.Zhyp  = obj.Ztor;
+        
+        Nsamples    = 40;
+        obj.rpMag   = obj.Mag*ones(Nsamples,1);
+        obj.rpZtor  = obj.Ztor*ones(Nsamples,1);
+        obj.rpRrup  = logsp(obj.rpZtor(1),400,Nsamples)';
+        obj.rpRx    = sqrt(max(obj.rpRrup.^2-obj.rpZtor.^2,0));
+        obj.rpRhyp  = obj.rpRrup;
+        obj.rpZhyp  = obj.rpZtor;
+        
+    case 'crustalEQ'
+        obj.Mech   = 1;
+        obj.Mag    = 7;
+        obj.dip    = 90;
+        obj.W      = 12;
+        obj.Zbot   = 999;
+        obj.Ztor   = 2;
+        obj.Rx     = 100;
+        obj        = getRrupRjb(obj);
+        obj.Ry0    = 0;
+        obj.region = 1;
+        
+        Nsamples   = 40;
+        SC.Mag    = obj.Mech*ones(Nsamples,1);
+        SC.dip    = obj.dip;
+        SC.W      = obj.W;
+        SC.Zbot   = obj.Zbot;
+        SC.Ztor   = obj.Ztor*ones(Nsamples,1);
+        SC.Rx     = [0;logsp(1,400,Nsamples-1)'];
+        SC        = getRrupRjb(SC);
+        SC.Ry0    = 0*ones(Nsamples,1);
+        
+        obj.rpMag  = SC.Mag;
+        obj.rpZtor = SC.Ztor;
+        obj.rpRx   = SC.Rx;
+        obj.rpRrup = SC.Rrup;
+        obj.rpRjb  = SC.Rjb;
+        obj.rpRhyp = SC.Rhyp;
+        obj.rpZhyp = SC.Zhyp;
+        obj.rpRy0  = SC.Ry0;
+        
+    case 'siteGMM'
+        obj.VS30   = 760;
+        obj.f0     = 1;
+        obj.Z10    = 0.048;
+        obj.Z25    = 0.607;
+        obj.Quali  = 'soil-soft';
+        obj.Idini  = 2; %1=>sI,2=>sII,..., 6=>sVI
+        obj.SGS    = 1; %1=>B,2=>C,3=>D
+        
+        
 end

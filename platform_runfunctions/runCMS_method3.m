@@ -6,8 +6,13 @@ pkd         = zeros(size(pkl));
 ellip       = handles.opt.ellipsoid;
 site_ptr    = handles.pop_site.Value;
 site        = handles.h.p(site_ptr,:);
-VS30        = handles.h.VS30(site_ptr);
-r0          = gps2xyz(site,ellip);
+
+h           = handles.h;
+h.id        = h.id(site_ptr);
+h.p         = h.p(site_ptr,:);
+h.value     = h.value(site_ptr,:);
+
+r0          = gps2xyz(h.p,ellip);
 Tcond       = str2double(handles.Cond_Period.String);
 T           = UHSperiods(handles);
 T           = sort(unique([T;Tcond]));
@@ -23,9 +28,8 @@ opt.IM = Tcond;
 col    = find(handles.opt.IM>=0);
 im1    = handles.opt.im(:,col(1));
 opt.im  = im1;
-MRE = runlogictree1(handles.sys,opt,handles.h,site_ptr);
+MRE = runlogictree1(handles.sys,opt,h,1);
 MRE = permute(MRE,[2 5 1 3 4]);
-MRE = MRE(:,:,site_ptr);
 
 lnSat = zeros(1,Nmodels);
 for i=1:Nmodels
@@ -46,7 +50,7 @@ for model_ptr  = 1:Nmodels
     opt2.im = im2;
     opt2.IM = Tcond;
     lambda2 = nan(1,1,1,Nsource,1);
-    deagg2  = runhazard2(im2,Tcond,site,VS30,opt2,sources,Nsource,1);
+    deagg2  = runhazard2(im2,Tcond,h,opt2,sources,Nsource,1);
     for i=1:numel(deagg2)
         if ~isempty(deagg2{i})
             lambda2(i)=sum(deagg2{i}(:,3));
@@ -68,15 +72,15 @@ for model_ptr  = 1:Nmodels
     source.aream   = source.aream(ptr2,:);
     source.hypm    = source.hypm(ptr2,:);
     source.normal  = source.normal(ptr2,:);
-    source.media   = VS30;
+    source.media   = h.value;
     switch source.obj
-        case 1, param = param_circ(r0,source,ellip);  % point1
-        case 2, param = param_circ(r0,source,ellip);  % line1
-        case 3, param = param_circ(r0,source,ellip);  % area1
-        case 4, param = param_circ(r0,source,ellip);  % area2
-        case 5, param = param_rect(r0,source,ellip);  % area3
-        case 6, param = param_circ(r0,source,ellip);  % area4
-        case 7, param = param_circ(r0,source,ellip);  % volume1
+        case 1, param = param_circ(r0,source,ellip,h.param);  % point1
+        case 2, param = param_circ(r0,source,ellip,h.param);  % line1
+        case 3, param = param_circ(r0,source,ellip,h.param);  % area1
+        case 4, param = param_circ(r0,source,ellip,h.param);  % area2
+        case 5, param = param_rect(r0,source,ellip,h.param);  % area3
+        case 6, param = param_circ(r0,source,ellip,h.param);  % area4
+        case 7, param = param_circ(r0,source,ellip,h.param);  % volume1
     end
     
     mu  = zeros(Nper,1);

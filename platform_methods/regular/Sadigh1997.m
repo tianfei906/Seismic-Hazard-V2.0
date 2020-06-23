@@ -22,8 +22,8 @@ if isnumeric(media)
     end
 end
 
-To      = max(To,0.01); %PGA is associated to To=0.001;
-period  = [0.01 0.075 0.10 0.20 0.30 0.40 0.50 0.75 1.00 1.50 2.00 3.00 4.00];
+To      = max(To,0.02); %PGA is associated to To=0.001;
+period  = [0.02 0.075 0.10 0.20 0.30 0.40 0.50 0.75 1.00 1.50 2.00 3.00 4.00];
 T_lo    = max(period(period<=To));
 T_hi    = min(period(period>=To));
 index   = find(abs((period - T_lo)) < 1e-6); % Identify the period

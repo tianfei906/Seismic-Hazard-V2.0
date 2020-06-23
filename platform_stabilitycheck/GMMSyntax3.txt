@@ -32,7 +32,7 @@ gmm at2   GarciaJaimes2017 horizontal
 gmm at3   GarciaJaimes2017HV
 gmm at4   Bernal2014 interface
 gmm at5   Bernal2014 intraslab
-gmm at6   Sadigh1997 reverse/unspecified
+gmm at6   Sadigh1997 reverse
 gmm at7   Sadigh1997 strike-slip
 gmm at8   I2008 strike-slip
 gmm at9   I2008 reverse
@@ -41,25 +41,25 @@ gmm at11  CY2008 unk normal            mainshock measured
 gmm at12  CY2008 unk normal-oblique    mainshock measured
 gmm at13  CY2008 unk reverse           mainshock measured
 gmm at14  CY2008 unk reverse-oblique   mainshock measured
-gmm at15  CY2008 unk unspecified            mainshock measured
+gmm at15  CY2008 unk unspecified       mainshock measured
 gmm at16  CY2008 unk strike-slip       mainshock inferred
 gmm at17  CY2008 unk normal            mainshock inferred
 gmm at18  CY2008 unk normal-oblique    mainshock inferred
 gmm at19  CY2008 unk reverse           mainshock inferred
 gmm at20  CY2008 unk reverse-oblique   mainshock inferred
-gmm at21  CY2008 unk unspecified            mainshock inferred
+gmm at21  CY2008 unk unspecified       mainshock inferred
 gmm at22  CY2008 unk strike-slip       aftershock measured
 gmm at23  CY2008 unk normal            aftershock measured
 gmm at24  CY2008 unk normal-oblique    aftershock measured
 gmm at25  CY2008 unk reverse           aftershock measured
 gmm at26  CY2008 unk reverse-oblique   aftershock measured
-gmm at27  CY2008 unk unspecified            aftershock measured
+gmm at27  CY2008 unk unspecified       aftershock measured
 gmm at28  CY2008 unk strike-slip       aftershock inferred
 gmm at29  CY2008 unk normal            aftershock inferred
 gmm at30  CY2008 unk normal-oblique    aftershock inferred
 gmm at31  CY2008 unk reverse           aftershock inferred
 gmm at32  CY2008 unk reverse-oblique   aftershock inferred
-gmm at33  CY2008 unk unspecified            aftershock inferred
+gmm at33  CY2008 unk unspecified       aftershock inferred
 gmm at34  BA2008 unspecified
 gmm at35  BA2008 strike-slip
 gmm at36  BA2008 normal
@@ -69,13 +69,13 @@ gmm at39  CB2008 2 normal          arbitrary
 gmm at40  CB2008 2 normal-oblique  arbitrary
 gmm at41  CB2008 2 reverse         arbitrary
 gmm at42  CB2008 2 reverse-oblique arbitrary
-gmm at43  CB2008 2 unspecified          arbitrary
+gmm at43  CB2008 2 unspecified     arbitrary
 gmm at44  CB2008 2 strike-slip     average
 gmm at45  CB2008 2 normal          average
 gmm at46  CB2008 2 normal-oblique  average
 gmm at47  CB2008 2 reverse         average
 gmm at48  CB2008 2 reverse-oblique average
-gmm at49  CB2008 2 unspecified          average
+gmm at49  CB2008 2 unspecified     average
 
 Option 4 - GMPE GROUPS
 gmmgroup at1  1

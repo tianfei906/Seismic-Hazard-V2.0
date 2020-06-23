@@ -28,33 +28,9 @@ handles.val_2.CData=double(imread('form1.jpg'))/255;
 handles.epsilon = 0;
 
 handles.methods   = pshatoolbox_methods(1);
-Nsamples  = 40;
-SUB.Mag   = 7*ones(Nsamples,1);
-SUB.Ztor  = 15*ones(Nsamples,1);
-SUB.Rrup  = sort([logsp(SUB.Ztor(1),400,Nsamples-1)';100]);
-SUB.Rx    = sqrt(SUB.Rrup.^2-SUB.Ztor.^2);
-SUB.Rhyp  = SUB.Rrup;
-SUB.Zhyp  = SUB.Ztor;
-SUB.Vs30  = 760;
-SUB.f0    = 1;
-SUB.Z10    = 0.048;
-SUB.Z25    = 0.607;
-
-SC.Mag    = 7*ones(Nsamples,1);
-SC.dip    = 90;
-SC.W      = 12;
-SC.Zbot   = 999;
-SC.Ztor   = 2*ones(Nsamples,1);
-SC.Rx     = [0;logsp(1,400,Nsamples-1)'];
-SC        = getRrupRjb(SC);
-SC.Ry0    = 0*ones(Nsamples,1);
-SC.Vs30   = 760;
-SC.f0     = 1;
-SC.Z10    = 0.048;
-SC.Z25    = 0.607;
-
-handles.SUB = SUB;
-handles.SC  = SC;
+handles.SUB       = createObj('interfaceEQ');
+handles.SC        = createObj('crustalEQ');
+handles.SITE      = createObj('siteGMM');
 
 gmpetype = {handles.methods.type}';
 B        = strcmp(gmpetype,'regular');
@@ -91,7 +67,7 @@ if nargin==4
             gmpe = GMPE(j,:);
             handles.uitable1.Data(end+1,:)={gmpe.label,func2str(gmpe.handle)};
             % Builds paramlist and ptrs list
-            [param,ptrs]                = mGMPEusp(gmpe,handles.SC);
+            [param,ptrs]                = mGMPEusp(gmpe,handles.SUB,handles.SC,handles.SITE);
             handles.paramlist(end+1,:) = {gmpe.label,param};
             handles.ptrs(end+1,:)      = ptrs;
         end
@@ -119,8 +95,14 @@ D = D(ind);
 if isempty(D)
     handles.val_1.Visible='off';
     handles.val_2.Visible='off';
+else
+    names = regexp(strrep({D.name}','.png',''),'\_','split');
+    names = vertcat(names{:});
+    names = str2double(names(:,2));
+    [~,ind]= sort(names);
 end
-handles.path2figures=D;
+
+handles.path2figures=D(ind);
 handles.currentfigure=0;
 
 guidata(hObject, handles);
@@ -139,7 +121,6 @@ ch=get(handles.panel2,'children');
 set(ch(handles.text),'Visible','off')
 set(ch(handles.edit),'Visible','off','Style','edit');
 handles = mGMPEdefault(handles,ch(handles.text),ch(handles.edit));
-delete(findall(handles.ax1,'tyle','line'))
 plotgmpe(handles)
 if handles.rad2.Value==1
     if isempty(handles.IM)
@@ -162,8 +143,12 @@ if isempty(D)
 else
     handles.val_1.Visible='on';
     handles.val_2.Visible='on';
+    names = regexp(strrep({D.name}','.png',''),'\_','split');
+    names = vertcat(names{:});
+    names = str2double(names(:,2));
+    [~,ind]= sort(names);
 end
-handles.path2figures=D;
+handles.path2figures=D(ind);
 handles.currentfigure=1;
 
 guidata(hObject,handles)
@@ -173,8 +158,6 @@ function GMPEselect_CreateFcn(hObject, eventdata, handles)
 if ispc && isequal(get(hObject,'BackgroundColor'), get(0,'defaultUicontrolBackgroundColor'))
     set(hObject,'BackgroundColor','white');
 end
-
-% ------------ create funtions --------------------------------------------
 
 function Exit_button_Callback(hObject, eventdata, handles)
 % hObject    handle to Exit_button (see GCBO)
@@ -551,6 +534,8 @@ I        = imshow(fullfile(folder,filename),'parent',handles.ax2,'XData',[0 10],
 AD       = str2double(handles.ImageAlpha.String);
 set(I,'AlphaData',AD,'tag','image');
 handles.ax1.Color='none';
+handles.ax1.XTickMode='auto';
+handles.ax1.YTickMode='auto';
 handles=mGMPEfromfigures(handles,filename);
 handles.currentfigure=ptr;
 guidata(hObject,handles);
@@ -564,6 +549,8 @@ I        = imshow(fullfile(folder,filename),'parent',handles.ax2,'XData',[0 10],
 AD       = str2double(handles.ImageAlpha.String);
 set(I,'AlphaData',AD,'tag','image');
 handles.ax1.Color='none';
+handles.ax1.XTickMode='auto';
+handles.ax1.YTickMode='auto';
 handles=mGMPEfromfigures(handles,filename);
 handles.currentfigure=ptr;
 guidata(hObject,handles);
@@ -593,19 +580,28 @@ if isempty(D)
 else
     handles.val_1.Visible='on';
     handles.val_2.Visible='on';
+    names = regexp(strrep({D.name}','.png',''),'\_','split');
+    names = vertcat(names{:});
+    names = str2double(names(:,2));
+    [~,ind]= sort(names);
 end
 
-handles.path2figures=D;
+handles.path2figures=D(ind);
 handles.currentfigure=1;
 plotgmpe(handles)
 guidata(hObject,handles)
 
-
-% --- Executes when user attempts to close figure1.
 function figure1_CloseRequestFcn(hObject, eventdata, handles)
-% hObject    handle to figure1 (see GCBO)
-% eventdata  reserved - to be defined in a future version of MATLAB
-% handles    structure with handles and user data (see GUIDATA)
-
 % Hint: delete(hObject) closes the figure
 delete(hObject);
+
+function Edit_Callback(hObject, eventdata, handles)
+
+function defaultscenarios_Callback(hObject, eventdata, handles)
+
+[handles.SUB,handles.SC,handles.SITE]=defaultEarthquakes(handles.SUB,handles.SC,handles.SITE);
+ch=get(handles.panel2,'children');
+set(ch(handles.text),'Visible','off')
+set(ch(handles.edit),'Visible','off','Style','edit');
+handles = mGMPEdefault(handles,ch(handles.text),ch(handles.edit));
+guidata(hObject,handles)

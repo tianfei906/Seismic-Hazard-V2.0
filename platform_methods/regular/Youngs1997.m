@@ -24,10 +24,10 @@ if isadmisible==0
     return
 end
 
-To      = max(To,0.001); %PGA is associated to To=0.01;
+To      = max(To,0.01); %PGA is associated to To=0.01;
 switch media
-    case 'soil', period  = [0.001 0.075 0.1 0.2 0.3 0.4 0.5 0.75 1 1.5 2 3 4];
-    case 'rock', period  = [0.001 0.075 0.1 0.2 0.3 0.4 0.5 0.75 1 1.5 2 3];
+    case 'soil', period  = [0.01 0.075 0.1 0.2 0.3 0.4 0.5 0.75 1 1.5 2 3 4];
+    case 'rock', period  = [0.01 0.075 0.1 0.2 0.3 0.4 0.5 0.75 1 1.5 2 3];
 end
 
 T_lo    = max(period(period<=To));

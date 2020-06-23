@@ -1,33 +1,15 @@
-function [param,val] = mGMPEusp(gmm,SC) %#ok<*INUSD,*DEFNU>
+function [param,val] = mGMPEusp(gmm,SUB,SC,SITE) %#ok<*INUSD,*DEFNU>
 
 method = pshatoolbox_methods(1);
 val    = zeros(1,18);
 fun = func2str(gmm.handle);
-% switch gmm.type
-%     case 'regular',
-%     case 'cond',    fun = func2str(gmm.cond.conditioning);
-%     case 'udm' ,    fun = 'udm';
-%     case 'pce' ,    fun = func2str(gmm.handle);
-% end
 
 [~,B]  = intersect({method.str},fun);
 val(end)=B;
 
 usp   = gmm.usp;
-ind   = 21;
-M     = SC.Mag(ind);
-dip   = SC.dip;
-width = SC.W;
-Zhyp  = SC.Zhyp(ind);
-Ztor  = SC.Ztor(ind);
-Zbot  = SC.Zbot;
-Rrup  = SC.Rrup(ind);
-Rhyp  = SC.Rhyp(ind);
-Rx    = SC.Rx(ind);
-Rjb   = SC.Rjb(ind);
-ry0   = SC.Ry0(ind);
-VS30  = SC.Vs30;
-f0    = SC.f0;
+VS30  = SITE.VS30;
+f0    = SITE.f0;
 
 switch fun
     case 'Youngs1997'
@@ -122,7 +104,6 @@ switch fun
         [~,val(11)] =intersect({'aftershock','mainshock','foreshock','swarms'},usp{3});
         [~,val(12)] =intersect({'measured','inferred'},usp{4});
     case 'AS1997h'
-        %M,Rrup,media,SOF,location,sigmatype
         usp{2}= strrep(usp{2},'auto','strike-slip');
         [~,val(3)] =intersect({'rock','deepsoil'},usp{1});
         [~,val(4)] =intersect({'strike-slip','normal','normal-oblique','reverse','reverse-oblique','unspecified'},usp{2});
@@ -157,7 +138,6 @@ switch fun
         [~,val(13)] = intersect({'measured','inferred'},usp{4});
         [~,val(14)] = intersect({'global','california','japan','china','italy','turkey'},usp{5});
     case 'AkkarBoomer2007'
-        % M,Rjb,media,SOF,damping
         usp{2}= strrep(usp{2},'auto','strike-slip');
         [~,val(3)]  = intersect({'stiff','soft','other'},usp{1});
         [~,val(4)]  = intersect({'strike-slip','normal','normal-oblique','reverse','reverse-oblique','unspecified'},usp{2});
@@ -167,15 +147,19 @@ switch fun
         [~,val(3) ] = intersect({'rock','stiff','soft'},usp{1});
         [~,val(4)]  = intersect({'strike-slip','normal','normal-oblique','reverse','reverse-oblique','unspecified'},usp{2});
     case 'Arroyo2010'
+        
     case 'Bindi2011'
         media = VS30;
         usp{1}= strrep(usp{1},'auto','strike-slip');
         [~,val(4)] = intersect({'strike-slip','normal','normal-oblique','reverse','reverse-oblique','unspecified'},usp{1});
         [~,val(5)] = intersect({'geoh','z'},usp{2});
     case 'Kanno2006'
+        
+    case 'Cauzzi2015'
+        
     case 'DW12'
         usp{2}= strrep(usp{2},'auto','strike-slip');
-        [~,val(3)]  = intersect({'sgs-b','sgs-c','sgs-d'},usp{1});
+        [~,val(3)]  = intersect({'b','c','d'},lower(usp{1}));
         [~,val(4) ] = intersect({'strike-slip','normal','normal-oblique','reverse','reverse-oblique','unspecified'},usp{2});
     case 'FG15'
         media = VS30;
@@ -185,7 +169,7 @@ switch fun
         [~,val(7) ] = intersect({'linear','nonlinear'},usp{3});
     case 'TBA03'
         usp{2}= strrep(usp{2},'auto','strike-slip');
-        [~,val(3)] = intersect({'sgs-b','sgs-c','sgs-d'},usp{1});
+        [~,val(3)] = intersect({'b','c','d'},lower(usp{1}));
         [~,val(4)] = intersect({'strike-slip','normal','normal-oblique','reverse','reverse-oblique','unspecified'},usp{2});
     case 'BU17'
         usp{1}= strrep(usp{1},'auto','strike-slip');
@@ -204,6 +188,19 @@ switch fun
         usp{1}= strrep(usp{1},'auto','strike-slip');
         [~,val(3)] = intersect({'strike-slip','normal','normal-oblique','reverse','reverse-oblique','unspecified'},usp{1});
 end
+
+
+M     = SC.Mag;
+dip   = SC.dip;
+width = SC.W;
+Zhyp  = SC.Zhyp;
+Ztor  = SC.Ztor;
+Zbot  = SC.Zbot;
+Rrup  = SC.Rrup;
+Rhyp  = SC.Rhyp;
+Rx    = SC.Rx;
+Rjb   = SC.Rjb;
+ry0   = SC.Ry0;
 
 switch fun
     case 'Youngs1997',              param = [M,Rrup,Zhyp,media,usp];

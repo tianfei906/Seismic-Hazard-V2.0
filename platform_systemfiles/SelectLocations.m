@@ -34,11 +34,11 @@ handles.ElevModel = 1;
 handles.siteclick  = plot(handles.ax1,NaN,NaN,'.','color',[ 0.8500    0.3250    0.0980],'linestyle','none');
 handles.gridplot   = plot(handles.ax1,NaN,NaN,'.:','color',[ 0.8500    0.3250    0.0980]);
 
-fname1  = what('platform_earth');
-fname2  = what('platform_shapefiles');
-fname3  = what('platform_shapefiles');
-
-handles.defaultpaths = {fname1.path;fname2.path;fname3.path};
+% fname1  = what('platform_earth');
+% fname2  = what('platform_shapefiles');
+% fname3  = what('platform_shapefiles');
+% 
+% handles.defaultpaths = {fname1.path;fname2.path;fname3.path};
 handles.GoogleEarthOpt=GEOptions('default');
 
 % ------------------- sets Model Projection -------------------------------
@@ -47,6 +47,7 @@ handin.h.p(:,3)       = handin.h.p(:,3)*1000;
 handles.opt           = handin.opt;
 handles.shape1.String = {handles.opt.Boundary};
 handles.layer         = handin.layer;
+handles.lmax          = 25;
 
 if isempty(handles.opt.ellipsoid.Code)
     xlabel(handles.ax1,'X (km)','fontsize',8,'fontname','arial');
@@ -504,8 +505,7 @@ function SmartGrid_Callback(hObject, eventdata, handles)
 
 function Createsmartgrid_Callback(hObject, eventdata, handles)
 str = handles.shape1.String;
-val = handles.shape1.Value;
-handles.fname = str{val};
+handles.fname = str{1};
 handles = create_shape_select(handles,handles.fname,handles.lmax);
 guidata(hObject, handles);
 

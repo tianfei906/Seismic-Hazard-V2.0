@@ -32,10 +32,10 @@ gmm at2   CB19 0.607 strike-slip     global
 gmm at4   franky 1 2 3
 
 Option 4 - GMPE GROUPS
-gmmgroup Youngs97      1
-gmmgroup Montalva      2
-gmmgroup CB19          3
-gmmgroup franky_model  4 
+gmmgroup Youngs97      1 #Sa
+gmmgroup Montalva      2 #Sa    
+gmmgroup CB19          3 #CAV
+gmmgroup franky_model  4 #Sa-CAV
  
 
 Option 5 - MAGNITUDE SCALING RELATIONS

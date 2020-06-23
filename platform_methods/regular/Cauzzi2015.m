@@ -1,4 +1,4 @@
-function[lny,sigma,tau,phi]=Cauzzi2015(To,M,Rrup,Rhyp,Vs30,SOF)
+function[lny,sigma,tau,phi]=Cauzzi2015(To,M,Rrup,Rhyp,Vs30,Vs30form,SOF)
 
 st = dbstack;
 [isadmisible,units] = isIMadmisible(To,st(1).name,[0 10],[nan nan],[0 10],[nan nan]);
@@ -20,10 +20,10 @@ R        = Rrup;
 R(M<5.8) = Rhyp(M<5.8);
 
 if T_lo==T_hi
-    [log10y,sigma,tau,phi] = gmpe(index,M,R,SOF,Vs30,period(index),iTo);
+    [log10y,sigma,tau,phi] = gmpe(index,M,R,SOF,Vs30,Vs30form,period(index),iTo);
 else
-    [lny_lo,sigma_lo,tau_lo] = gmpe(index,  M,R,SOF,Vs30,period(index),iTo);
-    [lny_hi,sigma_hi,tau_hi] = gmpe(index+1,M,R,SOF,Vs30,period(index),iTo);
+    [lny_lo,sigma_lo,tau_lo] = gmpe(index,  M,R,SOF,Vs30,Vs30form,period(index),iTo);
+    [lny_hi,sigma_hi,tau_hi] = gmpe(index+1,M,R,SOF,Vs30,Vs30form,period(index),iTo);
     x          = log([T_lo;T_hi]);
     Y_sa       = [lny_lo,lny_hi]';
     Y_sigma    = [sigma_lo,sigma_hi]';
@@ -43,13 +43,13 @@ phi   = phi    * log(10);
 % unit convertion
 lny  = lny+log(units);
 
-function[log10y,sigma,tau,phi]=gmpe(index,M,R,SOF,Vs30,To,iTo)
+function[log10y,sigma,tau,phi]=gmpe(index,M,R,SOF,Vs30,Vs30form,To,iTo)
 
-% SB=0;SC=0;SD=0;
-% if      and(360<=Vs30,Vs30<800)  , SB=1;
-% elseif  and(180<=Vs30,Vs30<360)  , SC=1;
-% elseif  Vs30<180                 , SD=1;
-% end
+SB=0;SC=0;SD=0;
+if      and(360<=Vs30,Vs30<800)  , SB=1;
+elseif  and(180<=Vs30,Vs30<360)  , SC=1;
+elseif  Vs30<180                 , SD=1;
+end
 
 
 FN=0;FR=0;FSS=0;
@@ -299,10 +299,13 @@ tau   = C(index,17);
 fM   = c1 + m1*M + m2*M.^2;
 fR   = (r1+r2*M).*log10(R+r3);
 
-%fS     = sB*SB+sC*SC+sD*SD;
-fS     = bV*log10(Vs30/VA);
-% fS     = bV800*log10(Vs30/800);
-fSOF   = fN*FN + fRc*FR + fSS*FSS;
+switch Vs30form
+    case 1,fS = sB*SB+sC*SC+sD*SD;      %Eq(5)
+    case 2,fS = bV*log10(Vs30/VA);      %Eq(6)
+    case 3,fS = bV800*log10(Vs30/800);  %Eq(7)
+end
+
+fSOF   = fN*FN + fRc*FR + fSS*FSS;   % Eq(8)
 if iTo==0
     log10y = fM + fR + fS + fSOF + log10(4*pi^2/To^2);
 elseif iTo==2

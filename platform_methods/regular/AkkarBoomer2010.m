@@ -23,6 +23,13 @@ T_lo    = max(period(period<=To));              % Identify the period that is be
 T_hi    = min(period(period>=To));              % Identify the period that is above for the later interpolation
 index   = find(abs((period - T_lo)) < 1e-6);    % Identify the period from the ones evaluated in the paper
 
+if isnumeric(media)
+    if media>=750                    , media='rock';
+    elseif and(360<=media,media<750) , media='stiff';
+    elseif media<360                 , media='soft';
+    end
+end
+
 if T_lo==T_hi
     [log10y,sigma,phi,tau] = gmpe(index,M,Rjb,media,SOF);
 else

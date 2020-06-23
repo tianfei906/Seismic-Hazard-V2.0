@@ -5,7 +5,7 @@ function[lny,sigma,tau,phi]=AkkarBoomer2007(To,M,Rjb,media,SOF,damping)
 % and Structural Dynamics, Vol. 36, No. 10, pp.1275–1301.
 
 st = dbstack;
-[isadmisible,units] = isIMadmisible(To,st(1).name,[nan nan],[nan nan],[0.05 4],[nan nan]);
+    [isadmisible,units] = isIMadmisible(To,st(1).name,[nan nan],[nan nan],[0.05 4],[nan nan]);
 if isadmisible==0
     lny   = nan(size(M));
     sigma = nan(size(M));

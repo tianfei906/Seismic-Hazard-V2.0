@@ -42,15 +42,14 @@ for i=active
     end
     
     % updates gps coordinates
-    VS30 = getVs30(psm(:,[1,2]),handles.VS30);
-    sh_id = ['shape_',num2str(i)];
-    for j=1:size(psm,1)
-        id_g = [sh_id,'-P',num2str(j)];
-        p(end+1,:) = {id_g,psm(j,1),psm(j,2),Elev(j),VS30(j)}; %#ok<*AGROW>
+    fld  = fields(handles.layer);
+    Npsm = size(psm,1);
+    usp  = zeros(Npsm,length(fld));
+    for jj=1:length(fld)
+       usp(:,jj)=layerdatainterp(psm,handles.layer.(fld{jj}),fld{jj}); 
     end
-    
-    % updates connectivity
-    t{end+1,1}=sh_id;
+    p         = [p;[compose('shape_%i-P%g',i,1:Npsm)',num2cell([psm,Elev,usp])]]; %#ok<AGROW>
+    t{end+1,1}= sprintf('shape_%g',i);
     t{end,2}  = tsm;
 end
 set(handles.p,'data',p);

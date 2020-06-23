@@ -1,5 +1,16 @@
 function plotgmpe(handles,amp)
 
+if handles.HoldPlot.Value==0
+    delete(findall(handles.ax1,'type','line'))
+    handles.AutoScale.Value=1;
+    handles.ax1.XLimMode='auto';
+    handles.ax1.YLimMode='auto';
+    handles.ax1.XTickMode='auto';
+    handles.ax1.YTickMode='auto';
+    handles.ax1.XTickLabelMode='auto';
+    handles.ax1.YTickLabelMode='auto';
+end
+
 epsilon = handles.epsilon;
 Neps    = length(epsilon);
 
@@ -14,8 +25,8 @@ if handles.rad1.Value==1
     IM=real(handles.IM); 
     LB=imag(handles.IM);
     
-    LB=LB(IM>=0.01);
-    IM=IM(IM>=0.01);
+    LB=LB(IM>=0);
+    IM=IM(IM>=0);
     
     uLB = unique(LB);
    
@@ -59,8 +70,6 @@ if handles.rad1.Value==1
     plot(handles.ax1,x,amp*y,'tag','curves','ButtonDownFcn',@click_on_curve,'linewidth',1);
     handles.xlabel=xlabel(handles.ax1,'T(s)','fontsize',10);
     handles.ylabel=ylabel(handles.ax1,YLABEL,'fontsize',10);
-
-    
 else
     
     imptr  = handles.targetIM.Value;
@@ -86,8 +95,12 @@ else
     y = Sa(:);
     plot(handles.ax1,x,amp*y,'tag','curves','ButtonDownFcn',@click_on_curve,'linewidth',1);
     handles.xlabel=xlabel(handles.ax1,'Rrup(km)','fontsize',10);
-%     handles.ax1.XLim=[1 300];
 end
+
+% copy data 2 clipboard
+data = [{handles.xlabel.String,handles.GMPEselect.String{handles.GMPEselect.Value}};num2cell([x(:),y(:)])];
+data2clipboard_uimenu([],[],data);
+
 
 function click_on_curve(hObject,eventdata)
 

@@ -16,8 +16,8 @@ if isadmisible==0
     return
 end
 
-To      = max(To,0.001); %PGA is associated to To=0.001;
-period  = [0.001;0.05;0.1;0.15;0.2;0.25;0.3;0.4;0.5;0.6;0.7;0.8;0.9;1;1.25;1.5;2;2.5;3;4;5];
+To      = max(To,0.02); %PGA is associated to To=0.001;
+period  = [0.02;0.05;0.1;0.15;0.2;0.25;0.3;0.4;0.5;0.6;0.7;0.8;0.9;1;1.25;1.5;2;2.5;3;4;5];
 T_lo    = max(period(period<=To));
 T_hi    = min(period(period>=To));
 index   = find(abs((period - T_lo)) < 1e-6); % Identify the period
@@ -104,7 +104,7 @@ SS = 0;
 SSL = 0;
 h  = min(h,125);
 hc = 15;
-deltah = (h>hc);
+deltah = (h>=hc);
 
 
 switch lower(mechanism)
@@ -118,30 +118,27 @@ switch lower(mechanism)
     case 'unspecified'
 end
 
-if numel(Vs30)==1
-    if Vs30>1100
-        Ck = Coeff2(1);
-    elseif and(Vs30>600,Vs30<=1100)
-        Ck = Coeff2(2);
-    elseif and(300<Vs30,Vs30<=600)
-        Ck = Coeff2(3);
-    elseif and(200<Vs30,Vs30<=300)
-        Ck = Coeff2(4);
-    elseif Vs30<=200
-        Ck = Coeff2(5);
-    end
-else
-    Ck                           = Coeff2(1)*M.^0;
-    Ck(and(Vs30>600,Vs30<=1100)) = Coeff2(2);
-    Ck(and(300<Vs30,Vs30<=600))  = Coeff2(3);
-    Ck(and(200<Vs30,Vs30<=300))  = Coeff2(4);
-    Ck(Vs30<=200)                = Coeff2(5);
+if Vs30>1100
+    Ck = Coeff2(1);
+elseif and(600<Vs30,Vs30<=1100)
+    Ck = Coeff2(2);
+elseif and(300<Vs30,Vs30<=600)
+    Ck = Coeff2(3);
+elseif and(200<Vs30,Vs30<=300)
+    Ck = Coeff2(4);
+elseif and(Vs30>=0,Vs30<=200)
+    Ck = Coeff2(5);
 end
 
-
-
+% model functional form
 r     = rrup + c*exp(d*M);
 lny   = a*M+b*rrup-log(r)+e*(h-hc).*deltah + SR + SI + SS + SSL*log(rrup) + Ck;
 sig   = Coeff2(6)*ones(size(M));
 tau   = Coeff2(7)*ones(size(M));
 sigma = sqrt(sig.^2+tau.^2);
+
+
+
+
+
+

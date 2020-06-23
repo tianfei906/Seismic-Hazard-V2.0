@@ -9,8 +9,7 @@ h.id        = h.id(site_ptr);
 h.p         = h.p(site_ptr,:);
 h.value     = h.value(site_ptr,:);
 
-site        = h.p(site_ptr,:);
-r0          = gps2xyz(site,ellip);
+r0          = gps2xyz(h.p,ellip);
 model_ptr   = handles.pop_branch.Value;
 Tcond       = str2double(handles.Cond_Period.String);
 T           = UHSperiods(handles);
@@ -20,8 +19,9 @@ Tr          = str2double(handles.Ret_Period.String);
 col         = find(handles.opt.IM>=0);
 im1         = repmat(handles.opt.im(:,col(1)),1,length(T));
 opt         = handles.opt;
-Nsource     = sum(handles.sys.Nsrc(:,model_ptr));
 branch      = handles.sys.branch(model_ptr,1:3);
+geom_ptr    = branch(1);
+Nsource     = sum(handles.sys.Nsrc(:,geom_ptr));
 
 % compute seismic hazard for all Sa(T*)
 sources = buildmodelin(handles.sys,branch,handles.opt.ShearModulus);

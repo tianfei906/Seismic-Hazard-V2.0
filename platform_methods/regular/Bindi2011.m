@@ -15,12 +15,11 @@ if isadmisible==0
 end
 
 if isnumeric(media)
-    if         800< media            ,media='AEC8';
-    elseif and(360<=media,media<=800),media='BEC8';
-    elseif and(180<=media,media< 360),media='CEC8';
-    elseif and(0  <=media,media< 180),media='DEC8';
+    if         800< media            ,media='EC8-A';
+    elseif and(360<=media,media<=800),media='EC8-B';
+    elseif and(180<=media,media< 360),media='EC8-C';
+    elseif and(0  <=media,media< 180),media='EC8-D';
     end  
-
 end
 
 if To>=0
@@ -67,11 +66,11 @@ Fm  = b1.*(M-6.75) + b2.*(M-6.75).^2; % this is because b3=0. See page 6, Bindi 
 
 C1=0;C2=0;C3=0;C4=0;C5=0;
 switch media
-    case 'AEC8', C1=1;
-    case 'BEC8', C2=1;
-    case 'CEC8', C3=1;
-    case 'DEC8', C4=1;
-    case 'EEC8', C5=1;
+    case 'EC8-A', C1=1;
+    case 'EC8-B', C2=1;
+    case 'EC8-C', C3=1;
+    case 'EC8-D', C4=1;
+    case 'EC8-E', C5=1;
 end
 Fs  = sA*C1+sB*C2+sC*C3+sD*C4+sE*C5;
 

@@ -381,8 +381,9 @@ switch handles.methods(val2).str
         Rrup     = str2double(str{2});
         Rhyp     = str2double(str{3});
         Vs30     = str2double(str{4});
-        SOF      = str{5};
-        param    = {M,Rrup,Rhyp,Vs30,SOF};
+        Vs30form = str2double(str{5});
+        SOF      = str{6};
+        param    = {M,Rrup,Rhyp,Vs30,Vs30form,SOF};
         
     case 'DW12'
         M      = str2double(str{1});

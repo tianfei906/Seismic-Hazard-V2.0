@@ -31,26 +31,26 @@ gmm at1   Arroyo2010
 gmm at2   Bindi2011 normal      geoh
 gmm at3   Bindi2011 reverse     geoh
 gmm at4   Bindi2011 strike-slip geoh
-gmm at5   Bindi2011 unspecified     geoh
+gmm at5   Bindi2011 unspecified geoh
 gmm at6   Bindi2011 normal      z
 gmm at7   Bindi2011 reverse     z
 gmm at8   Bindi2011 strike-slip z
-gmm at9   Bindi2011 unspecified     z
-gmm at10  DW12 sgs-b strike-slip    
-gmm at11  DW12 sgs-b normal         
-gmm at12  DW12 sgs-b normal-oblique 
-gmm at13  DW12 sgs-b reverse        
-gmm at14  DW12 sgs-b reverse-oblique
-gmm at15  DW12 sgs-c strike-slip    
-gmm at16  DW12 sgs-c normal         
-gmm at17  DW12 sgs-c normal-oblique 
-gmm at18  DW12 sgs-c reverse        
-gmm at19  DW12 sgs-c reverse-oblique
-gmm at20  DW12 sgs-d strike-slip    
-gmm at21  DW12 sgs-d normal         
-gmm at22  DW12 sgs-d normal-oblique 
-gmm at23  DW12 sgs-d reverse        
-gmm at24  DW12 sgs-d reverse-oblique 
+gmm at9   Bindi2011 unspecified z
+gmm at10  DW12 B strike-slip    
+gmm at11  DW12 B normal         
+gmm at12  DW12 B normal-oblique 
+gmm at13  DW12 B reverse        
+gmm at14  DW12 B reverse-oblique
+gmm at15  DW12 C strike-slip    
+gmm at16  DW12 C normal         
+gmm at17  DW12 C normal-oblique 
+gmm at18  DW12 C reverse        
+gmm at19  DW12 C reverse-oblique
+gmm at20  DW12 D strike-slip    
+gmm at21  DW12 D normal         
+gmm at22  DW12 D normal-oblique 
+gmm at23  DW12 D reverse        
+gmm at24  DW12 D reverse-oblique 
 gmm at25  FG15 interface forearc linear
 gmm at26  FG15 interface forearc nonlinear
 gmm at27  FG15 interface backarc linear   
@@ -67,18 +67,18 @@ gmm at37  FG15 normal    forearc linear
 gmm at38  FG15 normal    forearc nonlinear   
 gmm at39  FG15 normal    backarc linear      
 gmm at40  FG15 normal    backarc nonlinear   
-gmm at41  TBA03 sgs-b strike-slip    
-gmm at42  TBA03 sgs-b normal         
-gmm at43  TBA03 sgs-b reverse        
-gmm at44  TBA03 sgs-b reverse-oblique
-gmm at45  TBA03 sgs-c strike-slip    
-gmm at46  TBA03 sgs-c normal         
-gmm at47  TBA03 sgs-c reverse        
-gmm at48  TBA03 sgs-c reverse-oblique
-gmm at49  TBA03 sgs-d strike-slip    
-gmm at50  TBA03 sgs-d normal         
-gmm at51  TBA03 sgs-d reverse        
-gmm at52  TBA03 sgs-d reverse-oblique
+gmm at41  TBA03 B strike-slip    
+gmm at42  TBA03 B normal         
+gmm at43  TBA03 B reverse        
+gmm at44  TBA03 B reverse-oblique
+gmm at45  TBA03 C strike-slip    
+gmm at46  TBA03 C normal         
+gmm at47  TBA03 C reverse        
+gmm at48  TBA03 C reverse-oblique
+gmm at49  TBA03 D strike-slip    
+gmm at50  TBA03 D normal         
+gmm at51  TBA03 D reverse        
+gmm at52  TBA03 D reverse-oblique
 gmm at53  BU17 normal               CAV
 gmm at54  BU17 reverse              CAV
 gmm at55  BU17 intraplate           CAV

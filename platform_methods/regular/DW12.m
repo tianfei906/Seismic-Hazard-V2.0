@@ -37,10 +37,10 @@ switch SOF
 end
 
 
-switch media % SGS site category 
-    case 'sgs-b', SC = 0; SD = 0; 
-    case 'sgs-c', SC = 1; SD = 0; 
-    case 'sgs-d', SC = 0; SD = 1;  
+switch lower(media) % SGS site category 
+    case {1,'b'}, SC = 0; SD = 0; 
+    case {2,'c'}, SC = 1; SD = 0; 
+    case {3,'d'}, SC = 0; SD = 1;  
 end
 
 % median model in units of gs

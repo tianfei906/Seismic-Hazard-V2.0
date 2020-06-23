@@ -37,10 +37,10 @@ switch SOF % SGS site category
     case 'unspecified',     FN = 0; FR = 0; % assumption
 end
 
-switch media % SGS site category 
-    case 'sgs-b', SC = 0; SD = 0; phi1 = 1.18;  phi2 = 0.94;
-    case 'sgs-c', SC = 1; SD = 0; phi1 = 1.17;  phi2 = 0.93;
-    case 'sgs-d', SC = 0; SD = 1; phi1 = 0.96;  phi2 = 0.73;
+switch lower(media) % SGS site category 
+    case {1,'b'}, SC = 0; SD = 0; phi1 = 1.18;  phi2 = 0.94;
+    case {2,'c'}, SC = 1; SD = 0; phi1 = 1.17;  phi2 = 0.93;
+    case {3,'d'}, SC = 0; SD = 1; phi1 = 0.96;  phi2 = 0.73;
 end
 
 lny = c1 + c2*(M-6) + c3 * log(M/6) + c4*log(sqrt(Rrup.^2+h^2)) + (s11+s12*(M-6))*SC + (s21+s22*(M-6))*SD + f1*FN + f2*FR;

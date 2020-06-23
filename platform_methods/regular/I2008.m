@@ -33,6 +33,8 @@ else
     sigma      = interp1(x,Y_sigma,log(To))';
 end
 
+tau   = nan(size(M));
+phi   = nan(size(M));
 % unit convertion
 lny  = lny+log(units);
 

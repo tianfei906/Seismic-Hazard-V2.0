@@ -12,7 +12,7 @@ end
 
 
 txtLIBS = handles.sys.txtLIBS;
-ptrs    = handles.sys.ptrs(21:24,:);
+ptrs    = handles.sys.ptrs(15:18,:);
 ptrs    = ptrs-ptrs(1)+1;
 
 %% Option 20: reads analysis options

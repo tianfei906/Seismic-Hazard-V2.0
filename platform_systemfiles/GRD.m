@@ -206,7 +206,6 @@ function grd_file_Callback(~,~,~)
 
 function uhs_file_Callback(~, ~, ~)
 
-
 % ----------------- display options ---------------------------------------
 function display_grid_Callback(hObject, ~, handles)
 switch hObject.Value
@@ -223,7 +222,6 @@ if ~isempty(ch)
         case 1, ch.Visible='on';
     end
 end
-
 
 function display_sources_Callback(hObject, eventdata, handles)
 branch_ptr=handles.branch_menu.Value;

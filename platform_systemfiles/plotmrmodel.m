@@ -10,7 +10,7 @@ end
 
 % gmpe parameters
 [~,param] = mMRgetparam(handles);
-x         = 4:0.005:9;
+x         = linspace(4,10,50);
 TOL       = 1e-14;
 switch func2str(handles.fun)
     case 'truncexp'
@@ -20,7 +20,7 @@ switch func2str(handles.fun)
         tr2=-TOL + Mmax;
         tr3=+TOL + Mmax;
         x = sort([x,tr1,Mmin,Mmax,tr2,tr3]);
-        
+        x(x>Mmax)=NaN;
     case 'truncnorm'
         Mchar   = param(3);
         sigmaM  = param(4);
@@ -29,7 +29,7 @@ switch func2str(handles.fun)
         tr3=+TOL + Mchar+sigmaM;
         tr4=       Mchar+sigmaM;
         x = sort([x,tr1,tr2,tr3,tr4]);
-        
+        x(x>Mchar+sigmaM)=NaN;
     case 'delta'
         M   = param(1);
         tr1=-TOL + M;
@@ -46,7 +46,7 @@ switch func2str(handles.fun)
         tr5 = Mchar+0.25;
         tr6 = Mchar+0.25+TOL;
         x = sort([x,tr1,tr2,tr3,tr4,tr5,tr6]);
-        
+        x(x>Mchar+0.25+TOL)=NaN;
     case 'magtable'
         Mmin       = param(1);
         binwidth   = param(2);

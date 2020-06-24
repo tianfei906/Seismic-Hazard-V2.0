@@ -1,19 +1,15 @@
 function[MRD]=runlogictree2V(sys,opt,h,rho,mechlist)
 
-site     = h.p;
-ShearMod = opt.ShearModulus;
-
-% figure out MRD size
-Nsites  = size(site,1);
-Nim     = size(opt.im,1);
-Nbranch = size(sys.branch,1);
-Nsource = max(sum(sys.Nsrc,1));
-MRD     = zeros(Nsites,Nim,Nim,Nsource,Nbranch);
+Nsites   = size(h.p,1);
+Nim      = size(opt.im,1);
+Nbranch  = size(sys.branch,1);
+Nsource  = max(sum(sys.Nsrc,1));
+MRD      = zeros(Nsites,Nim,Nim,Nsource,Nbranch);
 
 
 for k=1:Nbranch
     fprintf('%g\n',k/Nbranch)
-    source  = buildmodelin(sys,sys.branch(k,:),ShearMod);
+    source  = buildmodelin(sys,sys.branch(k,:),opt);
     for i=1:Nsites
         hi.p     = h.p(i,:);
         hi.param = h.param;

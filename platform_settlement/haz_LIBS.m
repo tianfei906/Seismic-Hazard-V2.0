@@ -30,8 +30,10 @@ if any(imethod==2) % Macedo & Bray
     if ~isempty(D2), mechlist=[mechlist,2];end % 'instraslab'
     if ~isempty(D3), mechlist=[mechlist,3];end % 'crustal'
     
-    haz.imvector = handles.opt.im(:,[1 3]);
-    haz.IMvector = handles.opt.IM([1,3]);
+    haz.imvector   = handles.opt.im(:,[1 3]);
+    haz.IMvector   = handles.opt.IM([1,3]);
+    handles.opt.im = haz.imvector;
+    handles.opt.IM = haz.IMvector;
     haz.corrlist = rhoCAVSA1;
     haz.MRD =runlogictree2V(handles.sys,handles.opt,handles.h,rhoCAVSA1,mechlist);
 end

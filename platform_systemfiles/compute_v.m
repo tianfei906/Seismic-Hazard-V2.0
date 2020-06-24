@@ -33,21 +33,12 @@ pall={'parula','autumn','bone','colorcube','cool','copper','flag','gray','hot','
 pallet = pall{MapOptions.map(2)};
 set(fig,'colormap',feval(pallet));
 hazard   = 1/MapOptions.map(1);
-logh     = log(hazard);
-logHIM   = log(lambda);
 
 text(NaN,NaN,'','parent',ax1,'Tag','satext');
 % interpolation oh hazard curves
 Nsites = size(MRE,1);
 v      = zeros(Nsites,1);
 for j=1:Nsites
-    xxx =logHIM(j,:);
-    im0  = im(~isinf(xxx));
-    x0  = xxx(~isinf(xxx))';
-    if any([min(xxx)<logh,max(xxx)>logh,length(unique(xxx))>2]==0)
-        v(j)  = 0;
-    else
-        v(j)  = robustinterp(x0,im0,logh,'linear');
-    end
+    v(j) = robustinterp(lambda(j,:)',im,hazard,'loglog');
 end
 

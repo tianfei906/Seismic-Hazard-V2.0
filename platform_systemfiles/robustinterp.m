@@ -12,7 +12,7 @@ switch style
         zer=find(or(Xu==0,Yu==0));
         Xu(zer)=[];
         Yu(zer)=[];
-        y = exp(interp1(log(Xu),log(Yu),log(x)));
+        y = exp(interp1(log(Xu),log(Yu),log(x),'pchip'));
     case 'linear'
         y = interp1(Xu,Yu,x);
 end

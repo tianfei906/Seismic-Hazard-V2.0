@@ -30,16 +30,14 @@ opt.im  = im1;
 
 MRE = runlogictree1(handles.sys,opt,h,1);
 MRE = permute(MRE,[2 5 1 3 4]);
-lnSat = zeros(1,Nmodels);
+Sat = zeros(1,Nmodels);
 for i=1:Nmodels
-    lnSat(i)=robustinterp(MRE(:,i),opt.im,1/Tr,'loglog');
+    Sat(i)=robustinterp(MRE(:,i),opt.im,1/Tr,'loglog');
 end
-SaT = exp(lnSat*pkl);
-
-
-col         = find(handles.opt.IM>=0);
-im1         = repmat(handles.opt.im(:,col(1)),1,length(T));
-opt2        = handles.opt;
+SaT  = exp(log(Sat)*pkl);
+col  = find(handles.opt.IM>=0);
+im1  = repmat(handles.opt.im(:,col(1)),1,length(T));
+opt2 = handles.opt;
 
 for model_ptr  = 1:Nmodels
     branch  = handles.sys.branch(model_ptr,1:3);
@@ -47,7 +45,7 @@ for model_ptr  = 1:Nmodels
     Nsource = length(sources);
     
     % compute Hazard Deagregation for T* at Return Period Tr
-    im2     = exp(lnSat(model_ptr));
+    im2     = Sat(model_ptr);
     opt2.im = im2;
     opt2.IM = Tcond;
     lambda2 = nan(1,1,1,Nsource,1);

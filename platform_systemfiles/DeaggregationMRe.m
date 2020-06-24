@@ -244,17 +244,7 @@ if all(lambda1==0)
 end
 
 % computes im values for deaggregation
-lambda1(lambda1==0)=max(min(lambda1),1e-8);
-logy    = log(lambda1);
-logx    = log(im1);
-xData = logy(~isinf(logy));
-yData = logx(~isinf(logy));
-[~,IND]=unique(xData,'stable');
-xData=xData(IND);
-yData=yData(IND);
-
-logyy   = log(1./handles.returnperiod);
-im3     = exp(interp1(xData,yData,logyy(ret_ptr),'pchip'));
+im3     = robustinterp(lambda1,im1,1./handles.returnperiod(ret_ptr),'loglog');
 deagg3  = runhazard3(im3,IM,h,opt,sources,Nsource,1,handles.Ebin);
 deagg3  = vertcat(deagg3{1,1,1,:});
 

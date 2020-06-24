@@ -18,7 +18,7 @@ Clusters     : off 100 1
 
 Option 1 - Logic Tree Weights
 Geom Weight : 1
-Gmpe Weight : 1/5 1/5 1/5 1/5 1/5
+Gmpe Weight : 1/4 1/4 1/4 1/4
 Mscl Weight : 1 
 
 Option 2 - Source Geometry
@@ -34,21 +34,18 @@ area4 zone7 intraslab normal wc1994 0 2 zone7.mat 25
 Option 3 - GMPE Library
 gmm at1  Youngs1997 interface
 gmm at2  Youngs1997 intraslab
-gmm at3  AtkinsonBoore2003 interface General
-gmm at4  AtkinsonBoore2003 intraslab General
-gmm at5  Zhao2006 interface
-gmm at6  Zhao2006 intraslab
-gmm at7  BCHydro2012 interface Forearc Central
-gmm at8  BCHydro2012 intraslab Forearc Central
-gmm at9  MontalvaBastias2017 interface Forearc
-gmm at10 MontalvaBastias2017 intraslab Forearc
+gmm at3  Zhao2006 interface
+gmm at4  Zhao2006 intraslab
+gmm at5  BCHydro2012 interface Forearc Central
+gmm at6  BCHydro2012 intraslab Forearc Central
+gmm at7  MontalvaBastias2017 interface Forearc
+gmm at8 MontalvaBastias2017 intraslab Forearc
 
 Option 4 - GMPE GROUPS
 gmmgroup Youngs1997      1  2   
-gmmgroup AB2003          3  4 
-gmmgroup Zhao2006        5  6 
-gmmgroup Abrahamson2012  7  8 
-gmmgroup Montalva2017HQ  9  10
+gmmgroup Zhao2006        3  4 
+gmmgroup Abrahamson2012  5  6 
+gmmgroup Montalva2017    7  8
 
 Option 5 - MAGNITUDE SCALING RELATIONS
 seismicity 1 Poulos

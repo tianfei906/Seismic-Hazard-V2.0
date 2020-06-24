@@ -29,11 +29,7 @@ lambda1 = runhazard1(im1,T,h,opt,sources,Nsource,1);
 lambda1 = permute(lambda1,[2 3 1]);
 
 % compute Hazard Deagregation for T* at Return Period Tr
-logy    = log(lambda1(:,Tcond_ptr));
-logx    = log(im1(:,Tcond_ptr));
-logyy   = log(1/Tr);
-logxx   = robustinterp(logy,logx,logyy,'linear');
-im2     = exp(logxx);
+im2     = robustinterp(lambda1(:,Tcond_ptr),im1(:,Tcond_ptr),1/Tr,'loglog');
 opt2    = opt;
 opt2.im = im2;
 opt2.IM = Tcond;

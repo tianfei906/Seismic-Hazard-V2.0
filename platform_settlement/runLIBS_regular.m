@@ -43,11 +43,14 @@ for site_ptr=1:Nsites
     brptr((cell2mat(T1(:,2))==0))=[];
     param = handles.param(site_ptr);
     Q     = trlognpdf_psda([param.Q nQ]);
-    p     = h.p(site_ptr,:);
-    VS30  = h.VS30(site_ptr); 
+    
+    h           = handles.h;
+    h.p         = h.p(site_ptr,:);
+    h.param     = h.param;
+    h.value     = h.value(site_ptr,:);
     
     % computes Magnitude and PGA percentiles
-    pga_ptr = handles.haz.IM==0;
+    pga_ptr = find(handles.haz.IM==0);
     lambda  = handles.haz.lambda(site_ptr,:,pga_ptr,:,:);
     lambda  = nansum(lambda,4);
     lambda  = permute(lambda,[2 5 1 3 4]);
@@ -58,10 +61,10 @@ for site_ptr=1:Nsites
         for ll=1:nPGA
             opt0    = handles.opt;
             opt0.im = handles.haz.im(:,pga_ptr);
-            opt0.IM = robustinterp(lambda(:,1),opt0.im,1/Tret,'loglog');
+            opt0.IM = robustinterp(lambda(:,pga_ptr),opt0.im,1/Tret,'loglog');
             opt0.dflag = [true false true];
-            source  = buildmodelin(handles.sys,handles.sys.branch(ll,:),ShearMod);
-            deagg   = runhazard2(opt0.IM,0,p,VS30,opt0,source,Nsources,1);
+            source  = buildmodelin(handles.sys,handles.sys.branch(ll,:),opt0);
+            deagg   = runhazard2(opt0.IM,0,h,opt0,source,Nsources,1);
             deagg   = vertcat(deagg{:});
             M      = (deagg(:,1)'*deagg(:,3))/sum(deagg(:,3));
             PGA    = exp((deagg(:,2)'*deagg(:,3))/sum(deagg(:,3)));

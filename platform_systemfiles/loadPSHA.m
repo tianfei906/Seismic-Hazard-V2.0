@@ -234,6 +234,13 @@ for i=1:length(GMMLIB)
     [~,b]=intersect(str,hnd);
     if strcmp(typ{b},'cond')
         usp = GMMLIB(i).usp;
+        
+        for j=1:length(usp)
+            if ~ischar(usp{j})
+                usp{j}=num2str(usp{j});
+            end
+        end
+        
         [~,Rmetric1]       = mGMPE_info(hnd);
         [~,b,c]            = intersect(lower(str),usp);
         GMMLIB(i).usp      = usp(c+1:end);

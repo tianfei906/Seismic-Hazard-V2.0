@@ -14,5 +14,9 @@ switch style
         Yu(zer)=[];
         y = exp(interp1(log(Xu),log(Yu),log(x),'pchip'));
     case 'linear'
-        y = interp1(Xu,Yu,x);
+        if numel(Xu)==1
+            y = NaN;
+        else
+            y = interp1(Xu,Yu,x);
+        end
 end

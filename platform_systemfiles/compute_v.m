@@ -39,6 +39,6 @@ text(NaN,NaN,'','parent',ax1,'Tag','satext');
 Nsites = size(MRE,1);
 v      = zeros(Nsites,1);
 for j=1:Nsites
-    v(j) = robustinterp(lambda(j,:)',im,hazard,'loglog');
+    v(j) = robustinterp(lambda(j,:)',im,hazard,'linear');
 end
 

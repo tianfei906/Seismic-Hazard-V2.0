@@ -1,1 +1,0 @@
-function [handles]=GMMValidation_SiberRisk2019(handles,filename)

@@ -33,17 +33,17 @@ if group ==1
     i=i+1; ME(i).label = 'Garcia-Soto Jaimes 2017 (H/V)';ME(i).func = @GarciaJaimes2017HV;         ME(i).mech=[1 0 0]; ME(i).type='regular';  ME(i).ref='https://doi.org/10.1785/0120160273';
     i=i+1; ME(i).label = 'Bernal et al. 2014';           ME(i).func = @Bernal2014;                 ME(i).mech=[1 1 0]; ME(i).type='regular';  ME(i).ref='https://doi.org/10.13140/2.1.2693.6641';
     i=i+1; ME(i).label = 'Sadigh et al. 1997';           ME(i).func = @Sadigh1997;                 ME(i).mech=[0 0 1]; ME(i).type='regular';  ME(i).ref='https://doi.org/10.1785/gssrl.68.1.180';
-    i=i+1; ME(i).label = 'Idriss 2008 - NGA';            ME(i).func = @I2008;                      ME(i).mech=[0 0 1]; ME(i).type='regular';  ME(i).ref='https://doi.org/10.1193/1.2924362';
-    i=i+1; ME(i).label = 'Chiou Youngs 2008 - NGA';      ME(i).func = @CY2008;                     ME(i).mech=[0 0 1]; ME(i).type='regular';  ME(i).ref='https://doi.org/10.1193/1.2894832';
-    i=i+1; ME(i).label = 'Boore Atkinson 2008 - NGA';    ME(i).func = @BA2008;                     ME(i).mech=[0 0 1]; ME(i).type='regular';  ME(i).ref='https://doi.org/10.1193/1.2830434';
-    i=i+1; ME(i).label = 'Campbell Bozorgnia 2008 - NGA';ME(i).func = @CB2008;                     ME(i).mech=[0 0 1]; ME(i).type='regular';  ME(i).ref='https://doi.org/10.1193/1.2857546';
-    i=i+1; ME(i).label = 'Abrahamson Silva 2008 - NGA';  ME(i).func = @AS2008;                     ME(i).mech=[0 0 1]; ME(i).type='regular';  ME(i).ref='https://doi.org/10.1193/1.2924360';
+    i=i+1; ME(i).label = 'Idriss 2008';                  ME(i).func = @I2008;                      ME(i).mech=[0 0 1]; ME(i).type='regular';  ME(i).ref='https://doi.org/10.1193/1.2924362';
+    i=i+1; ME(i).label = 'Chiou Youngs 2008';            ME(i).func = @CY2008;                     ME(i).mech=[0 0 1]; ME(i).type='regular';  ME(i).ref='https://doi.org/10.1193/1.2894832';
+    i=i+1; ME(i).label = 'Boore Atkinson 2008';          ME(i).func = @BA2008;                     ME(i).mech=[0 0 1]; ME(i).type='regular';  ME(i).ref='https://doi.org/10.1193/1.2830434';
+    i=i+1; ME(i).label = 'Campbell Bozorgnia 2008';      ME(i).func = @CB2008;                     ME(i).mech=[0 0 1]; ME(i).type='regular';  ME(i).ref='https://doi.org/10.1193/1.2857546';
+    i=i+1; ME(i).label = 'Abrahamson Silva 2008';        ME(i).func = @AS2008;                     ME(i).mech=[0 0 1]; ME(i).type='regular';  ME(i).ref='https://doi.org/10.1193/1.2924360';
     i=i+1; ME(i).label = 'Abrahamson Silva 1997 (Horz)'; ME(i).func = @AS1997h;                    ME(i).mech=[0 0 1]; ME(i).type='regular';  ME(i).ref='https://doi.org/10.1785/gssrl.68.1.94';
-    i=i+1; ME(i).label = 'Idriss 2014 - NGAW2';          ME(i).func = @I2014;                      ME(i).mech=[0 0 1]; ME(i).type='regular';  ME(i).ref ='https://doi.org/10.1193/070613EQS195M';
-    i=i+1; ME(i).label = 'CY 2014 - NGAW2';              ME(i).func = @CY2014;                     ME(i).mech=[0 0 1]; ME(i).type='regular';  ME(i).ref='https://doi.org/10.1193/072813eqs219m';
-    i=i+1; ME(i).label = 'CB 2014 - NGAW2';              ME(i).func = @CB2014;                     ME(i).mech=[0 0 1]; ME(i).type='regular';  ME(i).ref='https://doi.org/10.1193/062913eqs175m';
-    i=i+1; ME(i).label = 'BSSA 2014 - NGAW2';            ME(i).func = @BSSA2014;                   ME(i).mech=[0 0 1]; ME(i).type='regular';  ME(i).ref='https://doi.org/10.1193/070113eqs184m';
-    i=i+1; ME(i).label = 'ASK 2014 - NGAW2';             ME(i).func = @ASK2014;                    ME(i).mech=[0 0 1]; ME(i).type='regular';  ME(i).ref='https://doi.org/10.1193/070913eqs198m';
+    i=i+1; ME(i).label = 'Idriss 2014';                  ME(i).func = @I2014;                      ME(i).mech=[0 0 1]; ME(i).type='regular';  ME(i).ref ='https://doi.org/10.1193/070613EQS195M';
+    i=i+1; ME(i).label = 'CY 2014';                      ME(i).func = @CY2014;                     ME(i).mech=[0 0 1]; ME(i).type='regular';  ME(i).ref='https://doi.org/10.1193/072813eqs219m';
+    i=i+1; ME(i).label = 'CB 2014';                      ME(i).func = @CB2014;                     ME(i).mech=[0 0 1]; ME(i).type='regular';  ME(i).ref='https://doi.org/10.1193/062913eqs175m';
+    i=i+1; ME(i).label = 'BSSA 2014';                    ME(i).func = @BSSA2014;                   ME(i).mech=[0 0 1]; ME(i).type='regular';  ME(i).ref='https://doi.org/10.1193/070113eqs184m';
+    i=i+1; ME(i).label = 'ASK 2014';                     ME(i).func = @ASK2014;                    ME(i).mech=[0 0 1]; ME(i).type='regular';  ME(i).ref='https://doi.org/10.1193/070913eqs198m';
     i=i+1; ME(i).label = 'Akkar & Boomer 2007';          ME(i).func = @AkkarBoomer2007;            ME(i).mech=[0 0 1]; ME(i).type='regular';  ME(i).ref='https://doi.org/10.1002/eqe.679';
     i=i+1; ME(i).label = 'Akkar & Boomer 2010';          ME(i).func = @AkkarBoomer2010;            ME(i).mech=[0 0 1]; ME(i).type='regular';  ME(i).ref='https://doi.org/10.1785/gssrl.81.2.195';
     i=i+1; ME(i).label = 'Arroyo et al. 2010';           ME(i).func = @Arroyo2010;                 ME(i).mech=[1 0 0]; ME(i).type='regular';  ME(i).ref='https://doi.org/10.1007/s10950-010-9200-0';
@@ -52,12 +52,14 @@ if group ==1
     i=i+1; ME(i).label = 'Cauzzi et al. 2015';           ME(i).func = @Cauzzi2015;                 ME(i).mech=[0 0 1]; ME(i).type='regular';  ME(i).ref='https://doi.org/10.1007/s10518-014-9685-y';
     i=i+1; ME(i).label = 'Du & Wang, 2012';              ME(i).func = @DW12;                       ME(i).mech=[0 0 1]; ME(i).type='regular';  ME(i).ref='https://doi.org/10.1002/eqe.2266';
     i=i+1; ME(i).label = 'Foulser-Piggott, Goda 2015';   ME(i).func = @FG15;                       ME(i).mech=[0 0 1]; ME(i).type='regular';  ME(i).ref='https://doi.org/10.1785/0120140316';
-    i=i+1; ME(i).label = 'Travasarou, Bray, Abrahamson 2003'; ME(i).func = @TBA03;                 ME(i).mech=[0 0 1]; ME(i).type='regular';  ME(i).ref='https://doi.org/10.1002/eqe.270';
+    i=i+1; ME(i).label = 'Travasarou et al. 2003';       ME(i).func = @TBA03;                      ME(i).mech=[0 0 1]; ME(i).type='regular';  ME(i).ref='https://doi.org/10.1002/eqe.270';
     i=i+1; ME(i).label = 'Bullock et al, 2017';          ME(i).func = @BU17;                       ME(i).mech=[1 1 1]; ME(i).type='regular';  ME(i).ref='https://doi.org/10.1785/0120160388';
     i=i+1; ME(i).label = 'Campbell,Bozorgnia 2010';      ME(i).func = @CB10;                       ME(i).mech=[0 0 1]; ME(i).type='regular';  ME(i).ref='https://doi.org/10.1193/1.3457158';
     i=i+1; ME(i).label = 'Campbell,Bozorgnia 2011';      ME(i).func = @CB11;                       ME(i).mech=[0 0 1]; ME(i).type='regular';  ME(i).ref='https://doi.org/10.1016/j.nucengdes.2011.04.020';
     i=i+1; ME(i).label = 'Campbell,Bozorgnia 2019';      ME(i).func = @CB19;                       ME(i).mech=[0 0 1]; ME(i).type='regular';  ME(i).ref='https://doi.org/10.1193/090818EQS212M';
     i=i+1; ME(i).label = 'Kramer & Mitchell, 2006';      ME(i).func = @KM06;                       ME(i).mech=[0 0 1]; ME(i).type='regular';  ME(i).ref='https://doi.org/10.1193/1.2194970';
+    i=i+1; ME(i).label = 'PCE BCHydro (median)';         ME(i).func = @medianPCE_bchydro;          ME(i).mech=[1 1 0]; ME(i).type='regular';  ME(i).ref='www.google.com';
+    
     i=i+1; ME(i).label = 'User Defined Model';           ME(i).func = @udm;                        ME(i).mech=[0 0 0]; ME(i).type='udm';      ME(i).ref='www.google.com';
     i=i+1; ME(i).label = 'Macedo et al. 2019';           ME(i).func = @Macedo2019;                 ME(i).mech=[1 1 0]; ME(i).type='cond';     ME(i).ref='https://doi.org/10.1785/0120180297';
     i=i+1; ME(i).label = 'Macedo et al. 2020';           ME(i).func = @Macedo2020;                 ME(i).mech=[0 0 1]; ME(i).type='cond';     ME(i).ref='www.google.com';
@@ -130,7 +132,7 @@ if group == 5
     i=i+1;ME(i).label = 'RA 2011 (Rigid)';     ME(i).func = @psda_RA2011R;      ME(i).mechanism = 'crustal'; ME(i).integrator=3;  ME(i).primaryIM='PGV-PGA';       ME(i).isregular=true;  ME(i).ref = 'https://www.sciencedirect.com/science/article/pii/S0013795210002553';
     i=i+1;ME(i).label = 'RA 2011 (Flexible)';  ME(i).func = @psda_RA2011F;      ME(i).mechanism = 'crustal'; ME(i).integrator=4;  ME(i).primaryIM='PGV-PGA';       ME(i).isregular=true;  ME(i).ref = 'https://www.sciencedirect.com/science/article/pii/S0013795210002553';
     i=i+1;ME(i).label = 'RS 2009 (Scalar-M)';  ME(i).func = @psda_RS09M;        ME(i).mechanism = 'crustal'; ME(i).integrator=1;  ME(i).primaryIM='PGA';           ME(i).isregular=true;  ME(i).ref = 'http://www.nzsee.org.nz/db/Bulletin/Archive/42(1)0018.pdf';
-    i=i+1;ME(i).label = 'RS 2009 (Vector)';    ME(i).func = @psda_RS09V;        ME(i).mechanism = 'crustal'; ME(i).integrator=4;  ME(i).primaryIM='PGV-PGA';       ME(i).isregular=true;  ME(i).ref = 'http://www.nzsee.org.nz/db/Bulletin/Archive/42(1)0018.pdf';
+    i=i+1;ME(i).label = 'RS 2009 (Vector)';    ME(i).func = @psda_RS09V;        ME(i).mechanism = 'crustal'; ME(i).integrator=3;  ME(i).primaryIM='PGV-PGA';       ME(i).isregular=true;  ME(i).ref = 'http://www.nzsee.org.nz/db/Bulletin/Archive/42(1)0018.pdf';
     i=i+1;ME(i).label = 'AM 1988';             ME(i).func = @psda_AM1988;       ME(i).mechanism = 'crustal'; ME(i).integrator=2;  ME(i).primaryIM='PGA';           ME(i).isregular=true;  ME(i).ref = 'https://doi.org/10.1002/eqe.4290160704';
     
     for j=1:length(ME)

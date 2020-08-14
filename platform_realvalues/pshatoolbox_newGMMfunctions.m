@@ -2,6 +2,7 @@ clear all
 clc
 
 %% Functions required to include new GMMs
+edit mGMPEdspec.m
 edit param_circDSHA.m
 edit param_circ.m
 edit param_rect.m

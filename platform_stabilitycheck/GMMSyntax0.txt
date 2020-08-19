@@ -34,7 +34,8 @@ gmm  gmm_Mcverry2006             Mcverry2006 normal 0                           
 gmm  gmm_ContrerasBoroschek2012  ContrerasBoroschek2012                                          #Boroschek et al. 2012        
 gmm  gmm_BCHydro2012             BCHydro2012 interface forearc lower                             #Abrahamson et al. 2016       
 gmm  gmm_BCHydro2018             BCHydro2018 interface                                           #Abrahamson et al. 2018       
-gmm  gmm_Kuehn2020               Kuehn2020 interface South_America_S 0 0 0.55 2 100              #Kuehn et al. 2020            
+gmm  gmm_Kuehn2020               Kuehn2020 interface south_america_s 0 0 0.55 2 100              #Kuehn et al. 2020            
+gmm  gmm_Parker2020              Parker2020 2 interface south_america_n                          #Parker et al. 2020
 gmm  gmm_Arteta2018              Arteta2018 forearc                                              #Arteta et al. 2018           
 gmm  gmm_Idini2016               Idini2016 interface sII                                         #Idini et al. 2016            
 gmm  gmm_MontalvaBastias2017     MontalvaBastias2017 interface forearc                           #Montalva et al. 2017         
@@ -47,7 +48,9 @@ gmm  gmm_Jaimes2015              Jaimes2015 cu                                  
 gmm  gmm_Jaimes2016              Jaimes2016                                                      #Jaimes et al. 2016           
 gmm  gmm_GarciaJaimes2017        GarciaJaimes2017 vertical                                       #Garcia-Soto Jaimes 2017      
 gmm  gmm_GarciaJaimes2017VH      GarciaJaimes2017VH                                              #Garcia-Soto Jaimes 2017 (VH) 
-gmm  gmm_GA2011                  GA2011 strike-slip                                              #Gulerce, Abrahamson 2011     
+gmm  gmm_GA2011                  GA2011 strike-slip                                              #Gulerce, Abrahamson 2011  
+gmm  gmm_SBSA2016                SBSA2016 strike-slip global                                     #Stewart et al. 2016
+gmm  gmm_GKAS2017                GKAS2017 strike-slip global                                     #Gulerce et al. 2017
 gmm  gmm_Bernal2014              Bernal2014 interface                                            #Bernal et al. 2014           
 gmm  gmm_Sadigh1997              Sadigh1997 strike-slip                                          #Sadigh et al. 1997           
 gmm  gmm_I2008                   I2008 strike-slip                                               #Idriss 2008 - NGA            

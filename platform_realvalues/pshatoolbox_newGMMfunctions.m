@@ -10,6 +10,7 @@ edit mGMPEsubgroup.m
 edit mGMPEgetparam.m
 edit mGMPErrupLoop.m
 edit mGMPEdefault.m
+edit mGMPEplotVS30
 edit pshatoolbox_methods.m
 edit isIMadmisible.m
 edit mGMPE_info.m

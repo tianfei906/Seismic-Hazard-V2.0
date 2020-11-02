@@ -1,4 +1,4 @@
-function [rho] = corr_JaimesCandia2018(T1, T2,~)
+function [rho] = corr_JaimesCandia2019(T1, T2,~)
 
 % Created by M. Jaimes & G Candia, 19/07/2018
 % Compute the correlation of epsilons for the NGA ground motion models

@@ -1,4 +1,4 @@
-function[deagg]=runhazard2(im,IM,h,opt,source,Nsource,site_selection,OV)
+function[deagg,param]=runhazard2(im,IM,h,opt,source,Nsource,site_selection,OV)
 
 xyz       = gps2xyz(h.p,opt.ellipsoid);
 Nsite     = size(xyz,1);
@@ -17,6 +17,9 @@ for i=site_selection
 end
 
 deagg  = cell(Nsite,Nim,NIM,Nsource);
+if nargout==2
+    param  = cell(Nsite,Nim,NIM,Nsource);
+end
 for k=site_selection
     ind_k      = ind(k,:);
     sptr       = find(ind_k);
@@ -24,29 +27,24 @@ for k=site_selection
     valuek     = h.value(k,:);
     for i=sptr
         source(i).media=valuek;
-        deagg(k,:,:,i)=runsourceDeagg(source(i),xyzk,IM,im,opt.ellipsoid,opt.Sigma,h.param,dflag);
+        if nargout==1
+            deagg(k,:,:,i)=runsourceDeagg(source(i),xyzk,IM,im,opt.ellipsoid,opt.Sigma,h.param,dflag);
+        else
+            [deagg(k,:,:,i),param{k,:,:,i}]=runsourceDeagg(source(i),xyzk,IM,im,opt.ellipsoid,opt.Sigma,h.param,dflag);
+        end
     end
 end
 
+
 return
 
-function[deagg]=runsourceDeagg(source,r0,IM,im,ellip,sigma,hparam,dflag)
+function[deagg,param]=runsourceDeagg(source,r0,IM,im,ellip,sigma,hparam,dflag)
 
-%% MAGNITUDE RATE OF EARTHQUAKES
+%% RATE OF EARTHQUAKES
 NIM   = length(IM);
 Nim   = size(im,1);
 NMmin = source.NMmin;
-
-%% ASSEMBLE GMPE PARAMERTER
-switch source.obj
-    case 1, [param,rate] = param_circ(r0,source,ellip,hparam);  % point1
-    case 2, [param,rate] = param_circ(r0,source,ellip,hparam);  % line1
-    case 3, [param,rate] = param_circ(r0,source,ellip,hparam);  % area1
-    case 4, [param,rate] = param_circ(r0,source,ellip,hparam);  % area2
-    case 5, [param,rate] = param_rect(r0,source,ellip,hparam);  % area3
-    case 6, [param,rate] = param_circ(r0,source,ellip,hparam);  % area4
-    case 7, [param,rate] = param_circ(r0,source,ellip,hparam);  % volume1
-end
+[param,rate] = source.pfun(r0,source,ellip,hparam);
 
 %% HAZARD INTEGRAL
 deagg     = cell(Nim,NIM);

@@ -1,6 +1,9 @@
 #Description: Calculate the hazard for the six sites shown in Figure B.4 due to a single-magnitude
 #event on Fault 4 using the specified NGA-West2 ground-motion models. See Tables B.8 and B.9
 #for source and site coordinates.
+
+
+
   
 Option 0 - Global Parameters
 Projection   : sphere
@@ -27,7 +30,7 @@ Mscl Weight : 1
 
 Option 2 - Source Geometry
 geometry 1
-area3 Fault3 crustal reverse wc1994 0 1 0 45 85 15.556349186104 2 0.03   -65 -0.38221 -1  -65.098815 -0.38221 -12  -65.098815 0.38221 -12 -65 0.38221 -1
+area2 Fault3 crustal reverse wc1994 0 1 0 45 85 15.556349186104 2 0.03   -65 -0.38221 -1  -65.098815 -0.38221 -12  -65.098815 0.38221 -12 -65 0.38221 -1
                                                      
 Option 3 - GMPE Library
 gmm BSSA2014 BSSA2014 unk reverse california

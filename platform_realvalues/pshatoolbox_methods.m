@@ -62,14 +62,14 @@ if group ==1
     i=i+1; ME(i).label = 'Campbell,Bozorgnia 2011';      ME(i).func = @CB11;                       ME(i).mech=[0 0 1]; ME(i).type='regular';  ME(i).ref='https://doi.org/10.1016/j.nucengdes.2011.04.020';
     i=i+1; ME(i).label = 'Campbell,Bozorgnia 2019';      ME(i).func = @CB19;                       ME(i).mech=[0 0 1]; ME(i).type='regular';  ME(i).ref='https://doi.org/10.1193/090818EQS212M';
     i=i+1; ME(i).label = 'Kramer & Mitchell, 2006';      ME(i).func = @KM06;                       ME(i).mech=[0 0 1]; ME(i).type='regular';  ME(i).ref='https://doi.org/10.1193/1.2194970';
-    i=i+1; ME(i).label = 'PCE BCHydro (median)';         ME(i).func = @medianPCEbchydro;           ME(i).mech=[1 1 0]; ME(i).type='regular';  ME(i).ref='www.google.com';
-    i=i+1; ME(i).label = 'PCE NGA (median)';             ME(i).func = @medianPCEnga;               ME(i).mech=[1 1 0]; ME(i).type='regular';  ME(i).ref='www.google.com';
+    i=i+1; ME(i).label = 'PCE BCHydro (median)';         ME(i).func = @medianPCEbchydro;           ME(i).mech=[1 1 0]; ME(i).type='regular';  ME(i).ref='https://doi.org/10.1016/j.enggeo.2020.105786';
+    i=i+1; ME(i).label = 'PCE NGA (median)';             ME(i).func = @medianPCEnga;               ME(i).mech=[1 1 0]; ME(i).type='regular';  ME(i).ref='https://doi.org/10.1016/j.enggeo.2020.105786';
     
     i=i+1; ME(i).label = 'User Defined Model';           ME(i).func = @udm;                        ME(i).mech=[0 0 0]; ME(i).type='udm';      ME(i).ref='www.google.com';
     i=i+1; ME(i).label = 'Macedo et al. 2019';           ME(i).func = @Macedo2019;                 ME(i).mech=[1 1 0]; ME(i).type='cond';     ME(i).ref='https://doi.org/10.1785/0120180297';
     i=i+1; ME(i).label = 'Macedo et al. 2020';           ME(i).func = @Macedo2020;                 ME(i).mech=[0 0 1]; ME(i).type='cond';     ME(i).ref='www.google.com';
-    i=i+1; ME(i).label = 'PCE NGA';                      ME(i).func = @PCE_nga;                    ME(i).mech=[0 0 1]; ME(i).type='pce';      ME(i).ref='www.google.com';
-    i=i+1; ME(i).label = 'PCE BCHydro';                  ME(i).func = @PCE_bchydro;                ME(i).mech=[1 1 0]; ME(i).type='pce';      ME(i).ref='www.google.com';
+    i=i+1; ME(i).label = 'PCE NGA';                      ME(i).func = @PCE_nga;                    ME(i).mech=[0 0 1]; ME(i).type='pce';      ME(i).ref='https://doi.org/10.1016/j.enggeo.2020.105786';
+    i=i+1; ME(i).label = 'PCE BCHydro';                  ME(i).func = @PCE_bchydro;                ME(i).mech=[1 1 0]; ME(i).type='pce';      ME(i).ref='https://doi.org/10.1016/j.enggeo.2020.105786';
     i=i+1; ME(i).label = 'Franky';                       ME(i).func = @franky;                     ME(i).mech=[0 0 0]; ME(i).type='frn';      ME(i).ref='www.google.com';
 
 end
@@ -107,8 +107,8 @@ if group == 4
     i=i+1; ME(i).label = 'ASK2014 - NGA West2';      ME(i).func = @corr_Abrahamson2014;       ME(i).dependency = [0 0 0];    ME(i).ref='https://doi.org/10.1193/070913eqs198m';
     i=i+1; ME(i).label = 'Abrahamanson et al. 2016'; ME(i).func = @corr_BCHhydro2016;         ME(i).dependency = [0 0 0];    ME(i).ref='https://doi.org/10.1193/051712EQS188MR';
     i=i+1; ME(i).label = 'Baker & Bradley 2017';     ME(i).func = @corr_BakerBradley2017;     ME(i).dependency = [0 0 0];    ME(i).ref='https://doi.org/10.1193/060716EQS095M';
-    i=i+1; ME(i).label = 'Jaimes & Candia 2019';     ME(i).func = @corr_JaimesCandia2019;     ME(i).dependency = [0 0 0];    ME(i).ref='www.google.com';
-    i=i+1; ME(i).label = 'Candia et al. 2019';       ME(i).func = @corr_Candia2019;           ME(i).dependency = [1 0 0];    ME(i).ref='www.google.com';
+    i=i+1; ME(i).label = 'Jaimes & Candia 2019';     ME(i).func = @corr_JaimesCandia2019;     ME(i).dependency = [0 0 0];    ME(i).ref='https://doi.org/10.1193/080918EQS200M';
+    i=i+1; ME(i).label = 'Candia et al. 2019';       ME(i).func = @corr_Candia2019;           ME(i).dependency = [1 0 0];    ME(i).ref='https://doi.org/10.1177/8755293019891723';
     i=i+1; ME(i).label = 'Goda & Atkinson 2009';     ME(i).func = @corr_GodaAtkinson2009;     ME(i).dependency = [0 0 0];    ME(i).ref='https://doi.org/10.1785/0120090007';
     i=i+1; ME(i).label = 'Akkar & Sandikkaya 2014';  ME(i).func = @corr_Akkar2014;            ME(i).dependency = [0 0 0];    ME(i).ref='https://doi.org/10.1007/s10518-013-9537-1';
     i=i+1; ME(i).label = 'Ji et al. 2017';           ME(i).func = @corr_Ji2017;               ME(i).dependency = [0 1 0];    ME(i).ref='https://doi.org/10.1785/0120160291';

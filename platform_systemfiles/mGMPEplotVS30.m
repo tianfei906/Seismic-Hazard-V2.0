@@ -1,0 +1,66 @@
+function [IND]=mGMPEplotVS30(str)
+
+T = true;
+F = false;
+S = 0.5;
+S2 = 0.6;
+
+switch str
+    case 'Youngs1997',                    IND = [T,T,T,S,F];             % [M,rrup,zhyp,VS30,
+    case 'AtkinsonBoore2003',             IND = [T,T,T,S,F];             % [M,rrup,zhyp,VS30,
+    case 'Zhao2006',                      IND = [T,T,T,S,F];             % [M,rrup,zhyp,VS30,
+    case 'Mcverry2006',                   IND = [T,T,T,S,F];             % [M,rrup,zhyp,VS30,
+    case 'ContrerasBoroschek2012',        IND = [T,T,T,S,F];             % [M,rrup,zhyp,VS30,
+    case 'BCHydro2012',                   IND = [T,T,T,T,S,F];           % [M,rrup,rhyp,zhyp,
+    case 'BCHydro2018',                   IND = [T,T,T,S,F];             % [M,rrup,ztor,VS30,
+    case 'Kuehn2020',                     IND = [T,T,T,S,F];             % [M,rrup,ztor,VS30,
+    case 'Parker2020',                    IND = [T,T,T,S,F];             % [M,rrup,zhyp,VS30,
+    case 'Arteta2018',                    IND = [T,T,S,F];               % [M,rhyp,VS30,usp];
+    case 'Idini2016',                     IND = [T,T,T,T,S,F];           % [M,rrup,rhyp,zhyp,
+    case 'MontalvaBastias2017',           IND = [T,T,T,T,S,F];           % [M,rrup,rhyp,zhyp,
+    case 'MontalvaBastias2017HQ',         IND = [T,T,T,T,S,F];           % [M,rrup,rhyp,zhyp,
+    case 'Montalva2018',                  IND = [T,T,T,T,S,S2,F];         % [M,rrup,rhyp,zhyp,
+    case 'SiberRisk2019',                 IND = [T,T,T,T,S,F];           % [M,rrup,rhyp,zhyp,
+    case 'Garcia2005',                    IND = [T,T,T,T,F];             % [M,rrup,rhyp,zhyp,
+    case 'Jaimes2006',                    IND = [T,T,F];                 % [M,rrup,usp];
+    case 'Jaimes2015',                    IND = [T,T,F];                 % [M,rrup,usp];
+    case 'Jaimes2016',                    IND = [T,T,F];                 % [M,rrup,usp];
+    case 'GarciaJaimes2017',              IND = [T,T,F];                 % [M,rrup,usp];
+    case 'GarciaJaimes2017VH',            IND = [T,T,F];                 % [M,rrup,usp];
+    case 'GA2011',                        IND = [T,T,S,F];               % [M,Rrup,Vs30,SOF];
+    case 'SBSA2016',                      IND = [T,T,S,F];               % [M,Rjb,VS30,usp]
+    case 'GKAS2017',                      IND = [T,T,T,T,T,T,T,T,S,F];   % [M,Rrup,Rjb,Rx,Ry0
+    case 'Bernal2014',                    IND = [T,T,T,F];               % [M,rrup,zhyp,usp];
+    case 'Sadigh1997',                    IND = [T,T,S,F];               % [M,rrup,VS30,usp];
+    case 'I2008',                         IND = [T,T,S,F];               % [M,rrup,VS30,usp];
+    case 'CY2008',                        IND = [T,T,T,T,T,F,S,F];       % [M,rrup,UNK,-UNK,z
+    case 'BA2008',                        IND = [T,T,S,F];               % [M,rjb,VS30,usp];
+    case 'CB2008',                        IND = [T,T,T,T,F,S,F];         % [M,rrup,rjb,ztor,
+    case 'AS2008',                        IND = [T,T,T,T,T,F,F,S,F];     % [M,rrup,UNK,-UNK,z
+    case 'AS1997h',                       IND = [T,T,S,F];               % [M,rrup,VS30,usp];
+    case 'I2014',                         IND = [T,T,S,F];               % [M,rrup,VS30,usp];
+    case 'CY2014',                        IND = [T,T,T,T,T,F,S,F];       % [M,rrup,UNK,UNK,zt
+    case 'CB2014',                        IND = [T,T,T,T,T,T,T,F,F,S,F]; % [M,rrup,UNK,UNK,UN
+    case 'BSSA2014',                      IND = [T,T,S,F];               % [M,rjb,VS30,usp];
+    case 'ASK2014',                       IND = [T,T,T,T,T,T,F,F,S,F];   % [M,rrup,UNK,-UNK,U
+    case 'AkkarBoomer2007',               IND = [T,T,F];                 % [M,rjb,usp];
+    case 'AkkarBoomer2010',               IND = [T,T,F];                 % [M,rjb,usp];
+    case 'Akkar2014',                     IND = [T,T,T,T,S,F];           % [M,Rhyp,Rjb,Repi,V
+    case 'Arroyo2010',                    IND = [T,T,F];                 % [M,rrup,usp];
+    case 'Bindi2011',                     IND = [T,T,S,F];               % [M,rjb,VS30,usp];
+    case 'Kanno2006',                     IND = [T,T,T,S,F];             % [M,rrup,zhyp,VS30,
+    case 'Cauzzi2015',                    IND = [T,T,T,S,F];             % [M,rrup,rhyp,VS30,
+    case 'DW12',                          IND = [T,T,F];                 % [M,rrup,usp];
+    case 'FG15',                          IND = [T,T,T,S,F];             % [M,rrup,zhyp,VS30,
+    case 'TBA03',                         IND = [T,T,F];                 % [M,rrup,usp];
+    case 'BU17',                          IND = [T,T,T,F];               % [M,rrup,zhyp,usp];
+    case 'CB10',                          IND = [T,T,T,T,F,S,F];         % [M,rrup,rjb,ztor,d
+    case 'CB11',                          IND = [T,T,T,T,F,S,F];         % [M,rrup,rjb,ztor,d
+    case 'CB19',                          IND = [T,T,T,T,T,T,T,F,F,S,F]; % [M,rrup,rjb,UNK,UN
+    case 'KM06',                          IND = [T,T,F];                 % [M,rrup,usp];
+    case 'medianPCEbchydro',              IND = [T,T,S,F];               % [M,rrup,VS30,usp];
+    case 'medianPCEnga',                  IND = [T,T,S,F];               % [M,rrup,VS30,usp];
+    case 'PCE_nga',                       IND = [T,T,S,F];               % [M,rrup,VS30,usp];
+    case 'PCE_bchydro',                   IND = [T,T,S,F];               % [M,rrup,VS30,usp];
+end
+

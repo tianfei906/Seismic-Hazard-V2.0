@@ -23,20 +23,13 @@ Mscl Weight : 1
 
 Option 2 - Source Geometry
 geometry 1
-point1 obj1_1 crustal strike-slip wc1994 0 1 0 90 0 0 -30
-line1  obj2_1 crustal strike-slip wc1994 0 1   90 1 0   0 10 -30  0 20 -30
-area1  obj3_1 crustal strike-slip wc1994 0 1      1 0   3 10 -10 3 10 -30 3 20 -30 3 20 -10
-area2  obj4_1 crustal strike-slip wc1994 0 1   90 10 30 1 0  6 10 6 20 
-area3  obj5_1 crustal strike-slip wc1994 0 1 0 90 20 20 2 1  9 10 -10  9 10 -30  9 20 -30  9 20 -10
-area5  obj7_1 crustal strike-slip wc1994 0 1      1 0 1 3 12 10 -10 12 10 -30 12 30 -30 12 30 -10
-#point1 obj1_2 crustal strike-slip wc1994 0 1 0 45 0 0 -30
-#line1  obj2_2 crustal strike-slip wc1994 0 1   45 1 0   0 10 -30  0 20 -30
-#area1  obj3_2 crustal strike-slip wc1994 0 1      1 0   3 10 -10 3 10 -30 3 20 -30 3 20 -10
-#area2  obj4_2 crustal strike-slip wc1994 0 1   45 10 30 1 0  6 10 6 20 
-#area3  obj5_2 crustal strike-slip wc1994 0 1 0 45 20 20 2 1  9 10 -10  9 10 -30  9 20 -30  9 20 -10
-#area5  obj7_2 crustal strike-slip wc1994 0 1      1 0 1 3 12 10 -10 12 10 -30 12 30 -30 12 30 -10
-              
-                                  
+point1   P1  crustal normal wc1994 0 1 | 0 90              | -10 0 0
+line1    L1  crustal normal wc1994 0 1 | 80 5 1            | -10 10 0 -10 30 0
+area1    A11 crustal normal wc1994 0 1 | 2 0         leak   | 20 20 0 40 20 0 40 40 0 20 40 0
+area1    A12 crustal normal wc1994 0 1 | 45 1 20 2 0 leak   | 20 0 30 2 40 10
+area1    A13 crustal normal wc1994 0 1 |             leak   | TestArea.mat
+area2    A2  crustal normal wc1994 0 1 | 90 90 25 12 2 1   | 0 -10 0   0 -10 -12   25 -10 -12  25 -10 0
+volume1  V1  crustal normal null   0 1 | 2 0 10 5          | 20 50 0 40 50 0 40 70 0 20 70 0
 
 Option 3 - GMPE Library
 gmm Sadigh97 Sadigh1997 strike-slip
@@ -46,19 +39,14 @@ gmmgroup Sadigh1997 1
 
 Option 5 - MAGNITUDE SCALING RELATIONS
 seismicity 1
-delta obj1_1 NM 2 6.0 
-delta obj2_1 NM 2 6.0 
-delta obj3_1 NM 2 6.0 
-delta obj4_1 NM 2 6.0 
-delta obj5_1 NM 2 6.0
-delta obj7_1 NM 2 6.0 
+truncexp  P1  NM 4 0.4 6 8
+truncexp  L1  NM 4 0.4 6 8
+truncexp  A11 NM 4 0.4 6 8
+truncexp  A12 NM 4 0.4 6 8
+truncexp  A13 NM 4 0.4 6 8
+truncexp  A2  NM 4 0.4 6 8
+truncexp  V1  NM 4 0.4 6 8
 
-#delta obj1_2 NM 1 7.0 
-#delta obj2_2 NM 1 7.0 
-#delta obj3_2 NM 1 7.0 
-#delta obj4_2 NM 1 7.0 
-#delta obj5_2 NM 1 7.0
-#delta obj7_2 NM 1 7.0 
 
 Option 6 - Pre defined sites (Optional)
 site1 5 5 0 VS30 760 

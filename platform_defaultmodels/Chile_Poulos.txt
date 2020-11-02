@@ -4,7 +4,7 @@ Image        : chile.mat
 Boundary     : CHL_adm1.shp
 ShearModulus : 3e11      #dyne/cm2
 IM           : PGA
-im           : logsp(0.01,3,20)
+im           : logsp(0.01,3,30)
 MaxDistance  : 500
 MagDiscrete  : gauss 10
 Sigma        : truncate 3
@@ -18,34 +18,31 @@ Clusters     : off 100 1
 
 Option 1 - Logic Tree Weights
 Geom Weight : 1
-Gmpe Weight : 1/4 1/4 1/4 1/4
+Gmpe Weight : 1/3 1/3 1/3
 Mscl Weight : 1 
 
 Option 2 - Source Geometry
 geometry 1
-area4 zone1 interface normal wc1994 0 1 zone1.mat 25
-area4 zone2 interface normal wc1994 0 1 zone2.mat 25
-area4 zone3 interface normal wc1994 0 1 zone3.mat 25
-area4 zone4 intraslab normal wc1994 0 2 zone4.mat 25
-area4 zone5 intraslab normal wc1994 0 2 zone5.mat 25
-area4 zone6 intraslab normal wc1994 0 2 zone6.mat 25
-area4 zone7 intraslab normal wc1994 0 2 zone7.mat 25
+area1 zone1 interface normal strasser2010 0 1 rigid zone1.mat 25
+area1 zone2 interface normal strasser2010 0 1 rigid zone2.mat 25
+area1 zone3 interface normal strasser2010 0 1 rigid zone3.mat 25
+area1 zone4 intraslab normal strasser2010 0 2 rigid zone4.mat 25
+area1 zone5 intraslab normal strasser2010 0 2 rigid zone5.mat 25
+area1 zone6 intraslab normal strasser2010 0 2 rigid zone6.mat 25
+area1 zone7 intraslab normal strasser2010 0 2 rigid zone7.mat 25
 
 Option 3 - GMPE Library
-gmm at1  Youngs1997 interface
-gmm at2  Youngs1997 intraslab
-gmm at3  Zhao2006 interface
-gmm at4  Zhao2006 intraslab
-gmm at5  BCHydro2012 interface Forearc Central
-gmm at6  BCHydro2012 intraslab Forearc Central
-gmm at7  MontalvaBastias2017 interface Forearc
-gmm at8 MontalvaBastias2017 intraslab Forearc
+gmm at1  Zhao2006 interface
+gmm at2  Zhao2006 intraslab
+gmm at3  SiberRisk2019 interface
+gmm at4  SiberRisk2019 intraslab
+gmm at5  MontalvaBastias2017 interface Forearc
+gmm at6  MontalvaBastias2017 intraslab Forearc
 
 Option 4 - GMPE GROUPS
-gmmgroup Youngs1997      1  2   
-gmmgroup Zhao2006        3  4 
-gmmgroup Abrahamson2012  5  6 
-gmmgroup Montalva2017    7  8
+gmmgroup Zhao2006        1  2 
+gmmgroup SiberRisk       3  4 
+gmmgroup Montalva2017    5  6
 
 Option 5 - MAGNITUDE SCALING RELATIONS
 seismicity 1 Poulos
@@ -58,7 +55,7 @@ truncexp zone6 NM 3.7154 1.1100 5 8.4
 truncexp zone7 NM 2.6303 0.9800 5 8.5
 
 Option 6 - Pre defined sites
-LasCondes -70.5635 -33.4124 691.3   VS30 NaN
+LasCondes -70.5635 -33.4124 691.3   VS30 400
 
 Option 7 - Spacial distributed data
 layer VS30 CHI_USGS.mat 760

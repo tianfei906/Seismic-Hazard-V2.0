@@ -40,17 +40,8 @@ gmpe        = source.gmm;
 Nim         = 40;
 NMmin       = source.NMmin;
 gmpefun     = gmpe.handle;
+[param,rate] = source.pfun(r0,source,ellip,hparam);
 
-%% ASSEMBLE GMPE PARAMERTER
-switch source.obj
-    case 1, [param,rate] = param_circ(r0,source,ellip,hparam);  % point1
-    case 2, [param,rate] = param_circ(r0,source,ellip,hparam);  % line1
-    case 3, [param,rate] = param_circ(r0,source,ellip,hparam);  % area1
-    case 4, [param,rate] = param_circ(r0,source,ellip,hparam);  % area2
-    case 5, [param,rate] = param_rect(r0,source,ellip,hparam);  % area3
-    case 6, [param,rate] = param_circ(r0,source,ellip,hparam);  % area4
-    case 7, [param,rate] = param_circ(r0,source,ellip,hparam);  % volume1
-end
 %% HAZARD INTEGRAL
 [mu1,sig1] = gmpefun(IM(1),param{:});
 [mu2,sig2] = gmpefun(IM(2),param{:});

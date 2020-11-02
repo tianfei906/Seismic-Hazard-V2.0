@@ -23,8 +23,7 @@ Mscl Weight : 1
 
 Option 2 - Source Geometry
 geometry 1
-area1 TestArea1  interface  -999 wc1994 0 1 1000 0 -72.75  -34.00  -5.00    -71.00 -34.00  -82.92   -71.00 -32.00  -82.92   -72.75 -32.00 -5.00  
-area3 TestArea3  crustal reverse wc1994 0 1 0 45 85 15.556349186104 2 1   -65 -0.38221 -1  -65.098815 -0.38221 -12  -65.098815 0.38221 -12 -65 0.38221 -1
+area1 TestArea1  interface  -999 wc1994 0 1 1000 0 leak -72.75  -34.00  -5.00    -71.00 -34.00  -82.92   -71.00 -32.00  -82.92   -72.75 -32.00 -5.00  
 
 Option 3 - GMPE Library
 gmm  gmm_Youngs1997              Youngs1997 interface                                            #Youngs et al. 1997           
@@ -138,12 +137,9 @@ gmmgroup  gmm_KM06                          52
 Option 5 - MAGNITUDE SCALING RELATIONS
 seismicity 1
 truncexp TestArea1  NM 10   1 5 8.5
-truncexp TestArea3  NM 0.01 1 5 8.5
 
 Option 6 - Pre defined sites
 LC1 -70.5635 -33.4124 691.3       VS30 760  f0 1
-site1 -64.91005  0.00000 0.0000   VS30 760  f0 1
-site2 -65.04497  0.00000 0.0000   VS30 760  f0 1
 
 Option 7 - Spacial distributed data
 layer VS30 760

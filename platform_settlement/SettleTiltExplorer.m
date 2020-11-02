@@ -142,7 +142,7 @@ param.th1=str2double(handles.th1.String);
 param.th2=str2double(handles.th2.String);
 param.N1=str2double(handles.N1.String);
 param.N2=str2double(handles.N2.String);
-param.meth='SPT';%handles.meth.String{handles.meth.Value};
+param.meth=handles.meth.String{handles.meth.Value};
 param.N160=cell2mat(handles.table1.Data(:,1));
 param.qc1N=cell2mat(handles.table1.Data(:,1));
 param.thick=cell2mat(handles.table1.Data(:,2));
@@ -313,7 +313,5 @@ if ~isempty(methods.ref)
     catch
     end
 end
-
-
 
 function e4_Callback(hObject, eventdata, handles)

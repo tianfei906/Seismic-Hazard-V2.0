@@ -23,7 +23,7 @@ Mscl Weight : 1
 
 Option 2 - Source Geometry
 geometry 1 Strike-Slip Fault
-area3  S1 crustal strike-slip wc1994 0 1 0 90 25 12 2 1  -122 38.00000 0   -122 38.00000 -12   -122 38.22480 -12  -122 38.22480 0
+area2  S1 crustal strike-slip wc1994 0 1 0 90 25 12 2 1  -122 38.00000 0   -122 38.00000 -12   -122 38.22480 -12  -122 38.22480 0
 
 Option 3 - GMPE Library
 gmm PCHAOS PCE_nga

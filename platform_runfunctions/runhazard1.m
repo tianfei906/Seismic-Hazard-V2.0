@@ -45,25 +45,13 @@ return
 
 function MRE=runsource(source,r0,IM,im,ellip,sigma,hparam)
 %% MAGNITUDE RATE OF EARTHQUAKES
-NIM   = length(IM);
-Nim   = size(im,1);
-NMmin = source.NMmin;
-
-%% ASSEMBLE GMPE PARAMERTER
-switch source.obj
-    case 1, [param,rate] = param_circ(r0,source,ellip,hparam);  % point1
-    case 2, [param,rate] = param_circ(r0,source,ellip,hparam);  % line1
-    case 3, [param,rate] = param_circ(r0,source,ellip,hparam);  % area1
-    case 4, [param,rate] = param_circ(r0,source,ellip,hparam);  % area2
-    case 5, [param,rate] = param_rect(r0,source,ellip,hparam);  % area3
-    case 6, [param,rate] = param_circ(r0,source,ellip,hparam);  % area4
-    case 7, [param,rate] = param_circ(r0,source,ellip,hparam);  % volume1
-end
-
-%% HAZARD INTEGRAL NON FRANKY GMMs
-MRE       = zeros(Nim,NIM);
-std_exp   = 1;
-sig_overw = 1;
+NIM          = length(IM);
+Nim          = size(im,1);
+NMmin        = source.NMmin;
+[param,rate] = source.pfun(r0,source,ellip,hparam);
+MRE          = zeros(Nim,NIM);
+std_exp      = 1;
+sig_overw    = 1;
 
 PHI       = 0;
 if ~isempty(sigma)

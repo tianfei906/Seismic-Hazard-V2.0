@@ -43,19 +43,9 @@ gmm = source.gmm;
 Nper   = length(T);
 Nim    = size(im,1);
 NMmin  = source.NMmin;
-
-%% ASSEMBLE GMPE PARAMERSER
+[param,rate_MR] = source.pfun(r0,source,ellip,hparam);
 gmpefun  = gmm.handle;
 
-switch source.obj
-    case 1, [param,rate_MR] = param_circ(r0,source,ellip,hparam);  % point1
-    case 2, [param,rate_MR] = param_circ(r0,source,ellip,hparam);  % line1
-    case 3, [param,rate_MR] = param_circ(r0,source,ellip,hparam);  % area1
-    case 4, [param,rate_MR] = param_circ(r0,source,ellip,hparam);  % area2
-    case 5, [param,rate_MR] = param_rect(r0,source,ellip,hparam);  % area3
-    case 6, [param,rate_MR] = param_circ(r0,source,ellip,hparam);  % area4
-    case 7, [param,rate_MR] = param_circ(r0,source,ellip,hparam);  % volume1
-end
 
 %% HAZARD INTEGRAL
 std_exp   = 1;

@@ -32,17 +32,7 @@ function [SPEC,MRZ]=runsource(source,r0,periods,T0,ellip,epsilon,hparam)
 
 NIM  = length(periods);
 SPEC = zeros(1,NIM);
-
-%% ASSEMBLE GMPE PARAMERTER
-switch source.obj
-    case 1, [param,~,MRZ] = param_circ(r0,source,ellip,hparam);  % point1
-    case 2, [param,~,MRZ] = param_circ(r0,source,ellip,hparam);  % line1
-    case 3, [param,~,MRZ] = param_circ(r0,source,ellip,hparam);  % area1
-    case 4, [param,~,MRZ] = param_circ(r0,source,ellip,hparam);  % area2
-    case 5, [param,~,MRZ] = param_rect(r0,source,ellip,hparam);  % area3
-    case 6, [param,~,MRZ] = param_circ(r0,source,ellip,hparam);  % area4
-    case 7, [param,~,MRZ] = param_circ(r0,source,ellip,hparam);  % volume1
-end
+[param,~,MRZ] = source.pfun(r0,source,ellip,hparam);
 
 %% DEFINES SCENARIO
 mu = source.gmm.handle(T0,param{:});
@@ -60,7 +50,7 @@ switch source.gmm.type
         end
     otherwise
         for i=1:length(B)
-            if B(i)==1
+            if B(i)==1 && isnumeric(param{i})
                 param{i}=param{i}(ind);
             end
         end

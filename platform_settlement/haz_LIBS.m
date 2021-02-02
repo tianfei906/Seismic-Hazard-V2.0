@@ -9,34 +9,61 @@ fprintf('-----------------------------------------------------------------------
 
 T3       = handles.T3(:,2:4);
 [imethod,usedM]  = getmethod(handles,T3);
-haz=struct('im',[],'IM',[],'lambda',[]);
+haz=struct('im',[],'IM',[],'MRD',[],'lambda',[]);
 
-if any(imethod==1)
-    handles.opt = opt_update(handles,usedM,opt);
-    haz.im      = handles.opt.im;
-    haz.IM      = handles.opt.IM;
-    haz.lambda  = runlogictree1(handles.sys,handles.opt,handles.h,handles.site_selection);
-end
+% runs scalar hazard (required by all models)
+handles.opt = opt_update(handles,usedM,opt);
+haz.im      = handles.opt.im;
+haz.IM      = handles.opt.IM;
+[haz.lambda,haz.deagg]  = runlogictree2(handles.sys,handles.opt,handles.h,handles.site_selection);
 
-if any(imethod==2) % Macedo & Bray 
+% if any(imethod==2) % 
+%     setLIB=handles.setLIB;
+%     handles.opt = opt_update(handles,usedM,opt);
+%     param.M     = 7;
+%     rho         = handles.optlib.corr(-4,1,param);
+%     mechlist    = [];
+%     [~,B1]=intersect({setLIB.label},handles.T3(:,2)); D1=intersect({setLIB(B1).str},{'libs_BrayMacedo2017Ds'});
+%     [~,B2]=intersect({setLIB.label},handles.T3(:,3)); D2=intersect({setLIB(B2).str},{'libs_BrayMacedo2017Ds'});
+%     [~,B3]=intersect({setLIB.label},handles.T3(:,4)); D3=intersect({setLIB(B3).str},{'libs_BrayMacedo2017Ds'});
+%     if ~isempty(D1), mechlist=[mechlist,1];end % 'interface'
+%     if ~isempty(D2), mechlist=[mechlist,2];end % 'instraslab'
+%     if ~isempty(D3), mechlist=[mechlist,3];end % 'crustal'
+%     
+%     haz.im2        = handles.opt.im(:,[1 3]);
+%     haz.IM2        = handles.opt.IM([1,3]);
+%     handles.opt.im = handles.opt.im(:,[1 3]);
+%     handles.opt.IM = handles.opt.IM([1,3]);
+%     haz.rho2       = rho;
+%     haz.MRD2       = runlogictree2V(handles.sys,handles.opt,handles.h,rho,mechlist);
+% end
+
+if any(imethod==3) % Bray & Macedo LIBS
     setLIB=handles.setLIB;
     handles.opt = opt_update(handles,usedM,opt);
-    rhoCAVSA1   = handles.optlib.rhoCAVSA1;
+    rho  = nan(3);
+    param.M=7;
+    IMlist = handles.opt.IM;
+    for i=1:3
+        for j=1:3
+            rho(i,j)=handles.optlib.corr(IMlist(i),IMlist(j),param);
+        end
+    end
+    
     mechlist    = [];
-    [~,B1]=intersect({setLIB.label},handles.T3(:,2)); D1=intersect({setLIB(B1).str},{'set_I17'});
-    [~,B2]=intersect({setLIB.label},handles.T3(:,3)); D2=intersect({setLIB(B2).str},{'set_I17'});
-    [~,B3]=intersect({setLIB.label},handles.T3(:,4)); D3=intersect({setLIB(B3).str},{'set_I17'});
+    [~,B1]=intersect({setLIB.label},handles.T3(:,2)); D1=intersect({setLIB(B1).str},{'libs_BrayMacedo2017','libs_BrayMacedo2017Ds2'});
+    [~,B2]=intersect({setLIB.label},handles.T3(:,3)); D2=intersect({setLIB(B2).str},{'libs_BrayMacedo2017','libs_BrayMacedo2017Ds2'});
+    [~,B3]=intersect({setLIB.label},handles.T3(:,4)); D3=intersect({setLIB(B3).str},{'libs_BrayMacedo2017','libs_BrayMacedo2017Ds2'});
     if ~isempty(D1), mechlist=[mechlist,1];end % 'interface'
     if ~isempty(D2), mechlist=[mechlist,2];end % 'instraslab'
     if ~isempty(D3), mechlist=[mechlist,3];end % 'crustal'
     
-    haz.imvector   = handles.opt.im(:,[1 3]);
-    haz.IMvector   = handles.opt.IM([1,3]);
-    handles.opt.im = haz.imvector;
-    handles.opt.IM = haz.IMvector;
-    haz.corrlist = rhoCAVSA1;
-    haz.MRD =runlogictree2V(handles.sys,handles.opt,handles.h,rhoCAVSA1,mechlist);
+    haz.im3   = handles.opt.im;
+    haz.IM3   = handles.opt.IM;
+    haz.rho3  = rho;
+    [haz.MRD3,haz.Pm]  = runlogictree3V(handles.sys,handles.opt,handles.h,rho,mechlist);    
 end
+
 
 fprintf('-----------------------------------------------------------------------------------------------------------\n');
 fprintf('%-88sTotal:     %-4.3f s\n','',toc(t0));

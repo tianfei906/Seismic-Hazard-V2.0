@@ -66,8 +66,8 @@ switch source.gmm.type
         Mag  = param{5};
         Rrup = param{6};
     case 'cond'
-        Mag  = param{5};
-        Rrup = param{6};
+        Mag  = param{1};
+        Rrup = param{2};
     case 'pce'
         Mag  = param{1};
         Rrup = param{2};        
@@ -80,8 +80,8 @@ switch source.gmm.type
     case 'pce'
         for j=1:NIM
             switch func2str(source.gmm.handle)
-                case 'PCE_nga'     ,[mu,sig] = medianPCE_nga(IM(j),param{:});
-                case 'PCE_bchydro' ,[mu,sig] = medianPCE_bchydro(IM(j),param{:});
+                case 'PCE_nga'     ,[mu,sig] = medianPCEnga(IM(j),param{:});
+                case 'PCE_bchydro' ,[mu,sig] = medianPCEbchydro(IM(j),param{:});
             end
             sig = sig.^std_exp*sig_overw;
             imj = im(:,j);
@@ -97,6 +97,13 @@ switch source.gmm.type
     otherwise
         for j=1:NIM
             [mu,sig] = source.gmm.handle(IM(j),param{:});
+            
+            % convert geomean to maxdir, this code is only temporary
+            %--------------------------------------
+            amp = gm2max(IM(j));
+            mu  = mu+log(amp);
+            %--------------------------------------
+            
             sig = sig.^std_exp*sig_overw;
             imj = im(:,j);
             for i=1:Nim

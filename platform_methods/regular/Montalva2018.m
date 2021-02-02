@@ -1,5 +1,8 @@
 function [lny,sigma,tau,phi]=Montalva2018(To,M,Rrup,Rhyp,Zhyp,VS30,f0,mechanism)
 
+% Syntax : Montalva2018 mechanism                                           
+
+
 st = dbstack;
 [isadmisible,units] = isIMadmisible(To,st(1).name,[0 10],[nan nan],[nan nan],[nan nan]);
 if isadmisible==0

@@ -1,4 +1,5 @@
 function[lny,sigma,tau,phi]=BU17(To,M,Rrup,Zhyp,mechanism,imtype)
+% Syntax : BU17 SOF CAV                                                     
 
 % Bullock, Z., Dashti, S., Liel, A., Porter, K., Karimi, Z., & Bradley, B. (2017).
 % Ground?motion prediction equations for Arias intensity, cumulative absolute
@@ -118,7 +119,7 @@ delta = 0.00724*10.^(0.507*min(M,8));
 D      = sqrt(delta.^2+Rrup.^2);
 
 switch mechanism
-    case {'strike-slip','normal','reverse','intraplate'}
+    case {'strike-slip','normal','reverse','intraplate','normal-oblique','reverse-oblique','unspecified'}
         lny = a0 + a1*M + a2*M.^2 + (b1 + b2*M).*log(Rrup) +b3*Rrup+f1*FR+f2*FN;
     case {'subduction-interface','subduction-intraslab','subduction-unknown'}
         lny = a0 + a1*M + a2*M.^2 + (b1 + b2*M).*log(D)    +b3*D+b4*Zhyp; % subduction

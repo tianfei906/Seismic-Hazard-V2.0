@@ -15,7 +15,7 @@ weights   = sys.weight(:,5);
 home
 Nsource = max(sum(sys.Nsrc,1));
 SPEC = nan (Nsites,NIM,Nsource,Nbranch);
-MRZ  = nan (Nsites,  7,Nsource,Nbranch);
+MRZ  = nan (Nsites,  8,Nsource,Nbranch);
 
 
 if license('test','Distrib_Computing_Toolbox')

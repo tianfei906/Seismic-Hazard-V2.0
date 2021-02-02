@@ -1,0 +1,81 @@
+Option 0 - Global Parameters
+Projection   : WGS84
+Image        : chile.mat
+Boundary     : CHL_adm1.shp
+ShearModulus : 3e11      #dyne/cm2
+IM           : CAV PGA 1
+im           :
+MaxDistance  : 500
+MagDiscrete  : gauss 10
+Sigma        : truncate 3
+PCE          : shuffle MC 500
+IM1          : 0.01
+IM2          : 1
+Spatial      : @none_spatial
+Spectral     : @corr_none
+SourceDeagg  : on
+Clusters     : off 100 1
+
+Option 1 - Logic Tree Weights
+Geom Weight : 1
+Gmpe Weight : 0.5 0.5
+Mscl Weight : 1 
+
+Option 2 - Source Geometry
+geometry 1
+area1 zoneI interface normal strasser2010 0 1 rigid zoneI.mat
+area1 zoneS intraslab normal strasser2010 0 2 rigid zoneS.mat
+
+Option 3 - GMPE Library
+gmm at1  MontalvaBastias2017 interface Forearc                     
+gmm at2  MCAVdp2021 interface MontalvaBastias2017 interface Forearc
+gmm at3  franky 1 2                                                
+gmm at4  MontalvaBastias2017 intraslab Forearc                     
+gmm at5  MCAVdp2021 intraslab MontalvaBastias2017 intraslab Forearc
+gmm at6  franky 4 5                                              
+                                                                   
+gmm at7  BCHydro2012 interface Forearc central                     
+gmm at8  MCAVdp2021 interface BCHydro2012 interface Forearc central
+gmm at9  franky 7 8                                              
+gmm at10 BCHydro2012 intraslab Forearc central                     
+gmm at11 MCAVdp2021 intraslab BCHydro2012 intraslab Forearc central
+gmm at12 franky 10 11                                              
+
+Option 4 - GMPE GROUPS
+gmmgroup Montalva2017-MCAVdp   3 6
+gmmgroup BCHydro-MCAVdp       9 12
+
+Option 5 - MAGNITUDE SCALING RELATIONS
+seismicity 1
+truncexp zoneI NM 17.783 0.8600 5 9.2
+truncexp zoneS NM 23.988 1.0200 5 8.5
+
+Option 6 - Pre defined sites
+site1 -70.683570   -33.54239971 0 VS30 270
+
+Option 7 - Spacial distributed data
+layer VS30 CHI_USGS.mat 760
+
+Option LIBS 1 - Liquefaction Analysis Options
+analysis   : FPBBA              # FPBBA or PBPA
+settlement : logsp(1,5000 ,100) # mm
+tilt       : logsp(1,40,20)     # degrees
+nQ         : 1                  # number of percentiles in Q   uncertainty
+corr       : corr_CambpelBozorgnia2019 
+pypath     : "C:/Users/gcandia/AppData/Local/Programs/Python/Python36/python.exe" #"C:\Users\admin\AppData\Local\Programs\Python\Python39\python.EXE"
+
+Option LIBS 2 - Building and Site Specific Parameters
+site1 CPTZ1B3.txt
+
+Option LIBS 3 Settlement model library
+J2013Dv   handle libs_Juang2013Dv
+BM2017Ds  handle libs_BrayMacedo2017Ds
+BM2017    handle libs_BrayMacedo2017
+Bullock   handle libs_Bullock2018
+null      handle libs_null
+
+Option LIBS 4 - Settlement branches
+Weights nan nan nan
+ST2 interface BM2017Ds intraslab BM2017Ds  crustal null 
+ST2 interface J2013Dv  intraslab J2013Dv   crustal null 
+ST2 interface BM2017   intraslab BM2017    crustal null 

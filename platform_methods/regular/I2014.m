@@ -1,4 +1,6 @@
 function[lny,sigma,tau,phi]=I2014(To,M,Rrup,Vs30,SOF)
+% Syntax : I2014 SOF                                                        
+
 
 st = dbstack;
 [isadmisible,units] = isIMadmisible(To,st(1).name,[0 10],[nan nan],[nan nan],[nan nan]);
@@ -15,7 +17,7 @@ period = [0.001 0.01 0.02 0.03 0.05 0.075 0.1 0.15 0.2 0.25 0.3 0.4 0.5 0.75 1 1
 T_lo    = max(period(period<=To));
 T_hi    = min(period(period>=To));
 index   = find(abs((period - T_lo)) < 1e-6); % Identify the period
-
+M(M>8.5)=NaN;
 if T_lo==T_hi
     [lny,sigma] = gmpe(index,M,Rrup,SOF,Vs30);
 else

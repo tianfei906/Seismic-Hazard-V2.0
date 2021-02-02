@@ -1,0 +1,42 @@
+Option 0 - Global Parameters
+Projection   : ECEF
+Image        : 
+Boundary     : 
+ShearModulus : 3e11      #dyne/cm2
+IM           : 0.001
+im           : logsp(0.001,0.1,30);
+MaxDistance  : 500
+MagDiscrete  : isampling 10
+Sigma        : 
+PCE          : shuffle MC 500
+IM1          : 0.01
+IM2          : 1
+Spatial      : @SR_spatial_2019
+Spectral     : @corr_BCHhydro2016
+SourceDeagg  : on
+Clusters     : off 100 1
+
+Option 1 - Logic Tree Weights
+Geom Weight : 1
+Gmpe Weight : 1
+Mscl Weight : 1 
+
+Option 2 - Source Geometry
+geometry 1
+area1 S1  crustal strike-slip wc1994 0 1 1 0 rigid  0 0 0  100 0 0  100 200 0  0 200 0
+
+Option 3 - GMPE Library
+gmm Sadigh97 Sadigh1997 strike-slip
+
+Option 4 - GMPE GROUPS
+gmmgroup Sadigh1997 1
+
+Option 5 - MAGNITUDE SCALING RELATIONS
+seismicity 1
+delta S1 NM 1 7.5 
+
+Option 6 - Pre defined sites (Optional)
+P1 160.3976 24.9186  0.0000   VS30 760.0000
+P2 191.5158 24.9186  0.0000   VS30 760.0000
+P3 160.3976 -5.2271  0.0000   VS30 760.0000
+P4 191.5158 -5.2271  0.0000   VS30 760.0000

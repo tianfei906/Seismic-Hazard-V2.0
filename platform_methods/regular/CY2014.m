@@ -1,4 +1,5 @@
 function[lny,sigma,tau,phi]=CY2014(To,M,Rrup,Rjb,Rx,Ztor,dip,Vs30,Z10,SOF,Vs30type,region)
+% Syntax : CY2014 Z10 SOF Vs30type region                                   
 
 % Brian S.-J. Chiou and Robert R. Youngs (2014) Update of the Chiou and 
 % Youngs NGA Model for the Average Horizontal Component of Peak Ground 

@@ -1,4 +1,5 @@
 function[lny,sigma,tau,phi]=BA2008(To,M,Rjb,Vs30,SOF)
+% Syntax : BA2008 SOF                                                       
 
 st = dbstack;
 [isadmisible,units] = isIMadmisible(To,st(1).name,[0 10],[nan nan],[nan nan],[nan nan]);

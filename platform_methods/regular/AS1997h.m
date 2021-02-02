@@ -1,4 +1,5 @@
 function[lny,sigma,tau,phi]=AS1997h(To,M,Rrup,media,SOF,location,sigmatype)
+% Syntax : AS1997h SOF location sigmatype                                   
 
 % Abrahamson, N. A., & Silva, W. J. (1997). Empirical response 
 % spectral attenuation relations for shallow crustal earthquakes. 

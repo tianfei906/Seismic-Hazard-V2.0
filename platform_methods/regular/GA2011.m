@@ -1,4 +1,5 @@
 function[lny,sigma,tau,phi]=GA2011(To,M,Rrup,Vs30,SOF,PGA1100)
+% Syntax : GA11 SOF                                                         
 
 st = dbstack;
 [isadmisible,units] = isIMadmisible(To,st(1).name,[nan nan],[nan nan],[nan nan],[0 10]);

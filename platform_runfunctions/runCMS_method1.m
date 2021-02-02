@@ -10,8 +10,7 @@ Mbin        = opt.Mbin;
 cfun        = opt.cfun;
 
 Tcond_ptr   = T==Tcond;
-col         = find(opt.IM>=0);
-im1         = repmat(opt.im(:,col(1)),1,length(T));
+im1         = opt.im;
 branch      = sys.branch(model_ptr,1:3);
 geom_ptr    = branch(1);
 Nsource     = sum(sys.Nsrc(:,geom_ptr));
@@ -19,7 +18,7 @@ Nsource     = sum(sys.Nsrc(:,geom_ptr));
 % compute seismic hazard for all Sa(T*)
 sources = buildmodelin(sys,branch,opt);
 lambda1 = runhazard1(im1,T,h,opt,sources,Nsource,1);
-lambda1 = sum(lambda1,4);
+lambda1 = nansum(lambda1,4);
 lambda1 = permute(lambda1,[2 3 1]);
 
 % compute Hazard Deagregation for T* at Return Period Tr
@@ -78,5 +77,6 @@ cmsdata.CMSk   = [];
 cmsdata.RHO    = rho;
 cmsdata.UHS    = uhs;
 cmsdata.sigCMS = sigCMS;
+
 
 

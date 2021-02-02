@@ -1,5 +1,9 @@
 function [rho] = corr_CambpelBozorgnia2019(T1, T2,param)
 
+if all(T1==T2)
+    rho=ones(size(T1));
+    return
+end
 
 M     = param.M;
 if max(T1,T2)<=0
@@ -11,7 +15,7 @@ else
 end
 
 T     = [-5 -4 -1 0 0.01 0.02 0.03 0.05 0.075 0.1 0.15 0.2 0.25 0.3 0.4 0.5 0.75 1 1.5 2 3 4 5 7.5 10]';
-
+data  = nan(25,2);
 if TT2==0
     data=[0.948	0.911
         0.842	0.78
@@ -135,6 +139,8 @@ rho2 = r(2);
 rho = rho2+(rho1-rho2)*(5.5-M);
 rho(M<=4.5)=rho1;
 rho(M>=5.5)=rho2;
+
+
 
 
 

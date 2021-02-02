@@ -1,4 +1,5 @@
 function[lny,sigma,tau,phi]=Akkar2014(To,M,Rhyp,Rjb,Repi,VS30,SOF,model)
+% Syntax : Akkar2014 SOF model                                              
 
 st = dbstack;
 [isadmisible,units] = isIMadmisible(To,st(1).name,[0 4],[nan nan],[nan nan],[nan nan]);

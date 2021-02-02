@@ -1,5 +1,7 @@
 function[lny,sigma,tau,phi]=Jaimes2006(To,M,Rrup)
 
+% Syntax : Jaimes2006                                                       
+
 % Jaimes, M.A., Reinoso, E. y Ordaz, M. (2006). Comparison of methods to predict response spectra
 % at instrumented sites given the magnitude and distance of an earthquake, Journal of Earthquake Engineering,
 % 10(6), 887-902

@@ -1,4 +1,5 @@
 function[lny,sigma,tau,phi]=CY2008(To,M,Rrup,Rjb,Rx,Ztor,dip,Vs30,Z10,SOF,event,Vs30type)
+% Syntax : CY2008 Z10 SOF event VS30type                                    
 
 % BrianS-J. Chiou and Robert R. Youngs (2008) An NGA Model for the 
 % Average Horizontal Component of Peak Ground Motion and Response Spectra.

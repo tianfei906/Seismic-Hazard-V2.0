@@ -1,4 +1,5 @@
 function [lny,sigma,tau,phi]=BCHydro2018(To,M,Rrup,Ztor,Vs30,mechanism)
+% Syntax : BCHydro2018 mechanism                                            
 
 st = dbstack;
 [isadmisible,units] = isIMadmisible(To,st(1).name,[0 10],[nan nan],[nan nan],[nan nan]);

@@ -1,5 +1,6 @@
 function [lnY,sigma,tau,phi]=medianPCEnga(To,M, Rrup, Vs30)
 
+% Syntax : medianPCEnga                                                     
 if  To<0 || To> 10
     lnY   = nan(size(M));
     sigma = nan(size(M));

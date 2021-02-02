@@ -1,5 +1,7 @@
 function [lny,sigma,tau,phi]=Parker2020(To,M,Rrup,Zhyp,Vs30,Z25,mechanism,region)
 
+% Syntax : Parker2020 Z25 mechanism region                                  
+
 st          = dbstack;
 isadmisible = isIMadmisible(To,st(1).name,[0 10],[nan nan],[nan nan],[nan nan]);
 if isadmisible==0

@@ -10,12 +10,44 @@ site_ptr = handles.pop_site.Value;
 
 haz  = handles.REG_Display;
 d    = handles.optlib.sett;
-flatcolor=1;%handles.ColorSecondaryLines.Value;
+flatcolor=0;%handles.ColorSecondaryLines.Value;
 gris = [0.76 0.76 0.76];
 
 if haz.L0
     lambdaD = nansum(handles.lambdaD(site_ptr,:,:,:),3);
     lambdaD = permute(lambdaD,[4 2 3 1]);
+    
+    handles.ax1.ColorOrderIndex=1;
+    
+    if haz.L1 % default weights
+        weights = cell2mat(handles.tableREG.Data(:,end));
+        lam2    = nanprod(bsxfun(@power,lambdaD,weights),1);
+        plot(handles.ax1,d',lam2','.-','DisplayName','Default Weights');
+    end
+    
+    if haz.L2 % random weights
+        weights = handles.REG_Display.rnd;
+        lam2 = nanprod(bsxfun(@power,lambdaD,weights),1);
+        plot(handles.ax1,d',lam2','.-','DisplayName','Random Weights');
+    end
+    
+    if haz.L3 % mean
+        lambdaD(lambdaD<0)=nan;
+        lam2 = exp(nanmean(log(lambdaD),1));
+        plot(handles.ax1,d',lam2','.-','DisplayName','Mean');
+    end
+    
+    if haz.L4 % percentiles
+        percentile = haz.L5;
+        str  = compose('Percentile %g',percentile);
+        Nt   = length(str);
+        handles.table.Data(:,4)=cell(Nt,1);
+        lambdaD(lambdaD<0)=nan;
+        lam2 = exp(prctile(log(lambdaD),percentile,1));
+        for jj=1:Nt
+            plot(handles.ax1,d',lam2(jj,:)','-','DisplayName',str{jj});
+        end
+    end
     
     if haz.L6 % CDM branches
         lam1 = lambdaD;
@@ -29,38 +61,6 @@ if haz.L0
             else
                 plot(handles.ax1,d',lam1(jj,:)','DisplayName',str{jj})
             end
-        end
-    end
-    
-    handles.ax1.ColorOrderIndex=1;
-    
-    if haz.L1 % default weights
-        weights = cell2mat(handles.tableREG.Data(:,end));
-        lam2    = nanprod(bsxfun(@power,lambdaD,weights),1);
-        plot(handles.ax1,d',lam2','linewidth',2,'DisplayName','Default Weights');
-    end
-    
-    if haz.L2 % random weights
-        weights = handles.REG_Display.rnd;
-        lam2 = nanprod(bsxfun(@power,lambdaD,weights),1);
-        plot(handles.ax1,d',lam2','linewidth',2,'DisplayName','Random Weights');
-    end
-    
-    if haz.L3 % mean
-        lambdaD(lambdaD<0)=nan;
-        lam2 = exp(nanmean(log(lambdaD),1));
-        plot(handles.ax1,d',lam2','linewidth',2,'DisplayName','Mean');
-    end
-    
-    if haz.L4 % percentiles
-        percentile = haz.L5;
-        str  = compose('Percentile %g',percentile);
-        Nt   = length(str);
-        handles.table.Data(:,4)=cell(Nt,1);
-        lambdaD(lambdaD<0)=nan;
-        lam2 = exp(prctile(log(lambdaD),percentile,1));
-        for jj=1:Nt
-            plot(handles.ax1,d',lam2(jj,:)','linewidth',2,'DisplayName',str{jj});
         end
     end
     
@@ -81,6 +81,8 @@ if haz.R0
     lambdaD    = handles.lambdaD(site_ptr,:,:,branch_ptr);
     lambdaD    = permute(lambdaD,[2 3 1]);
     lam2       = nansum(lambdaD,2)';
+    handles.ax1.ColorOrderIndex=1;
+    plot(handles.ax1,d',lam2','.-','DisplayName','Total');
     
     if haz.R2 % displays source contribution
         haz_ptr      = handles.IJK(branch_ptr,1);
@@ -89,7 +91,6 @@ if haz.R0
         source_label = handles.sys.labelG{geomptr};
         str          = source_label(NOTZERO);
         lam1         = lambdaD(:,NOTZERO)';
-        handles.ax1.ColorOrderIndex=1;
         
         for jj=1:size(lam1,1)
             if flatcolor
@@ -112,8 +113,6 @@ if haz.R0
         lambdaD    = [nansum(lambdaD(:,m1),2) nansum(lambdaD(:,m2),2) nansum(lambdaD(:,m3),2)];
         NOTNAN     = (nansum(lambdaD,1)>0);
         lam1       = lambdaD(:,NOTNAN)';
-        handles.ax1.ColorOrderIndex=1;
-        handles.ax1.ColorOrderIndex=1;
         mechs = {'interface','intraslab','crustal'};
         str = mechs(NOTNAN);
         
@@ -126,10 +125,8 @@ if haz.R0
             end
         end
     end
-    handles.ax1.ColorOrderIndex=1;
-    plot(handles.ax1,d',lam2','linewidth',2,'DisplayName','Mean');
-    
     Leg=legend(handles.ax1);
+    
     Leg.FontSize=8;
     Leg.EdgeColor=[1 1 1];
     Leg.Location='SouthWest';
@@ -155,13 +152,5 @@ uimenu(c,'Label','Undock & compare','Callback', {@figurecompare_uimenu,handles.a
 set(handles.ax1,'uicontextmenu',c);
 format(cF);
 
-if isfield(handles.sys,'D') && isfield(handles.sys,'lambdaDTest')
-   Nrows = size(handles.sys.lambdaDTest,1);
-   handles.ax1.ColorOrderIndex=1;
-   for i=1:Nrows
-       lab_i = handles.sys.Dlabel{i};
-       plot(handles.ax1,handles.sys.D,handles.sys.lambdaDTest(i,:),'o','DisplayName',lab_i);
-   end
-end
-
+% ylim(handles.ax1,[1e-6 1e2])
 

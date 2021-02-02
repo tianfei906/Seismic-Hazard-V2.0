@@ -1,4 +1,5 @@
 function [lny,sigma,phi,tau] = AkkarBoomer2010(To,M,Rjb,media,SOF)
+% Syntax : AkkarBoomer2010 media SOF                                        
 
 %Akkar, S. and Bommer, J.J., 2010. Empirical prediction equations for peak ground velocity
 %derived from strongmotion records from Europe and the Middle East.

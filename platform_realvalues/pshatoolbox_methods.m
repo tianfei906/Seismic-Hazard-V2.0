@@ -8,8 +8,8 @@ function ME = pshatoolbox_methods(group,varargin)
 % ground motion models (gmpe)
 if group ==1
     i = 0;
-    ME(1:49,1)=struct('label',[],'str',[],'func',[],'type',[],'mech',[],'ref',[]);
-    % regular GMMs
+    ME(1:63,1)=struct('label',[],'str',[],'func',[],'type',[],'mech',[],'ref',[]);
+    % --------------------REGULAR MODELS --------------------------------------------------------------------------
     i=i+1; ME(i).label = 'Youngs et al. 1997';           ME(i).func = @Youngs1997;                 ME(i).mech=[1 1 0]; ME(i).type='regular';  ME(i).ref='https://doi.org/10.1785/gssrl.68.1.58';
     i=i+1; ME(i).label = 'Atkinson & Boore, 2003';       ME(i).func = @AtkinsonBoore2003;          ME(i).mech=[1 1 0]; ME(i).type='regular';  ME(i).ref='https://doi.org/10.1785/0120020156';
     i=i+1; ME(i).label = 'Zhao et al. 2006';             ME(i).func = @Zhao2006;                   ME(i).mech=[1 1 1]; ME(i).type='regular';  ME(i).ref='https://doi.org/10.1785/0120050122';
@@ -33,7 +33,7 @@ if group ==1
     i=i+1; ME(i).label = 'Garcia-Soto Jaimes 2017 (V/H)';ME(i).func = @GarciaJaimes2017VH;         ME(i).mech=[1 0 0]; ME(i).type='regular';  ME(i).ref='https://doi.org/10.1785/0120160273';
     i=i+1; ME(i).label = 'Gulerce, Abrahamson 2011';     ME(i).func = @GA2011;                     ME(i).mech=[1 1 1]; ME(i).type='regular';  ME(i).ref='https://doi.org/10.1193/1.3651317';
     i=i+1; ME(i).label = 'Stewart et al. 2016';          ME(i).func = @SBSA2016;                   ME(i).mech=[0 0 1]; ME(i).type='regular';  ME(i).ref='https://doi.org/10.1193/072114eqs116m';
-    i=i+1; ME(i).label = 'Gulerce et al. 2017';          ME(i).func = @GKAS2017;                   ME(i).mech=[0 0 1]; ME(i).type='regular';  ME(i).ref='http://dx.doi.org/10.1193/121814EQS213M'; 
+    i=i+1; ME(i).label = 'Gulerce et al. 2017';          ME(i).func = @GKAS2017;                   ME(i).mech=[0 0 1]; ME(i).type='regular';  ME(i).ref='http://dx.doi.org/10.1193/121814EQS213M';
     i=i+1; ME(i).label = 'Bernal et al. 2014';           ME(i).func = @Bernal2014;                 ME(i).mech=[1 1 0]; ME(i).type='regular';  ME(i).ref='https://doi.org/10.13140/2.1.2693.6641';
     i=i+1; ME(i).label = 'Sadigh et al. 1997';           ME(i).func = @Sadigh1997;                 ME(i).mech=[0 0 1]; ME(i).type='regular';  ME(i).ref='https://doi.org/10.1785/gssrl.68.1.180';
     i=i+1; ME(i).label = 'Idriss 2008';                  ME(i).func = @I2008;                      ME(i).mech=[0 0 1]; ME(i).type='regular';  ME(i).ref='https://doi.org/10.1193/1.2924362';
@@ -65,13 +65,32 @@ if group ==1
     i=i+1; ME(i).label = 'PCE BCHydro (median)';         ME(i).func = @medianPCEbchydro;           ME(i).mech=[1 1 0]; ME(i).type='regular';  ME(i).ref='https://doi.org/10.1016/j.enggeo.2020.105786';
     i=i+1; ME(i).label = 'PCE NGA (median)';             ME(i).func = @medianPCEnga;               ME(i).mech=[1 1 0]; ME(i).type='regular';  ME(i).ref='https://doi.org/10.1016/j.enggeo.2020.105786';
     
+    
+    % --------------------USER DEFINED MODEL  --------------------------------------------------------------------------
     i=i+1; ME(i).label = 'User Defined Model';           ME(i).func = @udm;                        ME(i).mech=[0 0 0]; ME(i).type='udm';      ME(i).ref='www.google.com';
-    i=i+1; ME(i).label = 'Macedo et al. 2019';           ME(i).func = @Macedo2019;                 ME(i).mech=[1 1 0]; ME(i).type='cond';     ME(i).ref='https://doi.org/10.1785/0120180297';
-    i=i+1; ME(i).label = 'Macedo et al. 2020';           ME(i).func = @Macedo2020;                 ME(i).mech=[0 0 1]; ME(i).type='cond';     ME(i).ref='www.google.com';
+    i=i+1; ME(i).label = 'Adjust GMM Model';             ME(i).func = @adj;                        ME(i).mech=[0 0 0]; ME(i).type='adj';      ME(i).ref='www.google.com';
+    
+    % --------------------CONDITIONAL MODELS --------------------------------------------------------------------------
+    % AI SUB
+    i=i+1; ME(i).label = 'Macedo, Abrahamson, Bray 2019';ME(i).func = @MAB2019;                    ME(i).mech=[1 1 0]; ME(i).type='cond';     ME(i).ref='https://doi.org/10.1785/0120180297';
+    
+    % CAV shallow crustal
+    i=i+1; ME(i).label = 'Macedo, Abrahamson, Liu  2020';ME(i).func = @MAL2020;                    ME(i).mech=[0 0 1]; ME(i).type='cond';     ME(i).ref='https://doi.org/10.1785/0120190321';
+    i=i+1; ME(i).label = 'Macedo, Mao, Liu, Abrah. 2020';ME(i).func = @MMLA2020;                   ME(i).mech=[0 0 1]; ME(i).type='cond';     ME(i).ref='not published, but a good model';
+    
+    % CAV SUB
+    i=i+1; ME(i).label = 'Macedo, Liu, 2021';            ME(i).func = @ML2021;                     ME(i).mech=[1 1 0]; ME(i).type='cond';     ME(i).ref='under review';
+    
+    % CAVdp SUB
+    i=i+1; ME(i).label = 'Macedo et al., 2021';          ME(i).func = @MCAVdp2021;                 ME(i).mech=[1 1 0]; ME(i).type='cond';     ME(i).ref='under review';
+    
+    % --------------------PCE MODELS --------------------------------------------------------------------------
     i=i+1; ME(i).label = 'PCE NGA';                      ME(i).func = @PCE_nga;                    ME(i).mech=[0 0 1]; ME(i).type='pce';      ME(i).ref='https://doi.org/10.1016/j.enggeo.2020.105786';
     i=i+1; ME(i).label = 'PCE BCHydro';                  ME(i).func = @PCE_bchydro;                ME(i).mech=[1 1 0]; ME(i).type='pce';      ME(i).ref='https://doi.org/10.1016/j.enggeo.2020.105786';
+    
+    % --------------------FRN MODELS --------------------------------------------------------------------------
     i=i+1; ME(i).label = 'Franky';                       ME(i).func = @franky;                     ME(i).mech=[0 0 0]; ME(i).type='frn';      ME(i).ref='www.google.com';
-
+    
 end
 
 % magnitude scaling models
@@ -149,14 +168,29 @@ end
 
 % settlement and tilt models
 if group == 6
-    ME(1:4,1)=struct('label',[],'func',[],'str',[],'IM',[],'integrator',[],'ref',[]);
+    ME(1:10,1)=struct('label',[],'func',[],'str',[],'IM',[],'integrator',[],'ref',[]);
     i=0;
-    i=i+1;ME(i).label = 'Bullock 2018 (Settlement)';            ME(i).func = @set_B18;   ME(i).IM='CAV';             ME(i).integrator=1; ME(i).ref = 'https://doi.org/10.1680/jgeot.17.P.174';
-    i=i+1;ME(i).label = 'Ishihara 2017 (Settlement)';           ME(i).func = @set_I17;   ME(i).IM='PGA-SA(T=1)-CAV'; ME(i).integrator=2; ME(i).ref = 'https://doi.org/10.1016/j.soildyn.2017.08.026';
-    i=i+1;ME(i).label = 'Bullock, 2018 (Tilt Empirical)';       ME(i).func = @til_B18e;  ME(i).IM='CAV';             ME(i).integrator=1; ME(i).ref = 'https://doi.org/10.1680/jgeot.17.P.174';
-    i=i+1;ME(i).label = 'Bullock, 2018 (Tilt Semi Empirical)';  ME(i).func = @til_B18s;  ME(i).IM='CAV-VGI';         ME(i).integrator=1; ME(i).ref = 'https://doi.org/10.1680/jgeot.17.P.174';
+   
+	% Bray & Macedo 2017 LIBS
+    i=i+1;ME(i).label = 'Bray & Macedo 2017 (Ds)';              ME(i).func = @libs_BrayMacedo2017Ds;     ME(i).IM='PGA-SA(T=1)-CAV'; ME(i).integrator=3; ME(i).ref = 'https://doi.org/10.1016/j.soildyn.2017.08.026';       
+    i=i+1;ME(i).label = 'Juang et al. 2013  (Dv)';              ME(i).func = @libs_Juang2013Dv;          ME(i).IM='PGA';             ME(i).integrator=0; ME(i).ref = 'https://doi.org/10.1016/j.soildyn.2017.08.026';
+    i=i+1;ME(i).label = 'Bray & Macedo 2017 (LIBS)';            ME(i).func = @libs_BrayMacedo2017;       ME(i).IM='PGA-SA(T=1)-CAV'; ME(i).integrator=3; ME(i).ref = '';
+    i=i+1;ME(i).label = 'Hutabarat 2020 (De)';                  ME(i).func = @libs_Hutabarat2020De;      ME(i).IM='PGA';             ME(i).integrator=0; ME(i).ref = '';
+    
+    % Bullock 2018 LIBS
+    i=i+1;ME(i).label = 'Bullock 2018 (Ds)';                    ME(i).func = @libs_Bullock2018Ds;        ME(i).IM='CAV';             ME(i).integrator=1; ME(i).ref = 'https://doi.org/10.1680/jgeot.17.P.174';
+    i=i+1;ME(i).label = 'Bullock 2018 (Dv)';                    ME(i).func = @libs_Bullock2018Dv;        ME(i).IM='CAV';             ME(i).integrator=1; ME(i).ref = 'https://doi.org/10.1680/jgeot.17.P.174';
+    i=i+1;ME(i).label = 'Bullock 2018 (LIBS)';                  ME(i).func = @libs_Bullock2018;          ME(i).IM='CAV';             ME(i).integrator=1; ME(i).ref = 'https://doi.org/10.1680/jgeot.17.P.174';
+    
+    % Bullock 2018 Tilting
+    i=i+1;ME(i).label = 'Bullock, 2018 (Tilt Empirical)';       ME(i).func = @libt_Bullock2018e;         ME(i).IM='CAV';             ME(i).integrator=1; ME(i).ref = 'https://doi.org/10.1680/jgeot.17.P.174';
+    i=i+1;ME(i).label = 'Bullock, 2018 (Tilt Semi Empirical)';  ME(i).func = @libt_Bullock2018s;         ME(i).IM='CAV-VGI';         ME(i).integrator=1; ME(i).ref = 'https://doi.org/10.1680/jgeot.17.P.174';
+    
+    % Null Model
+    i=i+1;ME(i).label = 'Null';                                 ME(i).func = @libs_null;                 ME(i).IM='PGA';             ME(i).integrator=1; ME(i).ref = '';
+    
+    
 end
-
 
 for i=1:length(ME)
     ME(i).str=func2str(ME(i).func);

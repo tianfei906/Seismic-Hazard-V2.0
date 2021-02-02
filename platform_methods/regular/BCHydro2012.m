@@ -1,6 +1,8 @@
 function[lny,sigma,tau,phi]=BCHydro2012(To,M,Rrup,Rhyp,Zhyp,Vs30,mechanism,arc,DeltaC1)
 
-%Abrahamson, N., Gregor, N., & Addo, K. (2012). BC Hydro Ground Motion 
+% Syntax : BCHydro2012 mechanism arc DeltaC1                                
+
+% Abrahamson, N., Gregor, N., & Addo, K. (2012). BC Hydro Ground Motion 
 % Prediction Equations for Subduction Earthquakes. Earthquake Spectra.
 
 st = dbstack;

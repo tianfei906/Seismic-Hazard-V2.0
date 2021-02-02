@@ -4,8 +4,8 @@ Image        : chile.mat
 Boundary     : CHL_adm1.shp
 ShearModulus : 3e11      #dyne/cm2
 IM           : PGA 1
-im           : logsp(0.001,3,20)
-MaxDistance  : 500
+im           : 
+MaxDistance  : inf
 MagDiscrete  : gauss 10
 Sigma        : 
 PCE          : shuffle MC 500
@@ -82,12 +82,12 @@ gmm at11 MontalvaBastias2017HQ interface Forearc
 gmm at12 MontalvaBastias2017HQ intraslab Forearc
 
 Option 4 - GMPE GROUPS
-gmmgroup Youngs1997      1   2
-gmmgroup AB2003          3   4 
-gmmgroup Zhao2006        5   6 
-gmmgroup Abrahamson2012  7   8 
-gmmgroup Idini2016       9   10
-gmmgroup Montalva2017    11  12
+gmmgroup Youngs_1997      1   2
+gmmgroup AB_2003          3   4 
+gmmgroup Zhao_2006        5   6 
+gmmgroup Abrahamson_2012  7   8 
+gmmgroup Idini_2016       9   10
+gmmgroup Montalva_2017    11  12
 
 Option 5 - MAGNITUDE SCALING RELATIONS
 seismicity 1

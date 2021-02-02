@@ -1,5 +1,7 @@
 function[lny,sigma,tau,phi]=Jaimes2015(To,M,Rrup,station)
 
+% Syntax : Jaimes2015 station                                               
+
 % Jaimes M.A., Ramirez-Gaytán A. & Reinoso E (2015).Ground-Motion Prediction Model From Intermediate-Depth
 % Intraslab Earthquakes at the Hill and Lake-Bed Zones of Mexico City. Journal of Earthquake Engineering,
 % 19(8), 1260-1278, 2015

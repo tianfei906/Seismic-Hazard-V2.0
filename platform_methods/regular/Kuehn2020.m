@@ -1,5 +1,6 @@
 function [lny,sigma,tau,phi]=Kuehn2020(To,M,Rrup,Ztor,Vs30,mechanism,region,alfaBackArc,alfaNankai,Z10,Z25,Nepist)
 
+% Syntax : Kuehn2020 mechanism region AlfaBackArc AlphaNankai Z10 Z25 Nepist
 st          = dbstack;
 isadmisible = isIMadmisible(To,st(1).name,[0 10],[nan nan],[nan nan],[nan nan]);
 if isadmisible==0

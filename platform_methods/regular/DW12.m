@@ -1,4 +1,5 @@
 function[lny,sigma,tau,phi]=DW12(To,M,Rrup,media,SOF)
+% Syntax : DW12 SGSCLASS SOF                                                
 
 % Du, W. and Wang, G. (2013), A simple ground?motion prediction model 
 % for cumulative absolute velocity and model validation. 

@@ -6,6 +6,8 @@ function[lny,sigma,tau,phi]=Zhao2006(To,M,Rrup,Zhyp,Vs30,mechanism)
 % on predominant period. Bulletin of the Seismological Society of
 % America, 96(3), 898-913.
 
+% Syntax : Zhao2006 mechanism                                               
+
 st = dbstack;
 [isadmisible,units] = isIMadmisible(To,st(1).name,[0 5],[nan nan],[nan nan],[nan nan]);
 if isadmisible==0

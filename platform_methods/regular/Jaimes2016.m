@@ -1,4 +1,5 @@
 function[lny,sigma,tau,phi]=Jaimes2016(To,M,Rrup)
+% Syntax : Jaimes2016                                                       
 
 %Jaimes, M.A., Lermo, J. y García-Soto, A. (2016). Ground-Motion Prediction Model from Local Earthquakes
 %of the Mexico Basin at the Hill Zone of Mexico City, Bulletin of the Seismological Society of America,

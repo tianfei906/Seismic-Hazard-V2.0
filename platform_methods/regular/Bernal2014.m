@@ -1,4 +1,5 @@
 function[lny,sigma,tau,phi]=Bernal2014(To,M,Rrup,Zhyp,mechanism)
+% Syntax : Bernal2014 mechanism                                             
 
 st = dbstack;
 [isadmisible,units] = isIMadmisible(To,st(1).name,[0 8],[nan nan],[nan nan],[nan nan]);

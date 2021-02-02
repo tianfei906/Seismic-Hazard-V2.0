@@ -1,5 +1,5 @@
 function[lny,sigma,tau,phi]=CB19(To,M,Rrup,Rjb,Rx,Zhyp,Ztor,Zbot,dip,width,Vs30,Z25in,SOF,region)
-
+% Syntax : CB19 Z25 SOF region                                              
 % Reference: Ground Motion Models for the Horizontal Components of Arias
 % Intensity (AI) and Cumulative Absolute Velocity (CAV) Using
 % the NGA-West2 Database. Kenneth W. Campbell,a) M.EERI,

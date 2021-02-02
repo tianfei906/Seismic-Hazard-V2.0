@@ -1,5 +1,7 @@
 function[lny,sigma,tau,phi]=ContrerasBoroschek2012(To,M,Rrup,Zhyp,media)
 
+% Syntax : ContrerasBoroschek2012                                           
+
 % Boroschek, R., & Contreras, V. (2012). Strong ground motion from the 
 % 2010 Mw 8.8 Maule Chile earthquake and attenuation relations for Chilean
 % subduction zone interface earthquakes. In International Symposium on 

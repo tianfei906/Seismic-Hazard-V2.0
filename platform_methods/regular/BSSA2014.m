@@ -1,4 +1,5 @@
 function[lny,sigma,tau,phi]=BSSA2014(To,M,Rjb,Vs30,Z10,SOF,region)
+% Syntax : BSSA2014 Z10 SOF region                                          
 
 % David M. Boore, Jonathan P. Stewart, Emel Seyhan, and Gail M.
 % Atkinson (2014) NGA-West2 Equations for Predicting PGA, PGV, and 5

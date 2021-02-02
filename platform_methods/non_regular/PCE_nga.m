@@ -1,4 +1,5 @@
 function [lnY,sigma]=PCE_nga(To,M, Rrup, Vs30)
+% Syntax : PCE_nga                                                          
 
 if  To<0 || To> 10
     lnY   = nan(size(M));

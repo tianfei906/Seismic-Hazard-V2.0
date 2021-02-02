@@ -1,5 +1,7 @@
 function[lny,sigma,tau,phi]=Arteta2018(To,M,Rhyp,media,arc)
 
+% Syntax : Arteta2018 arc                                                   
+
 % Ground Motion Prediction Equation for Deep Subduction Earthquakes in Colombia
 % Carlos A. Arteta, Cesar A. Pajaro, Carlos Lozano, Anibal E.
 % Ojeda, Norman A. Abrahamson.

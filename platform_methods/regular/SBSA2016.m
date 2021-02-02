@@ -1,4 +1,5 @@
 function [lny,sigma,tau,phi]=SBSA2016(To,M,Rjb,VS30,SOF,region)
+% Syntax : SBSA2016 SOF region                                              
 
 st          = dbstack;
 isadmisible = isIMadmisible(To,st(1).name,[0 10],[nan nan],[nan nan],[nan nan]);

@@ -14,6 +14,6 @@ for k=1:Nbranch
         hi.p     = h.p(i,:);
         hi.param = h.param;
         hi.value = h.value(i,:);
-        [~,~,MRD(i,:,:,:,k)]=runhazardV1(opt.im,opt.IM,hi,opt,source,Nsource,rho,mechlist);
+        MRD(i,:,:,:,k)=runMRD2(opt.im,opt.IM,hi,opt,source,Nsource,rho,mechlist);
     end
 end

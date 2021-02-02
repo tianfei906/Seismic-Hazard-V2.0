@@ -5,6 +5,8 @@ function[lny,sigma,tau,phi]=Mcverry2006(To,M,Rrup,Zhyp,media,mechanism,rvol)
 %Subduction Zone Earthquakes.  Bulletin of the New Zealand Society of
 %Earthquake Engineering. Vol 39, No 4. March 2006
 
+% Syntax : Mcverry2006 mechanism rvol                                       
+
 st = dbstack;
 [isadmisible,units] = isIMadmisible(To,st(1).name,[0 3],[nan nan],[nan nan],[nan nan]);
 if isadmisible==0

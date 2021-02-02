@@ -1,4 +1,5 @@
 function [lny,sigma,tau,phi]=GKAS2017(To,M,Rrup,Rjb,Rx,Ry0,Ztor,dip,W,VS30,SOF,region)
+% Syntax : GKAS2017 SOF region                                              
 
 st          = dbstack;
 isadmisible = isIMadmisible(To,st(1).name,[0 10],[nan nan],[nan nan],[nan nan]);

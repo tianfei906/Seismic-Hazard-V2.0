@@ -146,7 +146,7 @@ for j=1:NA
     end
 end
 
-%% Evaluation of Liquefaction (B%I 14)
+%% Evaluation of Liquefaction (B&I 14)
 % Demand
 CSR     = zeros([N,NA]);
 rd      = zeros([N,NA]);
@@ -812,7 +812,6 @@ if FS>=2
     ev=0;
     
 end
-
 
 function [sh] = shearset(FS,DR)
 

@@ -1,4 +1,5 @@
 function[lny,sigma,tau,phi]=TBA03(To,M,Rrup,media,SOF)
+% Syntax : TBA03 SGSCLASS SOF                                               
 
 % Travasarou, T., Bray, J. D., & Abrahamson, N. A. (2003). Empirical 
 % attenuation relationship for Arias intensity. Earthquake engineering &

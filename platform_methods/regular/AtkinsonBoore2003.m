@@ -1,5 +1,7 @@
 function[lny,sigma,tau,phi]=AtkinsonBoore2003(To,M,Rrup,Zhyp,media,mechanism,region)
 
+% Syntax : AtkinsonBoore2003 mechanism region                               
+
 st = dbstack;
 [isadmisible,units] = isIMadmisible(To,st(1).name,[0 1/0.33],[nan nan],[nan nan],[nan nan]);
 if isadmisible==0

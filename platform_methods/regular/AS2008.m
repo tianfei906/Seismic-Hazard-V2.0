@@ -1,4 +1,5 @@
 function[lny,sigma,tau,phi]=AS2008(To,M,Rrup,Rjb,Rx,Ztor,dip,width,Vs30,Z10,SOF,event,Vs30type)
+% Syntax : AS2008 Z10 SOF event Vs30type                                    
 
 st = dbstack;
 [isadmisible,units] = isIMadmisible(To,st(1).name,[0 10],[nan nan],[nan nan],[nan nan]);

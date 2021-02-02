@@ -3,11 +3,13 @@ clc
 
 %% Functions required to include new GMMs
 edit mGMPEdspec.m
-edit param_circDSHA.m
-edit param_circ.m
-edit param_rect.m
+edit RArect_rigid.m
+edit RAcirc_leak.m
+edit RAcirc_leak2.m
+edit RAcirc_rigid.m
 edit mGMPEsubgroup.m
 edit mGMPEgetparam.m
+edit mGMPEdefault_conditional.m
 edit mGMPErrupLoop.m
 edit mGMPEdefault.m
 edit mGMPEplotVS30

@@ -1,9 +1,13 @@
 function[lny,sigma,tau,phi]=Youngs1997(To,M,Rrup,Zhyp,media,mechanism)
 
+% Syntax : Youngs1997 mechanism                                             
+% Example 1:  Youngs1997 interface
+% Example 2:  Youngs1997 intraslab
+% Reference: 
 % Youngs, R. R., Chiou, S. J., Silva, W. J., & Humphrey, J. R. (1997).
 % Strong ground motion attenuation relationships for subduction zone
 % earthquakes. Seismological Research Letters, 68(1), 58-7
-
+%
 if isnumeric(media)
     if media<760
         media='soil';

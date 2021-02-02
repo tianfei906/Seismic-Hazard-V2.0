@@ -1,5 +1,7 @@
 function[lny,sigma,tau,phi]=MontalvaBastias2017(To,M,Rrup,Rhyp,Zhyp,Vs30,mechanism,arc)
 
+% Syntax : MontalvaBastias2017 mechanism arc                                
+
 % Montalva, G., Bastias, N., Rodriguez-Marek, A. (2016) Ground Motion
 % Prediction Equation for the Chilean Subduction Zone. Bulletin of the 
 % Seismological Society of America April 2017 vol. 107 no. 2 901-911

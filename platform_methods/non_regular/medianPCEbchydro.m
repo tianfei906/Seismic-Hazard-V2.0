@@ -1,5 +1,6 @@
 function [lnY,sigma,tau,phi] = medianPCEbchydro(To,M,Rrup,VS30)
 
+% Syntax : medianPCEbchydro                                                 
 if  To<0 || To> 3
     lnY   = nan(size(M));
     sigma = nan(size(M));

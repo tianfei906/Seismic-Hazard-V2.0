@@ -1,5 +1,7 @@
 function[lny,sigma,tau,phi]=SiberRisk2019(To,M,Rrup,Rhyp,Zhyp,Vs30,mechanism)
 
+% Syntax : SiberRisk2019 mechanism                                          
+
 % To        = spectral period
 % M         = moment magnitude
 % rrup      = closest distance to fault rupture

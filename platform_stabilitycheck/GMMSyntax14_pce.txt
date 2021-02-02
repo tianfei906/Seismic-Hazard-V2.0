@@ -8,7 +8,7 @@ im           : logsp(0.001,3,20)
 MaxDistance  : 500
 MagDiscrete  : gauss 10
 Sigma        : 
-PCE          : shuffle MC 500
+PCE          : shuffle PC 500
 IM1          : 0.01
 IM2          : 1
 Spatial      : @none_spatial

@@ -1,4 +1,5 @@
 function[lny,sigma,tau,phi]=CB2008(To,M,Rrup,Rjb,Ztor,dip,Vs30,Z25,SOF,sigmatype)
+% Syntax : CB2008 Z25 SOF sigmatype                                         
 
 % Kenneth W. Campbell and Yousef Bozorgnia (2008) NGA Ground Motion 
 % Model for the Geometric Mean Horizontal Component of PGA, PGV, PGD and 5

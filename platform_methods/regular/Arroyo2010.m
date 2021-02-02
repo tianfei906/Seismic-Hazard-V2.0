@@ -1,4 +1,5 @@
 function[lny,sigma,tau,phi]=Arroyo2010(To,M,Rrup)
+% Syntax : Arroyo2010                                                       
 
 %Arroyo, D., García, D., Ordaz, M., Mora, M. A., & Singh, S. K. (2010).
 % Strong ground-motion relations for Mexican interplate earthquakes.

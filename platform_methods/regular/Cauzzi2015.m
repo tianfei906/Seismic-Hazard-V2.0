@@ -1,4 +1,5 @@
 function[lny,sigma,tau,phi]=Cauzzi2015(To,M,Rrup,Rhyp,Vs30,Vs30form,SOF)
+% Syntax : Cauzzi2015 Vs30form SOF                                          
 
 st = dbstack;
 [isadmisible,units] = isIMadmisible(To,st(1).name,[0 10],[nan nan],[0 10],[nan nan]);

@@ -1,4 +1,5 @@
 function[lny,sigma,tau,phi]=CB2014(To,M,Rrup,Rjb,Rx,Zhyp,Ztor,Zbot,dip,width,Vs30,Z25,SOF,HWEffect,region)
+% Syntax : CB2014 Z25 SOF HWeffect region                                   
 
 % Kenneth W. Campbell and Yousef Bozorgnia (2014) NGA-West2 Ground Motion 
 % Model for the Average Horizontal Components of PGA, PGV, and 5% Damped 

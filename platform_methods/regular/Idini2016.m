@@ -1,5 +1,6 @@
 function[lny,sigma,tau,phi]=Idini2016(To,M,Rrup,Rhyp,Zhyp,Vs30,mechanism,spectrum)
 
+% Syntax : Idini2016 mechanism spectype                                     
 % Benjamn Idini, Fabian Rojas, Sergio Ruiz, Cesar Pasten
 
 st = dbstack;

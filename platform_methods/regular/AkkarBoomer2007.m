@@ -1,4 +1,5 @@
 function[lny,sigma,tau,phi]=AkkarBoomer2007(To,M,Rjb,media,SOF,damping)
+% Syntax : ASK2014 Z10 SOF event Vs30type region                            
 
 % Akkar, S. and Bommer, J. J., [2007]
 % Prediction of elastic displacement response spectra in Europe and the Middle East” Earthquake Engineering

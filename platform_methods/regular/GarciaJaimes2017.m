@@ -1,5 +1,7 @@
 function[lny,sigma,tau,phi]=GarciaJaimes2017(To,M,Rrup,component)
 
+% Syntax : GarciaJaimes2017 component                                       
+
 % García-Soto & Jaimes (2017). Ground-Motion Prediction Model for Vertical
 % Response Spectra from Mexican Interplate Earthquakes. Bulletin of the
 % Society of America, 107(2), 887-900

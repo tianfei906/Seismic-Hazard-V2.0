@@ -1,4 +1,7 @@
 function [lnY,sigma] = PCE_bchydro(To,M,Rrup,Vs30)
+% Syntax : PCE_bchydro                                                      
+
+
 
 if  To<0 || To> 3
     lnY   = nan(size(M));

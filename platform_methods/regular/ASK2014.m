@@ -1,4 +1,5 @@
 function[lny,sigma,tau,phi]=ASK2014(To,M,Rrup,Rjb,Rx,Ry0,Ztor,dip,width,Vs30,Z10,SOF,event,Vs30type,region)
+% Syntax : AkkarBoomer2007 stiff SOF damping                                
 
 % Norman A. Abrahamson, Walter J. Silva, and Ronnie Kamai (2014) Summary 
 % of the ASK14 Ground Motion Relation for Active Crustal Regions. 

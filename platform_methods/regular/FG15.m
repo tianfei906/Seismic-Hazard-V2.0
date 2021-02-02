@@ -1,4 +1,5 @@
 function[lny,sigma,tau,phi]=FG15(To,M,Rrup,Zhyp,Vs30,SOF,arc,regtype)
+% Syntax : FG15 SOF forearc rtype                                           
 
 % Foulser-Piggott, R., & Goda, K. (2015). Ground?motion prediction models
 % for Arias intensity and cumulative absolute velocity for Japanese

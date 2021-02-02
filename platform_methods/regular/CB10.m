@@ -1,4 +1,5 @@
 function[lny,sigma,tau,phi]=CB10(To,M,Rrup,Rjb,Ztor,dip,Vs30,Z25,SOF)
+% Syntax : CB10 Z25 SOF                                                     
 
 % Kenneth W. Campbell and Yousef Bozorgnia (2010) A Ground Motion
 % Prediction Equation for the Horizontal Component of Cumulative Absolute

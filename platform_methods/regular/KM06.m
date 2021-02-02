@@ -1,5 +1,6 @@
 function[lny,sigma,tau,phi]=KM06(To,M,Rrup,SOF)
 
+% Syntax : KM06 SOF                                                         
 st = dbstack;
 [isadmisible,units] = isIMadmisible(To,st(1).name,[nan nan],[nan nan],[nan nan],[nan nan]);
 if isadmisible==0

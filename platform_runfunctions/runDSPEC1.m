@@ -12,7 +12,7 @@ for i=site_selection
 end
 
 SPEC = nan(Nsite,NIM,Nsource);
-MRZ  = nan(Nsite,7  ,Nsource);
+MRZ  = nan(Nsite,8  ,Nsource);
 for k=site_selection
     ind_k      = ind(k,:);
     sptr       = find(ind_k);
@@ -55,7 +55,7 @@ switch source.gmm.type
             end
         end
 end
-MRZ = MRZ(ind,:);
+MRZ = [MRZ(ind,:),ind];
 MRZ(5:7)=xyz2gps(MRZ(:,5:7),ellip);
 
 %% COMPUTES RESPONSE SPECTRUM OF CONTROLLING SCENARIOAS

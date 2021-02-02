@@ -1,4 +1,5 @@
 function[lny,sigma,tau,phi]=Bindi2011(To,M,Rjb,media,SOF,component)
+% Syntax : Bindi2011 SOF component                                          
 
 % Bindi, D., Pacor, F., Luzi, L., Puglia, R., Massa, M., Ameri, G., & Paolucci, R. (2011).
 % Ground motion prediction equations derived from the Italian strong motion database.

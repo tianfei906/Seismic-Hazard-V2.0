@@ -1,4 +1,5 @@
 function [lny,sigma,tau,phi]= Kanno2006(To,M,Rrup,Zhyp,Vs30)
+% Syntax : Kanno2006                                                        
 
 %Kanno, T., Narita, A., Morikawa, N., Fujiwara, H., & Fukushima, Y. (2006).
 %A new attenuation relation for strong ground motion in Japan based on recorded data.

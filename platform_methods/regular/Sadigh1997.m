@@ -1,4 +1,5 @@
 function[lny,sigma,tau,phi]=Sadigh1997(To,M,Rrup,media,SOF)
+% Syntax : Sadigh1997 SOF                                                   
 
 % Sadigh, K., Chang, C. Y., Egan, J. A., Makdisi, F., & Youngs, R. R.
 % (1997). Attenuation relationships for shallow crustal earthquakes

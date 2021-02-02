@@ -1,5 +1,7 @@
 function[lny,sigma,tau,phi]=Garcia2005(To,M,Rrup,Rhyp,Zhyp,direction)
 
+% Syntax : Garcia2005 component                                             
+
 % To        = spectral period
 % M         = moment magnitude
 % rrup      = closest distance to rupture plane

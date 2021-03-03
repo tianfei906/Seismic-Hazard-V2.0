@@ -15,7 +15,6 @@ gmpefun  = gmpe.handle;
 sqpi  = sqrt(pi); % squared root of pi
 Nscen = length(param{1});
 HSa   = [H(0,zrnd);H(1,zrnd);H(2,zrnd);H(3,zrnd);H(4,zrnd)];
-Cz    = zeros(Nscen, Nim, 5);
 MRE   = zeros(Nim,NIM,Nreal);
 
 for j=1:NIM
@@ -25,6 +24,7 @@ for j=1:NIM
         smu  = std (lnY,0,1)';
         stot = sqrt(sigma.^2+smu.^2);
         a   = -smu.^2./(2*sigma.^2) - 1/2;
+        Cz    = zeros(Nscen, Nim, 5);
         for  i = 1:Nim
             lnz = log(im(i,j));
             b   = (lnz - mu) .* smu./(sigma.^2);

@@ -23,7 +23,7 @@ Mscl Weight : 1
 
 Option 2 - Source Geometry
 geometry 1
-area1 S1 crustal strike-slip wc1994 0 1 2 0 rigid 0 0 0 0 0 -30 0 105.409255338946 -30 0 105.409255338946 0
+area1 S1 crustal strike-slip wc1994 0 1 2 0 0 rigid 0 0 0 0 0 -30 0 105.409255338946 -30 0 105.409255338946 0
 
 Option 3 - GMPE Library
 gmm MAL MAL2020 exclude CB2014 2.5 strike-slip exclude global

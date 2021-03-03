@@ -23,13 +23,13 @@ Mscl Weight : 1
 
 Option 2 - Source Geometry
 geometry 1
-area1 zone1 interface normal strasser2010 0 1 leak zone1.mat
-area1 zone2 interface normal strasser2010 0 1 leak zone2.mat
-area1 zone3 interface normal strasser2010 0 1 leak zone3.mat
-area1 zone4 intraslab normal strasser2010 0 1 leak zone4.mat
-area1 zone5 intraslab normal strasser2010 0 1 leak zone5.mat
-area1 zone6 intraslab normal strasser2010 0 1 leak zone6.mat
-area1 zone7 intraslab normal strasser2010 0 1 leak zone7.mat
+area1 zone1 interface normal strasser2010 0 1 60 leak zone1.mat
+area1 zone2 interface normal strasser2010 0 1 60 leak zone2.mat
+area1 zone3 interface normal strasser2010 0 1 60 leak zone3.mat
+area1 zone4 intraslab normal strasser2010 0 1 60 leak zone4.mat
+area1 zone5 intraslab normal strasser2010 0 1 60 leak zone5.mat
+area1 zone6 intraslab normal strasser2010 0 1 60 leak zone6.mat
+area1 zone7 intraslab normal strasser2010 0 1 60 leak zone7.mat
 
 Option 3 - GMPE Library
 gmm at1  PCE_bchydro

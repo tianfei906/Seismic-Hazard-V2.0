@@ -23,7 +23,7 @@ Mscl Weight : 1
 
 Option 2 - Source Geometry
 geometry 1
-area1 S1  crustal strike-slip wc1994 0 1 1 0 rigid  0 0 0  100 0 0  100 200 0  0 200 0
+area1 S1  crustal strike-slip wc1994 0 1 10 0 0 rigid  0 0 0  100 0 0  100 200 0  0 200 0
 
 Option 3 - GMPE Library
 gmm Sadigh97 Sadigh1997 strike-slip

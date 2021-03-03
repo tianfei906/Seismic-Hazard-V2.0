@@ -23,7 +23,7 @@ Mscl Weight : 1
 
 Option 2 - Source Geometry
 geometry 1
-area1 zoneI interface normal strasser2010 0 1 rigid zoneI.mat
+area1 zoneI interface normal strasser2010 0 1 60 rigid zoneI.mat
 
 Option 3 - GMPE Library
 gmm at1 MontalvaBastias2017 interface Forearc

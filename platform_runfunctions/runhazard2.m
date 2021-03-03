@@ -97,13 +97,6 @@ switch source.gmm.type
     otherwise
         for j=1:NIM
             [mu,sig] = source.gmm.handle(IM(j),param{:});
-            
-            % convert geomean to maxdir, this code is only temporary
-            %--------------------------------------
-            amp = gm2max(IM(j));
-            mu  = mu+log(amp);
-            %--------------------------------------
-            
             sig = sig.^std_exp*sig_overw;
             imj = im(:,j);
             for i=1:Nim

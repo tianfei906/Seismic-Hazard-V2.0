@@ -23,7 +23,7 @@ Mscl Weight : 1
 
 Option 2 - Source Geometry
 geometry 1
-area1 F3  interface  normal  wc1994 0 1 30 0 leak -80.991 -8.528 -25 -80.022 -10.322 -25 -77.184 -14.412 -25 -75.856 -13.563 -60 -77.824 -10.464 -60 -79.267 -7.74 -60                                              
+area1 F3  interface  normal  wc1994 0 1 30 0 60 leak -80.991 -8.528 -25 -80.022 -10.322 -25 -77.184 -14.412 -25 -75.856 -13.563 -60 -77.824 -10.464 -60 -79.267 -7.74 -60                                              
 
 Option 3 - GMPE Library
 gmm at1  Youngs1997 interface

@@ -25,11 +25,12 @@ Option 2 - Source Geometry
 geometry 1
 point1   P1  crustal normal wc1994 0 1 | 0 90              | -10 0 0
 line1    L1  crustal normal wc1994 0 1 | 80 5 1            | -10 10 0 -10 30 0
-area1    A11 crustal normal wc1994 0 1 | 2 0         leak   | 20 20 0 40 20 0 40 40 0 20 40 0
-area1    A12 crustal normal wc1994 0 1 | 45 1 20 2 0 leak   | 20 0 30 2 40 10
-area1    A13 crustal normal wc1994 0 1 |             leak   | TestArea.mat
-area2    A2  crustal normal wc1994 0 1 | 90 90 25 12 2 1   | 0 -10 0   0 -10 -12   25 -10 -12  25 -10 0
-volume1  V1  crustal normal null   0 1 | 2 0 10 5          | 20 50 0 40 50 0 40 70 0 20 70 0
+area1    A11 crustal normal wc1994 0 1 | 2 0         0 leak   | 20 20 -10 40 20 -10 40 40 -10 20 40 -10
+area1    A12 crustal normal wc1994 0 1 | 45 1 20 2 0 0 leak   | 20 0 30 2 40 10
+area1    A13 crustal normal wc1994 0 1 |             0 leak   | TestArea.mat
+area2    A2  crustal normal wc1994 0 1 | 90 45 25 12 2 1   | 0  -10 0  0  -20 -10 25 -20 -10  25 -10 0
+
+volume1  V1  crustal normal null   0 1 | 2 0 10 3          | 20 50 0 40 50 -10 40 70 -10 20 70 0
 
 Option 3 - GMPE Library
 gmm Sadigh97 Sadigh1997 strike-slip

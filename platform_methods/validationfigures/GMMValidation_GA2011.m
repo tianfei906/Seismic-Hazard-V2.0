@@ -57,11 +57,12 @@ switch filename
     case 'GA2011_4.png'
         T   = logsp(0.01,10,50);
         lnY = nan(4,length(T));
+        Vs30=660;
         for i=1:length(T)
-            lnY(1,i)=GA2011(T(i)+3j,5,30,270,'strike-slip');
-            lnY(2,i)=GA2011(T(i)+3j,6,30,270,'strike-slip');
-            lnY(3,i)=GA2011(T(i)+3j,7,30,270,'strike-slip');
-            lnY(4,i)=GA2011(T(i)+3j,8,30,270,'strike-slip');
+            lnY(1,i)=GA2011(T(i)+3j,5,30,Vs30,'strike-slip');
+            lnY(2,i)=GA2011(T(i)+3j,6,30,Vs30,'strike-slip');
+            lnY(3,i)=GA2011(T(i)+3j,7,30,Vs30,'strike-slip');
+            lnY(4,i)=GA2011(T(i)+3j,8,30,Vs30,'strike-slip');
         end
         plot(handles.ax1,T,exp(lnY),'linewidth',1);
         handles.ax1.XLim   = [0.01 10];
@@ -139,9 +140,9 @@ switch filename
         T = logsp(0.01,10,50);
         lnY  = nan(3,length(10));
         for i=1:length(T)
-            lnY(1,i)=GA2011(T(i)+3j,7,5,270,'strike-slip');
-            lnY(2,i)=GA2011(T(i)+3j,7,5,270,'reverse');
-            lnY(3,i)=GA2011(T(i)+3j,7,5,270,'normal');
+            lnY(1,i)=GA2011(T(i)+3j,7,5,440,'strike-slip');
+            lnY(2,i)=GA2011(T(i)+3j,7,5,440,'reverse');
+            lnY(3,i)=GA2011(T(i)+3j,7,5,440,'normal');
         end
         plot(handles.ax1,T,exp(lnY),'linewidth',1);
         handles.ax1.XLim   = [0.01 10];

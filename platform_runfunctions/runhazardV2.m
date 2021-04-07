@@ -54,8 +54,9 @@ gmpe        = source.gmm;
 Nim         = 40;
 NMmin       = source.NMmin;
 gmpefun     = gmpe.handle;
+MaxDistance = opt.MaxDistance;
 [param,rate] = source.pfun(r0,source,opt.ellipsoid,hparam);
-
+rate(param{2}>MaxDistance)=0;
 %% HAZARD INTEGRAL
 [mu1,sig1] = gmpefun(IM(1),param{:});
 [mu2,sig2] = gmpefun(IM(2),param{:});

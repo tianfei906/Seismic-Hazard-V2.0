@@ -20,6 +20,7 @@ deagg  = cell(Nsite,Nim,NIM,Nsource);
 if nargout==2
     param  = cell(Nsite,Nim,NIM,Nsource);
 end
+
 for k=site_selection
     ind_k      = ind(k,:);
     sptr       = find(ind_k);
@@ -35,6 +36,12 @@ for k=site_selection
     end
 end
 
+% patch to zero rate of scenarios with distance greater than opt.MaxDistance
+for i=1:numel(deagg)
+    d   = deagg{i};
+    d(d(:,2)>opt.MaxDistance,3)=0;
+    deagg{i}=d;
+end
 
 return
 

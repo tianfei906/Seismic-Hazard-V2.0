@@ -21,7 +21,7 @@ switch opt.SourceDeagg
             valuek      = h.value(k,:);
             for i=sptr
                 source(i).media = valuek;
-                MRE(k,:,:,i)=runsource(source(i),xyzk,IM,im,opt.ellipsoid,opt.Sigma,h.param);
+                MRE(k,:,:,i)=runsource(source(i),xyzk,IM,im,opt,h.param);
             end
         end
     case 'off'
@@ -33,7 +33,7 @@ switch opt.SourceDeagg
             valuek     = h.value(k,:);
             for i=sptr
                 source(i).media=valuek;
-                dMRE = runsource(source(i),xyzk,IM,im,opt.ellipsoid,opt.Sigma,h.param);
+                dMRE = runsource(source(i),xyzk,IM,im,opt,h.param);
                 dMRE = permute(dMRE,[3,1,2]);
                 dMRE(isnan(dMRE))=0;
                 MRE(k,:,:)= MRE(k,:,:)+dMRE;
@@ -43,12 +43,19 @@ end
 
 return
 
-function MRE=runsource(source,r0,IM,im,ellip,sigma,hparam)
+function MRE=runsource(source,r0,IM,im,opt,hparam)
+
 %% MAGNITUDE RATE OF EARTHQUAKES
+ellip        = opt.ellipsoid;
+sigma        = opt.Sigma;
+MaxDistance  = opt.MaxDistance;
+
 NIM          = length(IM);
 Nim          = size(im,1);
 NMmin        = source.NMmin;
 [param,rate] = source.pfun(r0,source,ellip,hparam);
+rate(param{2}>MaxDistance)=0;
+
 MRE          = zeros(Nim,NIM);
 std_exp      = 1;
 sig_overw    = 1;

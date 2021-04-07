@@ -40,8 +40,9 @@ gmpe         = source.gmm;
 [Nim0,Ndim]  = size(im);
 NMmin        = source.NMmin;
 gmpefun      = gmpe.handle;
+MaxDistance  = opt.maxDistance;
 [param,rate] = source.pfun(r0,source,opt.ellipsoid,hparam);
-
+rate(param{2}>MaxDistance)=0;
 switch source.gmm.type
     case 'regular' , Nscen = numel(param{1});
     case 'frn'     , Nscen = numel(param{5}{1});

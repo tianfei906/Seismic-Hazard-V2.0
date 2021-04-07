@@ -33,6 +33,14 @@ for k=site_selection
 end
 
 
+% patch to zero rate of scenarios with distance greater than opt.MaxDistance
+for i=1:numel(deagg)
+    d   = deagg{i};
+    d(d(:,2)>opt.MaxDistance,3)=0;
+    deagg{i}=d;
+end
+
+
 return
 
 function[deagg]=runsourceDeagg(source,r0,T,im,ellip,sigma,emin,emax,deps,hparam)

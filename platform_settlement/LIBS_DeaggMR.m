@@ -32,19 +32,8 @@ handles.param = varargin{9};
 
 [handles.branches,handles.IJK]=main_settle(handles.T1,handles.T2,handles.T3);
 
-% -------------------------------------------------------------------------
-% Build interface to adjust this piece of code
-%--------------------------------------------------------------------------
-% rmin  = 0;  rmax  = 120; dr    = 10;
-% handles.Rbin      = [(rmin:dr:rmax-dr)',(rmin:dr:rmax-dr)'+dr];
-% mmin  = 4; mmax  = 7.6; dm    = 0.2;
-% handles.Mbin      = [(mmin:dm:mmax-dm)',(mmin:dm:mmax-dm)'+dm];
-
-rmin  = 0;  rmax  = 300; dr    = 25;
-handles.Rbin      = [(rmin:dr:rmax-dr)',(rmin:dr:rmax-dr)'+dr];
-mmin  = 5; mmax  = 9.4; dm    = 0.2;
-handles.Mbin      = [(mmin:dm:mmax-dm)',(mmin:dm:mmax-dm)'+dm];
-%--------------------------------------------------------------------------
+handles.Rbin  = createObj('Rbin',handles);
+handles.Mbin  = createObj('Mbin',handles.sys);
 
 handles.popreturn.String   = num2cell(createObj('returnperiods'));
 handles.popreturn.Value    = 1;

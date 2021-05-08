@@ -42,7 +42,7 @@ for model_ptr  = 1:Nmodels
     opt2.im = im2;
     opt2.IM = Tcond;
     
-    [deagg2,param] = runhazard2(im2,Tcond,h,opt2,sources,Nsource,1);
+    [deagg2,param] = runhazard2(im2,Tcond,h,opt2,sources);
     cmsdata        = run_funcCMS(Rbin,Mbin,sources,deagg2,param);
     pkd(model_ptr)=cmsdata.pkd;
     % compute GMPE prediction

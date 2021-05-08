@@ -50,10 +50,15 @@ if any(imethod==3) % Bray & Macedo LIBS
         end
     end
     
+    % correlation matrix using CAVdp-PGA-SA1, 
+    %  rho=[            1         0.8        0.34
+    %  0.8            1        0.438
+    %  0.34        0.438            1        ];
+    
     mechlist    = [];
-    [~,B1]=intersect({setLIB.label},handles.T3(:,2)); D1=intersect({setLIB(B1).str},{'libs_BrayMacedo2017','libs_BrayMacedo2017Ds2'});
-    [~,B2]=intersect({setLIB.label},handles.T3(:,3)); D2=intersect({setLIB(B2).str},{'libs_BrayMacedo2017','libs_BrayMacedo2017Ds2'});
-    [~,B3]=intersect({setLIB.label},handles.T3(:,4)); D3=intersect({setLIB(B3).str},{'libs_BrayMacedo2017','libs_BrayMacedo2017Ds2'});
+    [~,B1]=intersect({setLIB.label},handles.T3(:,2)); D1=intersect({setLIB(B1).str},{'libs_BrayMacedo2017','libs_BrayMacedo2017Ds'});
+    [~,B2]=intersect({setLIB.label},handles.T3(:,3)); D2=intersect({setLIB(B2).str},{'libs_BrayMacedo2017','libs_BrayMacedo2017Ds'});
+    [~,B3]=intersect({setLIB.label},handles.T3(:,4)); D3=intersect({setLIB(B3).str},{'libs_BrayMacedo2017','libs_BrayMacedo2017Ds'});
     if ~isempty(D1), mechlist=[mechlist,1];end % 'interface'
     if ~isempty(D2), mechlist=[mechlist,2];end % 'instraslab'
     if ~isempty(D3), mechlist=[mechlist,3];end % 'crustal'

@@ -101,7 +101,6 @@ if group == 2
     i=i+1;ME(i).label = 'Truncated Exponential';   ME(i).func = @truncexp;
     i=i+1;ME(i).label = 'Truncated Normal';        ME(i).func = @truncnorm;
     i=i+1;ME(i).label = 'Characteristic';          ME(i).func = @yc1985;
-    i=i+1;ME(i).label = 'Table';                   ME(i).func = @magtable;
 end
 
 % spatial correlation models

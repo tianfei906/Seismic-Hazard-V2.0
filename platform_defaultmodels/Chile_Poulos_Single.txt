@@ -4,7 +4,7 @@ Image        : chile.mat
 Boundary     : CHL_adm1.shp
 ShearModulus : 3e11      #dyne/cm2
 IM           : PGA
-im           : logsp(0.01,3,30)
+im           : 
 MaxDistance  : 500
 MagDiscrete  : gauss 10
 Sigma        : truncate 3

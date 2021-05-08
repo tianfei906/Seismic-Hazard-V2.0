@@ -54,6 +54,7 @@ NIM          = length(IM);
 Nim          = size(im,1);
 NMmin        = source.NMmin;
 [param,rate] = source.pfun(r0,source,ellip,hparam);
+
 rate(param{2}>MaxDistance)=0;
 
 MRE          = zeros(Nim,NIM);

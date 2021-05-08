@@ -1,0 +1,63 @@
+Option 0 - Global Parameters
+Projection   : WGS84
+Image        : peru.mat
+Boundary     : PER_adm1.shp 
+ShearModulus : 3e11      #dyne/cm2
+IM           : PGA
+im           : 
+MaxDistance  : 500
+MagDiscrete  : gauss 10
+Sigma        : 
+PCE          : shuffle MC 500
+IM1          : 0.01
+IM2          : 1
+Spatial      : @none_spatial
+Spectral     : @corr_none
+SourceDeagg  : on
+Clusters     : off 100 1
+
+Option 1 - Logic Tree Weights
+Geom Weight : 1
+Gmpe Weight : 1
+Mscl Weight : 0.5 0.5
+
+Option 2 - Source Geometry
+geometry 1 Geom1
+area1 S1  interface normal strasser2010 0 1 60 rigid Peru_S1.mat
+#area1 S2  interface normal strasser2010 0 1 60 rigid Peru_S2.mat
+#area1 S3  interface normal strasser2010 0 1 60 rigid Peru_S3.mat
+#area1 S4  interface normal strasser2010 0 1 60 rigid Peru_S4.mat
+#area1 S5  interface normal strasser2010 0 1 60 rigid Peru_S5.mat
+#area1 S6  interface normal strasser2010 0 1 60 rigid Peru_S6.mat
+#area1 S7  intraslab normal strasser2010 0 2 60 rigid Peru_S7.mat
+#area1 S8  intraslab normal strasser2010 0 2 60 rigid Peru_S8.mat
+#area1 S9  intraslab normal strasser2010 0 2 60 rigid Peru_S9.mat
+#area1 S10 intraslab normal strasser2010 0 2 60 rigid Peru_S10.mat
+#area1 S11 intraslab normal strasser2010 0 2 60 rigid Peru_S11.mat
+#area1 S12 intraslab normal strasser2010 0 2 60 rigid Peru_S12.mat
+#area1 S13 intraslab normal strasser2010 0 2 60 rigid Peru_S13.mat
+#area1 S14 intraslab normal strasser2010 0 2 60 rigid Peru_S14.mat
+#area1 S15 intraslab normal strasser2010 0 2 60 rigid Peru_S15.mat
+#area1 S16 intraslab normal strasser2010 0 2 60 rigid Peru_S16.mat
+#area1 S17 intraslab normal strasser2010 0 2 60 rigid Peru_S17.mat
+#area1 S18 intraslab normal strasser2010 0 2 60 rigid Peru_S18.mat
+#area1 S19 intraslab normal strasser2010 0 2 60 rigid Peru_S19.mat
+#area1 S20 intraslab normal strasser2010 0 2 60 rigid Peru_S20.mat
+#area1 S21 intraslab normal strasser2010 0 2 60 rigid Peru_S21.mat
+                                                                                                                                                                                                        
+Option 3 - GMPE Library
+gmm at1 BCHydro2012 interface Forearc Central
+gmm at2 BCHydro2012 intraslab Forearc Central
+gmm at3 Sadigh1997 reverse
+
+Option 4 - GMPE GROUPS
+gmmgroup BCHydro2012  1 2 3
+
+Option 5 - MAGNITUDE SCALING RELATIONS
+seismicity 1 G-K-974
+catalog Declust_filter_G-K_1974 truncexp 60 60 25 25
+seismicity 2 G-K-974
+catalog Declust_filter_G-K_1974 yc1985 60 60 25 25
+
+Option 6 - Pre defined sites
+Lima -77 -12 0 VS30 760

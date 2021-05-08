@@ -9,13 +9,11 @@ NM   = size(handles.Mbin,1);
 NE   = size(handles.Ebin,1);
 
 deagg3 = zeros(NR,NE,NM);
-lam3   = sum(dg3(:,5));
 
 for j=1:NM
-    deagg3(:,:,j)= deagghazardMRe3(dg3,Mbin(j,:),Rbin,Ebin);
+    deagg3(:,:,j) = deagghazardMRe3(dg3,Mbin(j,:),Rbin,Ebin);
 end
-
-deagg3 = deagg3/lam3*100;
+deagg3 = deagg3/sum(deagg3(:))*100;
 updateZValue(handles.b,deagg3);
 Zmax = nansum(deagg3,2);
 Zmax = max(Zmax(:));
@@ -34,6 +32,9 @@ dg = deagg(:,5);
 M1 = Mbin(1);
 M2 = Mbin(2);
 
+IND=isinf(e);
+e(IND)=1000*sign(e(IND));
+
 for i=1:NR
     R1 = Rbin(i,1);
     R2 = Rbin(i,2);
@@ -44,6 +45,5 @@ for i=1:NR
         deaggIM(i,j) = sum(dg(ind1&ind2&ind3));
     end
 end
-
 
 

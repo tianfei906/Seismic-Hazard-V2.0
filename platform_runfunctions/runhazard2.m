@@ -1,10 +1,6 @@
-function[deagg,param]=runhazard2(im,IM,h,opt,source,Nsource,site_selection,OV)
+function[deagg,param]=runhazard2(im,IM,h,opt,source)
 
 xyz       = gps2xyz(h.p,opt.ellipsoid);
-Nsite     = size(xyz,1);
-NIM       = length(IM);
-Nim       = size(im,1);
-ind       = zeros(Nsite,length(source));
 
 if isfield(opt,'dflag')
     dflag = opt.dflag;
@@ -12,35 +8,30 @@ else
     dflag = [true true false];
 end
 
-for i=site_selection
-    ind(i,:)=selectsource(opt.MaxDistance,xyz(i,:),source);
-end
-
-deagg  = cell(Nsite,Nim,NIM,Nsource);
+ind     = selectsource(opt.MaxDistance,xyz,source);
+sptr    = find(ind);
+Nsource = numel(source);
+deagg   = cell(Nsource,1);
 if nargout==2
-    param  = cell(Nsite,Nim,NIM,Nsource);
+    param  = cell(Nsource,1);
 end
 
-for k=site_selection
-    ind_k      = ind(k,:);
-    sptr       = find(ind_k);
-    xyzk       = xyz(k,:);
-    valuek     = h.value(k,:);
-    for i=sptr
-        source(i).media=valuek;
-        if nargout==1
-            deagg(k,:,:,i)=runsourceDeagg(source(i),xyzk,IM,im,opt.ellipsoid,opt.Sigma,h.param,dflag);
-        else
-            [deagg(k,:,:,i),param{k,:,:,i}]=runsourceDeagg(source(i),xyzk,IM,im,opt.ellipsoid,opt.Sigma,h.param,dflag);
-        end
+for i=sptr
+    source(i).media=h.value;
+    if nargout==1
+        deagg{i}=           runsourceDeagg(source(i),xyz,IM,im,opt.ellipsoid,opt.Sigma,h.param,dflag);
+    else
+        [deagg{i},param{i}]=runsourceDeagg(source(i),xyz,IM,im,opt.ellipsoid,opt.Sigma,h.param,dflag);
     end
 end
 
 % patch to zero rate of scenarios with distance greater than opt.MaxDistance
-for i=1:numel(deagg)
+for i=1:Nsource
     d   = deagg{i};
-    d(d(:,2)>opt.MaxDistance,3)=0;
-    deagg{i}=d;
+    if ~isempty(d)
+        d(d(:,2)>opt.MaxDistance,3)=0;
+        deagg{i}=d;
+    end
 end
 
 return
@@ -48,20 +39,16 @@ return
 function[deagg,param]=runsourceDeagg(source,r0,IM,im,ellip,sigma,hparam,dflag)
 
 %% RATE OF EARTHQUAKES
-NIM   = length(IM);
-Nim   = size(im,1);
 NMmin = source.NMmin;
 [param,rate] = source.pfun(r0,source,ellip,hparam);
-
-%% HAZARD INTEGRAL
-deagg     = cell(Nim,NIM);
 std_exp   = 1;
 sig_overw = 1;
-PHI       = 0;
+
+t = makedist('normal');
 if ~isempty(sigma)
     switch sigma{1}
-        case 'overwrite', std_exp = 0; sig_overw = sigma{2};
-        case 'truncate' , PHI = 0.5*(1-erf(sigma{2}/sqrt(2)));
+        case 'overwrite', std_exp = 0; sig_overw = sigma{2}; 
+        case 'truncate' , t = truncate(t,-inf,sigma{2});
     end
 end
 
@@ -85,36 +72,25 @@ end
 
 switch source.gmm.type
     case 'pce'
-        for j=1:NIM
-            switch func2str(source.gmm.handle)
-                case 'PCE_nga'     ,[mu,sig] = medianPCEnga(IM(j),param{:});
-                case 'PCE_bchydro' ,[mu,sig] = medianPCEbchydro(IM(j),param{:});
-            end
-            sig = sig.^std_exp*sig_overw;
-            imj = im(:,j);
-            for i=1:Nim
-                xhat        = (log(imj(i))-mu)./sig;
-                ccdf        = (0.5*(1-erf(xhat/sqrt(2)))-PHI)*1/(1-PHI);
-                ccdf        = ccdf.*(ccdf>0);
-                dsum        = [Mag,Rrup,mu];
-                deagg{i,j}  = [dsum(:,dflag),NMmin*ccdf.*rate];
-            end
+        switch func2str(source.gmm.handle)
+            case 'PCE_nga'     ,[mu,sig] = medianPCEnga(IM,param{:});
+            case 'PCE_bchydro' ,[mu,sig] = medianPCEbchydro(IM,param{:});
         end
+        sig    = sig.^std_exp*sig_overw;
+        xhat   = (log(im)-mu)./sig;
+        ccdf   = 1-cdf(t,xhat);
+        dsum   = [Mag,Rrup,mu];
+        deagg  = [dsum(:,dflag),NMmin*ccdf.*rate];
+        
         
     otherwise
-        for j=1:NIM
-            [mu,sig] = source.gmm.handle(IM(j),param{:});
-            sig = sig.^std_exp*sig_overw;
-            imj = im(:,j);
-            for i=1:Nim
-                xhat        = (log(imj(i))-mu)./sig;
-                ccdf        = (0.5*(1-erf(xhat/sqrt(2)))-PHI)*1/(1-PHI);
-                ccdf        = ccdf.*(ccdf>0);
-                dsum        = [Mag,Rrup,mu];
-                deagg{i,j}  = [dsum(:,dflag),NMmin*ccdf.*rate];
-            end
-        end        
+        [mu,sig] = source.gmm.handle(IM,param{:});
+        sig   = sig.^std_exp*sig_overw;
+        xhat  = (log(im)-mu)./sig;
+        ccdf   = 1-cdf(t,xhat);
+        dsum  = [Mag,Rrup,mu];
+        deagg = [dsum(:,dflag),NMmin*ccdf.*rate];
+        if nargout==1
+            deagg(deagg(:,3)==0,:)=[];
+        end
 end
-
-return
-

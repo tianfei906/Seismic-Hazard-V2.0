@@ -58,4 +58,8 @@ Option 6 - Pre defined sites
 LasCondes -70.5635 -33.4124 691.3   VS30 400
 
 Option 7 - Spacial distributed data
-layer VS30 CHI_USGS.mat 760
+#layer VS30 CHI_USGS.mat 500
+layer VS30 500
+
+Option 9 - Event Simulation (optional) 
+Maule27F interface 8.8 -73.08 -36.1 -30

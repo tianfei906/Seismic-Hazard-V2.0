@@ -22,7 +22,7 @@ for i=1:Nbranch
     fprintf('%g\n',i/Nbranch)
     if weights(i)~=0
         source          = buildmodelin(sys,sys.branch(i,:),opt);
-        deagg(:,:,:,:,i)= runhazard2(im,IM,h,opt,source,Nsource,sitelist);
+        deagg(:,:,:,:,i)= runhazard2full(im,IM,h,opt,source,Nsource,sitelist);
     end
 end
 

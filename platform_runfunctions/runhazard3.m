@@ -1,82 +1,62 @@
-function[deagg]=runhazard3(im,IM,h,opt,source,Nsource,site_selection,Ebin)
+function[deagg]=runhazard3(im,IM,h,opt,source,Ebin)
 
 ellipsoid = opt.ellipsoid;
 xyz       = gps2xyz(h.p,ellipsoid);
-Nsite     = size(xyz,1);
-NIM       = length(IM);
-Nim       = size(im,1);
-deagg     = cell(Nsite,Nim,NIM,Nsource);
-
-e1 = Ebin(1,2)-0.5;
-e2 = Ebin(end,1)+0.5;
-de = (Ebin(2,2)-Ebin(2,1))/3;
 sigma     = opt.Sigma;
-epsilon   = linspace(e1,e2,round((e2-e1)/de+1));
-emin      = epsilon (1);
-emax      = epsilon (end);
-deps      = mean(diff(epsilon));
 
-ind  = zeros(Nsite,length(source));
-for i=site_selection
-    ind(i,:)=selectsource(opt.MaxDistance,xyz(i,:),source);
+ind     = selectsource(opt.MaxDistance,xyz,source);
+sptr    = find(ind);
+Nsource = numel(source);
+deagg   = cell(Nsource,1);
+for i=sptr
+    source(i).media = h.value;
+    deagg{i}  = runsourceDeagg(source(i),xyz,IM,im,ellipsoid,sigma,h.param);
 end
-
-for k=site_selection
-    ind_k      = ind(k,:);
-    sptr       = find(ind_k);
-    xyzk       = xyz(k,:);
-    valuek     = h.value(k,:);
-    for i=sptr
-        source(i).media = valuek;
-        deagg(k,:,:,i)  = runsourceDeagg(source(i),xyzk,IM,im,ellipsoid,sigma,emin,emax,deps,h.param);
-    end
-end
-
 
 % patch to zero rate of scenarios with distance greater than opt.MaxDistance
 for i=1:numel(deagg)
     d   = deagg{i};
-    d(d(:,2)>opt.MaxDistance,3)=0;
-    deagg{i}=d;
+    if ~isempty(d)
+        d(d(:,2)>opt.MaxDistance,3)=0;
+        deagg{i}=d;
+    end
 end
-
 
 return
 
-function[deagg]=runsourceDeagg(source,r0,T,im,ellip,sigma,emin,emax,deps,hparam)
+function[deagg]=runsourceDeagg(source,r0,T,im,ellip,sigma,hparam)
 
-gmm = source.gmm;
-
-%% MAGNITUDE RATE OF EARTHQUAKES
-Nper   = length(T);
-Nim    = size(im,1);
+gmm    = source.gmm;
 NMmin  = source.NMmin;
 [param,rate_MR] = source.pfun(r0,source,ellip,hparam);
-gmpefun  = gmm.handle;
-
 
 %% HAZARD INTEGRAL
 std_exp   = 1;
 sig_overw = 1;
-PHI       = 0;
+t = makedist('normal');
 if ~isempty(sigma)
     switch sigma{1}
         case 'overwrite', std_exp = 0; sig_overw = sigma{2};
-        case 'truncate' , emin = min([emin,sigma{2},emin+sigma{2}]); emax = sigma{2}; PHI = 0.5*(1-erf(sigma{2}/sqrt(2)));
+        case 'truncate',  t = truncate(t,-6,sigma{2});
     end
+else
+    t = truncate(t,-6,6);
 end
 
-deagg    = cell(Nim,Nper);
-ep1      = emin:deps:(emax-deps);
-ep2      = (emin+deps):deps:emax;
+% 2D integral
+[mu,sig] = source.gmm.handle(T,param{:});
+sig      = sig.^std_exp*sig_overw;
+xhat     = (log(im)-mu)./sig;
+ccdf     = 1-cdf(t,xhat);
+lam2     = sum(NMmin*ccdf.*rate_MR);
+epsilon  = linspace(-6,6,101)';
+ep1      = epsilon(1:end-1);
+ep2      = epsilon(2:end);
 epsilon  = 1/2*(ep1+ep2);
 Neps     = length(epsilon);
 
-ep1(1)   = -inf;
-ep2(end) = inf;
-
 if sig_overw == 1
-    rate_e   = normcdf(ep2)-normcdf(ep1);
+    rate_e   = cdf(t,ep2)-cdf(t,ep1);
 end
 
 if sig_overw ~= 1
@@ -87,45 +67,33 @@ end
 Zhyp = nan(size(param{1}));
 switch gmm.type
     case 'regular'
-    NMR      = size(param{1},1);
-    Mag      = repmat(param{1},Neps,1);%creating copies for the magnitude deagregation
-    Rup      = repmat(param{2},Neps,1);%creating copies for the distance deagregation
+    Mag      = param{1};
+    Rup      = param{2};
     if source.gmm.Rmetric(8)
-        Zhyp = repmat(param{3},Neps,1);%creating copies for the depth deagregation
+        Zhyp = param{3};
     end
     case 'udm'
-    NMR      = size(param{5},1);
-    Mag      = repmat(param{5},Neps,1);%creating copies for the magnitude deagregation
-    Rup      = repmat(param{6},Neps,1);%creating copies for the distance deagregation
+    Mag      = param{5};
+    Rup      = param{6};
     case 'cond'
-    NMR      = size(param{5},1);
-    Mag      = repmat(param{5},Neps,1);%creating copies for the magnitude deagregation
-    Rup      = repmat(param{6},Neps,1);%creating copies for the distance deagregation        
+    Mag      = param{5};
+    Rup      = param{6};
     case 'frn'
-    NMR      = size(param{7}{1},1);
-    Mag      = repmat(param{7}{1},Neps,1);%creating copies for the magnitude deagregation
-    Rup      = repmat(param{7}{2},Neps,1);%creating copies for the distance deagregation            
+    Mag      = param{7}{1};
+    Rup      = param{7}{2};
 end
 
-epsilon  = repmat(epsilon',NMR,1); epsilon  = epsilon(:);
-rate_e   = repmat(rate_e',NMR,1);  rate_e   = rate_e(:);
-rate_MR  = repmat(rate_MR,Neps,1);
-rate     = rate_MR.*rate_e;
+NMR    = numel(Mag);
+[II,JJ]= meshgrid(1:NMR,1:Neps);
+II     = II'; JJ = JJ'; II = II(:); JJ = JJ(:);
 
-for j=1:Nper
-    [mu,std] = gmpefun(T(j),param{:});
-    std      = std.^std_exp*sig_overw;
-    mu       = repmat(mu,Neps,1);
-    std      = repmat(std,Neps,1);
-    lnSa     = mu+std.*epsilon;
-    imj      = im(:,j); 
-    
-    for i=1:Nim
-        im_i = log(imj(i));
-        ccdf = (lnSa>=im_i)*1/(1-PHI);
-        deagg{i,j} = [Mag,Rup,Zhyp,epsilon,NMmin*ccdf.*rate];%that will provide the rates for all possible combinations of M, D, and epsilon
-    end
-end
+rate     = rate_MR(II).*rate_e(JJ);
+lnSa     = mu(II)+sig(II).*epsilon(JJ);
+ccdf     = (lnSa>=log(im));
+deagg    = [Mag(II),Rup(II),Zhyp(II),epsilon(JJ),NMmin*ccdf.*rate]; %that will provide the rates for all possible combinations of M, D, and epsilon
+
+deagg(deagg(:,5)==0,:)=[];
+deagg(:,5)=deagg(:,5)/sum(deagg(:,5))*lam2;
 
 return
 

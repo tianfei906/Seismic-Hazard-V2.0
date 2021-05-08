@@ -25,6 +25,7 @@ switch plotmode
     case 'Liquefaction Plots (R15)'  , plotCPT3(handles,'R15'); dolay=true;
     case 'SBT'                       , plotCPT4(handles);
     case 'SBTn'                      , plotCPT5(handles);
+    case 'randomplot'                , plotRANDOM(handles);              
 end
 val = handles.popupmenu1.Value;
 zend=handles.cpt(val).z(end);
@@ -247,4 +248,12 @@ text(handles.ax8,[1.2 0.5 0.6 0.4 0.2 0.1 0.1 ],[3 1.5 8.0 30 50 100 400 ],{'1',
 
 handles.ax7.Layer='top';
 handles.ax8.Layer='top';
+
+function plotRANDOM(handles)
+
+handles.ax1.Visible='on'; plot(handles.ax1,rand(10,1),rand(10,1))
+handles.ax2.Visible='on'; plot(handles.ax2,rand(10,1),rand(10,1))
+handles.ax3.Visible='on'; plot(handles.ax3,rand(10,1),rand(10,1))
+handles.ax4.Visible='on'; plot(handles.ax4,rand(10,1),rand(10,1))
+handles.ax5.Visible='on'; plot(handles.ax5,rand(10,1),rand(10,1))
 

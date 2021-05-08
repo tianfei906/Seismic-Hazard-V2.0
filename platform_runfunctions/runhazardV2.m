@@ -145,12 +145,13 @@ return
 
 function[lambda,MRE,MRD]=runsource2(source,r0,IM,im,rho,opt,hparam)
 
-gmpe        = source.gmm;
-[Nim0,ncols]= size(im);
-NMmin       = source.NMmin;
-gmpefun     = gmpe.handle;
+gmpe         = source.gmm;
+[Nim0,ncols] = size(im);
+NMmin        = source.NMmin;
+gmpefun      = gmpe.handle;
+MaxDistance  = opt.maxDistance;
 [param,rate] = source.pfun(r0,source,opt.ellipsoid,hparam);
-
+rate(param{2}>MaxDistance)=0;
 %% HAZARD INTEGRAL
 [mu1,sig1] = gmpefun(IM(1),param{:});
 [mu2,sig2] = gmpefun(IM(2),param{:});

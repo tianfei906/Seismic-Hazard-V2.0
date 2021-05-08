@@ -5,7 +5,7 @@ Boundary     :
 ShearModulus : 3e11      #dyne/cm2
 IM           : 0.5
 im           : logsp(0.001,3,20)
-MaxDistance  : 1000
+MaxDistance  : 500
 MagDiscrete  : gauss 1
 Sigma        : 
 PCE          : shuffle MC 500

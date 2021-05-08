@@ -131,6 +131,7 @@ else
 end
 
 f4 = a13*T1*(T2.*T3).*(T4.*T5);
+f4(isnan(f4))=0;
 
 % Magnitude scaling term
 c4M = c4-(c4-1)/2*(6-M);  % typo found in equation 13

@@ -274,7 +274,7 @@ F_fltm(M>5.5)=1;
 fflt = ((c8 * Frv) + (c9 * Fnm)).*F_fltm;
 
 % Hanging-wall effects
-if delta==90
+if delta==90 || Rx(1)==999
     fhng = zeros(size(M));
 else
     R1 = W .* cosd(delta); % W - downdip width

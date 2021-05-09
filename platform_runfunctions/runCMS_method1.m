@@ -8,6 +8,7 @@ Tr          = opt.Tr;
 Rbin        = opt.Rbin;
 Mbin        = opt.Mbin;
 cfun        = opt.cfun;
+UseMean     = opt.DeaggMean;
 
 Tcond_ptr   = T==Tcond;
 im1         = opt.im;
@@ -28,7 +29,7 @@ opt2.im = im2;
 opt2.IM = Tcond;
 
 [deagg2,param] = runhazard2(im2,Tcond,h,opt2,sources);
-cmsdata        = run_funcCMS(Rbin,Mbin,sources,deagg2,param);
+cmsdata        = run_funcCMS(Rbin,Mbin,sources,deagg2,param,UseMean);
 
 % compute UHS
 uhs  = uhspectrum(opt.im,lambda1,1/Tr);

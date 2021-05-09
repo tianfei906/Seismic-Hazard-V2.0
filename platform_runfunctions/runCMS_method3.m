@@ -41,9 +41,10 @@ for model_ptr  = 1:Nmodels
     im2     = Sat(model_ptr);
     opt2.im = im2;
     opt2.IM = Tcond;
+    UseMean = opt2.DeaggMean;
     
     [deagg2,param] = runhazard2(im2,Tcond,h,opt2,sources);
-    cmsdata        = run_funcCMS(Rbin,Mbin,sources,deagg2,param);
+    cmsdata        = run_funcCMS(Rbin,Mbin,sources,deagg2,param,UseMean);
     pkd(model_ptr)=cmsdata.pkd;
     % compute GMPE prediction
     mu  = zeros(NIM,1);

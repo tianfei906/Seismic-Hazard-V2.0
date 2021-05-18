@@ -149,7 +149,7 @@ gmpe         = source.gmm;
 [Nim0,ncols] = size(im);
 NMmin        = source.NMmin;
 gmpefun      = gmpe.handle;
-MaxDistance  = opt.maxDistance;
+MaxDistance  = opt.MaxDistance;
 [param,rate] = source.pfun(r0,source,opt.ellipsoid,hparam);
 rate(param{2}>MaxDistance)=0;
 %% HAZARD INTEGRAL
@@ -280,9 +280,9 @@ end
 %% MRE using Gauss Copula
 MRE      = NaN(Nim,Nim);
 RHO      = [1,rho;rho,1];
-deaggMin = runhazard2(0,IM(1),h,opt,source,1,1); deaggMin = deaggMin{1}(:,3);
-deagg1   = runhazard2(im(:,1),IM(1),h,opt,source,1,1); deagg1 = horzcat(deagg1{:}); deagg1=deagg1(:,3:3:end)./deaggMin;
-deagg2   = runhazard2(im(:,2),IM(2),h,opt,source,1,1); deagg2 = horzcat(deagg2{:}); deagg2=deagg2(:,3:3:end)./deaggMin;
+deaggMin = runhazard2full(      0,IM(1),h,opt,source,1,1); deaggMin = deaggMin{1}(:,3);
+deagg1   = runhazard2full(im(:,1),IM(1),h,opt,source,1,1); deagg1 = horzcat(deagg1{:}); deagg1=deagg1(:,3:3:end)./deaggMin;
+deagg2   = runhazard2full(im(:,2),IM(2),h,opt,source,1,1); deagg2 = horzcat(deagg2{:}); deagg2=deagg2(:,3:3:end)./deaggMin;
 
 for i=1:Nim
     for j=1:Nim

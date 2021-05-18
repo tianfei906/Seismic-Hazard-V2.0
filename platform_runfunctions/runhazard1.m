@@ -27,6 +27,7 @@ switch opt.SourceDeagg
     case 'off'
         MRE       = zeros(Nsite,Nim,NIM);
         for k=site_selection
+            fprintf('%g\n',k)
             ind_k      = ind(k,:);
             sptr       = find(ind_k);
             xyzk       = xyz(k,:);

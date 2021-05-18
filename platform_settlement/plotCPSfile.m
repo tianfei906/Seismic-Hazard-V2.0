@@ -152,7 +152,7 @@ plot(handles.ax1,LIQ.CSR, z,'color',[1 0 0]);
 
 handles.ax1.XLim=[0 0.6];
 ylabel(handles.ax1,'Depth (m)','fontweight','bold')
-title(handles.ax1,'CRR plot'),    xlabel(handles.ax1,'CRR & CSR')
+title(handles.ax1,'CRR plot'),    xlabel(handles.ax1,'CRR &\color{red} CSR')
 
 %ax2
 zm = z(end);

@@ -9,6 +9,3 @@ h.param = h.param;
 h.value = h.value(val,:);
 lambda  = runlogictree1(sys,opt,h,1);
 lambda  = permute(lambda,[1,2,3,5,4]);
-
-
-

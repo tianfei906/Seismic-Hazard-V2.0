@@ -38,7 +38,7 @@ handles.xy=[];
 handles.in=[];
 handles.opt.Image    ='peru.mat';
 handles.opt.Boundary ='PER_adm1.shp';
-default_maps(handles.figure1,handles.opt)
+default_maps(handles.figure1,handles.opt,handles.ax1)
 plotSARA(handles.ax1,handles.data)
 akZoom(handles.ax1);
 guidata(hObject, handles);

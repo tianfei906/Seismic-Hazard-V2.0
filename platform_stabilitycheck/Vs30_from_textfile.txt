@@ -66,16 +66,16 @@ area1 S39  intraslab  -999 wc1994 0  2 108 30 0 30 leak  -72.00  -37.50  -128.76
 Option 3 - GMPE Library
 gmm at1  Youngs1997 interface
 gmm at2  Youngs1997 intraslab
-gmm at3  AtkinsonBoore2003 interface General
-gmm at4  AtkinsonBoore2003 intraslab General
+gmm at3  AtkinsonBoore2003 interface general
+gmm at4  AtkinsonBoore2003 intraslab general
 gmm at5  Zhao2006 interface
 gmm at6  Zhao2006 intraslab
-gmm at7  BCHydro2012 interface Forearc Central
-gmm at8  BCHydro2012 intraslab Forearc Central
+gmm at7  BCHydro2012 interface forearc central
+gmm at8  BCHydro2012 intraslab forearc central
 gmm at9  Idini2016 interface sI
 gmm at10 Idini2016 intraslab sI
-gmm at11 MontalvaBastias2017HQ interface Forearc
-gmm at12 MontalvaBastias2017HQ intraslab Forearc
+gmm at11 MontalvaBastias2017HQ interface forearc
+gmm at12 MontalvaBastias2017HQ intraslab forearc
 
 Option 4 - GMPE GROUPS
 gmmgroup Youngs1997      1   2
@@ -131,4 +131,4 @@ Option 6 - Pre defined sites
 puntos_cuenca_maipo.txt
 
 Option 7 - Spacial distributed data
-layer Vs30 760
+layer VS30 760

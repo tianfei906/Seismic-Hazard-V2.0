@@ -9,10 +9,7 @@ function [lny,sigma,tau,phi] = MAL2020(To,M,Rrup,Rjb,HWeffect,dip,Vs30,func,vara
 st = dbstack;
 [isadmisible,units] = isIMadmisible(To,st(1).name,[nan nan],[nan nan],[nan nan],[nan nan]);
 if isadmisible==0
-    lny   = nan(size(M));
-    sigma = nan(size(M));
-    tau   = nan(size(M));
-    phi   = nan(size(M));
+    [lny,sigma,tau,phi] = func(To,varargin{:});
     return
 end
 

@@ -1,4 +1,4 @@
-function[lny,sigma,tau,phi]=Bernal2014(To,M,Rrup,Zhyp,mechanism)
+function[lny,sigma,tau,phi]=Bernal2014(To,M,Rrup,Zhyp,mechanism,adjfun)
 % Syntax : Bernal2014 mechanism                                             
 
 st = dbstack;
@@ -34,6 +34,12 @@ phi = nan(size(M));
 
 % unit convertion
 lny  = lny+log(units);
+
+% modifier
+if exist('adjfun','var')
+    SF  = feval(adjfun,To); 
+    lny = lny+log(SF);
+end
 
 function [lny,sigma]=gmpe(index,M,Rrup,Zhyp,mechanism)
 

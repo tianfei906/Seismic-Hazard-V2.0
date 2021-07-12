@@ -1,13 +1,10 @@
-function [lny,sigma,tau,phi] = ML2021(To,M,Rrup,mechanism,Vs30,func,varargin)
+function [lny,sigma,tau,phi] = ML2021(To,M,~,mechanism,Vs30,func,varargin)
 % Syntax : ML2021 mechanism handle {param}                              
 
 st = dbstack;
 [isadmisible,units] = isIMadmisible(To,st(1).name,[nan nan],[nan nan],[nan nan],[nan nan]);
 if isadmisible==0
-    lny   = nan(size(M));
-    sigma = nan(size(M));
-    tau   = nan(size(M));
-    phi   = nan(size(M));
+    [lny,sigma,tau,phi] = func(To,varargin{:});
     return
 end
 

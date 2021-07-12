@@ -1,4 +1,4 @@
-function[lny,sigma,tau,phi]=Sadigh1997(To,M,Rrup,media,SOF)
+function[lny,sigma,tau,phi]=Sadigh1997(To,M,Rrup,media,SOF,adjfun)
 % Syntax : Sadigh1997 SOF                                                   
 
 % Sadigh, K., Chang, C. Y., Egan, J. A., Makdisi, F., & Youngs, R. R.
@@ -46,6 +46,12 @@ phi   = nan(size(M));
 
 % unit convertion
 lny  = lny+log(units);
+
+% modifier
+if exist('adjfun','var')
+    SF  = feval(adjfun,To); 
+    lny = lny+log(SF);
+end
 
 function[lny,sigma]=gmpe(index,M,Rrup,SOF,media)
 
@@ -154,5 +160,5 @@ switch lower(media)
         sigma = C(4)-C(5)*min(M,7);
 end
 
-lny(M>8.5)=nan;
+lny(M>8.5)=-inf;
 

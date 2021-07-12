@@ -1,4 +1,4 @@
-function[lny,sigma,tau,phi]=Akkar2014(To,M,Rhyp,Rjb,Repi,VS30,SOF,model)
+function[lny,sigma,tau,phi]=Akkar2014(To,M,Rhyp,Rjb,Repi,VS30,SOF,model,adjfun)
 % Syntax : Akkar2014 SOF model                                              
 
 st = dbstack;
@@ -38,6 +38,12 @@ sigma = sqrt(tau.^2+phi.^2);
 
 % unit convertion
 lny  = lny+log(units);
+
+% modifier
+if exist('adjfun','var')
+    SF  = feval(adjfun,To); 
+    lny = lny+log(SF);
+end
 
 
 function[lny,tau,phi]=gmpe(index,M,Rhyp,Rjb,Repi,VS30,SOF,model,PGAref)

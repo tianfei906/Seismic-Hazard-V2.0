@@ -1,4 +1,4 @@
-function[lny,sigma,tau,phi]=GarciaJaimes2017(To,M,Rrup,component)
+function[lny,sigma,tau,phi]=GarciaJaimes2017(To,M,Rrup,component,adjfun)
 
 % Syntax : GarciaJaimes2017 component                                       
 
@@ -43,6 +43,11 @@ phi   = nan(size(M));
 % unit convertion
 lny  = lny+log(units);
 
+% modifier
+if exist('adjfun','var')
+    SF  = feval(adjfun,To); 
+    lny = lny+log(SF);
+end
 
 function [lny,sigma]=gmpe(index,M,Rrup,component)
 

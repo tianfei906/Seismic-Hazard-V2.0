@@ -1,4 +1,4 @@
-function[lny,sigma,tau,phi]=AtkinsonBoore2003(To,M,Rrup,Zhyp,media,mechanism,region)
+function[lny,sigma,tau,phi]=AtkinsonBoore2003(To,M,Rrup,Zhyp,media,mechanism,region,adjfun)
 
 % Syntax : AtkinsonBoore2003 mechanism region                               
 
@@ -50,6 +50,12 @@ phi   = phi    * log(10);
 
 % unit convertion
 lny  = lny+log(units);
+
+% modifier
+if exist('adjfun','var')
+    SF  = feval(adjfun,To); 
+    lny = lny+log(SF);
+end
 
 
 function[log10y,sigma,tau,phi]=gmpe(index,M,rrup,h,media,mechanism,region)

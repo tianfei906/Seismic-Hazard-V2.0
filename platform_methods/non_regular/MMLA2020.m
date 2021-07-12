@@ -1,13 +1,10 @@
-function [lny,sigma,tau,phi] = MMLA2020(To,M,Rrup,Vs30,func,varargin)
+function [lny,sigma,tau,phi] = MMLA2020(To,M,~,Vs30,func,varargin)
 % Syntax : MMLA2020 handle {param}                                        
 
 st = dbstack;
 [isadmisible,units] = isIMadmisible(To,st(1).name,[nan nan],[nan nan],[nan nan],[nan nan]);
 if isadmisible==0
-    lny   = nan(size(M));
-    sigma = nan(size(M));
-    tau   = nan(size(M));
-    phi   = nan(size(M));
+    [lny,sigma,tau,phi] = func(To,varargin{:});
     return
 end
 

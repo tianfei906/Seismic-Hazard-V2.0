@@ -11,10 +11,10 @@ site_ptr = handles.pop_site.Value;
 haz  = handles.REG_Display;
 d    = handles.optlib.sett;
 flatcolor=0;%handles.ColorSecondaryLines.Value;
-gris = [0.76 0.76 0.76];
+% gris = [0.76 0.76 0.76];
 
 if haz.L0
-    lambdaD = nansum(handles.lambdaD(site_ptr,:,:,:),3);
+    lambdaD = sum(handles.lambdaD(site_ptr,:,:,:),3,'omitnan');
     lambdaD = permute(lambdaD,[4 2 3 1]);
     
     handles.ax1.ColorOrderIndex=1;
@@ -33,7 +33,7 @@ if haz.L0
     
     if haz.L3 % mean
         lambdaD(lambdaD<0)=nan;
-        lam2 = exp(nanmean(log(lambdaD),1));
+        lam2 = exp(mean(log(lambdaD),1,'omitnan'));
         plot(handles.ax1,d',lam2','.-','DisplayName','Mean');
     end
     
@@ -80,14 +80,14 @@ if haz.R0
     branch_ptr = haz.R1;
     lambdaD    = handles.lambdaD(site_ptr,:,:,branch_ptr);
     lambdaD    = permute(lambdaD,[2 3 1]);
-    lam2       = nansum(lambdaD,2)';
+    lam2       = sum(lambdaD,2,'omitnan')';
     handles.ax1.ColorOrderIndex=1;
     plot(handles.ax1,d',lam2','.-','DisplayName','Total');
     
     if haz.R2 % displays source contribution
         haz_ptr      = handles.IJK(branch_ptr,1);
         geomptr      = handles.sys.branch(haz_ptr,1);
-        NOTZERO      = nansum(lambdaD,1)>0;
+        NOTZERO      = sum(lambdaD,1,'omitnan')>0;
         source_label = handles.sys.labelG{geomptr};
         str          = source_label(NOTZERO);
         lam1         = lambdaD(:,NOTZERO)';
@@ -110,8 +110,8 @@ if haz.R0
         m2         = (mechs==2); % intraslab
         m3         = (mechs==3); % crustal
         
-        lambdaD    = [nansum(lambdaD(:,m1),2) nansum(lambdaD(:,m2),2) nansum(lambdaD(:,m3),2)];
-        NOTNAN     = (nansum(lambdaD,1)>0);
+        lambdaD    = [sum(lambdaD(:,m1),2,'omitnan') sum(lambdaD(:,m2),2,'omitnan') sum(lambdaD(:,m3),2,'omitnan')];
+        NOTNAN     = (sum(lambdaD,1,'omitnan')>0);
         lam1       = lambdaD(:,NOTNAN)';
         mechs = {'interface','intraslab','crustal'};
         str = mechs(NOTNAN);

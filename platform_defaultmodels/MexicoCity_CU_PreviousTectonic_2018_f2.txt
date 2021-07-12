@@ -72,7 +72,7 @@ area1 Polochic3              intraslab  -999 wc1994 0 3 1001 60 0 60 leak  -94 1
 Option 3 - GMPE Library
 gmm at1 Jaimes2006
 gmm at2 Youngs1997 intraslab
-gmm at3 AtkinsonBoore2003 intraslab General
+gmm at3 AtkinsonBoore2003 intraslab general
 gmm at4 Jaimes2015 CU
 
 Option 4 - GMPE GROUPS

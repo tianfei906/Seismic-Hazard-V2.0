@@ -1,8 +1,8 @@
-function[lny,sigma,tau,phi]=ASK2014(To,M,Rrup,Rjb,Rx,Ry0,Ztor,dip,width,Vs30,Z10,SOF,event,Vs30type,region)
-% Syntax : AkkarBoomer2007 stiff SOF damping                                
+function[lny,sigma,tau,phi]=ASK2014(To,M,Rrup,Rjb,Rx,Ry0,Ztor,dip,width,Vs30,Z10,SOF,event,Vs30type,region,adjfun)
+% Syntax : AkkarBoomer2007 stiff SOF damping
 
-% Norman A. Abrahamson, Walter J. Silva, and Ronnie Kamai (2014) Summary 
-% of the ASK14 Ground Motion Relation for Active Crustal Regions. 
+% Norman A. Abrahamson, Walter J. Silva, and Ronnie Kamai (2014) Summary
+% of the ASK14 Ground Motion Relation for Active Crustal Regions.
 % Earthquake Spectra: August 2014, Vol. 30, No. 3, pp. 1025-1055.
 
 st = dbstack;
@@ -15,8 +15,9 @@ if isadmisible==0
     return
 end
 
-if ischar(Z10),Z10=999;end
-if ischar(width)  ,width  =999;end
+if ischar(Z10), Z10 = 999;end
+Z10=abs(Z10);
+
 if To>=0
     To      = max(To,0.001); %PGA is associated to To=0.01;
 end
@@ -43,6 +44,12 @@ end
 
 % unit convertion
 lny  = lny+log(units);
+
+% modifier
+if exist('adjfun','var')
+    SF  = feval(adjfun,To); 
+    lny = lny+log(SF);
+end
 
 function[lny,sigma,tau]=gmpe(index,M, Rrup, Rjb, Rx, Ry0, Ztor, dip, W, SOF, event, Z10, Vs30, Vs30type, reg)
 
@@ -74,17 +81,17 @@ switch event
     case 'aftershock', fas=0;
 end
 
-if Ztor == 999
-    if frv == 1
-        Ztor = max(2.704 - 1.226 .* max(M-5.849,0),0).^2;
-    else
-        Ztor = max(2.673 - 1.136 .* max(M-4.970,0),0).^2;
-    end
-end
+% if Ztor == 999
+%     if frv == 1
+%         Ztor = max(2.704 - 1.226 .* max(M-5.849,0),0).^2;
+%     else
+%         Ztor = max(2.673 - 1.136 .* max(M-4.970,0),0).^2;
+%     end
+% end
 
-if W == 999
-    W = min(18./sin(deg2rad(dip)),10.^(-1.75+0.45.*M));
-end
+% if W == 999
+%     W = min(18./sin(deg2rad(dip)),10.^(-1.75+0.45.*M));
+% end
 
 if Z10==999
     if region == 2 % japanese
@@ -101,7 +108,7 @@ function [ln_Sa, sigma,tau]=ASK_2014_sub_1 (index,M, R_RUP, R_JB, Rx, Ry0, Ztor,
 HW = (Rx>=0);
 % Coefficients
 period = [-1 0.001 0.01 0.02 0.03 0.05 0.075 0.1 0.15 0.2 0.25 0.3 0.4 0.5 0.75 1 1.5 2 3 4 5 6 7.5 10];
-                                                                                                                                                                                                
+
 Vlin =[330 660 660 680 770 915 960 910 740 590 495 430 360 340 330 330 330 330 330 330 330 330 330 330 ];
 b =[-2.02 -1.47 -1.47 -1.459 -1.39 -1.219 -1.152 -1.23 -1.587 -2.012 -2.411 -2.757 -3.278 -3.599 -3.8 -3.5 -2.4 -1 0 0 0 0 0 0 ];
 n =[1.5 1.5 1.5 1.5 1.5 1.5 1.5 1.5 1.5 1.5 1.5 1.5 1.5 1.5 1.5 1.5 1.5 1.5 1.5 1.5 1.5 1.5 1.5 1.5 ];
@@ -212,56 +219,60 @@ f1(M>=M2)=f1b(M>=M2);
 f1(M>M1)=f1a(M>M1);
 
 % term f4 - Hanging wall model
-R1 = W .* cos(deg2rad(delta));
-R2 = 3 .* R1;
-Ry1 = Rx .* tan(deg2rad(20));
-h1 = 0.25;
-h2 = 1.5;
-h3 = -0.75;
-
-if delta > 30
-    T1 = (90- delta)./45;
-else
-    T1 = 60./45;
-end
-
-a2hw = 0.2;
-
-T2a = 1 + a2hw .* (M - 6.5);
-T2b = 1 + a2hw .* (M - 6.5) - (1 - a2hw) .* (M - 6.5).^2;
-T2 = zeros(length(M),1);
-T2(M>5.5)=T2b(M>5.5);
-T2(M>6.5)=T2a(M>6.5);
-
-T3a = h1 + h2.*(Rx./R1) + h3.*(Rx./R1).^2;
-T3b = 1 - (Rx - R1)./(R2 - R1);
-T3 = zeros(length(M),1);
-T3(Rx<R2)=T3b(Rx<R2);
-T3(Rx<=R1)=T3a(Rx<=R1);
-
-T4a = 1 - Ztor.^2./100;
-T4 = zeros(length(M),1);
-T4(Ztor<10)=T4a(Ztor<10);
-
-T5 = R_JB*0;
-
-for i=1:length(M)
-    if Ry0(i) == 999 || Ry0(i) == 0
-        if R_JB(i) == 0
-            T5(i,1) = 1;
-        elseif R_JB(i) <30
-            T5(i,1) = 1 - R_JB(i)/30;
-        end
+if Ry0(1)~=-999
+    R1 = W .* cos(deg2rad(delta));
+    R2 = 3 .* R1;
+    Ry1 = Rx .* tan(deg2rad(20));
+    h1 = 0.25;
+    h2 = 1.5;
+    h3 = -0.75;
+    
+    if delta > 30
+        T1 = (90- delta)./45;
     else
-        if Ry0(i) - Ry1(i) <= 0
-            T5(i,1) = 1;
-        elseif Ry0(i) - Ry1(i) < 5
-            T5(i,1) = 1- (Ry0(i)-Ry1(i))/5;
+        T1 = 60./45;
+    end
+    
+    a2hw = 0.2;
+    
+    T2a = 1 + a2hw .* (M - 6.5);
+    T2b = 1 + a2hw .* (M - 6.5) - (1 - a2hw) .* (M - 6.5).^2;
+    T2 = zeros(length(M),1);
+    T2(M>5.5)=T2b(M>5.5);
+    T2(M>6.5)=T2a(M>6.5);
+    
+    T3a = h1 + h2.*(Rx./R1) + h3.*(Rx./R1).^2;
+    T3b = 1 - (Rx - R1)./(R2 - R1);
+    T3 = zeros(length(M),1);
+    T3(Rx<R2)=T3b(Rx<R2);
+    T3(Rx<=R1)=T3a(Rx<=R1);
+    
+    T4a = 1 - Ztor.^2./100;
+    T4 = zeros(length(M),1);
+    T4(Ztor<10)=T4a(Ztor<10);
+    
+    T5 = R_JB*0;
+    
+    for i=1:length(M)
+        if Ry0(i) ==-999 || Ry0(i) == 0
+            if R_JB(i) == 0
+                T5(i,1) = 1;
+            elseif R_JB(i) <30
+                T5(i,1) = 1 - R_JB(i)/30;
+            end
+        else
+            if Ry0(i) - Ry1(i) <= 0
+                T5(i,1) = 1;
+            elseif Ry0(i) - Ry1(i) < 5
+                T5(i,1) = 1- (Ry0(i)-Ry1(i))/5;
+            end
         end
     end
+    
+    f4 = a13 * T1 * T2 .* T3 .* T4 .* T5 .*HW;
+else
+    f4=0;
 end
-
-f4 = a13 * T1 * T2 .* T3 .* T4 .* T5 .*HW;
 
 % Term f6 - Depth to top rupture model
 f6a = a15.*Ztor./20;

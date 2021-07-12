@@ -12,7 +12,7 @@ Boundary     :
 ShearModulus : 3e11      #dyne/cm2
 IM           : 0
 im           : 
-MaxDistance  : 500
+maxdist  : 500
 MagDiscrete  : gauss 10
 Sigma        : overwrite 0
 PCE          : shuffle MC 500

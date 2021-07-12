@@ -1,4 +1,4 @@
-function [lny,sigma,tau,phi]= Kanno2006(To,M,Rrup,Zhyp,Vs30)
+function [lny,sigma,tau,phi]= Kanno2006(To,M,Rrup,Zhyp,Vs30,adjfun)
 % Syntax : Kanno2006                                                        
 
 %Kanno, T., Narita, A., Morikawa, N., Fujiwara, H., & Fukushima, Y. (2006).
@@ -44,6 +44,11 @@ phi   = nan(size(M));
 % unit convertion
 lny  = lny+log(units);
 
+% modifier
+if exist('adjfun','var')
+    SF  = feval(adjfun,To); 
+    lny = lny+log(SF);
+end
 
 function [log10y,sigma]= gmpe(index,M,Rrup,Zhyp,Vs30)
 [a1,b1,c1,d1,sigmas] = getcoeffs_shallow(index);

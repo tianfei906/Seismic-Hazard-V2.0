@@ -1,4 +1,4 @@
-function[lny,sigma,tau,phi]=Arteta2018(To,M,Rhyp,media,arc)
+function[lny,sigma,tau,phi]=Arteta2018(To,M,Rhyp,media,arc,adjfun)
 
 % Syntax : Arteta2018 arc                                                   
 
@@ -45,6 +45,12 @@ end
 
 % unit convertion
 lny  = lny+log(units);
+
+% modifier
+if exist('adjfun','var')
+    SF  = feval(adjfun,To); 
+    lny = lny+log(SF);
+end
 
 function[lnSa,sigma,tau,phi]=gmpe(index,M,Rhyp,media,arc)
 

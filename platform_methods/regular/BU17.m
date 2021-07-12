@@ -1,4 +1,4 @@
-function[lny,sigma,tau,phi]=BU17(To,M,Rrup,Zhyp,mechanism,imtype)
+function[lny,sigma,tau,phi]=BU17(To,M,Rrup,Zhyp,mechanism,imtype,adjfun)
 % Syntax : BU17 SOF CAV                                                     
 
 % Bullock, Z., Dashti, S., Liel, A., Porter, K., Karimi, Z., & Bradley, B. (2017).
@@ -127,4 +127,10 @@ end
 
 % unit convertion
 lny  = lny+log(units);
+
+% modifier
+if exist('adjfun','var')
+    SF  = feval(adjfun,To); 
+    lny = lny+log(SF);
+end
 

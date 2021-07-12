@@ -1,4 +1,4 @@
-function[lny,sigma,tau,phi]=GarciaJaimes2017VH(To,M,Rrup)
+function[lny,sigma,tau,phi]=GarciaJaimes2017VH(To,M,Rrup,adjfun)
 % Syntax : GarciaJaimes2017HV                                               
 
 
@@ -39,6 +39,11 @@ phi   = nan(size(M));
 % unit convertion
 lny  = lny+log(units);
 
+% modifier
+if exist('adjfun','var')
+    SF  = feval(adjfun,To); 
+    lny = lny+log(SF);
+end
 
 function [lny,sigma]=gmpe(index,M,Rrup)
 

@@ -1,4 +1,4 @@
-function[lny,sigma,tau,phi]=CB2014(To,M,Rrup,Rjb,Rx,Zhyp,Ztor,Zbot,dip,width,Vs30,Z25,SOF,HWEffect,region)
+function[lny,sigma,tau,phi]=CB2014(To,M,Rrup,Rjb,Rx,Zhyp,Ztor,Zbot,dip,width,Vs30,Z25,SOF,HWEffect,region,adjfun)
 % Syntax : CB2014 Z25 SOF HWeffect region                                   
 
 % Kenneth W. Campbell and Yousef Bozorgnia (2014) NGA-West2 Ground Motion 
@@ -16,10 +16,8 @@ if isadmisible==0
     return
 end
 
-if isnan(width)       ,width    = 999;end
-if ischar(width)      ,width    = 999;end
-if ischar(Zbot(1)),Zbot = 999;end
-if ischar(Zhyp(1)),Zhyp = 999*ones(size(M));end
+if Zbot(1)==-999, Zbot = 999;end
+if Zhyp(1)==-999, Zhyp = 999*ones(size(M));end
 
 if To>=0
     To      = max(To,0.001); %PGA is associated to To=0.01;
@@ -53,6 +51,11 @@ end
 % unit convertion
 lny  = lny+log(units);
 
+% modifier
+if exist('adjfun','var')
+    SF  = feval(adjfun,To); 
+    lny = lny+log(SF);
+end
 
 function[lny,sigma,tau]=gmpe(index, M, Rrup, Rjb, Rx, W, Ztor,  Zbot, dip, SOF, HWEffect, Vs30, Z25, Zhyp,reg)
 
@@ -81,7 +84,7 @@ switch lower(HWEffect)
 end
 
 % if Ztor is unknown
-if Ztor(1) == 999
+if Ztor(1) ==-999
     if Frv == 1
         Ztor = max(2.704 - 1.226*max(M-5.849,0),0).^2;
     else
@@ -90,7 +93,7 @@ if Ztor(1) == 999
 end
 
 % if W is unknown
-if W == 999
+if W ==-999
     if Frv == 1
         Ztori = max(2.704 - 1.226*max(M-5.849,0),0).^2;
     else
@@ -101,7 +104,7 @@ if W == 999
 end
 
 % if Zhyp is unknown
-if Zhyp(1) == 999 && W ~= 999
+if Zhyp(1) == 999 && W ~=-999
     fdZM=-4.317 + 0.984.*M;
     fdZM(M>=6.75)=1.325;
     if dip <= 40
@@ -274,7 +277,7 @@ F_fltm(M>5.5)=1;
 fflt = ((c8 * Frv) + (c9 * Fnm)).*F_fltm;
 
 % Hanging-wall effects
-if delta==90 || Rx(1)==999
+if delta==90 || Rx(1)==-999
     fhng = zeros(size(M));
 else
     R1 = W .* cosd(delta); % W - downdip width

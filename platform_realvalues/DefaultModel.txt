@@ -1,0 +1,89 @@
+Option 0 - Global Parameters
+Projection   : WGS84
+Image        : chile.mat
+Boundary     : CHL_adm1.shp
+ShearModulus : 3e11      #dyne/cm2
+IM           : PGA
+im           : 
+MaxDistance  : 500
+MagDiscrete  : gauss 10
+Sigma        : 
+PCE          : shuffle MC 500
+IM1          : 0.01
+IM2          : 1
+Spatial      : @none_spatial
+Spectral     : @corr_none
+SourceDeagg  : on
+Clusters     : off 100 1
+
+Option 1 - Logic Tree Weights
+Geom Weight : 1
+Gmpe Weight : 1
+Mscl Weight : 1 
+
+Option 2 - Source Geometry
+geometry 1
+area1 S1  interface  -999 wc1994 0  1 221.6 30 0 30 rigid -72.75  -34.00  -5.00    -71.00 -34.00  -82.92   -71.00 -32.00  -82.92   -72.75 -32.00 -5.00  
+
+Option 3 - GMPE Library
+gmm at1  MontalvaBastias2017 interface Forearc
+
+Option 4 - GMPE GROUPS
+gmmgroup Montalva 1 
+
+Option 5 - MAGNITUDE SCALING RELATIONS
+seismicity 1
+truncexp S1 NM 1 1 5 8.5
+
+Option 6 - Pre defined sites
+Site1 -70.5635 -33.4124 691.3 VS30 760
+
+Option 7 - Spacial distributed data
+layer VS30 CHI_SIGAS.mat CHI_USGS.mat 760
+
+Option 8 - Verification Hazard Curve (Optional)
+PGA   1.00E-05	1.56E-05	2.43E-05	3.80E-05	5.93E-05	9.24E-05	0.000144227	0.00022502	0.000351072	0.000547735	0.000854564	0.001333274	0.002080146	0.0032454	0.005063406	0.007899821	0.012325136	0.019229421	0.030001342	0.04680747	0.073028041	0.11393683	0.177761872	0.277340374	0.432700681	0.675090601	1.053262311	1.643277945	2.563808062	4               
+Site1 0.999999999	0.999999979	0.999999708	0.999996807	0.999972628	0.999814996	0.99900774	0.995743585	0.985257521	0.958291653	0.902272229	0.807249933	0.674078396	0.517993369	0.363225753	0.23199058	0.135735686	0.073751123	0.037929599	0.018779265	0.008984883	0.004088398	0.001714114	0.000638024	0.00020371	5.42E-05	1.18E-05	2.05E-06	2.83E-07	3.05E-08
+                   
+Option 9 - Event Simulation (optional)
+eq1 interface 6.6 -73.08 -36.1 -30
+eq2 interface 7.7 -73.08 -36.1 -30
+eq3 interface 8.8 -73.08 -36.1 -20
+                                                                                                                                                                                                                                                                                                                                        
+Option PSDA 1 - PSDA setup                                                                                             
+d         : logsp(2,300,30)  # cm
+realSa    : 20
+realD     : 30
+rng       : shuffle
+optimize  : on # optimize "on" uses the conditional term M|Sa in M-dependent CDMs
+kysamples : 2
+Tssamples : 2                                                                                                     
+                                                                            
+Option PSDA 2 Library of Slope Displacement Models                                                                    
+psda D1  AM1988
+psda D2  BM2019M
+psda D3  BMT2017M
+psda D4  BT2007
+psda D5  BT2007M
+psda D6  J07Ia
+psda D7  J07M
+psda D8  RA2011F  0.6 0.6 0.5 0.15 0 #rho rhok Tm_mean Tm_cov Tm_Nsta
+psda D9  RA2011R  0.6                # rho 
+psda D10 RS09M    
+psda D11 RS09V    0.6                 #rho 
+ 
+ 
+Option PSDA 3 Slope Displacement Models                                                                               
+Slope Weights 1/11 1/11 1/11 1/11 1/11 1/11 1/11 1/11 1/11 1/11 1/11
+#    interface intraslab crustal background
+SL1  D1        D1        D1      null
+SL2  D2        D2        D2      null
+SL3  D3        D3        D3      null
+SL4  D4        D4        D4      null
+SL5  D5        D5        D5      null
+SL6  D6        D6        D6      null
+SL7  D7        D7        D7      null
+SL8  D8        D8        D8      null
+SL9  D9        D9        D9      null
+SL10 D10       D10       D10     null
+SL11 D11       D11       D11     null

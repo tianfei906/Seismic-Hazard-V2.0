@@ -31,7 +31,7 @@ area1 ProfIntCentro          intraslab  -999 wc1994 0 2 1001 30 0 60 leak  -99 1
 area1 ProfIntOeste           intraslab  -999 wc1994 0 2 1001 30 0 60 leak  -105.5 21 -30 -105 20 -30 -104 19 -30 -102 17.9 -30 -101 17.5 -30 -100 17.2 -30 -99 16.85 -30 -99 19.1 -100 -100 19.2 -100 -101 19.1 -100 -102 19.2 -100 -103.3 19.3 -100 -104 19.8 -100 -105 21 -100
 
 Option 3 - GMPE Library
-gmm at1 AtkinsonBoore2003 intraslab General
+gmm at1 AtkinsonBoore2003 intraslab general
 gmm at2 Zhao2006 intraslab 
 
 Option 4 - GMPE GROUPS
@@ -39,7 +39,7 @@ gmmgroup Zhao 1 2
 
 Option 5 - MAGNITUDE SCALING RELATIONS
 seismicity 1 Declust
-catalog MexicoReasenberg truncexp  60  60 30
+catalog MexicoReasenberg truncexp  60  60 30 30
 
 Option 6 - Pre defined sites
 PELSalto  -99.80948 19.81056 0 VS30 760

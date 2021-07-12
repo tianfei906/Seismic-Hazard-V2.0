@@ -1,4 +1,4 @@
-function[lny,sigma,tau,phi]=FG15(To,M,Rrup,Zhyp,Vs30,SOF,arc,regtype)
+function[lny,sigma,tau,phi]=FG15(To,M,Rrup,Zhyp,Vs30,SOF,arc,regtype,adjfun)
 % Syntax : FG15 SOF forearc rtype                                           
 
 % Foulser-Piggott, R., & Goda, K. (2015). Ground?motion prediction models
@@ -130,4 +130,9 @@ sigma = sqrt(phi.^2+tau.^2);
 % unit convertion
 lny  = lny+log(units);
 
+% modifier
+if exist('adjfun','var')
+    SF  = feval(adjfun,To); 
+    lny = lny+log(SF);
+end
 

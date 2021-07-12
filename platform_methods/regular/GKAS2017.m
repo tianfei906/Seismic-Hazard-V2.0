@@ -1,4 +1,4 @@
-function [lny,sigma,tau,phi]=GKAS2017(To,M,Rrup,Rjb,Rx,Ry0,Ztor,dip,W,VS30,SOF,region)
+function [lny,sigma,tau,phi]=GKAS2017(To,M,Rrup,Rjb,Rx,Ry0,Ztor,dip,W,VS30,SOF,region,adjfun)
 % Syntax : GKAS2017 SOF region                                              
 
 st          = dbstack;
@@ -37,6 +37,13 @@ end
 
 sigma = sqrt(tau.^2+phi.^2);
 
+
+% modifier
+if exist('adjfun','var')
+    SF  = feval(adjfun,To); 
+    lny = lny+log(SF);
+end
+
 function[lny,tau,phi]=gmpe(index,M,Rrup,Rjb,Rx,Ry0,Ztor,dip,W,VS30,SOF,region)
 
 switch SOF
@@ -48,8 +55,8 @@ switch SOF
     case 'unspecified',     fRV = 0; fN=0;
 end
 
-if all(Rx==999)
-    fHW = zeros(size(Rx));
+if Rx==-999
+    fHW = zeros(size(M));
 else
     fHW    = sign(Rx);
 end

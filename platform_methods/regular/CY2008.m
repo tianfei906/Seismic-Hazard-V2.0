@@ -1,4 +1,4 @@
-function[lny,sigma,tau,phi]=CY2008(To,M,Rrup,Rjb,Rx,Ztor,dip,Vs30,Z10,SOF,event,Vs30type)
+function[lny,sigma,tau,phi]=CY2008(To,M,Rrup,Rjb,Rx,Ztor,dip,Vs30,Z10,SOF,event,Vs30type,adjfun)
 % Syntax : CY2008 Z10 SOF event VS30type                                    
 
 % BrianS-J. Chiou and Robert R. Youngs (2008) An NGA Model for the 
@@ -46,6 +46,11 @@ end
 % unit convertion
 lny  = lny+log(units);
 
+% modifier
+if exist('adjfun','var')
+    SF  = feval(adjfun,To); 
+    lny = lny+log(SF);
+end
 
 function[lnSa,sigma,sig]=gmpe(index,M,Rrup, Rjb, Rx, Ztor, dip, Z10, SOF, event, Vs30, Vs30type)
 
@@ -150,7 +155,11 @@ term7 = c4 * log(Rrup + c5     * cosh(c6     * max(M - chm,0)));
 
 term8 = (c4a - c4) * log (sqrt(Rrup.^2 + crb^2));
 term9 = (cy1 + cy2./cosh(max(M-cy3,0))).*Rrup;
-term10 = c9*HW .* tanh(Rx*cos(deltar)^2/c9a).*(1-sqrt(Rjb.^2+Ztor.^2)./(Rrup + 0.001));
+if Rx(1)==-999
+    term10 = 0;
+else
+    term10 = c9*HW .* tanh(Rx*cos(deltar)^2/c9a).*(1-sqrt(Rjb.^2+Ztor.^2)./(Rrup + 0.001));
+end
 
 Sa1130 = exp(term1 + term2 + term5 + term6 + term7 + term8 + term9 + term10);
 

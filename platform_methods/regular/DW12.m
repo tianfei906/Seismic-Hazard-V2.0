@@ -1,4 +1,4 @@
-function[lny,sigma,tau,phi]=DW12(To,M,Rrup,media,SOF)
+function[lny,sigma,tau,phi]=DW12(To,M,Rrup,media,SOF,adjfun)
 % Syntax : DW12 SGSCLASS SOF                                                
 
 % Du, W. and Wang, G. (2013), A simple ground?motion prediction model 
@@ -59,5 +59,10 @@ phi = sqrt(sigma.^2-tau^2);
 % unit convertion
 lny  = lny+log(units);
 
+% modifier
+if exist('adjfun','var')
+    SF  = feval(adjfun,To); 
+    lny = lny+log(SF);
+end
 
 

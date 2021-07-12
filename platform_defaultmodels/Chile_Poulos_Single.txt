@@ -31,8 +31,8 @@ gmm at1  Zhao2006 interface
 gmm at2  Zhao2006 intraslab
 gmm at3  SiberRisk2019 interface
 gmm at4  SiberRisk2019 intraslab
-gmm at5  MontalvaBastias2017 interface Forearc
-gmm at6  MontalvaBastias2017 intraslab Forearc
+gmm at5  MontalvaBastias2017 interface forearc
+gmm at6  MontalvaBastias2017 intraslab forearc
 
 Option 4 - GMPE GROUPS
 gmmgroup Zhao2006        1  2 

@@ -1,7 +1,6 @@
 function[handles]=importLIBS(handles,pathname,filename)
 
-overwrite.MagDiscrete = {'uniform',0.1};
-
+overwrite.msample = [3,0.1];
 [handles.sys,handles.opt,handles.h]=loadPSHA(fullfile(pathname,filename),overwrite);
 
 txtLIBS = handles.sys.txtLIBS;
@@ -29,7 +28,7 @@ str = vertcat(str{:});
 [~,B]=intersect(str,handles.h.id(:));
 str = str(B,:);
 Nsites = size(str,1);
-handles.param(1:Nsites,1)=createObj('LIBSsite');
+handles.param(1:Nsites,1)=createObj(19);
 for i=1:Nsites
     handles.param(i)= loadsiteLIBS(str{i,2},handles.optlib.pypath);
 end

@@ -60,10 +60,10 @@ gmm at3  Zhao2006 interface
 gmm at4  Zhao2006 intraslab
 gmm at5  Mcverry2006 interface 0
 gmm at6  Mcverry2006 intraslab 0
-gmm at7  AtkinsonBoore2003 interface General
-gmm at8  AtkinsonBoore2003 intraslab General
-gmm at9  BCHydro2012 interface Forearc Central
-gmm at10 BCHydro2012 intraslab Forearc Central
+gmm at7  AtkinsonBoore2003 interface general
+gmm at8  AtkinsonBoore2003 intraslab general
+gmm at9  BCHydro2012 interface forearc central
+gmm at10 BCHydro2012 intraslab forearc central
 gmm at11 Sadigh1997 reverse
 
 Option 4 - GMPE GROUPS
@@ -106,7 +106,8 @@ truncexp F28 NM 2.85 0.7240 4.5 7.0
 truncexp F29 NM 1.42 0.5468 4.3 7.1
                                                             
 Option 6 - Pre defined sites       
-Ex1  -76.0 -11.92 0  VS30 760 ky 0.1 covky 0.1 Ts 0.5  covTs 0.1
+Ex1  -76.0 -11.92 0  VS30 760 ky 0.1 covky 0.1  Ts 0.5  covTs 0.1
+Ex2  -75.0 -11.92 0  VS30 760 ky 0.2 covky 0.02 Ts 0.5  covTs 0.1
 
 Option PSDA 1 - PSDA setup                                                                                             
 d         : logsp(0.05,500,20)  # cm

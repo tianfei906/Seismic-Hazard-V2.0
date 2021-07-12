@@ -1,4 +1,4 @@
-function[lny,sigma,tau,phi]=Jaimes2006(To,M,Rrup)
+function[lny,sigma,tau,phi]=Jaimes2006(To,M,Rrup,adjfun)
 
 % Syntax : Jaimes2006                                                       
 
@@ -39,6 +39,12 @@ phi   = nan(size(M));
 
 % unit convertion
 lny  = lny+log(units);
+
+% modifier
+if exist('adjfun','var')
+    SF  = feval(adjfun,To); 
+    lny = lny+log(SF);
+end
 
 
 function [lny,sigma]=gmpe(index,M,rrup)

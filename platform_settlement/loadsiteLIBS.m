@@ -28,7 +28,7 @@ data(emptylist,:)=[];
 
 % removes multiple spaces
 data=regexprep(data,' +',' ');
-param = createObj('LIBSsite');
+param = createObj(19);
 B     = regexp(data{1} ,'\:','split'); param.B     = str2double(B{2});
 L     = regexp(data{2} ,'\:','split'); param.L     = str2double(L{2});
 Df    = regexp(data{3} ,'\:','split'); param.Df    = str2double(Df{2});

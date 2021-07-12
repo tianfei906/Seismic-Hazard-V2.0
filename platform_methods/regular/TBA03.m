@@ -1,4 +1,4 @@
-function[lny,sigma,tau,phi]=TBA03(To,M,Rrup,media,SOF)
+function[lny,sigma,tau,phi]=TBA03(To,M,Rrup,media,SOF,adjfun)
 % Syntax : TBA03 SGSCLASS SOF                                               
 
 % Travasarou, T., Bray, J. D., & Abrahamson, N. A. (2003). Empirical 
@@ -57,6 +57,11 @@ sigma = sqrt(phi.^2+tau.^2);   %Total error
 % unit convertion
 lny  = lny+log(units);
  
+% modifier
+if exist('adjfun','var')
+    SF  = feval(adjfun,To); 
+    lny = lny+log(SF);
+end
 
 
 

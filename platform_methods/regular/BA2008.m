@@ -1,4 +1,4 @@
-function[lny,sigma,tau,phi]=BA2008(To,M,Rjb,Vs30,SOF)
+function[lny,sigma,tau,phi]=BA2008(To,M,Rjb,Vs30,SOF,adjfun)
 % Syntax : BA2008 SOF                                                       
 
 st = dbstack;
@@ -36,6 +36,12 @@ end
 
 % unit convertion
 lny  = lny+log(units);
+
+% modifier
+if exist('adjfun','var')
+    SF  = feval(adjfun,To); 
+    lny = lny+log(SF);
+end
 
 function[lny,sigma,tau,sig]=gmpe(index,M, Rjb, SOF, Vs30)
 

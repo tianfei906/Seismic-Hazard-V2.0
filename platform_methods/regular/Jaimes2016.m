@@ -1,4 +1,4 @@
-function[lny,sigma,tau,phi]=Jaimes2016(To,M,Rrup)
+function[lny,sigma,tau,phi]=Jaimes2016(To,M,Rrup,adjfun)
 % Syntax : Jaimes2016                                                       
 
 %Jaimes, M.A., Lermo, J. y García-Soto, A. (2016). Ground-Motion Prediction Model from Local Earthquakes
@@ -40,6 +40,12 @@ phi   = nan(size(M));
 
 % unit convertion
 lny  = lny+log(units);
+
+% modifier
+if exist('adjfun','var')
+    SF  = feval(adjfun,To); 
+    lny = lny+log(SF);
+end
 
 
 

@@ -1,4 +1,4 @@
-function[lny,sigma,tau,phi]=CB10(To,M,Rrup,Rjb,Ztor,dip,Vs30,Z25,SOF)
+function[lny,sigma,tau,phi]=CB10(To,M,Rrup,Rjb,Ztor,dip,Vs30,Z25,SOF,adjfun)
 % Syntax : CB10 Z25 SOF                                                     
 
 % Kenneth W. Campbell and Yousef Bozorgnia (2010) A Ground Motion
@@ -121,6 +121,11 @@ sigma  = sqrt(phi.^2+tau.^2);
 % unit convertion
 lny  = lny+log(units);
 
+% modifier
+if exist('adjfun','var')
+    SF  = feval(adjfun,To); 
+    lny = lny+log(SF);
+end
 
 
 function [A1100] = PGA1100(M,Rrup,Rjb,Ztor,Z25,delta,Frv,Fnm)

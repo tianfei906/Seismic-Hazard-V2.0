@@ -1,4 +1,4 @@
-function [lny,sigma,tau,phi]=SBSA2016(To,M,Rjb,VS30,SOF,region)
+function [lny,sigma,tau,phi]=SBSA2016(To,M,Rjb,VS30,SOF,region,adjfun)
 % Syntax : SBSA2016 SOF region                                              
 
 st          = dbstack;
@@ -42,6 +42,12 @@ else
 end
 
 sigma = sqrt(tau.^2+phi.^2);
+
+% modifier
+if exist('adjfun','var')
+    SF  = feval(adjfun,To); 
+    lny = lny+log(SF);
+end
 
 function[lny,tau,phi]=gmpe(index,M,Rjb,VS30,SOF,region,PGAr)
 

@@ -1,4 +1,4 @@
-function[lny,sigma,tau,phi]=AS1997h(To,M,Rrup,media,SOF,location,sigmatype)
+function[lny,sigma,tau,phi]=AS1997h(To,M,Rrup,media,SOF,location,sigmatype,adjfun)
 % Syntax : AS1997h SOF location sigmatype                                   
 
 % Abrahamson, N. A., & Silva, W. J. (1997). Empirical response 
@@ -46,6 +46,12 @@ phi   = nan(size(M));
 
 % unit convertion
 lny  = lny+log(units);
+
+% modifier
+if exist('adjfun','var')
+    SF  = feval(adjfun,To); 
+    lny = lny+log(SF);
+end
 
 function[lny,sigma]=gmpe(index,M, Rrup, media, SOF, location, sig)
 

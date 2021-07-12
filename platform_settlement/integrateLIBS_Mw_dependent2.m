@@ -3,7 +3,7 @@ function hd=integrateLIBS_Mw_dependent2(fun,s,param,im,deagg)
 %% Compute term P(M|im)
 lambda = zeros(size(deagg));
 for i=1:length(deagg)
-    lambda(i)=nansum(deagg{i}(:,3));
+    lambda(i)=sum(deagg{i}(:,3),'omitnan');
 end
 M         = unique(deagg{1}(:,1))';
 Nm         = numel(M);
@@ -36,5 +36,5 @@ for j=1:Nm
         hd(j,i) = -trapz(lambda,G);
     end
 end
-hd =nansum(hd,1);
+hd =sum(hd,1,'omitnan');
 

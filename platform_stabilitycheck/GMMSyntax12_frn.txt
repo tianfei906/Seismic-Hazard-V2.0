@@ -28,7 +28,7 @@ area2  S1 crustal strike-slip wc1994 0 1 0 90 25 12 2 0.05  -122 38.00000 0   -1
 Option 3 - GMPE Library
 gmm at1   Youngs1997 interface
 gmm at2   MontalvaBastias2017 interface forearc
-gmm at2   CB19 0.607 strike-slip     global
+gmm at3   CB19 0.607 strike-slip global
 gmm at4   franky 1 2 3
 
 Option 4 - GMPE GROUPS

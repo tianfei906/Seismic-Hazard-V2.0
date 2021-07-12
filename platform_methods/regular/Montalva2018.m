@@ -1,4 +1,4 @@
-function [lny,sigma,tau,phi]=Montalva2018(To,M,Rrup,Rhyp,Zhyp,VS30,f0,mechanism)
+function [lny,sigma,tau,phi]=Montalva2018(To,M,Rrup,Rhyp,Zhyp,VS30,f0,mechanism,adjfun)
 
 % Syntax : Montalva2018 mechanism                                           
 
@@ -51,6 +51,12 @@ end
 
 % unit convertion
 lny  = lny+log(units);
+
+% modifier
+if exist('adjfun','var')
+    SF  = feval(adjfun,To); 
+    lny = lny+log(SF);
+end
 
 % FROM FONDEF pdf document
 function[lny,sigma,tau]=gmpe1(index,M,R,Zhyp,VS30,f0,fevent,fpeak,Arock) %#ok<*DEFNU>

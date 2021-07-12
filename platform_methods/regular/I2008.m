@@ -1,4 +1,4 @@
-function[lny,sigma,tau,phi]=I2008(To,M,Rrup,Vs30,SOF)
+function[lny,sigma,tau,phi]=I2008(To,M,Rrup,Vs30,SOF,adjfun)
 % Syntax : I2008 SOF                                                        
 
 % An NGA Empirical Model for Estimating the Horizontal Spectral Values
@@ -38,6 +38,12 @@ tau   = nan(size(M));
 phi   = nan(size(M));
 % unit convertion
 lny  = lny+log(units);
+
+% modifier
+if exist('adjfun','var')
+    SF  = feval(adjfun,To); 
+    lny = lny+log(SF);
+end
 
 function[lny,sigma]=gmpe(index,M,Rrup,SOF,Vs30)
 

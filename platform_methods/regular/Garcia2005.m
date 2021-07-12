@@ -1,4 +1,4 @@
-function[lny,sigma,tau,phi]=Garcia2005(To,M,Rrup,Rhyp,Zhyp,direction)
+function[lny,sigma,tau,phi]=Garcia2005(To,M,Rrup,Rhyp,Zhyp,direction,adjfun)
 
 % Syntax : Garcia2005 component                                             
 
@@ -52,6 +52,11 @@ phi   = phi    * log(10);
 % unit convertion
 lny  = lny+log(units);
 
+% modifier
+if exist('adjfun','var')
+    SF  = feval(adjfun,To); 
+    lny = lny+log(SF);
+end
 
 function[log10y,sigma,tau,phi]=gmpe(index,M,Rrup,Rhyp,Zhyp,direction)
 

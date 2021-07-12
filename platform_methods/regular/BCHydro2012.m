@@ -1,4 +1,4 @@
-function[lny,sigma,tau,phi]=BCHydro2012(To,M,Rrup,Rhyp,Zhyp,Vs30,mechanism,arc,DeltaC1)
+function[lny,sigma,tau,phi]=BCHydro2012(To,M,Rrup,Rhyp,Zhyp,Vs30,mechanism,arc,DeltaC1,adjfun)
 
 % Syntax : BCHydro2012 mechanism arc DeltaC1                                
 
@@ -43,6 +43,12 @@ end
 
 % unit convertion
 lny  = lny+log(units);
+
+% modifier
+if exist('adjfun','var')
+    SF  = feval(adjfun,To); 
+    lny = lny+log(SF);
+end
 
 function[lnSa,sigma,tau,sig]=gmpe(index,M,R,Zhyp,mechanism,arc,DeltaC1,Vs30)
 

@@ -1,4 +1,4 @@
-function[lny,sigma,tau,phi]=CY2014(To,M,Rrup,Rjb,Rx,Ztor,dip,Vs30,Z10,SOF,Vs30type,region)
+function[lny,sigma,tau,phi]=CY2014(To,M,Rrup,Rjb,Rx,Ztor,dip,Vs30,Z10,SOF,Vs30type,region,adjfun)
 % Syntax : CY2014 Z10 SOF Vs30type region                                   
 
 % Brian S.-J. Chiou and Robert R. Youngs (2014) Update of the Chiou and 
@@ -16,8 +16,9 @@ if isadmisible==0
     return
 end
 
-if ischar(Ztor),Ztor = 999;end
+%if ischar(Ztor),Ztor = 999;end
 if ischar(Z10),Z10   = 999;end
+Z10=abs(Z10);
 if To>=0
     To      = max(To,0.001); %PGA is associated to To=0.01;
 end
@@ -45,6 +46,12 @@ end
 % unit convertion
 lny  = lny+log(units);
 
+% modifier
+if exist('adjfun','var')
+    SF  = feval(adjfun,To); 
+    lny = lny+log(SF);
+end
+
 function[lny,sigma,sig]=gmpe(index,M, Rup, Rjb, Rx, Ztor, dip, SOF, Z10, Vs30,FVS30, reg)
 dip=dip*pi()/180.0;
 switch SOF
@@ -65,7 +72,7 @@ switch reg
     case 'turkey',     region=5; 
 end
 
-if all(Rx==999)
+if Rx(1)==-999
     HW = zeros(size(Rx));
 else
     HW    = sign(Rx);
@@ -211,16 +218,20 @@ else
     E_Ztor = (max(2.673-1.136.*max(M-4.970,0),0)).^2;
 end
 
-if all(Ztor == 999)
-    Ztor = E_Ztor;
-end
+% if all(Ztor == 999)
+%     Ztor = E_Ztor;
+% end
 
 delta_ZTOR=Ztor-E_Ztor;
 
 term4=(c7+c7_b./cosh(2.*max(M-4.5,0))).*delta_ZTOR;
 
 % Hanging wall term
-term12=c9.*HW.*cos(dip).*(c9_a+(1-c9_a).*tanh(Rx./c9_b)).*(1-sqrt(R_JB.^2+Ztor.^2)./(R_RUP+1));
+if  Rx(1)==-999
+    term12=0;
+else
+    term12=c9.*HW.*cos(dip).*(c9_a+(1-c9_a).*tanh(Rx./c9_b)).*(1-sqrt(R_JB.^2+Ztor.^2)./(R_RUP+1));
+end
 
 % Basin Depth term
 % Z1.0 (m) ~ Vs30 (m/s) relationship

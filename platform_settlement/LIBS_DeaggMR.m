@@ -32,10 +32,10 @@ handles.param = varargin{9};
 
 [handles.branches,handles.IJK]=main_settle(handles.T1,handles.T2,handles.T3);
 
-handles.Rbin  = createObj('Rbin',handles);
-handles.Mbin  = createObj('Mbin',handles.sys);
+handles.Rbin  = createObj(15,handles);
+handles.Mbin  = createObj(16,handles.sys);
 
-handles.popreturn.String   = num2cell(createObj('returnperiods'));
+handles.popreturn.String   = num2cell(createObj(18));
 handles.popreturn.Value    = 1;
 
 Nbranches = size(handles.IJK,1);
@@ -192,7 +192,7 @@ m1        = mechs==1;
 m2        = mechs==2;
 m3        = mechs==3;
 
-lambdaD   = [nansum(lambdaD,2),nansum(lambdaD(:,m1),2) nansum(lambdaD(:,m2),2) nansum(lambdaD(:,m3),2)];
+lambdaD   = [sum(lambdaD,2,'omitnan'),sum(lambdaD(:,m1),2,'omitnan') sum(lambdaD(:,m2),2,'omitnan') sum(lambdaD(:,m3),2,'omitnan')];
 NOTNAN    = (sum(lambdaD,1)>0);
 lambdaD   = lambdaD(:,NOTNAN);
 mechs     = {'total','interface','intraslab','crustal'};

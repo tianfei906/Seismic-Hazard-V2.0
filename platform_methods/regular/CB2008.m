@@ -1,4 +1,4 @@
-function[lny,sigma,tau,phi]=CB2008(To,M,Rrup,Rjb,Ztor,dip,Vs30,Z25,SOF,sigmatype)
+function[lny,sigma,tau,phi]=CB2008(To,M,Rrup,Rjb,Ztor,dip,Vs30,Z25,SOF,sigmatype,adjfun)
 % Syntax : CB2008 Z25 SOF sigmatype                                         
 
 % Kenneth W. Campbell and Yousef Bozorgnia (2008) NGA Ground Motion 
@@ -42,6 +42,11 @@ end
 % unit convertion
 lny  = lny+log(units);
 
+% modifier
+if exist('adjfun','var')
+    SF  = feval(adjfun,To); 
+    lny = lny+log(SF);
+end
 
 function[lny,sigma,tau,sig]=gmpe(index,M,rrup, rjb, ztor, dip, SOF, Vs30, Z25, sigmatype)
 switch SOF

@@ -1,4 +1,4 @@
-function[lny,sigma,tau,phi]=ContrerasBoroschek2012(To,M,Rrup,Zhyp,media)
+function[lny,sigma,tau,phi]=ContrerasBoroschek2012(To,M,Rrup,Zhyp,media,adjfun)
 
 % Syntax : ContrerasBoroschek2012                                           
 
@@ -51,6 +51,11 @@ phi   = nan(size(M));
 % unit convertion
 lny  = lny+log(units);
 
+% modifier
+if exist('adjfun','var')
+    SF  = feval(adjfun,To); 
+    lny = lny+log(SF);
+end
 
 function[log10y,sigma]=gmpe(index,M,Rrup,Zhyp,media)
 

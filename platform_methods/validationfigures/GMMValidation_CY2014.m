@@ -87,45 +87,20 @@ switch filename
         handles.ax1.YScale = 'log';
         xlabel(handles.ax1,'Rx (km)')
         ylabel(handles.ax1,'PSA(g)')
-        
-        
-        
 end
 
 function[Rrup,Rjb]=getRrupRjb(Ztor,dip,W,x)
 
-Rrup = x*0;
-Rjb  = x*0;
+xsource = linspace(0,W*cosd(dip),1000);
+ysource = linspace(-Ztor(1),-Ztor(1)-W*sind(dip),1000);
+Rrup   = zeros(size(x));
+Rjb    = zeros(size(x));
 
-for i=1:length(x)
-    xsource = [0 W*cosd(-dip)];
-    ysource = [0 W*sind(-dip)]-Ztor(i);
-    Wp = Ztor(i)/sind(dip);
-    xp = Ztor(i)/tand(dip);
-    xq = Ztor(i)*tand(dip);
-    xr = (Wp+W)/cosd(dip)-xp;
-    
-    xrb1 = 0;
-    xrb2 = W*cosd(dip);
-    
-    % Rjb
-    if x(i)<0 || x(i)> xrb2
-        Rjb(i)=min(abs(x(i)-[xrb1,xrb2]));
-    else
-        Rjb(i) =0;
-    end
-    
-    % Rrup
-    if x(i)<=xq
-        prup   = [xsource(1),ysource(1)];
-    elseif and(xq<x(i),x(i)<xr)
-        wx = cosd(dip)*(x(i)+xp);
-        prup = [wx*cosd(dip)-xp,-wx*sind(dip)];
-    else
-        prup = [xsource(2),ysource(2)];
-    end
-    Rrup(i) = norm(prup-[x(i),0]);
+for i=1:numel(Rrup)
+   dist = sqrt((x(i)-xsource).^2+ysource.^2);
+   Rrup(i)=min(dist);
+   
+   dist = sqrt((x(i)-xsource).^2);
+   Rjb(i)=min(dist);   
 end
 
-% Rhyp = Rrup;
-% Zhyp = Ztor+W/2*sind(dip);

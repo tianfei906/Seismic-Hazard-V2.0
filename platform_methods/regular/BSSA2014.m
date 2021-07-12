@@ -1,4 +1,4 @@
-function[lny,sigma,tau,phi]=BSSA2014(To,M,Rjb,Vs30,Z10,SOF,region)
+function[lny,sigma,tau,phi]=BSSA2014(To,M,Rjb,Vs30,Z10,SOF,region,adjfun)
 % Syntax : BSSA2014 Z10 SOF region                                          
 
 % David M. Boore, Jonathan P. Stewart, Emel Seyhan, and Gail M.
@@ -42,6 +42,12 @@ end
 
 % unit convertion
 lny  = lny+log(units);
+
+% modifier
+if exist('adjfun','var')
+    SF  = feval(adjfun,To); 
+    lny = lny+log(SF);
+end
 
 function[lny,sigma,tau]=gmpe(index,M, Rjb, SOF, reg, Z1, Vs30)
 

@@ -1,4 +1,4 @@
-function[lny,sigma,tau,phi]=Bindi2011(To,M,Rjb,media,SOF,component)
+function[lny,sigma,tau,phi]=Bindi2011(To,M,Rjb,media,SOF,component,adjfun)
 % Syntax : Bindi2011 SOF component                                          
 
 % Bindi, D., Pacor, F., Luzi, L., Puglia, R., Massa, M., Ameri, G., & Paolucci, R. (2011).
@@ -56,6 +56,11 @@ tau   = tau    * log(10);
 % unit convertion
 lny  = lny+log(units);
 
+% modifier
+if exist('adjfun','var')
+    SF  = feval(adjfun,To); 
+    lny = lny+log(SF);
+end
 
 function [lny,sigma,phi,tau] = gmpe(index,M,Rjb,media,SOF,SATYPE)
 switch lower(SATYPE)

@@ -56,8 +56,8 @@ area1 PE-11a     crustal normal wc1994 0 1 72 0 20 5 0 0 rigid -75.6042    -10.9
 area1 PE-09      crustal normal wc1994 0 1 72 0 20 5 0 0 rigid -77.6159    -7.88241    -77.5854    -7.89631     -77.412    -8.02226    -77.2311    -8.19086    -77.0856    -8.44455    -77.0675    -8.48883     -76.937    -8.70358    -76.7762    -8.86512    -76.7181    -8.90654    -76.6225    -8.94964    -76.5322    -8.97821    -76.3418    -9.09045    -76.2797    -9.10582    -76.2352     -9.1083    -76.1824    -9.09839    -76.1356    -9.10235
                                                                                                                                                                                                         
 Option 3 - GMPE Library
-gmm at1 BCHydro2012 interface Forearc Central
-gmm at2 BCHydro2012 intraslab Forearc Central
+gmm at1 BCHydro2012 interface forearc central
+gmm at2 BCHydro2012 intraslab forearc central
 gmm at3 Sadigh1997 reverse
 
 Option 4 - GMPE GROUPS
@@ -65,7 +65,7 @@ gmmgroup BCHydro2012  1 2 3
 
 Option 5 - MAGNITUDE SCALING RELATIONS
 seismicity 1 GK974-truncexp
-catalog Declust_filter_G-K_1974 truncexp 60 60 30
+catalog Declust_filter_G-K_1974 truncexp 60 60 30 30
 truncexp PE-07d1    NM 1.36075 0.809264 4.5 6.77
 truncexp PE-07d2    NM 1.36075 0.809264 4.5 6.72
 truncexp PE-07d3    NM 1.36075 0.809264 4.5 6.83
@@ -78,10 +78,10 @@ truncexp PE-11a     NM 4.56223 0.898124 4.5 6.67
 truncexp PE-09      NM 1.36075 0.809264 4.5 7.67
 
 seismicity 2 GK974-yc1985
-catalog Declust_filter_G-K_1974 truncexp 60 60 30
+catalog Declust_filter_G-K_1974 truncexp 60 60 30 30
 
 seismicity 3 GK974-truncexp
-catalog Declust_filter_G-K_1974 truncexp 60 60 30
+catalog Declust_filter_G-K_1974 truncexp 60 60 30 30
 truncexp PE-07d1    NM 1.36075 0.809264 4.5 6.77
 truncexp PE-07a3    NM 1.36075 0.809264 4.5 7.04
 truncexp PE-07b     NM 1.36075 0.809264 4.5 7.47

@@ -7,8 +7,8 @@ switch filename
         Vs30 = 760;
         W    = 10;
         dip  = 90;
-        Zbot = 999;
-        Zhyp = 999;
+        Zbot =-999;
+        Zhyp =-999;
         on   = ones(40,1);
         
         M=3.5;Ztor=max(2.673-1.136*max(M-4.970,0),0.001).^2; Rrup = logsp(Ztor,300,40)'; Rx = sqrt(Rrup.^2-Ztor.^2); Rjb = sqrt(Rrup.^2-Ztor.^2); lny1  = CB2014(0,M*on,Rrup,Rjb,Rx,Zhyp,Ztor*on,Zbot,dip,W,Vs30,Z25,'strike-slip','include','california'); R1 = Rrup;
@@ -35,8 +35,8 @@ switch filename
         Vs30 = 760;
         W    = 12;
         dip  = 90;
-        Zbot = 999;
-        Zhyp = 999;
+        Zbot =-999;
+        Zhyp =-999;
         on   = ones(40,1);
         
         M=3.5;Ztor=max(2.673-1.136*max(M-4.970,0),0.001).^2; Rrup = logsp(Ztor,300,40)'; Rx = sqrt(Rrup.^2-Ztor.^2); Rjb = sqrt(Rrup.^2-Ztor.^2); lny1  = CB2014(1,M*on,Rrup,Rjb,Rx,Zhyp,Ztor*on,Zbot,dip,W,Vs30,Z25,'strike-slip','include','california'); R1 = Rrup;

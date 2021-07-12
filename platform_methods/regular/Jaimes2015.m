@@ -1,4 +1,4 @@
-function[lny,sigma,tau,phi]=Jaimes2015(To,M,Rrup,station)
+function[lny,sigma,tau,phi]=Jaimes2015(To,M,Rrup,station,adjfun)
 
 % Syntax : Jaimes2015 station                                               
 
@@ -40,6 +40,12 @@ end
 lny  = lny+log(units);
 tau  = nan(size(M));
 phi  = nan(size(M));
+
+% modifier
+if exist('adjfun','var')
+    SF  = feval(adjfun,To); 
+    lny = lny+log(SF);
+end
 
 function [lny,sigma]=gmpe(index,M,Rrup,station)
 

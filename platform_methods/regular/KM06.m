@@ -1,4 +1,4 @@
-function[lny,sigma,tau,phi]=KM06(To,M,Rrup,SOF)
+function[lny,sigma,tau,phi]=KM06(To,M,Rrup,SOF,adjfun)
 
 % Syntax : KM06 SOF                                                         
 st = dbstack;
@@ -37,6 +37,12 @@ phi   = nan(size(M));
 
 % unit convertion
 lny  = lny+log(units);
+
+% modifier
+if exist('adjfun','var')
+    SF  = feval(adjfun,To); 
+    lny = lny+log(SF);
+end
 
 
 

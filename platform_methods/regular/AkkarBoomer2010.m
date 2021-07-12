@@ -1,4 +1,4 @@
-function [lny,sigma,phi,tau] = AkkarBoomer2010(To,M,Rjb,media,SOF)
+function [lny,sigma,phi,tau] = AkkarBoomer2010(To,M,Rjb,media,SOF,adjfun)
 % Syntax : AkkarBoomer2010 media SOF                                        
 
 %Akkar, S. and Bommer, J.J., 2010. Empirical prediction equations for peak ground velocity
@@ -54,6 +54,12 @@ tau   = tau    * log(10);
 
 % unit convertion
 lny  = lny+log(units);
+
+% modifier
+if exist('adjfun','var')
+    SF  = feval(adjfun,To); 
+    lny = lny+log(SF);
+end
 
 
 function [log10y,sigma,phi,tau] = gmpe(index,Mw,Rrup,media,SOF)

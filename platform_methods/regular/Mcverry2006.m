@@ -1,4 +1,4 @@
-function[lny,sigma,tau,phi]=Mcverry2006(To,M,Rrup,Zhyp,media,mechanism,rvol)
+function[lny,sigma,tau,phi]=Mcverry2006(To,M,Rrup,Zhyp,media,mechanism,rvol,adjfun)
 
 %McVerry GH, Zhao JX, Abrahamson NA, Somerville PG. New Zealand
 %Accelerations Response Spectrum Attenuation Relations for Crustal and
@@ -52,6 +52,12 @@ end
 
 % unit convertion
 lny  = lny+log(units);
+
+% modifier
+if exist('adjfun','var')
+    SF  = feval(adjfun,To); 
+    lny = lny+log(SF);
+end
 
 
 function[lny,sigma,tau,sig]=gmpe(index,M,R,Hc,mechanism,media,rvol)

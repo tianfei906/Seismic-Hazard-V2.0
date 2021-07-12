@@ -1,4 +1,4 @@
-function [lny,sigma,tau,phi]=BCHydro2018(To,M,Rrup,Ztor,Vs30,mechanism)
+function [lny,sigma,tau,phi]=BCHydro2018(To,M,Rrup,Ztor,Vs30,mechanism,adjfun)
 % Syntax : BCHydro2018 mechanism                                            
 
 st = dbstack;
@@ -34,6 +34,12 @@ end
 
 % unit convertion
 lny  = lny+log(units);
+
+% modifier
+if exist('adjfun','var')
+    SF  = feval(adjfun,To); 
+    lny = lny+log(SF);
+end
 
 function[lny,sigma,tau,phi]=gmpe(index,M,R,mechanism,Z_TOR,Vs30)
 

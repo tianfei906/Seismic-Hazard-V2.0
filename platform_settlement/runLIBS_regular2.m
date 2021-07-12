@@ -58,10 +58,10 @@ for site_ptr=1:Nsites
         
         % run sources
         if ~isempty(handles.haz.lambda)
-            indlist = nansum(permute(nansum(handles.haz.lambda(site_ptr,:,:,:,indT1),3),[2 4 1 3]),1);
+            indlist = sum(permute(sum(handles.haz.lambda(site_ptr,:,:,:,indT1),3,'omitnan'),[2 4 1 3]),1,'omitnan');
             indlist = find(indlist);
         else
-            indlist = nansum(permute(nansum(handles.haz.MRD(site_ptr,:,:,:,indT1),3),[2 4 1 3]),1);
+            indlist = sum(permute(sum(handles.haz.MRD(site_ptr,:,:,:,indT1),3,'omitnan'),[2 4 1 3]),1,'omitnan');
             indlist = find(indlist);
         end
         

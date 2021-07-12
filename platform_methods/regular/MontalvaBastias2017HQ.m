@@ -1,4 +1,4 @@
-function[lny,sigma,tau,phi]=MontalvaBastias2017HQ(To,M,Rrup,Rhyp,Zhyp,Vs30,mechanism,arc)
+function[lny,sigma,tau,phi]=MontalvaBastias2017HQ(To,M,Rrup,Rhyp,Zhyp,Vs30,mechanism,arc,adjfun)
 
 % Syntax : MontalvaBastias2017HQ mechanism arc                              
 
@@ -48,6 +48,12 @@ end
 
 % unit convertion
 lny  = lny+log(units);
+
+% modifier
+if exist('adjfun','var')
+    SF  = feval(adjfun,To); 
+    lny = lny+log(SF);
+end
 
 function[lnSa,sigma,tau,sig]=gmpe(index,M,R,h,mechanism,arc,Vs30)
 

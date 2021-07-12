@@ -23,8 +23,12 @@ Mscl Weight : 1
 
 Option 2 - Source Geometry
 geometry 1
+point1   P0  crustal normal wc1994 0 1 | 0 90              | -12 0 0
 point1   P1  crustal normal wc1994 0 1 | 0 90              | -10 0 0
-line1    L1  crustal normal wc1994 0 1 | 80 5 1            | -10 10 0 -10 30 0
+
+line1    L11  crustal normal wc1994 0 1 | 80 5 1            | -10 10  0  -10 30 0
+line1    L12  crustal normal wc1994 0 1 | 80 5 1            |  10 10  0   10 30 0
+
 area1    A11 crustal normal wc1994 0 1 20 | 2 0         0 leak   | 20 20 -10 40 20 -21.5470053837925 40 40 -21.5470053837925 20 40 -10
 
 area1    A12 crustal normal wc1994 0 1 | 45 1   20  2    0    0.5 leak   | 20 0 30 2 40 10
@@ -41,11 +45,16 @@ gmmgroup Sadigh1997 1
 
 Option 5 - MAGNITUDE SCALING RELATIONS
 seismicity 1
+truncexp  P0  NM 4 0.4 6 8
 truncexp  P1  NM 4 0.4 6 8
-truncexp  L1  NM 4 0.4 6 8
+
+truncexp  L11  NM 4 0.4 6 8
+truncexp  L12  NM 4 0.4 6 8
+
 truncexp  A11 NM 4 0.4 6 8
 truncexp  A12 NM 4 0.4 6 8
 truncexp  A13 NM 4 0.4 6 8
+
 truncexp  A2  NM 4 0.4 6 8
 truncexp  V1  NM 4 0.4 6 8
 

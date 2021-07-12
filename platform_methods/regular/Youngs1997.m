@@ -1,4 +1,4 @@
-function[lny,sigma,tau,phi]=Youngs1997(To,M,Rrup,Zhyp,media,mechanism)
+function[lny,sigma,tau,phi]=Youngs1997(To,M,Rrup,Zhyp,media,mechanism,adjfun)
 
 % Syntax : Youngs1997 mechanism                                             
 % Example 1:  Youngs1997 interface
@@ -58,6 +58,11 @@ phi   = nan(size(M));
 % unit convertion
 lny  = lny+log(units);
 
+% modifier
+if exist('adjfun','var')
+    SF  = feval(adjfun,To); 
+    lny = lny+log(SF);
+end
 
 
 function[lny,sigma]=gmpe(index,M,Rrup,Zhyp,media,mechanism)

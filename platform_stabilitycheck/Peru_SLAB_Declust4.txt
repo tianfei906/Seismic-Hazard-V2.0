@@ -46,8 +46,8 @@ area1 S1  interface normal strasser2010 0 1 60 rigid Peru_S1.mat
 #area1 S21 intraslab normal strasser2010 0 2 60 rigid Peru_S21.mat
                                                                                                                                                                                                         
 Option 3 - GMPE Library
-gmm at1 BCHydro2012 interface Forearc Central
-gmm at2 BCHydro2012 intraslab Forearc Central
+gmm at1 BCHydro2012 interface forearc central
+gmm at2 BCHydro2012 intraslab forearc central
 gmm at3 Sadigh1997 reverse
 
 Option 4 - GMPE GROUPS

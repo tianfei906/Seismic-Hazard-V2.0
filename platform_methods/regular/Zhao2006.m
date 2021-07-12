@@ -1,4 +1,4 @@
-function[lny,sigma,tau,phi]=Zhao2006(To,M,Rrup,Zhyp,Vs30,mechanism)
+function[lny,sigma,tau,phi]=Zhao2006(To,M,Rrup,Zhyp,Vs30,mechanism,adjfun)
 
 % Zhao, J. X., Zhang, J., Asano, A., Ohno, Y., Oouchi, T.,
 % Takahashi, T., ... & Fukushima, Y. (2006). Attenuation relations
@@ -42,6 +42,11 @@ end
 % unit convertion
 lny  = lny+log(units);
 
+% modifier
+if exist('adjfun','var')
+    SF  = feval(adjfun,To); 
+    lny = lny+log(SF);
+end
 
 function[lny,sigma,tau,sig]=gmpe(index,M,rrup,h,Vs30,mechanism)
 

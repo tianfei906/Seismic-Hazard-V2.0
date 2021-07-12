@@ -48,8 +48,8 @@ area1 4ad    crustal   -999 wc1994 0 3 1001 50 0 50 leak -78.6607 -2.8178 -30 -7
 
                                                                                                                                                                                                                                                                                                                                                               
 Option 3 - GMPE Library
-gmm at1  BCHydro2012 interface Forearc Central
-gmm at2  BCHydro2012 intraslab Forearc Central
+gmm at1  BCHydro2012 interface forearc central
+gmm at2  BCHydro2012 intraslab forearc central
 gmm at3  Zhao2006    interface 
 gmm at4  Zhao2006    intraslab 
 gmm at5  Youngs1997  interface 

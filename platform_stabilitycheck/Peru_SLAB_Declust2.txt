@@ -5,7 +5,7 @@ Boundary     : PER_adm1.shp
 ShearModulus : 3e11      #dyne/cm2
 IM           : PGA
 im           : 
-MaxDistance  : 500
+MaxDistance  : 5000
 MagDiscrete  : gauss 10
 Sigma        : 
 PCE          : shuffle MC 500
@@ -30,8 +30,8 @@ area1 S7  intraslab normal strasser2010 0 2 60 rigid Peru_S7.mat
 area1 S8  intraslab normal strasser2010 0 2 60 rigid Peru_S8.mat
                                                                                                                                                                                                         
 Option 3 - GMPE Library
-gmm at1 BCHydro2012 interface Forearc Central
-gmm at2 BCHydro2012 intraslab Forearc Central
+gmm at1 BCHydro2012 interface forearc central
+gmm at2 BCHydro2012 intraslab forearc central
 gmm at3 Sadigh1997 reverse
 
 Option 4 - GMPE GROUPS
@@ -39,7 +39,7 @@ gmmgroup BCHydro2012  1 2 3
 
 Option 5 - MAGNITUDE SCALING RELATIONS
 seismicity 1 CAT1
-catalog Declust_filter_G-K_1974 truncexp 60 60 30
+catalog Declust_filter_G-K_1974 truncexp 60 60 30 30
 
 seismicity 2 STANDARD
 truncexp S1   NM 1 0.5 5 8
@@ -48,7 +48,7 @@ truncexp S7   NM 3 0.5 5 8
 truncexp S8   NM 4 0.5 5 8
 
 seismicity 3 CAT2
-catalog Declust_filter_Reas_1985 yc1985 60 60 30
+catalog Declust_filter_Reas_1985 yc1985 60 60 30 30
 
 Option 6 - Pre defined sites
 Lima -77 -12 0 VS30 760

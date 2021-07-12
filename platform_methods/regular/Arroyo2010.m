@@ -1,4 +1,4 @@
-function[lny,sigma,tau,phi]=Arroyo2010(To,M,Rrup)
+function[lny,sigma,tau,phi]=Arroyo2010(To,M,Rrup,adjfun)
 % Syntax : Arroyo2010                                                       
 
 %Arroyo, D., García, D., Ordaz, M., Mora, M. A., & Singh, S. K. (2010).
@@ -42,6 +42,12 @@ end
 
 % unit convertion
 lny  = lny+log(units);
+
+% modifier
+if exist('adjfun','var')
+    SF  = feval(adjfun,To); 
+    lny = lny+log(SF);
+end
 
 
 function [lny,sigma,phi,tau]=gmpe(index,Mw,Rrup)

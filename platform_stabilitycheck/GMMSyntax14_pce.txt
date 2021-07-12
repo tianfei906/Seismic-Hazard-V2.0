@@ -23,7 +23,7 @@ Mscl Weight : 1
 
 Option 2 - Source Geometry
 geometry 1
-area1 TestArea1  interface  -999 wc1994 0  221.6 1 30 0 0 leak -72.75  -34.00  -5.00    -71.00 -34.00  -82.92   -71.00 -32.00  -82.92   -72.75 -32.00 -5.00  
+area1 TestArea1  interface  -999 wc1994 0  1 221.6 30 0 0 leak -72.75  -34.00  -5.00    -71.00 -34.00  -82.92   -71.00 -32.00  -82.92   -72.75 -32.00 -5.00  
 
 Option 3 - GMPE Library
 gmm at1  PCE_bchydro

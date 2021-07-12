@@ -21,7 +21,7 @@ Ic   = zeros(N,1);
 
 for i=1:N
     ind = and(ztop(i)<=param.CPT.z,param.CPT.z<zbot(i));
-    Ic(i)  = nanmean(param.CPT.Ic(ind));
+    Ic(i)  = mean(param.CPT.Ic(ind),'omitnan');
 end
 
 %% Finds susceptible layer
@@ -99,7 +99,7 @@ LAY.N160  = nan(1,N);
 LAY.qc1N  = nan(1,N);
 for i=1:N
     ind = and(param.CPT.z>=ztop(i),param.CPT.z<=zbot(i));
-    LAY.qc1N(i)=nanmean(param.CPT.Qtn(ind));
+    LAY.qc1N(i)=mean(param.CPT.Qtn(ind),'omitnan');
 end
 
 %% Thickness of layer i (m)

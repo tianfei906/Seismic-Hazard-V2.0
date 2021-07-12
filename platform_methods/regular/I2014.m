@@ -1,4 +1,4 @@
-function[lny,sigma,tau,phi]=I2014(To,M,Rrup,Vs30,SOF)
+function[lny,sigma,tau,phi]=I2014(To,M,Rrup,Vs30,SOF,adjfun)
 % Syntax : I2014 SOF                                                        
 
 
@@ -35,6 +35,12 @@ phi   = nan(size(M));
 
 % unit convertion
 lny  = lny+log(units);
+
+% modifier
+if exist('adjfun','var')
+    SF  = feval(adjfun,To); 
+    lny = lny+log(SF);
+end
 
 function[lny,sigma]=gmpe(index,M,rrup,SOF,Vs30)
 

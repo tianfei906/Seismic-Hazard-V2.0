@@ -1,4 +1,4 @@
-function[lny,sigma,tau,phi]=Idini2016(To,M,Rrup,Rhyp,Zhyp,Vs30,mechanism,spectrum)
+function[lny,sigma,tau,phi]=Idini2016(To,M,Rrup,Rhyp,Zhyp,Vs30,mechanism,spectrum,adjfun)
 
 % Syntax : Idini2016 mechanism spectype                                     
 % Benjamn Idini, Fabian Rojas, Sergio Ruiz, Cesar Pasten
@@ -48,6 +48,11 @@ phi    = phi    * log(10);
 % unit convertion
 lny  = lny+log(units);
 
+% modifier
+if exist('adjfun','var')
+    SF  = feval(adjfun,To); 
+    lny = lny+log(SF);
+end
 
 function[log10y,sigma,tau,phi]=gmpe(index,M,R,Zhyp,mechanism,spectrum,Vs30)
 
@@ -78,7 +83,7 @@ Co=[
     -0.168	-0.218	-0.125	-0.231	-0.435	-0.33771	-0.00117	-0.96363	0.204	-9.8671	1.5877	-0.08168	0.00014	4.3875	-0.8892	0.176];
 
 C = Co(index,:);
-switch spectrum
+switch lower(spectrum)
     case {'si'  ,1}, sTa  = 0; Vs30 = 1530; % Just to make sure FS=0;
     case {'sii' ,2}, sTa  = C(1);
     case {'siii',3}, sTa  = C(2);

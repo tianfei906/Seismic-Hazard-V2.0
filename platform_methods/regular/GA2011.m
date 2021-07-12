@@ -1,4 +1,4 @@
-function[lny,sigma,tau,phi]=GA2011(To,M,Rrup,Vs30,SOF,PGA1100)
+function[lny,sigma,tau,phi]=GA2011(To,M,Rrup,Vs30,SOF,PGA1100,adjfun)
 % Syntax : GA11 SOF                                                         
 
 st = dbstack;
@@ -54,6 +54,12 @@ end
 
 % unit convertion
 lny  = lny+log(units);
+
+% modifier
+if exist('adjfun','var')
+    SF  = feval(adjfun,To); 
+    lny = lny+log(SF);
+end
 
 function[lny,sigma,tau,phi] = gmpe(index,M,Rrup,Vs30,FRV,FNM,V1,PGA1100)
 

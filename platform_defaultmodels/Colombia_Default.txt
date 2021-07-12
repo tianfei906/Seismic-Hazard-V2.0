@@ -63,8 +63,8 @@ area1 COLc22Psi9                   intraslab  -999 wc1994 0 3 1001 30 0 50 rigid
                                                                                                                                                                                                                                                                                                                                                                   
 Option 3 - GMPE Library
 gmm at1 Zhao2006 intraslab
-gmm at2 BCHydro2012 interface Forearc Central
-gmm at3 AtkinsonBoore2003 intraslab General
+gmm at2 BCHydro2012 interface forearc central
+gmm at3 AtkinsonBoore2003 intraslab general
 
 Option 4 - GMPE GROUPS
 gmmgroup Zhao 1 2 3

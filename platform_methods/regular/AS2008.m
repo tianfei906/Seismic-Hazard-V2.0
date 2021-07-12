@@ -1,4 +1,4 @@
-function[lny,sigma,tau,phi]=AS2008(To,M,Rrup,Rjb,Rx,Ztor,dip,width,Vs30,Z10,SOF,event,Vs30type)
+function[lny,sigma,tau,phi]=AS2008(To,M,Rrup,Rjb,Rx,Ztor,dip,width,Vs30,Z10,SOF,event,Vs30type,adjfun)
 % Syntax : AS2008 Z10 SOF event Vs30type                                    
 
 st = dbstack;
@@ -11,7 +11,11 @@ if isadmisible==0
     return
 end
 
-if ischar(Z10) && strcmp(Z10,'unk')
+if ischar(Z10), Z10 = 999;end
+Z10=abs(Z10);
+
+
+if Z10==999
     if Vs30<180
         Z10=exp(6.745);
     elseif Vs30<=500
@@ -38,7 +42,11 @@ end
         case 'swarms';    FAS=0;
     end
     
-    FHW = (Rx>0);
+    if Rx(1)==-999
+        FHW = 0;
+    else
+        FHW = (Rx>0);
+    end
     
     switch Vs30type
         case 'measured', FVS30=0;
@@ -53,6 +61,12 @@ lny = log(Sa);
 
 % unit convertion
 lny  = lny+log(units);
+
+% modifier
+if exist('adjfun','var')
+    SF  = feval(adjfun,To); 
+    lny = lny+log(SF);
+end
 
 function [Sa,sigma,pga_rock,pga_sigmaB,pga_tauB,tau,sig] = AS_2008_nga_parallel(M, Vs30, T, Rrup, Rjb, Rx, dip, Ztor, Z10, W, FRV, FNM, FAS, FHW, FVS30, SaTd,irock,pga_rock,pga_sigmaB,pga_tauB)
 
@@ -124,6 +138,10 @@ function [f1] = f_1(M, R, V)
 f1  = V.a1 + ((M<V.c1).*V.a4+(M>=V.c1).*V.a5).* (M - V.c1) + V.a8 .* (8.5 - M).^2 + (V.a2 + V.a3 .* (M - V.c1)).* log(R);
 
 function [f4] = f_4(Rjb, Rx, dip, Ztor, M, W, V)
+if Rx(1)==-999
+    f4=0;
+    return
+end
 Nt = length(M);
 T1 = zeros(Nt,1);
 T1(Rjb<30)=1-Rjb(Rjb<30)/30;

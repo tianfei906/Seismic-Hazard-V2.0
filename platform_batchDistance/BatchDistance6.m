@@ -4,16 +4,15 @@ z     = 25;
 W     = 15;
 p     = h.p;
 dip   = 0;
-ellip = opt.ellipsoid;
-media = h.value;
 x     = h.p(:,1);
+ae    = opt.ae;
+maxdist = opt.maxdist;
 
-% Numerical calculations
+%% Numerical calculations
 xsource = linspace(0,W,1000);
 ysource = linspace(-z,-z,1000);
-
-Rrup2 = zeros(size(x));
-Rjb2  = zeros(size(x));
+Rrup2   = zeros(size(x));
+Rjb2    = zeros(size(x));
 for i=1:numel(Rrup2)
    dist = sqrt((x(i)-xsource).^2+ysource.^2);
    Rrup2(i)=min(dist);
@@ -25,24 +24,21 @@ Rx2   = Rjb2;
 Ztor2 = ones(size(x))*z;
 
 %% SeismicHazard Calculations
-Rrup  = zeros(size(x));
-Rjb   = zeros(size(x));
-Rx    = zeros(size(x));
-Ztor  = zeros(size(x));
+Rrup    = zeros(size(x));
+Rjb     = zeros(size(x));
+Rx      = zeros(size(x));
+Ztor    = zeros(size(x));
+source  = buildmodelin(sys,sys.branch(1,:),opt);
+Rmetric = true(1,11);
+Nsites  = length(x);
 
-source = buildmodelin(sys,sys.branch(1,:),opt);
-source.gmm.Rmetric=true(size(source.gmm.Rmetric));
-Nsites = length(x);
 for i=1:Nsites
-    r0    = gps2xyz(p(i,:),ellip);
-    source.media=media(i,:);
-    param = source.pfun(r0,source,ellip,h.param,1);
-    
-    Rrup(i) = param(1);
-    Rjb(i)  = param(2);
-    Rx(i)   = param(3);
-    Ztor(i) = param(4);
-
+    xyz    = gps2xyz(p(i,:),ae);
+    [~,rrup,~,rjb,rx,~,~,ztor,]=source.pfun(xyz,source,Rmetric,maxdist,ae);
+    Rrup(i) = rrup(1);
+    Rjb(i)  = rjb(1);
+    Rx(i)   = rx(1);
+    Ztor(i) = ztor(1);
 end
 
 figure

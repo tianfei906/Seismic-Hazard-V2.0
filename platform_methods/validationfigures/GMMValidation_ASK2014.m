@@ -106,7 +106,7 @@ switch filename
         Z10   = 999;
         VS30  = 760;
         VS30Type = 'measured';
-        Ry0      = ones(30,1)*999;
+        Ry0      =-ones(30,1)*999;
         on       = ones(30,1);
         
         Ztor=8.0*ones(30,1); Rx = logsp(0.01,300,30)'; Rjb=Rx;  Rrup3=sqrt(Rjb.^2+Ztor.^2); lny3=ASK2014(0.01,3*on,Rrup3,Rjb,Rx,Ry0,Ztor,90,width,VS30,Z10,'strike-slip','mainshock',VS30Type,'global');

@@ -1,4 +1,5 @@
-function[lny,sigma,tau,phi]=CB19(To,M,Rrup,Rjb,Rx,Zhyp,Ztor,Zbot,dip,width,Vs30,Z25in,SOF,region)
+function[lny,sigma,tau,phi]=CB19(To,M,Rrup,Rjb,Rx,Zhyp,Ztor,Zbot,dip,width,Vs30,Z25in,SOF,region,adjfun)
+
 % Syntax : CB19 Z25 SOF region                                              
 % Reference: Ground Motion Models for the Horizontal Components of Arias
 % Intensity (AI) and Cumulative Absolute Velocity (CAV) Using
@@ -285,6 +286,11 @@ sigma = sqrt(tau.^2+phi.^2);
 % unit convertion
 lny  = lny+log(units);
 
+% modifier
+if exist('adjfun','var')
+    SF  = feval(adjfun,To); 
+    lny = lny+log(SF);
+end
 
 end
 

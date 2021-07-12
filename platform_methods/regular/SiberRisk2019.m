@@ -1,4 +1,4 @@
-function[lny,sigma,tau,phi]=SiberRisk2019(To,M,Rrup,Rhyp,Zhyp,Vs30,mechanism)
+function[lny,sigma,tau,phi]=SiberRisk2019(To,M,Rrup,Rhyp,Zhyp,Vs30,mechanism,adjfun)
 
 % Syntax : SiberRisk2019 mechanism                                          
 
@@ -34,7 +34,6 @@ switch mechanism
     case 'intraslab', R=Rhyp;
 end
 
-
 if T_lo==T_hi
     [lny,sigma,tau,phi] = gmpe(index,M,R,Zhyp,mechanism,Vs30);
 else
@@ -52,6 +51,13 @@ end
 
 % unit convertion
 lny  = lny+log(units);
+
+% modifier
+if exist('adjfun','var')
+    SF  = feval(adjfun,To); 
+    lny = lny+log(SF);
+end
+
 
 function [lny,sigma,tau,phi] = gmpe(index,M,R,Zhyp,mechanism,Vs30)
 

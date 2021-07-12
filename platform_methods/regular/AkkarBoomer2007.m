@@ -1,4 +1,4 @@
-function[lny,sigma,tau,phi]=AkkarBoomer2007(To,M,Rjb,media,SOF,damping)
+function[lny,sigma,tau,phi]=AkkarBoomer2007(To,M,Rjb,media,SOF,damping,adjfun)
 % Syntax : ASK2014 Z10 SOF event Vs30type region                            
 
 % Akkar, S. and Bommer, J. J., [2007]
@@ -59,6 +59,12 @@ tau   = tau    * log(10);
 
 % unit convertion
 lny  = lny+log(units);
+
+% modifier
+if exist('adjfun','var')
+    SF  = feval(adjfun,To); 
+    lny = lny+log(SF);
+end
 
 function [lny,sigma,tau,phi] = gmpe(index,Rjb,M,SOF,media,damping)
 

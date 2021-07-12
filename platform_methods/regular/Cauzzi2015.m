@@ -1,4 +1,4 @@
-function[lny,sigma,tau,phi]=Cauzzi2015(To,M,Rrup,Rhyp,Vs30,Vs30form,SOF)
+function[lny,sigma,tau,phi]=Cauzzi2015(To,M,Rrup,Rhyp,Vs30,Vs30form,SOF,adjfun)
 % Syntax : Cauzzi2015 Vs30form SOF                                          
 
 st = dbstack;
@@ -43,6 +43,12 @@ phi   = phi    * log(10);
 
 % unit convertion
 lny  = lny+log(units);
+
+% modifier
+if exist('adjfun','var')
+    SF  = feval(adjfun,To); 
+    lny = lny+log(SF);
+end
 
 function[log10y,sigma,tau,phi]=gmpe(index,M,R,SOF,Vs30,Vs30form,To,iTo)
 

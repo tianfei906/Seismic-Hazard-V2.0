@@ -6,8 +6,8 @@ ShearModulus : 3e11      #dyne/cm2
 IM           : PGA 0.5 1
 im           : 
 MaxDistance  : 500
-MagDiscrete  : isampling 8
-Sigma        : overwrite 6
+MagDiscrete  : gauss 10
+Sigma        : truncate 3
 PCE          : shuffle PC 1500
 IM1          : 0.01
 IM2          : PGA Sa(T=1)

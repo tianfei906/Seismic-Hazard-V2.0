@@ -1,12 +1,12 @@
 Option 0 - Global Parameters
 Projection   : WGS84
-Image        : chile.mat
-Boundary     : CHL_adm1.shp
+Image        : Lima.mat
+Boundary     : PER_adm1.shp 
 ShearModulus : 3e11      #dyne/cm2
-IM           : PGA
+IM           : -5 -1 PGA 0.45
 im           : 
 MaxDistance  : 500
-MagDiscrete  : gauss 10
+MagDiscrete  : uniform 0.1
 Sigma        : 
 PCE          : shuffle MC 500
 IM1          : 0.01
@@ -23,43 +23,46 @@ Mscl Weight : 1
 
 Option 2 - Source Geometry
 geometry 1
-area1 S1  interface  -999 wc1994 0  1 221.6 30 0 30 rigid -72.75  -34.00  -5.00    -71.00 -34.00  -82.92   -71.00 -32.00  -82.92   -72.75 -32.00 -5.00  
-
+area1 Test  interface  normal  wc1994 0 1 100 30 0 60 leak -80.991 -8.528 -25 -80.022 -10.322 -25 -77.184 -14.412 -25 -75.856 -13.563 -60 -77.824 -10.464 -60 -79.267 -7.74 -60                                              
+                                                                                                                                                                                                        
 Option 3 - GMPE Library
-gmm at1  MontalvaBastias2017 interface Forearc
+gmm at1 SiberRisk2019 interface GM2RotD100_SRInterface
+#gmm at2 medianPCEbchydro 
+#gmm at3 franky 1 2
+gmm at2 MAB2019 interface south-america 1
 
 Option 4 - GMPE GROUPS
-gmmgroup Montalva 1 
+gmmgroup SB 2
 
 Option 5 - MAGNITUDE SCALING RELATIONS
 seismicity 1
-truncexp S1 NM 1 1 5 8.5
+truncexp Test  NM 4 1 5 8.5
 
 Option 6 - Pre defined sites
-Site1 -70.5635 -33.4124 691.3 VS30 760
+Lima -77.11 -12.05 0 VS30 760 ky 0.2 covky 0.1 Ts 0 covTs 0.1
 
 Option 7 - Spacial distributed data
 layer VS30 CHI_SIGAS.mat CHI_USGS.mat 760
 
-Option 8 - Verification Hazard Curve (Optional)
-PGA   1.00E-05	1.56E-05	2.43E-05	3.80E-05	5.93E-05	9.24E-05	0.000144227	0.00022502	0.000351072	0.000547735	0.000854564	0.001333274	0.002080146	0.0032454	0.005063406	0.007899821	0.012325136	0.019229421	0.030001342	0.04680747	0.073028041	0.11393683	0.177761872	0.277340374	0.432700681	0.675090601	1.053262311	1.643277945	2.563808062	4               
-Site1 0.999999999	0.999999979	0.999999708	0.999996807	0.999972628	0.999814996	0.99900774	0.995743585	0.985257521	0.958291653	0.902272229	0.807249933	0.674078396	0.517993369	0.363225753	0.23199058	0.135735686	0.073751123	0.037929599	0.018779265	0.008984883	0.004088398	0.001714114	0.000638024	0.00020371	5.42E-05	1.18E-05	2.05E-06	2.83E-07	3.05E-08
-                   
+#Option 8 - Verification Hazard Curve (Optional)
+#AI   0.001 0.001672434 0.002797036 0.004677858 0.007823409 0.013084136 0.021882355 0.036596796 0.061205728 0.102362546 0.17119461 0.286311701 0.478837446 0.800824063 1.339325455 2.239933535 3.74614118 6.265174178 10.47809081 17.52391617 29.30759461 49.01502003 81.97438993 137.0967634 229.2852994 383.4645487 641.3191797 1072.564052 1793.792674 3000
+#Lima 3.735172073 3.682169832 3.57796742 3.401157092 3.139263137 2.796202109 2.39327064 1.96322947 1.541249087 1.157029403 0.83029741 0.569746419 0.374437927 0.236542588 0.144535604 0.086161954 0.050603794 0.029546137 0.017257336 0.010100428 0.005898863 0.003399997 0.001900497 0.001007731 0.000495021 0.00022025 8.70E-05 3.01E-05 8.95E-06 2.28E-06
+
 Option 9 - Event Simulation (optional)
 eq1 interface 6.6 -73.08 -36.1 -30
 eq2 interface 7.7 -73.08 -36.1 -30
 eq3 interface 8.8 -73.08 -36.1 -20
-                                                                                                                                                                                                                                                                                                                                        
+
 Option PSDA 1 - PSDA setup                                                                                             
-d         : logsp(2,300,30)  # cm
-realSa    : 20
-realD     : 30
+d         : logsp(1e-4,200,50)  # cm
+realSa    : 30
+realD     : 40
 rng       : shuffle
 optimize  : on # optimize "on" uses the conditional term M|Sa in M-dependent CDMs
-kysamples : 2
-Tssamples : 2                                                                                                     
+kysamples : 1
+Tssamples : 1                                                                                                     
                                                                             
-Option PSDA 2 Library of Slope Displacement Models                                                                    
+Option PSDA 2 Library of Slope Displacement Models
 psda D1  AM1988
 psda D2  BM2019M
 psda D3  BMT2017M
@@ -67,23 +70,13 @@ psda D4  BT2007
 psda D5  BT2007M
 psda D6  J07Ia
 psda D7  J07M
-psda D8  RA2011F  0.6 0.6 0.5 0.15 0 #rho rhok Tm_mean Tm_cov Tm_Nsta
-psda D9  RA2011R  0.6                # rho 
-psda D10 RS09M    
-psda D11 RS09V    0.6                 #rho 
- 
- 
-Option PSDA 3 Slope Displacement Models                                                                               
-Slope Weights 1/11 1/11 1/11 1/11 1/11 1/11 1/11 1/11 1/11 1/11 1/11
-#    interface intraslab crustal background
-SL1  D1        D1        D1      null
-SL2  D2        D2        D2      null
-SL3  D3        D3        D3      null
-SL4  D4        D4        D4      null
-SL5  D5        D5        D5      null
-SL6  D6        D6        D6      null
-SL7  D7        D7        D7      null
-SL8  D8        D8        D8      null
-SL9  D9        D9        D9      null
-SL10 D10       D10       D10     null
-SL11 D11       D11       D11     null
+psda D8  RS09M    
+psda D9  RS09V   0.6                #rho 
+psda D10 RA2011  0.6 0.6 0.5 0.15 0 #rho rhok Tm_mean Tm_cov Tm_Nsta
+psda PCE1 BT2007_cdm full PC
+psda PCE2 BT2007_cdm full PC
+psda null psda_null
+
+Option PSDA 3 Slope Displacement Models
+SL1  D9   null null null 0.5
+SL2  D10  null null null 0.5

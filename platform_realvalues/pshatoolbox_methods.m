@@ -6,7 +6,7 @@ function ME = pshatoolbox_methods(group,varargin)
 
 % ground motion models (gmpe)
 if group ==1
-    ME(1:62,1)=struct('id',[],'label',[],'func',[],'str',[],'type',[],'mech',[],'ref',[]);
+    ME(1:63,1)=struct('id',[],'label',[],'func',[],'str',[],'type',[],'mech',[],'ref',[]);
     % --------------------REGULAR MODELS --------------------------------------------------------------------------
     i=1;  ME(i).id=i; ME(i).label = 'Youngs et al. 1997';           ME(i).func = @Youngs1997;              ME(i).mech=[1 1 0]; ME(i).type=1;  ME(i).ref='https://doi.org/10.1785/gssrl.68.1.58';
     i=2;  ME(i).id=i; ME(i).label = 'Atkinson & Boore, 2003';       ME(i).func = @AtkinsonBoore2003;       ME(i).mech=[1 1 0]; ME(i).type=1;  ME(i).ref='https://doi.org/10.1785/0120020156';
@@ -84,6 +84,9 @@ if group ==1
     % --------------------SPECIAL MODELS  -----------------------------------------------------------------------
     i=62; ME(i).id=i; ME(i).label = 'Franky';                       ME(i).func = @franky;                  ME(i).mech=[0 0 0]; ME(i).type=4;      ME(i).ref='www.google.com';
     
+    %-------------------------------------------------------------------------------------
+    i=63; ME(i).id=i; ME(i).label = 'Jaimes et al. 2018';           ME(i).func = @Jaimes2018;              ME(i).mech=[0 1 0]; ME(i).type=1;  ME(i).ref='www.google.com';
+    
 end
 
 % magnitude scaling models
@@ -125,7 +128,7 @@ end
 
 % psda
 if group == 5
-    ME(1:14,1)=struct('id',[],'label',[],'isregular',[],'func',[],'str',[],'integrator',[],'primaryIM',[],'Safactor',[],'ref',[]);
+    ME(1:13,1)=struct('id',[],'label',[],'isregular',[],'func',[],'str',[],'integrator',[],'primaryIM',[],'Safactor',[],'ref',[]);
     % subduction
     i=1; ME(i).id=i;ME(i).label = 'BMT 2017 Sa(M)';      ME(i).func = @BMT2017M;     ME(i).mechanism = 'subduction'; ME(i).integrator=1;  ME(i).primaryIM='SA(T=1.5Ts)';     ME(i).isregular=true;  ME(i).ref = 'https://doi.org/10.1061/(ASCE)GT.1943-5606.0001833';
     i=2; ME(i).id=i;ME(i).label = 'BMT 2017 (PCE-M)';    ME(i).func = @BMT2017_cdmM; ME(i).mechanism = 'subduction'; ME(i).integrator=6;  ME(i).primaryIM='SA(T=1.5Ts)';     ME(i).isregular=false; ME(i).ref = 'https://doi.org/10.1061/(ASCE)GT.1943-5606.0001833';
@@ -144,9 +147,6 @@ if group == 5
     i=11;ME(i).id=i;ME(i).label = 'RS 2009 (Scalar-M)';  ME(i).func = @RS09M;        ME(i).mechanism = 'crustal'; ME(i).integrator=1;  ME(i).primaryIM='PGA';           ME(i).isregular=true;  ME(i).ref = 'http://www.nzsee.org.nz/db/Bulletin/Archive/42(1)0018.pdf';
     i=12;ME(i).id=i;ME(i).label = 'RS 2009 (Vector)';    ME(i).func = @RS09V;        ME(i).mechanism = 'crustal'; ME(i).integrator=3;  ME(i).primaryIM='PGV-PGA';       ME(i).isregular=true;  ME(i).ref = 'http://www.nzsee.org.nz/db/Bulletin/Archive/42(1)0018.pdf';
     i=13;ME(i).id=i;ME(i).label = 'AM 1988';             ME(i).func = @AM1988;       ME(i).mechanism = 'crustal'; ME(i).integrator=2;  ME(i).primaryIM='PGA';           ME(i).isregular=true;  ME(i).ref = 'https://doi.org/10.1002/eqe.4290160704';
-    
-    % null model
-    i=14;ME(i).id=i;ME(i).label = 'null';                ME(i).func = @psda_null;   ME(i).primaryIM='PGA';  ME(i).isregular=false;
     
     for j=1:length(ME)
         ME(j).Safactor=str2IM(regexp(ME(j).primaryIM,'\-','split'));

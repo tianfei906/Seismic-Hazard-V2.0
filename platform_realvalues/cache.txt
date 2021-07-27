@@ -1,0 +1,7 @@
+Chile_Poulos_Sensico.txt
+Chile_Default.txt
+Chile_Poulos.txt
+GMM_declust1.txt
+GMM_declust2.txt
+GMM_declust3.txt
+GEOM_multiplesources.txt

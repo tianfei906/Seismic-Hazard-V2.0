@@ -41,16 +41,15 @@ ME  = pshatoolbox_methods(6);
 
 handles.setLIB=ME(B);
 for i=1:length(B)
-    handles.setLIB(i).label=str{i,1};
+    handles.setLIB(i).label=str{i,2};
 end
 %% Option 23: Settlement Branches and T3
 str        = regexp(txtLIBS(ptrs(4,1):ptrs(4,2)),'\ ','split');
-weights    = zeros(size(str,1)-1,1);
-for i=1:numel(weights)
-    weights(i)=eval(str{1}{i+1});
-end
-str        = vertcat(str{2:end});
-handles.T3 = [str(:,[1,3,5,7]),num2cell(weights)];
+str        = vertcat(str{:});
+w          = str2double(str(:,6));
+w          = w/sum(w);
+str(:,6)   = num2cell(w);
+handles.T3 = str;
 
 %% T1 and T2
 Nhaz       = size(handles.sys.branch,1);

@@ -1,0 +1,73 @@
+Option 0 - Global Parameters
+Projection   : WGS84
+Image        : Lima.mat
+Boundary     : PER_adm1.shp 
+ShearModulus : 3e11      #dyne/cm2
+IM           : -5 -1 PGA 0.45
+im           : [logsp(1e-4,1000,50);logsp(1e-4,100,50);logsp(1e-4,1,50);logsp(1e-4,2,50)]
+MaxDistance  : 500
+MagDiscrete  : uniform 0.1
+Sigma        : 
+PCE          : shuffle MC 500
+IM1          : 0.01
+IM2          : 1
+Spatial      : @none_spatial
+Spectral     : @corr_none
+SourceDeagg  : on
+Clusters     : off 100 1
+
+Option 1 - Logic Tree Weights
+Geom Weight : 1
+Gmpe Weight : 1
+Mscl Weight : 1 
+
+Option 2 - Source Geometry
+geometry 1
+area1 Test  interface  normal  wc1994 0 1 100 30 0 60 leak -80.991 -8.528 -25 -80.022 -10.322 -25 -77.184 -14.412 -25 -75.856 -13.563 -60 -77.824 -10.464 -60 -79.267 -7.74 -60                                              
+                                                                                                                                                                                                        
+Option 3 - GMPE Library
+gmm at1 SiberRisk2019 interface
+gmm at2 MAB2019 interface south-america 1
+
+Option 4 - GMPE GROUPS
+gmmgroup SB 2
+
+Option 5 - MAGNITUDE SCALING RELATIONS
+seismicity 1
+truncexp Test  NM 4 1 5 8.5
+
+Option 6 - Pre defined sites
+Lima -77.11 -12.05 0 VS30 760 ky 0.2 covky 0.2 Ts 0.3 covTs 0.1
+
+Option PSDA 1 - PSDA setup                                                                                             
+d         : logsp(1,200,50)  # cm
+realSa    : 30
+realD     : 40
+rng       : shuffle
+optimize  : on # optimize "on" uses the conditional term M|Sa in M-dependent CDMs
+kysamples : 1
+Tssamples : 1                                                                                                     
+                                                                            
+Option PSDA 2 Library of Slope Displacement Models                                                                    
+psda D1  AM1988
+psda D2  BM2019M
+psda D3  BMT2017M
+psda D4  BT2007
+psda D5  BT2007M
+psda D6  J07Ia
+psda D7  J07M
+psda D8  RA2011  0.6 0.6 0.5 0.15 0 #rho rhok Tm_mean Tm_cov Tm_Nsta
+psda D9  RS09M    
+psda D10 RS09V    0.6                #rho 
+                                       
+Option PSDA 3 Slope Displacement Models                                                                               
+SL1  D1        D1        D1      null 0.1
+SL2  D2        D2        D2      null 0.1
+SL3  D3        D3        D3      null 0.1
+SL4  D4        D4        D4      null 0.1
+SL5  D5        D5        D5      null 0.1
+SL6  D6        D6        D6      null 0.1
+SL7  D7        D7        D7      null 0.1
+SL8  D8        D8        D8      null 0.1
+SL9  D9        D9        D9      null 0.1
+SL10 D10       D10       D10     null 0.1

@@ -30,8 +30,8 @@ else
     fpeak=1;
 end
 
-% Arock=exp(gmpe1(1,M,R,Zhyp,1000,f0,fevent,fpeak));
-Arock=[];
+Arock=exp(gmpe1(1,M,R,Zhyp,1000,f0,fevent,fpeak));
+% Arock=[];
 
 if T_lo==T_hi
     [lny,sigma,tau] = gmpe2(index,M,R,Zhyp,VS30,f0,fevent,fpeak,Arock);
